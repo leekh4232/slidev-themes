@@ -235,6 +235,7 @@ html.lecture, :where(html.lecture) .slidev-layout {
   font-size: 0.95rem;
   border-collapse: collapse;
   width: 100%;
+  margin-bottom: 1rem; /* 표 바로 아래 콜아웃·문단과 붙지 않게 */
 }
 :where(html.lecture) .slidev-layout th {
   color: var(--py);
