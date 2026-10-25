@@ -240,6 +240,7 @@ html.lecture, :where(html.lecture) .slidev-layout {
   color: var(--py);
   background: var(--surface);
   text-align: left;
+  font-weight: 700;
 }
 :where(html.lecture) .slidev-layout td, :where(html.lecture) .slidev-layout th {
   padding: 0.4em 0.7em;
