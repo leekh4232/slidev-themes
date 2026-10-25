@@ -113,7 +113,7 @@ html.fluid #slide-content .slidev-layout {
 }
 :where(html.lecture) .slidev-layout h2 {
   font-weight: 800;
-  font-size: 2rem !important;
+  font-size: 2.2rem !important;
   letter-spacing: -0.01em;
   margin-top: 1rem;
   margin-bottom: 1.5rem;
@@ -125,6 +125,19 @@ html.fluid #slide-content .slidev-layout {
   font-weight: 700;
   font-size: 1.25rem !important;
   color: var(--heading);
+}
+/* 슬라이드 제목으로 쓴 ### (슬라이드 바로 아래): ## 보다 작고, ## 처럼 밑줄. 카드 안의 h3 는 그대로 */
+:where(html.lecture) .slidev-layout > h3 {
+  font-size: 1.8rem !important;
+  margin-top: 1rem;
+  margin-bottom: 1.2rem;
+  border-bottom: 1px solid var(--title-line);
+  padding-bottom: 0.6rem;
+}
+/* 슬라이드 제목 ## 앞 표시 (### 와 구별). 목차 사이드바의 제목에는 붙지 않는다 */
+:where(html.lecture) .slidev-layout > h2::before {
+  content: "📌";
+  margin-right: 0.4em;
 }
 :where(html.lecture) .slidev-layout p, :where(html.lecture) .slidev-layout li {
   font-size: 1rem;
