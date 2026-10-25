@@ -256,9 +256,17 @@ html.fluid #slide-content .slidev-layout {
   border-bottom: 1px solid var(--line);
 }
 
-/* 표지 */
+/* 2단: 좌우 단 사이 간격 */
+.slidev-layout.two-columns {
+  column-gap: 2.4rem;
+}
+
+/* 표지: 내용을 세로 가운데로 모은다 (기본 grid 는 줄마다 높이를 나눠 위아래로 흩어진다) */
 .slidev-layout.cover {
   text-align: center;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
 }
 .slidev-layout.cover h1 {
   font-size: 3.2rem !important;
