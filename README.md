@@ -1,5 +1,13 @@
 # Slidev Themes · jussam · hossam
 
+[![Slidev theme](https://img.shields.io/badge/Slidev-theme-2b90b6)](https://sli.dev)
+![themes jussam · hossam](https://img.shields.io/badge/themes-jussam%20%C2%B7%20hossam-ff3d9a)
+[![Last commit](https://img.shields.io/github/last-commit/leekh4232/slidev-themes?color=7c5cff)](https://github.com/leekh4232/slidev-themes/commits/main)
+[![Open with Slidev](https://img.shields.io/badge/Open%20with%20Slidev-VS%20Code-007ACC)](https://marketplace.visualstudio.com/items?itemName=leekh.open-with-slidev)
+[![License MIT](https://img.shields.io/badge/license-MIT-2ea44f)](LICENSE)
+
+🌐 **소개 페이지 · [slidev-themes.hossam.kr](https://slidev-themes.hossam.kr/)**
+
 [Slidev](https://sli.dev) 발표용 테마 두 개를 담은 저장소입니다. VS Code 확장 [Open with Slidev](https://marketplace.visualstudio.com/items?itemName=leekh.open-with-slidev)가 이 저장소에서 테마를 내려받아 씁니다.
 
 | 테마 | 성격 | 매뉴얼 |
@@ -7,7 +15,7 @@
 | [`jussam`](jussam/) | 특강 · 발표용 다크 테마. 검정 바탕, 메시 그라디언트 표지, 파트별 시그니처 색, 카드 · 스탯 · 차트 컴포넌트 22종 | [jussam 사용법](https://open-with-slidev.hossam.kr/jussam.html) |
 | [`hossam`](hossam/) | 코딩 기초 강의용 라이트 테마. 왼쪽 목차 사이드바(폭 조절 · 접기 · 확대/축소 · 다크), 콜아웃 · 프롬프트 · 출력 상자 | [hossam 사용법](https://open-with-slidev.hossam.kr/hossam.html) |
 
-![jussam 표지](https://open-with-slidev.hossam.kr/img/jussam-cover.jpg)
+![jussam 표지](docs/img/jussam-cover.jpg)
 
 ## Open with Slidev에서 쓰기
 
