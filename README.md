@@ -13,7 +13,7 @@
 | 테마 | 성격 | 매뉴얼 |
 |:--|:--|:--|
 | [`jussam`](jussam/) | 특강 · 발표용 다크 테마. 검정 바탕, 메시 그라디언트 표지, 파트별 시그니처 색, 카드 · 스탯 · 차트 컴포넌트 22종 | [jussam 사용법](https://slidev-themes.hossam.kr/jussam.html) |
-| [`hossam`](hossam/) | 코딩 기초 강의용 라이트 테마. 왼쪽 목차 사이드바(폭 조절 · 접기 · 확대/축소 · 다크), 콜아웃 · 프롬프트 · 출력 상자 | [hossam 사용법](https://slidev-themes.hossam.kr/hossam.html) |
+| [`hossam`](hossam/) | 코딩 기초 강의용 라이트 테마. 왼쪽 목차 사이드바(폭 조절 · 접기 · 본문 폭 · 확대/축소 · 다크), 콜아웃 · 프롬프트 · 출력 상자 | [hossam 사용법](https://slidev-themes.hossam.kr/hossam.html) |
 
 ![jussam 표지](docs/img/jussam-cover.jpg)
 
@@ -39,7 +39,7 @@ git clone https://github.com/leekh4232/slidev-themes.git
 npx slidev slides.md --theme ./slidev-themes/jussam
 ```
 
-프런트매터에 `theme: ./slidev-themes/jussam`처럼 경로를 적어도 됩니다. `hossam`은 `@slidev/theme-default`의 레이아웃 스타일을 가져오므로, 프로젝트에 그 패키지가 있어야 합니다 (`npm init slidev`로 만든 프로젝트에는 들어 있습니다).
+프런트매터에 `theme: ./slidev-themes/jussam`처럼 경로를 적어도 됩니다.
 
 ## 예제 덱
 

@@ -3,7 +3,7 @@
 //  - 제목이 있는 슬라이드를 나열하고 현재 위치를 강조, 클릭하면 이동
 //  - 오른쪽 가장자리를 드래그해 폭 조절(더블클릭 = 기본 폭), ◀/☰ 버튼 또는 s 키로 접기/펼치기
 //  - 폭과 접힘 상태는 브라우저에 기억된다
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useDarkMode, useNav } from '@slidev/client'
 
 const { currentPage, total, slides, go, nextSlide, prevSlide, clicks, clicksTotal } = useNav()
@@ -15,9 +15,36 @@ function shortTitle(raw: string) {
 }
 const items = computed(() =>
   slides.value
-    .map(s => ({ no: s.no, title: s.no === 1 ? '표지' : shortTitle(s.meta?.slide?.title ?? ''), sub: (s.meta?.slide?.level ?? 2) >= 3 }))
+    .map(s => ({ no: s.no, title: s.no === 1 ? '' : shortTitle(s.meta?.slide?.title ?? ''), sub: (s.meta?.slide?.level ?? 2) >= 3 }))
     .filter(s => s.title),
 )
+// ---- ### 항목 접기: 바로 위 ## 항목(parent) 아래로 묶고, 펼친 묶음만 보인다 ----
+const tocItems = computed(() => {
+  let parent = 0
+  const list = items.value.map(it => { if (!it.sub) parent = it.no; return { ...it, parent } })
+  const kids = new Set(list.filter(it => it.sub).map(it => it.parent))
+  return list.map(it => ({ ...it, hasKids: kids.has(it.no) }))
+})
+// 한 번에 한 묶음만 펼친다 (-1 = 모두 접힘). 다른 묶음을 열면 앞의 묶음은 닫힌다
+const openGroup = ref(-1)
+function toggleGroup(no: number) { openGroup.value = openGroup.value === no ? -1 : no }
+// 현재 슬라이드가 접힌 묶음 안에 있으면 그 ## 항목을 현재 위치로 강조
+const hiddenCurParent = computed(() => {
+  const cur = tocItems.value.find(it => it.no === currentPage.value)
+  return cur?.sub && openGroup.value !== cur.parent ? cur.parent : -1
+})
+// 슬라이드를 옮기면 그 슬라이드가 든 묶음을 펼친다 (묶음이 없으면 모두 접는다)
+watch([currentPage, tocItems], () => {
+  const cur = tocItems.value.filter(it => it.no <= currentPage.value).pop()
+  openGroup.value = !cur ? -1 : cur.sub ? cur.parent : cur.hasKids ? cur.no : -1
+}, { immediate: true })
+// 목차를 현재 위치로 자동 스크롤 (현재 항목을 목록 가운데로)
+const listEl = ref<HTMLElement | null>(null)
+function scrollToCurrent(behavior: ScrollBehavior = 'smooth') {
+  const list = listEl.value, li = list?.querySelector<HTMLElement>('li.current')
+  if (list && li) list.scrollTo({ top: li.offsetTop - (list.clientHeight - li.offsetHeight) / 2, behavior })
+}
+watch([currentPage, openGroup], () => nextTick(() => scrollToCurrent()))
 const deckTitle = computed(() => (slides.value[0]?.meta?.slide?.frontmatter?.title ?? '') as string)
 const lab = computed(() => deckTitle.value.split(' · ')[0])
 const unit = computed(() => deckTitle.value.split(' · ').slice(1).join(' · '))
@@ -53,6 +80,13 @@ function zoomIn() { setZoom(zoom.value + 0.1) }
 function zoomOut() { setZoom(zoom.value - 0.1) }
 function zoomReset() { setZoom(1) }
 
+// ---- 본문 폭: 고정(최대 1920px, 가운데) / 100%(창 전체) ----
+const wide = ref(false)
+function applyWide() {
+  document.documentElement.classList.toggle('wide', wide.value)
+  try { localStorage.setItem('pyai-wide', wide.value ? '1' : '0') } catch { /* 무시 */ }
+}
+function toggleWide() { wide.value = !wide.value; applyWide() }
 
 // ---- 애니메이션 켬/끔 ----
 //  끔: 클릭 단계 없이 슬라이드의 모든 내용이 바로 보이고(클릭 수를 최대로), →/← 가 슬라이드 단위로 이동, 전환 효과 없음
@@ -112,6 +146,7 @@ function onKey(e: KeyboardEvent) {
   if (e.ctrlKey || e.metaKey || e.altKey) return
   if (e.key === 's') { e.preventDefault(); toggle() }
   if (e.key === 'a') { e.preventDefault(); toggleAnim() }
+  if (e.key === 'w') { e.preventDefault(); toggleWide() }
   if (e.key === '+' || e.key === '=') { e.preventDefault(); zoomIn() }
   if (e.key === '-' || e.key === '_') { e.preventDefault(); zoomOut() }
   if (e.key === '0') { e.preventDefault(); zoomReset() }
@@ -126,8 +161,10 @@ onMounted(() => {
     if (localStorage.getItem('pyai-anim') === '0') anim.value = false
     if (!localStorage.getItem('slidev-color-schema')) isDark.value = false   // 처음엔 밝은 테마
     const z = Number(localStorage.getItem('pyai-zoom')); if (z) zoom.value = z
+    if (localStorage.getItem('pyai-wide') === '1') wide.value = true
   } catch { /* 무시 */ }
-  apply(); applyAnim(); applyZoom()
+  apply(); applyAnim(); applyZoom(); applyWide()
+  setTimeout(() => scrollToCurrent('auto'), 300)   // 새로 열었을 때도 현재 항목이 보이게
   window.addEventListener('keydown', onKey)
   window.addEventListener('keydown', onKeyCapture, true)
 })
@@ -136,30 +173,41 @@ onUnmounted(() => {
   window.removeEventListener('keydown', onKey)
   window.removeEventListener('keydown', onKeyCapture, true)
   document.documentElement.classList.remove('no-anim')
+  document.documentElement.classList.remove('wide')
 })
 </script>
 
 <template>
   <aside class="toc" :class="{ collapsed: !open }" :style="{ width: panelW + 'px' }">
     <button class="toc-toggle" title="사이드바 접기 (s)" @click="toggle">◀</button>
-    <div class="toc-head">
-      <div class="toc-lab">{{ lab }}</div>
-      <div class="toc-unit">{{ unit }}</div>
+    <div class="toc-head" title="표지로 이동" @click="goTo(1)">
+      <div class="toc-lab" :title="lab">{{ lab }}</div>
+      <div class="toc-unit" :title="unit">{{ unit }}</div>
     </div>
-    <ol class="toc-list">
-      <li
-        v-for="it in items" :key="it.no"
-        :class="{ current: it.no === currentPage, done: it.no < currentPage, sub: it.sub }"
-        @click="goTo(it.no)"
-      >
-        <span class="dot" /><span class="txt">{{ it.title }}</span>
-      </li>
+    <ol ref="listEl" class="toc-list">
+      <template v-for="it in tocItems" :key="it.no">
+        <li
+          v-if="!it.sub || openGroup === it.parent"
+          :class="{ current: it.no === currentPage || (it.no === hiddenCurParent), done: it.no < currentPage, sub: it.sub }"
+          @click="goTo(it.no)"
+        >
+          <span class="txt" :title="it.title">{{ it.title }}</span>
+          <button v-if="it.hasKids" class="caret" :class="{ open: openGroup === it.no }" title="하위 항목 펼치기/접기" @click.stop="toggleGroup(it.no)">▸</button>
+        </li>
+      </template>
     </ol>
     <div class="toc-foot">
       <span>{{ currentPage }} / {{ total }}</span>
       <span class="foot-btns">
         <button class="anim-btn" :class="{ off: !anim }" :title="anim ? '애니메이션 끄기 (a)' : '애니메이션 켜기 (a)'" @click="toggleAnim">{{ anim ? '✨ 켬' : '⏸ 끔' }}</button>
         <button class="anim-btn" :title="isDark ? '밝은 테마 (d)' : '어두운 테마 (d)'" @click="toggleDark()">{{ isDark ? '☀️' : '🌙' }}</button>
+      </span>
+    </div>
+    <div class="toc-zoom">
+      <span>본문 폭</span>
+      <span class="foot-btns">
+        <button class="anim-btn" :class="{ on: !wide }" title="고정 폭 (w)" @click="wide && toggleWide()">고정</button>
+        <button class="anim-btn" :class="{ on: wide }" title="창 전체 폭 (w)" @click="!wide && toggleWide()">100%</button>
       </span>
     </div>
     <div class="toc-zoom">
@@ -177,6 +225,7 @@ onUnmounted(() => {
   <button v-if="!open" class="toc-open dark-float" :title="isDark ? '밝은 테마 (d)' : '어두운 테마 (d)'" @click="toggleDark()">{{ isDark ? '☀️' : '🌙' }}</button>
   <button v-if="!open" class="toc-open zoom-float-out" title="축소 (-)" @click="zoomOut">－</button>
   <button v-if="!open" class="toc-open zoom-float-in" title="확대 (+)" @click="zoomIn">＋</button>
+  <button v-if="!open" class="toc-open wide-float" :title="wide ? '고정 폭 (w)' : '창 전체 폭 (w)'" @click="toggleWide">{{ wide ? '⇥⇤' : '⇤⇥' }}</button>
 </template>
 
 <style scoped>
@@ -197,21 +246,26 @@ onUnmounted(() => {
 .toc-toggle { position: absolute; top: 12px; right: 12px; }
 .toc-toggle:hover, .toc-open:hover { color: var(--py, #0a7fc2); border-color: var(--py, #0a7fc2); }
 .toc-open { position: absolute; top: 14px; left: 14px; z-index: 6; box-shadow: 0 2px 8px rgba(11,18,32,.12); }
-.toc-head { padding: 0 44px 10px 4px; border-bottom: 1px solid var(--line, rgba(10,20,40,.1)); margin-bottom: 8px; }
-.toc-lab { font-size: 0.9rem; font-weight: 800; letter-spacing: .08em; color: var(--py, #0a7fc2); }
-.toc-unit { font-size: 1.05rem; font-weight: 700; line-height: 1.25; margin-top: 2px; }
-.toc-list { list-style: none; margin: 0; padding: 0; flex: 1; overflow-y: auto; }
+.toc-head { padding: 0 44px 10px 4px; border-bottom: 1px solid var(--line, rgba(10,20,40,.1)); margin-bottom: 8px; cursor: pointer; }   /* 클릭하면 표지(1쪽)로. 표지는 목록에 넣지 않는다 */
+.toc-head:hover .toc-unit { color: var(--py, #0a7fc2); }
+.toc-lab { font-size: 0.9rem; font-weight: 800; letter-spacing: .08em; color: var(--py, #0a7fc2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.toc-unit { font-size: 1.05rem; font-weight: 700; line-height: 1.25; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.toc-list { position: relative; list-style: none; margin: 0; padding: 0; flex: 1; overflow-y: auto; }   /* relative: 자동 스크롤이 li.offsetTop 을 목록 기준으로 잰다 */
+.toc-list li .txt { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }   /* 항목은 한 줄, 넘치면 말줄임 (전체 제목은 마우스를 올리면 보인다) */
 .toc-list li {
   display: flex; align-items: flex-start; gap: 9px; padding: 6px 8px; margin: 2px 0;
   font-size: 0.9rem; line-height: 1.3; border-radius: 7px; cursor: pointer; color: var(--muted, #5d6b85);
 }
 .toc-list li:hover { background: rgba(10,127,194,.08); }
-.toc-list li .dot { flex: 0 0 8px; width: 8px; height: 8px; border-radius: 50%; margin-top: 7px; background: #c9d3e3; }
-.toc-list li.done .dot { background: var(--py, #0a7fc2); opacity: .45; }
-.toc-list li.sub .dot { margin-left: 16px; flex-basis: 6px; width: 6px; height: 6px; margin-top: 8px; }   /* ### 슬라이드: 한 단계 들여쓰기 */
+.toc-list li.sub { padding-left: 24px; }   /* ### 슬라이드: 한 단계 들여쓰기 */
 .toc-list li.sub .txt { font-size: .93em; }
+.toc-list li .caret {
+  margin-left: auto; flex: 0 0 auto; width: 20px; height: 20px; border: none; background: none; padding: 0;
+  color: var(--muted, #5d6b85); font-size: .8rem; line-height: 20px; cursor: pointer; border-radius: 5px; transition: transform .15s;
+}
+.toc-list li .caret:hover { background: rgba(10,127,194,.12); color: var(--py, #0a7fc2); }
+.toc-list li .caret.open { transform: rotate(90deg); }
 .toc-list li.current { background: var(--py-soft, rgba(10,127,194,.1)); color: var(--text, #16213a); font-weight: 700; }
-.toc-list li.current .dot { background: var(--py, #0a7fc2); box-shadow: 0 0 0 3px rgba(10,127,194,.2); }
 .resizer {
   position: absolute; top: 0; bottom: 0; right: -4px; width: 8px; cursor: col-resize; z-index: 6;
   background: transparent; transition: background .15s;
@@ -221,11 +275,13 @@ onUnmounted(() => {
 .foot-btns { display: flex; gap: 4px; }
 .anim-btn { font-size: 0.8rem; font-weight: 700; padding: 4px 8px; border-radius: 8px; border: 1px solid var(--line, rgba(10,20,40,.1)); background: var(--card-bg, #fff); color: var(--py, #0a7fc2); cursor: pointer; white-space: nowrap; }
 .anim-btn.off { color: var(--ai, #d9611f); }
+.anim-btn.on { background: var(--py-soft, rgba(10,127,194,.1)); border-color: var(--py, #0a7fc2); }
 .anim-btn:hover { border-color: currentColor; }
 .anim-float { left: 52px; }
 .dark-float { left: 90px; }
 .zoom-float-out { left: 128px; }
 .zoom-float-in { left: 166px; }
-.toc-zoom { font-size: 0.9rem; color: var(--muted, #5d6b85); padding: 6px 6px 0; display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.wide-float { left: 204px; width: auto; padding: 0 6px; }
+.toc-zoom { font-size: 0.9rem; color: var(--muted, #5d6b85); padding: 6px 6px 0; display: flex; align-items: center; justify-content: space-between; gap: 6px; white-space: nowrap; }
 .anim-float.off { color: var(--ai, #d9611f); }
 </style>

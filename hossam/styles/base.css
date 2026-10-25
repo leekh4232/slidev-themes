@@ -22,7 +22,7 @@
   --code-bg: #0f1830;
   --heading: #0b1220;
   --card-bg: #ffffff;
-  --sidebar-w: 260px;
+  --sidebar-w: 280px;
   --base-zoom: 1;
   --slidev-theme-primary: #0a7fc2;
   --title-line: rgba(0, 0, 0, 0.5);
@@ -59,13 +59,9 @@ body,
 #app {
   background: var(--bg) !important;
 }
-
-/* 웹페이지식 배치 (메인 발표 화면에서만, global-top.vue 가 html.fluid 를 켠다)
-   - 비율 축소를 끄고(배율 1) 캔버스를 창 크기에 맞춘다 → 글자 크기는 고정, 줄바꿈만 창 폭에 따라 바뀐다
-   - 사이드바는 고정 200px, 본문은 나머지 폭. 세로로 넘치면 각 슬라이드 안에서 스크롤 */
 html.fluid {
-  font-size: 20px;
-} /* 1rem = 20px. 아래 크기는 전부 rem 기준 → 최소 18px */
+  font-size: 24px;
+}
 html.fluid #slide-container {
   --slidev-slide-container-background: var(--bg); /* 1920px 바깥 여백도 같은 바탕색 (Slidev 기본은 검정) */
   background: var(--bg) !important;
@@ -78,6 +74,10 @@ html.fluid #slide-container #slide-content {
   height: 100% !important;
   transform: translateX(-50%) !important;
   --slidev-slide-scale: 1 !important;
+}
+/* 본문 폭 100% (사이드바 '본문 폭' 버튼 또는 w 키): 최대 폭 제한을 푼다 */
+html.fluid.wide #slide-container #slide-content {
+  max-width: none;
 }
 /* Slidev 기본 조작 막대(마우스를 올리면 나타남)를 왼쪽 아래에서 오른쪽 아래로 옮긴다 → 사이드바 버튼과 겹치지 않게 */
 html.fluid #slide-container > .absolute.bottom-0.left-0 {
