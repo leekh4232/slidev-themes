@@ -1,8 +1,9 @@
-/* jussam — 특강·발표용 다크 테마. 1280×720 캔버스 기준 px 값으로 쓴다 (Slidev 가 창 크기에 맞춰 비율 축소). */
+/* talk 스타일 (style: talk) — 특강·발표용 다크. 1280×720 캔버스 기준 px 값으로 쓴다 (Slidev 가 창 크기에 맞춰 비율 축소).
+   토큰·바탕은 html.talk 아래에 두고, 레이아웃 규칙은 .slidev-layout.talk, 컴포넌트 규칙은 두 스타일 공통이다. */
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
 
 /* ── 토큰 ───────────────────────────────────────────── */
-:root {
+html.talk {
   --bg: #0a0a0a;
   --card: #171717;
   --card-2: #121212;
@@ -41,13 +42,13 @@
 .part-3 { --g1: #ff4d4d; --g2: #f9cb28; }
 .part-4 { --g1: #007cf0; --g2: #ff0080; }
 
-html, body, #app, #slide-container, #slide-content {
+html.talk, html.talk body, html.talk #app, html.talk #slide-container, html.talk #slide-content {
   background: var(--bg) !important;
 }
-::selection { background: #ffffff; color: #0a0a0a; }
+html.talk ::selection { background: #ffffff; color: #0a0a0a; }
 
 /* ── 슬라이드 바탕 ──────────────────────────────────── */
-.slidev-layout.jussam {
+.slidev-layout.talk {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -121,7 +122,7 @@ html, body, #app, #slide-container, #slide-content {
   font-family: var(--mono); font-size: 11px; letter-spacing: 0.02em;
   color: var(--fg-4);
 }
-.slidev-layout.jussam .kicker { margin-top: 44px; }   /* 아래 p 규칙보다 우선하도록 같은 깊이로 */
+.slidev-layout.talk .kicker { margin-top: 44px; }   /* 아래 p 규칙보다 우선하도록 같은 깊이로 */
 .kicker.acc { position: relative; padding-left: 22px; }
 .kicker.acc::before {
   content: ''; position: absolute; left: 0; top: 5px; bottom: 5px; width: 3px;
@@ -129,63 +130,63 @@ html, body, #app, #slide-container, #slide-content {
 }
 
 /* ── 마크다운 요소: 본문 레이아웃 ───────────────────── */
-.slidev-layout.jussam .eyebrow.acc { margin-bottom: 14px; }
-.slidev-layout.jussam h1 {
+.slidev-layout.talk .eyebrow.acc { margin-bottom: 14px; }
+.slidev-layout.talk h1 {
   font-size: 44px; font-weight: 600; line-height: 1.16; letter-spacing: -0.042em;
   color: var(--fg); margin: 0 0 36px;
 }
-.slidev-layout.jussam h1 + p { margin-top: -20px; margin-bottom: 36px; }   /* 제목 바로 아래 설명 줄 */
-.slidev-layout.jussam h2 { font-size: 26px; font-weight: 600; line-height: 1.34; letter-spacing: -0.03em; color: var(--fg); margin: 0 0 16px; }
-.slidev-layout.jussam h3 { font-size: 19px; font-weight: 600; letter-spacing: -0.025em; color: var(--fg); margin: 0 0 10px; }
-.slidev-layout.jussam p { font-size: 20px; font-weight: 400; line-height: 1.62; color: var(--fg-2); letter-spacing: -0.012em; margin: 0; }
-.slidev-layout.jussam p + p { margin-top: 12px; }
-.slidev-layout.jussam p.title-sub { font-size: 26px; font-weight: 600; line-height: 1.34; letter-spacing: -0.03em; color: var(--fg); }
-.slidev-layout.jussam p.lead-lg { font-size: 24px; line-height: 1.55; }
-.slidev-layout.jussam p.note { font-size: 13px; color: var(--fg-4); }
-.slidev-layout.jussam strong, .slidev-layout.jussam b { color: var(--fg); font-weight: 600; }
-.slidev-layout.jussam a { color: var(--fg); border-bottom: 1px dashed var(--fg-4); }
-.slidev-layout.jussam a:hover { border-bottom-style: solid; }
-.slidev-layout.jussam ul, .slidev-layout.jussam ol { margin: 0; padding: 0; }
-.slidev-layout.jussam ul { list-style: none; }
-.slidev-layout.jussam ul > li {
+.slidev-layout.talk h1 + p { margin-top: -20px; margin-bottom: 36px; }   /* 제목 바로 아래 설명 줄 */
+.slidev-layout.talk h2 { font-size: 26px; font-weight: 600; line-height: 1.34; letter-spacing: -0.03em; color: var(--fg); margin: 0 0 16px; }
+.slidev-layout.talk h3 { font-size: 19px; font-weight: 600; letter-spacing: -0.025em; color: var(--fg); margin: 0 0 10px; }
+.slidev-layout.talk p { font-size: 20px; font-weight: 400; line-height: 1.62; color: var(--fg-2); letter-spacing: -0.012em; margin: 0; }
+.slidev-layout.talk p + p { margin-top: 12px; }
+.slidev-layout.talk p.title-sub { font-size: 26px; font-weight: 600; line-height: 1.34; letter-spacing: -0.03em; color: var(--fg); }
+.slidev-layout.talk p.lead-lg { font-size: 24px; line-height: 1.55; }
+.slidev-layout.talk p.note { font-size: 13px; color: var(--fg-4); }
+.slidev-layout.talk strong, .slidev-layout.talk b { color: var(--fg); font-weight: 600; }
+.slidev-layout.talk a { color: var(--fg); border-bottom: 1px dashed var(--fg-4); }
+.slidev-layout.talk a:hover { border-bottom-style: solid; }
+.slidev-layout.talk ul, .slidev-layout.talk ol { margin: 0; padding: 0; }
+.slidev-layout.talk ul { list-style: none; }
+.slidev-layout.talk ul > li {
   position: relative; margin: 0 0 10px; padding-left: 20px;
   font-size: 18px; line-height: 1.6; color: var(--fg-2);
 }
-.slidev-layout.jussam ul > li::before {
+.slidev-layout.talk ul > li::before {
   content: ''; position: absolute; left: 0; top: 14px; width: 8px; height: 1px; background: var(--fg-4);
 }
-.slidev-layout.jussam ol { list-style: decimal; padding-left: 26px; }
-.slidev-layout.jussam ol > li { margin: 0 0 10px; padding-left: 4px; font-size: 18px; line-height: 1.6; color: var(--fg-2); }
-.slidev-layout.jussam li::marker { font-family: var(--mono); font-size: 13px; color: var(--g2); }
-.slidev-layout.jussam blockquote {
+.slidev-layout.talk ol { list-style: decimal; padding-left: 26px; }
+.slidev-layout.talk ol > li { margin: 0 0 10px; padding-left: 4px; font-size: 18px; line-height: 1.6; color: var(--fg-2); }
+.slidev-layout.talk li::marker { font-family: var(--mono); font-size: 13px; color: var(--g2); }
+.slidev-layout.talk blockquote {
   margin: 0; padding: 16px 22px; border: 0; border-left: 3px solid var(--g1); border-radius: 0 10px 10px 0;
   background: var(--card); color: var(--fg-2); font-size: 18px; line-height: 1.6;
 }
-.slidev-layout.jussam blockquote > p { font-size: 18px; margin: 0; }
-.slidev-layout.jussam code { font-family: var(--mono); font-size: 0.92em; }
-.slidev-layout.jussam :not(pre) > code { padding: 2px 6px; border-radius: 5px; background: var(--card); color: var(--fg); box-shadow: inset 0 0 0 1px var(--line); }
-.slidev-layout.jussam pre { margin: 0; }
-.slidev-layout.jussam .slidev-code { border-radius: 12px; box-shadow: var(--sh); font-size: 15px; line-height: 1.6; }
-.slidev-layout.jussam table { width: 100%; border-collapse: collapse; font-size: 16px; }
-.slidev-layout.jussam th { text-align: left; font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: 0.08em; color: var(--fg-4); }
-.slidev-layout.jussam td { color: var(--fg-2); }
-.slidev-layout.jussam th, .slidev-layout.jussam td { padding: 12px 10px; border-bottom: 1px solid var(--line); }
-.slidev-layout.jussam tr:first-child th { border-top: 1px solid var(--line); }
-.slidev-layout.jussam td:first-child { color: var(--fg); font-weight: 500; }
-.slidev-layout.jussam hr { border: 0; border-top: 1px solid var(--line); margin: 24px 0; }
-.slidev-layout.jussam img { border-radius: 12px; }
-.slidev-layout.jussam kbd { font-family: var(--mono); font-size: 12px; padding: 2px 6px; border-radius: 5px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line-2); }
+.slidev-layout.talk blockquote > p { font-size: 18px; margin: 0; }
+.slidev-layout.talk code { font-family: var(--mono); font-size: 0.92em; }
+.slidev-layout.talk :not(pre) > code { padding: 2px 6px; border-radius: 5px; background: var(--card); color: var(--fg); box-shadow: inset 0 0 0 1px var(--line); }
+.slidev-layout.talk pre { margin: 0; }
+.slidev-layout.talk .slidev-code { border-radius: 12px; box-shadow: var(--sh); font-size: 15px; line-height: 1.6; }
+.slidev-layout.talk table { width: 100%; border-collapse: collapse; font-size: 16px; }
+.slidev-layout.talk th { text-align: left; font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: 0.08em; color: var(--fg-4); }
+.slidev-layout.talk td { color: var(--fg-2); }
+.slidev-layout.talk th, .slidev-layout.talk td { padding: 12px 10px; border-bottom: 1px solid var(--line); }
+.slidev-layout.talk tr:first-child th { border-top: 1px solid var(--line); }
+.slidev-layout.talk td:first-child { color: var(--fg); font-weight: 500; }
+.slidev-layout.talk hr { border: 0; border-top: 1px solid var(--line); margin: 24px 0; }
+.slidev-layout.talk img { border-radius: 12px; }
+.slidev-layout.talk kbd { font-family: var(--mono); font-size: 12px; padding: 2px 6px; border-radius: 5px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line-2); }
 
 /* ── 마크다운 요소: 표지(cover) · 파트 표지(section) ─── */
-.slidev-layout.jussam.cover h1 { font-size: 72px; line-height: 1.06; letter-spacing: -0.05em; margin: 0; }
-.slidev-layout.jussam.cover h2 { font-size: 44px; line-height: 1.16; letter-spacing: -0.042em; margin: 0; }
-.slidev-layout.jussam.cover h1 + p, .slidev-layout.jussam.cover h2 + p { font-size: 24px; line-height: 1.55; letter-spacing: -0.015em; margin: 26px 0 0; }
-.slidev-layout.jussam.section h1 {
+.slidev-layout.talk.cover h1 { font-size: 72px; line-height: 1.06; letter-spacing: -0.05em; margin: 0; }
+.slidev-layout.talk.cover h2 { font-size: 44px; line-height: 1.16; letter-spacing: -0.042em; margin: 0; }
+.slidev-layout.talk.cover h1 + p, .slidev-layout.talk.cover h2 + p { font-size: 24px; line-height: 1.55; letter-spacing: -0.015em; margin: 26px 0 0; }
+.slidev-layout.talk.section h1 {
   font-size: 62px; line-height: 1.08; letter-spacing: -0.05em; margin: 0;
   background-image: linear-gradient(96deg, #007cf0 0%, #00dfd8 20%, #7928ca 48%, #ff0080 70%, #ff4d4d 86%, #f9cb28 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
 }
-.slidev-layout.jussam.section h1 + p { font-size: 24px; line-height: 1.55; letter-spacing: -0.015em; margin: 24px 0 0; }
+.slidev-layout.talk.section h1 + p { font-size: 24px; line-height: 1.55; letter-spacing: -0.015em; margin: 24px 0 0; }
 
 /* ── 배치 ───────────────────────────────────────────── */
 .spacer { flex: 1; }
@@ -255,8 +256,8 @@ html, body, #app, #slide-container, #slide-content {
 /* Side 슬롯 안의 마크다운 문단·목록 */
 .ba .d p { margin: 0; font: inherit; color: inherit; letter-spacing: inherit; }
 .ba .d ul { margin-top: 4px; display: flex; flex-direction: column; gap: 10px; }
-.slidev-layout.jussam .ba li { margin: 0; padding-left: 17px; font-size: 14.5px; line-height: 1.55; color: inherit; }
-.slidev-layout.jussam .ba li::before { top: 10px; width: 6px; }
+.slidev-layout.talk .ba li { margin: 0; padding-left: 17px; font-size: 14.5px; line-height: 1.55; color: inherit; }
+.slidev-layout.talk .ba li::before { top: 10px; width: 6px; }
 
 /* ── 차트 공통 ──────────────────────────────────────── */
 .chart-title { font-size: 14px; font-weight: 500; letter-spacing: -0.02em; color: var(--fg-2); }
@@ -377,13 +378,13 @@ html, body, #app, #slide-container, #slide-content {
 @keyframes dash-in { from { stroke-dashoffset: 600; } }
 @keyframes fade-in { from { opacity: 0; } }
 
-.slidev-layout.jussam > :not(.mesh):not(.stagger):not(.stagger-box):not(.src) { animation: rise 0.36s var(--ease) both; }
-.slidev-layout.jussam > :not(.mesh):not(.stagger):not(.stagger-box):not(.src):nth-child(1) { animation-delay: 40ms; }
-.slidev-layout.jussam > :not(.mesh):not(.stagger):not(.stagger-box):not(.src):nth-child(2) { animation-delay: 100ms; }
-.slidev-layout.jussam > :not(.mesh):not(.stagger):not(.stagger-box):not(.src):nth-child(3) { animation-delay: 160ms; }
-.slidev-layout.jussam > :not(.mesh):not(.stagger):not(.stagger-box):not(.src):nth-child(4) { animation-delay: 220ms; }
-.slidev-layout.jussam > :not(.mesh):not(.stagger):not(.stagger-box):not(.src):nth-child(5) { animation-delay: 280ms; }
-.slidev-layout.jussam > :not(.mesh):not(.stagger):not(.stagger-box):not(.src):nth-child(n+6) { animation-delay: 340ms; }
+.slidev-layout.talk > :not(.mesh):not(.stagger):not(.stagger-box):not(.src) { animation: rise 0.36s var(--ease) both; }
+.slidev-layout.talk > :not(.mesh):not(.stagger):not(.stagger-box):not(.src):nth-child(1) { animation-delay: 40ms; }
+.slidev-layout.talk > :not(.mesh):not(.stagger):not(.stagger-box):not(.src):nth-child(2) { animation-delay: 100ms; }
+.slidev-layout.talk > :not(.mesh):not(.stagger):not(.stagger-box):not(.src):nth-child(3) { animation-delay: 160ms; }
+.slidev-layout.talk > :not(.mesh):not(.stagger):not(.stagger-box):not(.src):nth-child(4) { animation-delay: 220ms; }
+.slidev-layout.talk > :not(.mesh):not(.stagger):not(.stagger-box):not(.src):nth-child(5) { animation-delay: 280ms; }
+.slidev-layout.talk > :not(.mesh):not(.stagger):not(.stagger-box):not(.src):nth-child(n+6) { animation-delay: 340ms; }
 .stagger > * { animation: rise 0.36s var(--ease) both; }
 .stagger > :nth-child(1) { animation-delay: 200ms; }
 .stagger > :nth-child(2) { animation-delay: 270ms; }
@@ -393,12 +394,12 @@ html, body, #app, #slide-container, #slide-content {
 .mesh { animation: mesh-in 0.9s ease both; }
 
 @media (prefers-reduced-motion: reduce) {
-  .slidev-layout.jussam *, .mesh { animation: none !important; transition: none !important; }
+  .slidev-layout.talk *, .mesh { animation: none !important; transition: none !important; }
 }
 
 /* ── 컴포넌트 보조: 슬롯에 들어온 마크다운 문단은 상자 글꼴을 그대로 따른다 ── */
 /* 한 줄로 쓴 컴포넌트(<Kicker>…</Kicker>)는 마크다운이 <p> 로 감싼다 → 그 문단의 글꼴·색·여백이 새지 않게 되돌린다 */
-.slidev-layout.jussam p:has(> .kicker, > .note, > .card, > .tlx, > .bars, > .hero) { margin: 0; font-size: 16px; line-height: 1.5; color: var(--fg); letter-spacing: 0; }
+.slidev-layout.talk p:has(> .kicker, > .note, > .card, > .tlx, > .bars, > .hero) { margin: 0; font-size: 16px; line-height: 1.5; color: var(--fg); letter-spacing: 0; }
 .card, .tlx, .bars, .ba, .agenda, .numlist, .hero { color: var(--fg); line-height: 1.5; }
 .kicker.title-sub { color: var(--fg); }
 .grid-cells { display: grid; }
@@ -410,7 +411,7 @@ html, body, #app, #slide-container, #slide-content {
 .card.dim .t { color: var(--fg-3); }
 .card.dim .d { color: var(--fg-4); }
 .kicker.muted { color: var(--fg-2); }
-.slidev-layout.jussam .note { margin-top: 16px; }
+.slidev-layout.talk .note { margin-top: 16px; }
 .gauge-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px; }
 .svg-axis text { font-family: var(--mono); font-size: 11px; fill: #5f5f5f; }
 .svg-val { font-family: var(--mono); font-size: 15px; font-weight: 600; }
@@ -419,17 +420,17 @@ html, body, #app, #slide-container, #slide-content {
 .hero-left { flex: none; }
 .hero-right { flex: 1; }
 .hero-u { font-size: 56px; letter-spacing: -0.03em; }
-.slidev-layout.jussam .hero-right h2 { margin: 0; }
-.slidev-layout.jussam .hero-right h2 + p { font-size: 20px; line-height: 1.62; letter-spacing: -0.012em; margin: 20px 0 0; }
+.slidev-layout.talk .hero-right h2 { margin: 0; }
+.slidev-layout.talk .hero-right h2 + p { font-size: 20px; line-height: 1.62; letter-spacing: -0.012em; margin: 20px 0 0; }
 
 /* 제목 안의 **굵게** 는 그라디언트 강조: 본문은 파트 색(gp), 표지는 전체 메시 색(grad) */
-.slidev-layout.jussam h1 strong {
+.slidev-layout.talk h1 strong {
   font-weight: inherit;
   background-image: linear-gradient(96deg, var(--g1), var(--g2));
   -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
 }
-.slidev-layout.jussam.cover h3 { font-size: 26px; font-weight: 600; line-height: 1.34; letter-spacing: -0.03em; color: var(--fg-2); margin: 0; }
-.slidev-layout.jussam.cover h1 strong, .slidev-layout.jussam.cover h3 strong {
+.slidev-layout.talk.cover h3 { font-size: 26px; font-weight: 600; line-height: 1.34; letter-spacing: -0.03em; color: var(--fg-2); margin: 0; }
+.slidev-layout.talk.cover h1 strong, .slidev-layout.talk.cover h3 strong {
   font-weight: inherit;
   background-image: linear-gradient(96deg, #007cf0 0%, #00dfd8 20%, #7928ca 48%, #ff0080 70%, #ff4d4d 86%, #f9cb28 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
@@ -437,8 +438,8 @@ html, body, #app, #slide-container, #slide-content {
 
 /* ── 인쇄·PDF 내보내기: 애니메이션 최종 상태 고정, 그라디언트 글자는 단색으로 ── */
 @media print {
-  .slidev-layout.jussam *, .mesh { animation: none !important; transition: none !important; }
-  .jussam-bar { display: none !important; }
+  .slidev-layout.talk *, .mesh { animation: none !important; transition: none !important; }
+  .talk-bar { display: none !important; }
   .grad { background-image: none !important; color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; }
   .gp { background-image: none !important; color: var(--g1) !important; -webkit-text-fill-color: var(--g1) !important; }
 }

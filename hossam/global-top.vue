@@ -1,10 +1,13 @@
 <script setup lang="ts">
-// 모든 슬라이드 왼쪽에 고정되는 목차 사이드바.
+// 덱 헤더의 sidebar 가 켜져 있으면 모든 슬라이드 왼쪽에 고정되는 목차 사이드바를, style: talk 이면 맨 아래 진행 바를 그린다.
 //  - 제목이 있는 슬라이드를 나열하고 현재 위치를 강조, 클릭하면 이동
 //  - 오른쪽 가장자리를 드래그해 폭 조절(더블클릭 = 기본 폭), ◀/☰ 버튼 또는 s 키로 접기/펼치기
 //  - 폭과 접힘 상태는 브라우저에 기억된다
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useDarkMode, useNav } from '@slidev/client'
+import { useDeckOptions } from './deck'
+
+const { style, sidebar } = useDeckOptions()
 
 const { currentPage, total, slides, go, nextSlide, prevSlide, clicks, clicksTotal } = useNav()
 // ---- 밝음/어두움 테마 (Slidev 내장 다크 모드를 그대로 쓴다: d 키와 같은 동작, 브라우저에 기억됨) ----
@@ -56,6 +59,8 @@ const isPlay = typeof location !== 'undefined' && !/^\/(presenter|overview|print
 const MIN_W = 180, MAX_W = 520, DEFAULT_W = 260
 const panelW = ref(DEFAULT_W)
 const open = ref(true)
+// 사이드바가 꺼져 있으면 본문 왼쪽 여백(--sidebar-w)을 0 으로 둔다. 켜져 있으면 마운트 전(인쇄·발표자 화면 포함)에도 기본 폭을 비워 둔다.
+if (typeof document !== 'undefined') document.documentElement.style.setProperty('--sidebar-w', sidebar.value ? `${DEFAULT_W}px` : '0px')
 function apply() {
   // --sidebar-w 는 본문 왼쪽 여백에 쓰인다. 접히면 0.
   document.documentElement.style.setProperty('--sidebar-w', open.value ? `${panelW.value}px` : '0px')
@@ -153,7 +158,7 @@ function onKey(e: KeyboardEvent) {
 }
 
 onMounted(() => {
-  if (!isPlay) return
+  if (!isPlay || !sidebar.value) return
   document.documentElement.classList.add('fluid')
   try {
     const w = Number(localStorage.getItem('pyai-sidebar-w')); if (w) panelW.value = Math.min(MAX_W, Math.max(MIN_W, w))
@@ -178,6 +183,8 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <div v-if="style === 'talk'" class="talk-bar"><i :style="{ width: `${(currentPage / total) * 100}%` }" /></div>
+  <template v-if="sidebar">
   <aside class="toc" :class="{ collapsed: !open }" :style="{ width: panelW + 'px' }">
     <button class="toc-toggle" title="사이드바 접기 (s)" @click="toggle">◀</button>
     <div class="toc-head" title="표지로 이동" @click="goTo(1)">
@@ -200,7 +207,7 @@ onUnmounted(() => {
       <span>{{ currentPage }} / {{ total }}</span>
       <span class="foot-btns">
         <button class="anim-btn" :class="{ off: !anim }" :title="anim ? '애니메이션 끄기 (a)' : '애니메이션 켜기 (a)'" @click="toggleAnim">{{ anim ? '✨ 켬' : '⏸ 끔' }}</button>
-        <button class="anim-btn" :title="isDark ? '밝은 테마 (d)' : '어두운 테마 (d)'" @click="toggleDark()">{{ isDark ? '☀️' : '🌙' }}</button>
+        <button v-if="style === 'lecture'" class="anim-btn" :title="isDark ? '밝은 테마 (d)' : '어두운 테마 (d)'" @click="toggleDark()">{{ isDark ? '☀️' : '🌙' }}</button>
       </span>
     </div>
     <div class="toc-zoom">
@@ -222,13 +229,17 @@ onUnmounted(() => {
   </aside>
   <button v-if="!open" class="toc-open" title="사이드바 펼치기 (s)" @click="toggle">☰</button>
   <button v-if="!open" class="toc-open anim-float" :class="{ off: !anim }" :title="anim ? '애니메이션 끄기 (a)' : '애니메이션 켜기 (a)'" @click="toggleAnim">{{ anim ? '✨' : '⏸' }}</button>
-  <button v-if="!open" class="toc-open dark-float" :title="isDark ? '밝은 테마 (d)' : '어두운 테마 (d)'" @click="toggleDark()">{{ isDark ? '☀️' : '🌙' }}</button>
+  <button v-if="!open && style === 'lecture'" class="toc-open dark-float" :title="isDark ? '밝은 테마 (d)' : '어두운 테마 (d)'" @click="toggleDark()">{{ isDark ? '☀️' : '🌙' }}</button>
   <button v-if="!open" class="toc-open zoom-float-out" title="축소 (-)" @click="zoomOut">－</button>
   <button v-if="!open" class="toc-open zoom-float-in" title="확대 (+)" @click="zoomIn">＋</button>
   <button v-if="!open" class="toc-open wide-float" :title="wide ? '고정 폭 (w)' : '창 전체 폭 (w)'" @click="toggleWide">{{ wide ? '⇥⇤' : '⇤⇥' }}</button>
+  </template>
 </template>
 
 <style scoped>
+.talk-bar { position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; background: rgba(255, 255, 255, 0.07); pointer-events: none; z-index: 20; }
+.talk-bar i { display: block; height: 2px; background: #e5e5e5; transition: width 0.22s ease; }
+@media print { .talk-bar { display: none; } }
 .toc {
   position: absolute; left: 0; top: 0; bottom: 0; width: var(--sidebar-w, 260px);
   background: var(--surface, #f3f6fb); border-right: 1px solid var(--line, rgba(10,20,40,.1));

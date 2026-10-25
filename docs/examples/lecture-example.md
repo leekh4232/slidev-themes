@@ -1,5 +1,5 @@
 ---
-theme: hossam
+theme: ../../hossam
 title: 파이썬 기초 · 3. 변수와 자료형
 layout: cover
 ---
@@ -58,10 +58,11 @@ print(name, age)
 </Callout>
 
 ---
-layout: two-cols
----
 
 ## 실습 — 자기소개 출력
+
+<Grid cols="2">
+<div>
 
 <Steps>
 <li>이름과 나이를 변수에 넣는다</li>
@@ -74,7 +75,8 @@ layout: two-cols
 <p>출력 결과가 오른쪽과 같으면 성공</p>
 </div>
 
-::right::
+</div>
+<div>
 
 ```python
 name = "하늘"
@@ -85,6 +87,9 @@ print(f"{name}님은 {age}살")
 <Output>
 하늘님은 20살
 </Output>
+
+</div>
+</Grid>
 
 ---
 

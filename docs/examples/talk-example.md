@@ -1,14 +1,15 @@
 ---
-theme: jussam
+theme: ../../hossam
+style: talk
 title: 분기 개발 생산성 리뷰
-titleTemplate: '%s · jussam 예제'
+titleTemplate: '%s · hossam talk 예제'
 layout: cover
 eyebrow: engineering review · 2026 Q3
 footer: 플랫폼팀 / 2026년 10월
 ---
 
 <!--
-jussam 테마 예제 덱 (가상의 수치). 레이아웃 cover · section · default, 컴포넌트 전부를 한 번씩 쓴다.
+hossam 테마 talk 스타일 예제 덱 (가상의 수치). 레이아웃 cover · section · default, 컴포넌트 전부를 한 번씩 쓴다.
 -->
 
 # 분기 개발 생산성,<br>**숫자로 돌아보기**

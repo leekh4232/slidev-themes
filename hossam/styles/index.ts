@@ -1,4 +1,6 @@
-// 기본 테마의 바탕 스타일(슬라이드 높이·목록·제목 크기)을 먼저 가져오고, 우리 색·폰트로 덮어쓴다.
+// Slidev 기본 바탕(슬라이드 높이·코드 상자) 위에 두 스타일을 올린다. 어느 쪽이 적용될지는 <html> 의 lecture / talk 클래스가 정한다(deck.ts).
 import '@slidev/client/styles/layouts-base.css'
 import './layouts.css'
-import './base.css'
+import './lecture.css'
+import './talk.css'
+import './shared.css'

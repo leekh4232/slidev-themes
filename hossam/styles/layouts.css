@@ -1,6 +1,7 @@
 /* @slidev/theme-default 0.25.0 의 styles/layouts.css 사본 (MIT).
-   패키지에서 가져오면 테마 폴더를 경로(theme: ./hossam)로 열 때 찾지 못해 스타일 전체가 빠지므로 테마 안에 둔다. */
-.slidev-layout {
+   패키지에서 가져오면 테마 폴더를 경로(theme: ./hossam)로 열 때 찾지 못해 스타일 전체가 빠지므로 테마 안에 둔다.
+   lecture 스타일에만 적용한다 (talk 는 자체 레이아웃 규칙을 쓴다). */
+:where(html.lecture) .slidev-layout {
   h1 + p {
     @apply -mt-2 opacity-50 mb-4;
   }
@@ -38,8 +39,7 @@
   }
 }
 
-.slidev-layout.cover,
-.slidev-layout.intro {
+:where(html.lecture) .slidev-layout.cover, :where(html.lecture) .slidev-layout.intro {
   @apply h-full grid;
 
   h1 {
@@ -48,7 +48,7 @@
 }
 
 
-.slidev-layout.fact {
+:where(html.lecture) .slidev-layout.fact {
   @apply text-center grid h-full;
   h1 {
     @apply text-8xl font-700;
@@ -57,21 +57,21 @@
     @apply font-700 text-2xl;
   }
 }
-.slidev-layout.statement {
+:where(html.lecture) .slidev-layout.statement {
   @apply text-center grid h-full;
 
   h1 {
     @apply text-6xl font-700;
   }
 }
-.slidev-layout.quote {
+:where(html.lecture) .slidev-layout.quote {
   @apply grid h-full;
 
   h1 + p {
     @apply mt-2;
   }
 }
-.slidev-layout.section {
+:where(html.lecture) .slidev-layout.section {
   h1 {
     @apply text-6xl font-500 leading-20;
   }
