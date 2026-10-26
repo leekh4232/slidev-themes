@@ -1,0 +1,12 @@
+/* 코드 블록 색 강조(Prism 토큰). hossam.html · talk.html · index.html 공통. GitHub 라이트 계열 색. */
+.token.comment, .token.prolog, .token.doctype, .token.cdata { color: #6e7781; font-style: italic; }
+.token.punctuation { color: #57606a; }
+.token.tag, .token.keyword, .token.operator, .token.important { color: #cf222e; }
+.token.attr-name, .token.key, .token.atrule, .token.property, .token.number, .token.boolean, .token.constant { color: #0550ae; }
+.token.string, .token.attr-value, .token.url, .token.char { color: #0a3069; }
+.token.function, .token.class-name, .token.builtin, .token.selector { color: #8250df; }
+.token.title { color: #0550ae; font-weight: 700; }
+.token.list, .token.code-snippet, .token.hr { color: #953800; }
+.token.bold { font-weight: 700; }
+.token.italic { font-style: italic; }
+.token.front-matter-block > .token.punctuation, .token.code-block .token.punctuation { color: #6e7781; }

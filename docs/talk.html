@@ -5,18 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>talk 스타일 · hossam 테마</title>
 <meta name="description" content="hossam 테마의 talk 스타일(특강·발표용 다크): 레이아웃, 컴포넌트, 예제 코드">
-<meta name="color-scheme" content="dark">
+<meta name="color-scheme" content="light">
 <meta property="og:title" content="talk 스타일 · hossam 테마">
 <meta property="og:description" content="hossam 테마의 talk 스타일(특강·발표용 다크): 레이아웃, 컴포넌트, 예제 코드">
 <meta property="og:image" content="https://slidev-themes.hossam.kr/img/talk-cover.jpg">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="manual.css">
+<link rel="stylesheet" href="code.css">
 </head>
 <body>
-<header class="top"><div class="in"><a class="brand" href="index.html">Slidev Themes</a><nav><a href="hossam.html">hossam</a><a href="talk.html" class="current">talk 스타일</a><a href="https://github.com/leekh4232/slidev-themes">GitHub</a></nav></div></header>
+<aside class="sidebar"><a class="brand" href="index.html">Slidev Themes</a><nav class="pages" aria-label="문서"><a href="hossam.html">hossam</a><a href="talk.html" class="current">talk 스타일</a><a href="https://github.com/leekh4232/slidev-themes">GitHub</a></nav><nav class="toc" aria-label="이 페이지의 목차"><a href="#start">시작하기</a><a href="#layouts">레이아웃 3종</a><a href="#writing">글쓰기 규칙</a><a href="#components">컴포넌트</a><a href="#rules">주의할 점</a><a href="#example">전체 예제</a></nav></aside>
 <main>
 <div class="hero"><h1>talk 스타일 <span class="badge">hossam · 발표용</span></h1><p>hossam 테마의 특강·발표용 다크 스타일. 검정 바탕 위에 파트별 시그니처 색, 카드·스탯·차트 컴포넌트로 숫자가 많은 발표를 만든다.</p></div>
-<nav class="toc" aria-label="이 페이지의 목차"><a href="#start">시작하기</a><a href="#layouts">레이아웃 3종</a><a href="#writing">글쓰기 규칙</a><a href="#components">컴포넌트</a><a href="#rules">주의할 점</a><a href="#example">전체 예제</a></nav>
 <figure><img src="img/talk-cover.jpg" alt="표지(cover 레이아웃). 제목의 `**굵게**` 부분이 메시 그라디언트로 칠해진다." loading="lazy"><figcaption>표지(cover 레이아웃). 제목의 <code>**굵게**</code> 부분이 메시 그라디언트로 칠해진다.</figcaption></figure>
 <h2 id="start">시작하기</h2>
 <p>프런트매터에 테마 폴더 경로(<code>theme: ./slidev-themes/hossam</code>처럼 md 파일 기준)와 <code>style: talk</code>를 적는다. 사이드바는 기본으로 꺼져 있고, <code>sidebar: true</code>로 켤 수 있다(조작은 <a href="hossam.html#sidebar">hossam 매뉴얼</a>). 첫 슬라이드의 프런트매터(헤드매터)에는 덱 전체 설정과 첫 슬라이드 설정을 함께 적는다.</p>
@@ -261,5 +261,11 @@ bars:
 </div>
 </main>
 <footer>Slidev Themes · MIT · <a href="https://github.com/leekh4232/slidev-themes">GitHub</a> · VS Code에서 바로 쓰려면 <a href="https://open-with-slidev.hossam.kr/">Open with Slidev</a></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" data-manual></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script>Prism.highlightAll();</script>
 </body>
 </html>

@@ -11,8 +11,8 @@ Slidev 테마 `hossam`을 담은 저장소입니다. 덱 헤더의 `style: lectu
 | 경로 | 내용 |
 |:--|:--|
 | `hossam/` | 테마 본체 (layouts · components · styles · deck.ts · global-top.vue · package.json). 스타일별 CSS는 `styles/lecture.css`(`html.lecture` 아래, `:where()`로 감싸 우선순위를 올리지 않음) · `styles/talk.css`(`html.talk` · `.slidev-layout.talk`) · 공통 토큰 `styles/shared.css` |
-| `docs/index.html` | 소개 페이지 https://slidev-themes.hossam.kr (`docs/CNAME`). 다크, 한 페이지 |
-| `docs/hossam.html` · `docs/talk.html` | 테마 매뉴얼. hossam.html은 공통 설정·사이드바·lecture, talk.html은 talk 스타일의 레이아웃·컴포넌트. 스타일은 `docs/manual.css` |
+| `docs/index.html` | 소개 페이지 https://slidev-themes.hossam.kr (`docs/CNAME`). 라이트, 한 페이지 |
+| `docs/hossam.html` · `docs/talk.html` | 테마 매뉴얼. hossam.html은 공통 설정·사이드바·lecture, talk.html은 talk 스타일의 레이아웃·컴포넌트. 스타일은 `docs/manual.css`(라이트, 왼쪽 사이드바에 문서 링크와 목차). 코드 블록은 Prism.js로 칠하고 색은 `docs/code.css`(세 html 공통) |
 | `docs/img/` | 매뉴얼과 소개 페이지의 화면 캡처 (960×540 jpg). Open with Slidev 소개 페이지도 여기 그림을 씁니다 |
 | `docs/examples/` | 예제 덱 `lecture-example.md` · `talk-example.md` |
 | `README.md` | 배지, 테마 표, 쓰는 법, 예제 덱, 폴더 구조 |

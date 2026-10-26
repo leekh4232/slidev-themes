@@ -5,18 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>hossam 테마 · Slidev Themes</title>
 <meta name="description" content="강의·발표용 Slidev 테마 hossam: lecture·talk 두 스타일, 목차 사이드바, 콜아웃·프롬프트·출력, 예제 코드">
-<meta name="color-scheme" content="dark">
+<meta name="color-scheme" content="light">
 <meta property="og:title" content="hossam 테마 · Slidev Themes">
 <meta property="og:description" content="강의·발표용 Slidev 테마 hossam: lecture·talk 두 스타일, 목차 사이드바, 콜아웃·프롬프트·출력, 예제 코드">
 <meta property="og:image" content="https://slidev-themes.hossam.kr/img/lecture-cover.jpg">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="manual.css">
+<link rel="stylesheet" href="code.css">
 </head>
 <body>
-<header class="top"><div class="in"><a class="brand" href="index.html">Slidev Themes</a><nav><a href="hossam.html" class="current">hossam</a><a href="talk.html">talk 스타일</a><a href="https://github.com/leekh4232/slidev-themes">GitHub</a></nav></div></header>
+<aside class="sidebar"><a class="brand" href="index.html">Slidev Themes</a><nav class="pages" aria-label="문서"><a href="hossam.html" class="current">hossam</a><a href="talk.html">talk 스타일</a><a href="https://github.com/leekh4232/slidev-themes">GitHub</a></nav><nav class="toc" aria-label="이 페이지의 목차"><a href="#start">시작하기</a><a href="#sidebar">사이드바와 조작</a><a href="#writing">글쓰기</a><a href="#components">컴포넌트</a><a href="#classes">클래스</a><a href="#example">전체 예제</a></nav></aside>
 <main>
 <div class="hero"><h1>hossam 테마 <span class="badge">강의 · 발표</span></h1><p>스타일 두 가지를 헤더에서 고른다. <b>lecture</b>는 코딩 강의용 흰 바탕으로, 왼쪽 목차 사이드바와 콜아웃·프롬프트·출력 상자가 있다. <b>talk</b>는 특강·발표용 검정 바탕으로, 메시 그라디언트 표지와 카드·스탯·차트 컴포넌트가 있다. 이 페이지는 공통 설정과 lecture 스타일을, <a href="talk.html">talk 스타일 페이지</a>는 발표용 레이아웃과 컴포넌트를 다룬다.</p></div>
-<nav class="toc" aria-label="이 페이지의 목차"><a href="#start">시작하기</a><a href="#sidebar">사이드바와 조작</a><a href="#writing">글쓰기</a><a href="#components">컴포넌트</a><a href="#classes">클래스</a><a href="#example">전체 예제</a></nav>
 <figure><img src="img/lecture-cover.jpg" alt="표지와 왼쪽 사이드바. 색이 번지는 배경 위에 그라디언트 제목과 알약 모양 부제, 사이드바 위에는 과정 이름과 단원, 아래에는 쪽 번호와 조작 버튼" loading="lazy"><figcaption>표지와 왼쪽 사이드바. 색이 번지는 배경 위에 그라디언트 제목과 알약 모양 부제, 사이드바 위에는 과정 이름과 단원, 아래에는 쪽 번호와 조작 버튼</figcaption></figure>
 <h2 id="start">시작하기</h2>
 <p>저장소를 받은 뒤(<code>git clone https://github.com/leekh4232/slidev-themes.git</code>) 프런트매터에 테마 폴더 경로(<code>theme: ./slidev-themes/hossam</code>처럼 md 파일 기준)를 적는다. 첫 슬라이드의 프런트매터(헤드매터)에서 아래 두 옵션으로 덱 전체 모양을 정한다.</p>
@@ -137,5 +137,11 @@ TypeError: can only concatenate str (not "int") to str
 <p><a href="examples/lecture-example.md">lecture-example.md</a> — 위 코드가 전부 들어 있는 6장짜리 lecture 덱. talk 스타일 예제는 <a href="examples/talk-example.md">talk-example.md</a>. 저장소 안에서 우클릭 → Open with Slidev.</p>
 </main>
 <footer>Slidev Themes · MIT · <a href="https://github.com/leekh4232/slidev-themes">GitHub</a> · VS Code에서 바로 쓰려면 <a href="https://open-with-slidev.hossam.kr/">Open with Slidev</a></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" data-manual></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script>Prism.highlightAll();</script>
 </body>
 </html>
