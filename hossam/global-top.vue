@@ -86,11 +86,11 @@ function zoomIn() { setZoom(zoom.value + 0.1) }
 function zoomOut() { setZoom(zoom.value - 0.1) }
 function zoomReset() { setZoom(1) }
 
-// ---- 본문 폭: 고정(최대 1920px, 가운데) / 100%(창 전체) ----
-const wide = ref(false)
+// ---- 본문 폭: 고정(최대 1920px, 가운데) / 100%(창 전체, 기본) ----
+const wide = ref(true)
 function applyWide() {
   document.documentElement.classList.toggle('wide', wide.value)
-  try { localStorage.setItem('pyai-wide', wide.value ? '1' : '0') } catch { /* 무시 */ }
+  try { localStorage.setItem('pyai-width', wide.value ? 'full' : 'fixed') } catch { /* 무시 */ }
 }
 function toggleWide() { wide.value = !wide.value; applyWide() }
 
@@ -190,7 +190,8 @@ onMounted(() => {
     if (localStorage.getItem('pyai-anim') === '0') anim.value = false
     if (!localStorage.getItem('slidev-color-schema')) isDark.value = false   // 처음엔 밝은 테마
     const z = Number(localStorage.getItem('pyai-zoom')); if (z) zoom.value = z
-    if (localStorage.getItem('pyai-wide') === '1') wide.value = true
+    // 예전 키(pyai-wide)는 열 때마다 '0'이 저장돼 기본값을 덮으므로 읽지 않는다
+    if (localStorage.getItem('pyai-width') === 'fixed') wide.value = false
   } catch { /* 무시 */ }
   apply(); applyAnim(); applyZoom(); applyWide()
   setTimeout(() => scrollToCurrent('auto'), 300)   // 새로 열었을 때도 현재 항목이 보이게
