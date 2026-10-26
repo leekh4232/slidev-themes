@@ -12,6 +12,7 @@ Slidev 테마 `hossam`을 담은 저장소입니다. 덱 헤더의 `style: lectu
 |:--|:--|
 | `hossam/` | 테마 본체 (layouts · components · styles · deck.ts · global-top.vue · package.json). 스타일별 CSS는 `styles/lecture.css`(`html.lecture` 아래, `:where()`로 감싸 우선순위를 올리지 않음) · `styles/talk.css`(`html.talk` · `.slidev-layout.talk`) · 공통 토큰 `styles/shared.css` |
 | `docs/index.html` | 소개 페이지 https://slidev-themes.hossam.kr (`docs/CNAME`). 라이트, 한 페이지 |
+| `docs/llms.txt` · `docs/robots.txt` · `docs/sitemap.xml` | AI · 크롤러용. `llms.txt`는 사이트 요약(마크다운)과 문서 링크. 각 html `<head>`에는 JSON-LD 구조화 데이터와 `llms.txt` 링크가 있습니다 |
 | `docs/hossam.html` · `docs/talk.html` | 테마 매뉴얼. hossam.html은 공통 설정·사이드바·lecture, talk.html은 talk 스타일의 레이아웃·컴포넌트. 스타일은 `docs/manual.css`(라이트, 왼쪽 사이드바에 문서 링크와 목차). 코드 블록은 Prism.js로 칠하고 색은 `docs/code.css`(세 html 공통) |
 | `docs/img/` | 매뉴얼과 소개 페이지의 화면 캡처 (960×540 jpg). Open with Slidev 소개 페이지도 여기 그림을 씁니다 |
 | `docs/examples/` | 예제 덱 `lecture-example.md` · `talk-example.md` |
@@ -24,6 +25,7 @@ Slidev 테마 `hossam`을 담은 저장소입니다. 덱 헤더의 `style: lectu
 - 레이아웃 · 컴포넌트 · 프롭 · 프런트매터가 바뀌면 `docs/hossam.html` 또는 `docs/talk.html`, 예제 덱, README를 맞춥니다. 화면이 달라졌으면 `docs/img/`의 캡처도 다시 찍습니다.
 - 매뉴얼 페이지의 목차(`<nav class="toc">`)는 그 페이지의 `<h2 id>` 목록과 같아야 합니다.
 - **제거된 기능은 "제거됨"이라고 쓰지 않고 아예 언급하지 않습니다.**
+- 기능 · 명령 · 메뉴 · 요구 버전이 바뀌면 `docs/llms.txt`의 요약과 html `<head>`의 JSON-LD(`description` · `softwareRequirements`)도 맞춥니다. 페이지를 더하거나 빼면 `docs/sitemap.xml`도 고칩니다.
 - 소개 페이지는 테마가 무엇인지만 짧게 씁니다. 자세한 내용은 매뉴얼에 둡니다.
 
 ### 2. 테스트
