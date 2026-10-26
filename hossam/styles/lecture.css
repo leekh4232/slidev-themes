@@ -56,7 +56,7 @@ html.lecture, :where(html.lecture) body, :where(html.lecture) #app {
   background: var(--bg) !important;
 }
 html.fluid {
-  font-size: 24px;
+  font-size: 22px;
 }
 html.fluid #slide-container {
   --slidev-slide-container-background: var(--bg); /* 1920px 바깥 여백도 같은 바탕색 (Slidev 기본은 검정) */
@@ -504,18 +504,28 @@ html.no-anim .slidev-layout.cover *, html.no-anim .slidev-layout.cover *::before
 }
 
 /* 본문 등장 애니메이션: 제목(h1·h2·h3)을 뺀 슬라이드의 직계 요소(문단·목록·표·코드·콜아웃·카드 …)가 아래에서 위로 조금씩 시간차를 두고 떠오른다.
-   Grid(.stagger-box)는 칸마다 같은 효과를 이미 갖고 있어 제외. fill-mode 를 backwards 로 두어 끝난 뒤에는 v-click 의 opacity 를 건드리지 않는다. 표지는 자체 효과를 쓴다. */
+   슬라이드 전환(--slidev-transition-duration, 기본 0.5s)과 겹치면 느껴지지 않으므로 --rise-delay 만큼 늦게 시작한다. Grid(.stagger-box) 칸의 시간차도 같은 값만큼 민다.
+   fill-mode 를 backwards 로 두어 끝난 뒤에는 v-click 의 opacity 를 건드리지 않는다. 표지는 자체 효과를 쓴다. */
+html.lecture {
+  --rise-delay: 0.45s;
+}
 :where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box) {
   animation: lecture-rise 0.42s var(--ease) backwards;
+  animation-delay: calc(var(--rise-delay) + 600ms);
 }
-:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(1) { animation-delay: 60ms; }
-:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(2) { animation-delay: 120ms; }
-:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(3) { animation-delay: 200ms; }
-:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(4) { animation-delay: 280ms; }
-:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(5) { animation-delay: 360ms; }
-:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(6) { animation-delay: 440ms; }
-:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(7) { animation-delay: 520ms; }
-:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(n+8) { animation-delay: 600ms; }
+:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(1) { animation-delay: calc(var(--rise-delay) + 60ms); }
+:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(2) { animation-delay: calc(var(--rise-delay) + 120ms); }
+:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(3) { animation-delay: calc(var(--rise-delay) + 200ms); }
+:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(4) { animation-delay: calc(var(--rise-delay) + 280ms); }
+:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(5) { animation-delay: calc(var(--rise-delay) + 360ms); }
+:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(6) { animation-delay: calc(var(--rise-delay) + 440ms); }
+:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(7) { animation-delay: calc(var(--rise-delay) + 520ms); }
+/* Grid 칸(talk.css 의 .stagger 규칙, 200ms 부터)도 전환이 끝난 뒤 시작하도록 민다 — 특이도를 .slidev-layout 로 한 단계 올려 덮어쓴다 */
+:where(html.lecture) .slidev-layout .stagger > :nth-child(1) { animation-delay: calc(var(--rise-delay) + 200ms); }
+:where(html.lecture) .slidev-layout .stagger > :nth-child(2) { animation-delay: calc(var(--rise-delay) + 270ms); }
+:where(html.lecture) .slidev-layout .stagger > :nth-child(3) { animation-delay: calc(var(--rise-delay) + 340ms); }
+:where(html.lecture) .slidev-layout .stagger > :nth-child(4) { animation-delay: calc(var(--rise-delay) + 410ms); }
+:where(html.lecture) .slidev-layout .stagger > :nth-child(n+5) { animation-delay: calc(var(--rise-delay) + 470ms); }
 @keyframes lecture-rise { from { opacity: 0; transform: translateY(14px); } }
 html.no-anim .slidev-layout > * { animation: none !important; }
 @media (prefers-reduced-motion: reduce) {
