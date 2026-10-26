@@ -55,13 +55,16 @@ const unit = computed(() => deckTitle.value.split(' · ').slice(1).join(' · '))
 
 // ---- 웹페이지식 배치: 메인 발표 화면에서만 html.fluid 를 켠다 (스타일은 base.css) ----
 const isPlay = typeof location !== 'undefined' && !/^\/(presenter|overview|print|export|notes|entry)/.test(location.pathname)
+// PDF·PNG 내보내기 화면(/print, /export)에는 사이드바를 그리지 않고 본문 왼쪽 자리도 비우지 않는다
+const isExport = typeof location !== 'undefined' && /^\/(print|export)/.test(location.pathname)
+const showSidebar = computed(() => sidebar.value && !isExport)
 
 // ---- 폭·접힘 상태 ----
 const MIN_W = 180, MAX_W = 520, DEFAULT_W = 260
 const panelW = ref(DEFAULT_W)
 const open = ref(true)
-// 사이드바가 꺼져 있으면 본문 왼쪽 여백(--sidebar-w)을 0 으로 둔다. 켜져 있으면 마운트 전(인쇄·발표자 화면 포함)에도 기본 폭을 비워 둔다.
-if (typeof document !== 'undefined') document.documentElement.style.setProperty('--sidebar-w', sidebar.value ? `${DEFAULT_W}px` : '0px')
+// 사이드바가 꺼져 있으면 본문 왼쪽 여백(--sidebar-w)을 0 으로 둔다. 켜져 있으면 마운트 전(발표자 화면 포함)에도 기본 폭을 비워 둔다.
+if (typeof document !== 'undefined') document.documentElement.style.setProperty('--sidebar-w', showSidebar.value ? `${DEFAULT_W}px` : '0px')
 function apply() {
   // --sidebar-w 는 본문 왼쪽 여백에 쓰인다. 접히면 0.
   document.documentElement.style.setProperty('--sidebar-w', open.value ? `${panelW.value}px` : '0px')
@@ -208,7 +211,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <template v-if="sidebar">
+  <template v-if="showSidebar">
   <aside class="toc" :class="{ collapsed: !open }" :style="{ width: panelW + 'px' }">
     <button class="toc-toggle" title="사이드바 접기 (s)" @click="toggle">◀</button>
     <div class="toc-head" title="표지로 이동" @click="goTo(1)">
@@ -277,6 +280,7 @@ onUnmounted(() => {
 }
 .toc-toggle { position: absolute; top: 12px; right: 12px; }
 .toc-toggle:hover, .toc-open:hover { color: var(--py, #0a7fc2); border-color: var(--py, #0a7fc2); }
+@media print { .toc, .toc-open { display: none !important; } }
 .toc-open { position: absolute; top: 14px; left: 14px; z-index: 6; box-shadow: 0 2px 8px rgba(11,18,32,.12); }
 .toc-head { padding: 0 44px 10px 4px; border-bottom: 1px solid var(--line, rgba(10,20,40,.1)); margin-bottom: 8px; cursor: pointer; }   /* 클릭하면 표지(1쪽)로. 표지는 목록에 넣지 않는다 */
 .toc-head:hover .toc-unit { color: var(--py, #0a7fc2); }

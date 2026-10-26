@@ -4,6 +4,10 @@
   --sidebar-w: 0px; /* 사이드바가 켜지면 global-top.vue 가 실제 폭으로 바꾼다 */
   --base-zoom: 1;
 }
+/* 인쇄(브라우저 인쇄 · PDF 내보내기)에는 사이드바를 그리지 않으므로 본문 왼쪽 자리도 비우지 않는다 */
+@media print {
+  :root { --sidebar-w: 0px !important; }
+}
 
 /* 글자 크기는 rem 기준. 사이드바 화면(html.fluid)은 lecture.css 가 정하고, 사이드바를 끈 비율 축소 화면은 1rem = 20px */
 html.lecture:not(.fluid) {
