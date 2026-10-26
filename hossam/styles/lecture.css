@@ -145,6 +145,22 @@ html.fluid #slide-content .slidev-layout {
 :where(html.lecture) .slidev-layout p {
   margin: 0.35rem 0;
 }
+/* 블록 사이 간격: 슬라이드 직계 요소와 Grid 칸 안의 요소(제목 제외)는 아래에 --block-gap 만큼 띄운다.
+   컴포넌트(Callout·Steps·Prompt·Output)의 scoped 여백(0,2,0)보다 우선하도록 :not() 으로 특이도를 올린다. 라벨(.kicker)은 바로 아래 내용과 붙어 있어야 하므로 작게. */
+html.lecture {
+  --block-gap: 1.1rem;
+}
+:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.cover-bg),
+:where(html.lecture) .slidev-layout:not(.cover) .grid-cells > :not(.cover-bg) > :not(h3) {
+  margin-bottom: var(--block-gap);
+}
+:where(html.lecture) .slidev-layout:not(.cover) > .kicker, :where(html.lecture) .slidev-layout:not(.cover) > p:has(> .kicker:only-child),
+:where(html.lecture) .slidev-layout:not(.cover) .grid-cells > :not(.cover-bg) > .kicker {
+  margin-bottom: 0.45rem;
+}
+:where(html.lecture) .slidev-layout:not(.cover) > br, :where(html.lecture) .slidev-layout:not(.cover) .grid-cells > :not(.cover-bg) > br {
+  margin-bottom: 0;
+}
 :where(html.lecture) .slidev-layout li::marker {
   color: var(--py);
 }
