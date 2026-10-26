@@ -125,3 +125,14 @@ print(f"{name}님은 {age}살")
 
 - `int()`, `float()`, `str()` 로 서로 바꿀 수 있다
 - <span class="muted">다음 시간: 조건문</span>
+
+---
+layout: cover
+hideInToc: true
+---
+
+# 감사합니다
+
+질문과 토론 환영
+
+<p class="sub">파이썬 기초 과정 · 3강 끝</p>

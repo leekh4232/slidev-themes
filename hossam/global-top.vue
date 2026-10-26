@@ -16,9 +16,10 @@ const { isDark, toggleDark } = useDarkMode()
 function shortTitle(raw: string) {
   return raw.replace(/<[^>]+>/g, '').replace(/[`*]/g, '').replace(/^[^\p{L}\p{N}]+/u, '').split(/\s+[—–-]\s+/)[0].trim()   // HTML 태그·마크다운 기호(` **) 제거
 }
+// 표지(1쪽)와 프런트매터 hideInToc: true 인 슬라이드(종료 페이지 등)는 목록에 넣지 않는다
 const items = computed(() =>
   slides.value
-    .map(s => ({ no: s.no, title: s.no === 1 ? '' : shortTitle(s.meta?.slide?.title ?? ''), sub: (s.meta?.slide?.level ?? 2) >= 3 }))
+    .map(s => ({ no: s.no, title: s.no === 1 || s.meta?.slide?.frontmatter?.hideInToc ? '' : shortTitle(s.meta?.slide?.title ?? ''), sub: (s.meta?.slide?.level ?? 2) >= 3 }))
     .filter(s => s.title),
 )
 // ---- ### 항목 접기: 바로 위 ## 항목(parent) 아래로 묶고, 펼친 묶음만 보인다 ----
