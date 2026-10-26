@@ -260,10 +260,19 @@ html.lecture, :where(html.lecture) .slidev-layout {
   padding: 0.4em 0.7em;
   border-bottom: 1px solid var(--line);
 }
-/* 첫 열(항목 이름)은 굵게, 줄바꿈 없이 — 긴 설명 열이 폭을 가져가도 항목 이름은 한 줄로 */
+/* 첫 열(항목 이름)은 굵게, 줄바꿈 없이 — 긴 설명 열이 폭을 가져가도 항목 이름은 한 줄로.
+   첫 열이 표 폭의 30% 를 넘을 만큼 길면 global-top.vue 가 table.first-long 을 붙여 줄바꿈을 허용한다.
+   슬라이드 프런트매터 class: tbl-wrap(항상 줄바꿈) · tbl-nowrap(항상 한 줄)으로 강제할 수 있다. */
 :where(html.lecture) .slidev-layout td:first-child, :where(html.lecture) .slidev-layout th:first-child {
   white-space: nowrap;
   font-weight: 700;
+}
+:where(html.lecture) .slidev-layout table.first-long td:first-child, :where(html.lecture) .slidev-layout table.first-long th:first-child,
+:where(html.lecture) .slidev-layout.tbl-wrap td:first-child, :where(html.lecture) .slidev-layout.tbl-wrap th:first-child {
+  white-space: normal;
+}
+:where(html.lecture) .slidev-layout.tbl-nowrap td:first-child, :where(html.lecture) .slidev-layout.tbl-nowrap th:first-child {
+  white-space: nowrap;
 }
 
 /* 2단: 좌우 단 사이 간격 */

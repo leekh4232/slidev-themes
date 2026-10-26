@@ -157,6 +157,29 @@ function onKey(e: KeyboardEvent) {
   if (e.key === '0') { e.preventDefault(); zoomReset() }
 }
 
+// ---- 표 첫 열: 기본은 nowrap(항목 열). 첫 열이 표 폭의 30% 를 넘을 만큼 길면 table.first-long 을 붙여 줄바꿈을 허용한다.
+//  슬라이드 프런트매터 class: tbl-wrap / tbl-nowrap 이면 자동 판정을 건너뛴다(CSS 가 강제). 슬라이드 전환·창 크기·배율 변화마다 다시 잰다.
+const FIRST_COL_MAX = 0.3
+function measureTables() {
+  const tables = document.querySelectorAll<HTMLTableElement>('#slide-content .slidev-layout table, #slide-content .slidev-layout .first-long')
+  tables.forEach(t => {
+    if (t.closest('.tbl-wrap, .tbl-nowrap')) return
+    t.classList.remove('first-long')
+    const cell = t.querySelector<HTMLElement>('tr > :first-child')
+    const tw = t.getBoundingClientRect().width
+    if (!cell || tw <= 0) return
+    if (cell.getBoundingClientRect().width / tw > FIRST_COL_MAX) t.classList.add('first-long')
+  })
+}
+function scheduleMeasure() { nextTick(() => requestAnimationFrame(measureTables)) }
+watch([currentPage, zoom, wide, open, panelW], scheduleMeasure)
+onMounted(() => {
+  scheduleMeasure(); setTimeout(measureTables, 400)   // 글꼴 로딩 뒤 한 번 더
+  window.addEventListener('resize', scheduleMeasure)
+  if (typeof document !== 'undefined' && 'fonts' in document) (document as any).fonts?.ready?.then(measureTables)
+})
+onUnmounted(() => window.removeEventListener('resize', scheduleMeasure))
+
 onMounted(() => {
   if (!isPlay || !sidebar.value) return
   document.documentElement.classList.add('fluid')
