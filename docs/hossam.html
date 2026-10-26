@@ -17,11 +17,11 @@
 <main>
 <div class="hero"><h1>hossam 테마 <span class="badge">강의 · 발표</span></h1><p>스타일 두 가지를 헤더에서 고른다. <b>lecture</b>는 코딩 강의용 흰 바탕으로, 왼쪽 목차 사이드바와 콜아웃·프롬프트·출력 상자가 있다. <b>talk</b>는 특강·발표용 검정 바탕으로, 메시 그라디언트 표지와 카드·스탯·차트 컴포넌트가 있다. 이 페이지는 공통 설정과 lecture 스타일을, <a href="talk.html">talk 스타일 페이지</a>는 발표용 레이아웃과 컴포넌트를 다룬다.</p></div>
 <nav class="toc" aria-label="이 페이지의 목차"><a href="#start">시작하기</a><a href="#sidebar">사이드바와 조작</a><a href="#writing">글쓰기</a><a href="#components">컴포넌트</a><a href="#classes">클래스</a><a href="#example">전체 예제</a></nav>
-<figure><img src="img/lecture-cover.jpg" alt="표지와 왼쪽 사이드바. 사이드바 위에는 과정 이름과 단원, 아래에는 쪽 번호와 조작 버튼" loading="lazy"><figcaption>표지와 왼쪽 사이드바. 사이드바 위에는 과정 이름과 단원, 아래에는 쪽 번호와 조작 버튼</figcaption></figure>
+<figure><img src="img/lecture-cover.jpg" alt="표지와 왼쪽 사이드바. 색이 번지는 배경 위에 그라디언트 제목과 알약 모양 부제, 사이드바 위에는 과정 이름과 단원, 아래에는 쪽 번호와 조작 버튼" loading="lazy"><figcaption>표지와 왼쪽 사이드바. 색이 번지는 배경 위에 그라디언트 제목과 알약 모양 부제, 사이드바 위에는 과정 이름과 단원, 아래에는 쪽 번호와 조작 버튼</figcaption></figure>
 <h2 id="start">시작하기</h2>
 <p>저장소를 받은 뒤(<code>git clone https://github.com/leekh4232/slidev-themes.git</code>) 프런트매터에 테마 폴더 경로(<code>theme: ./slidev-themes/hossam</code>처럼 md 파일 기준)를 적는다. 첫 슬라이드의 프런트매터(헤드매터)에서 아래 두 옵션으로 덱 전체 모양을 정한다.</p>
 <table><thead><tr><th>옵션</th><th>값</th><th>기본</th></tr></thead><tbody><tr><td><code>style</code></td><td><code>lecture</code>(흰 바탕 강의용) · <code>talk</code>(검정 바탕 발표용, <a href="talk.html">talk 스타일</a>)</td><td><code>lecture</code></td></tr><tr><td><code>sidebar</code></td><td><code>true</code>면 왼쪽 목차 사이드바, <code>false</code>면 사이드바 없이 화면 비율에 맞춘 슬라이드</td><td>lecture는 <code>true</code>, talk는 <code>false</code></td></tr></tbody></table>
-<p>컴포넌트는 두 스타일 어디서나 쓴다. 이 페이지의 Callout·Prompt·Output·Steps·Grid도, talk 페이지의 Card·Stat·차트 컴포넌트도 스타일에 맞는 색으로 보인다. <code>title</code>은 <code> · </code>(가운뎃점 양옆 공백)를 기준으로 앞은 과정 이름, 뒤는 단원 이름으로 사이드바에 올라간다. 첫 슬라이드는 <code>layout: cover</code>로 가운데 정렬한다.</p>
+<p>컴포넌트는 두 스타일 어디서나 쓴다. 이 페이지의 Callout·Prompt·Output·Steps·Grid도, talk 페이지의 Card·Stat·차트 컴포넌트도 스타일에 맞는 색으로 보인다. <code>title</code>은 <code> · </code>(가운뎃점 양옆 공백)를 기준으로 앞은 과정 이름, 뒤는 단원 이름으로 사이드바에 올라간다. 첫 슬라이드는 <code>layout: cover</code>로 쓴다. 표지는 세 과목색(파랑·주황·초록)이 천천히 번지는 배경 위에 그라디언트 제목, 알약 모양 부제(<code>.sub</code>), 아래 세 색 막대가 놓이고, <code>title</code>의 <code> · </code> 앞부분(과정 이름)이 위쪽 머리말로 자동으로 올라간다. 프런트매터 <code>eyebrow</code>로 머리말을 바꾸고, <code>footer</code>로 막대 아래 작은 글을 둘 수 있다. 등장 애니메이션은 사이드바의 애니메이션 끄기와 운영체제의 동작 줄이기 설정을 따라 꺼진다.</p>
 <pre><code class="language-md">---
 theme: ./slidev-themes/hossam
 style: lecture        # 생략 가능 (기본값)
@@ -43,7 +43,7 @@ layout: cover
 <div class="two"><figure><img src="img/lecture-collapsed.jpg" alt="사이드바를 접으면 왼쪽 위에 작은 버튼만 남는다" loading="lazy"><figcaption>사이드바를 접으면 왼쪽 위에 작은 버튼만 남는다</figcaption></figure>
 <figure><img src="img/lecture-dark.jpg" alt="어두운 테마(d)" loading="lazy"><figcaption>어두운 테마(d)</figcaption></figure>
 </div><h2 id="writing">글쓰기</h2>
-<ul><li><code>#</code> 큰 제목, <code>##</code> 앞에 📌가 붙고 밑줄이 있는 슬라이드 제목, <code>###</code> 그보다 조금 작고 밑줄이 있는 소제목(목차에서 하위 항목). 카드 안의 <code>&lt;h3&gt;</code>은 작은 제목 그대로다.</li><li>목록 글머리와 링크는 파랑, 인라인 코드(백틱 하나)는 연한 상자, <code>**굵게**</code>는 본문색 그대로 굵게.</li><li>코드 블록은 흰 바탕 위의 어두운 상자. 줄 번호가 기본으로 켜져 있고(<code>lineNumbers: true</code>), 주석은 설명이라 밝은 초록으로 보인다. 글꼴은 JetBrains Mono.</li><li>표는 머리글이 굵은 파란 글씨에 연한 바탕. 레이아웃은 Slidev 기본 레이아웃(<code>default</code>, <code>cover</code>, <code>center</code>, <code>section</code>, <code>image-right</code> …)을 그대로 쓴다. 여러 단으로 나눌 때는 <a href="#c-grid">Grid</a>를 쓴다.</li></ul>
+<ul><li><code>#</code> 큰 제목, <code>##</code> 앞에 📌가 붙고 밑줄이 있는 슬라이드 제목, <code>###</code> 그보다 조금 작고 밑줄이 있는 소제목(목차에서 하위 항목). 카드 안의 <code>&lt;h3&gt;</code>은 작은 제목 그대로다.</li><li>목록 글머리와 링크는 파랑, 인라인 코드(백틱 하나)는 연한 상자, <code>**굵게**</code>는 본문색 그대로 굵게.</li><li>코드 블록은 흰 바탕 위의 어두운 상자. 줄 번호가 기본으로 켜져 있고(<code>lineNumbers: true</code>), 주석은 설명이라 밝은 초록으로 보인다. 글꼴은 JetBrains Mono.</li><li>슬라이드를 열면 제목을 뺀 본문 요소(문단·목록·표·코드·콜아웃·카드 …)가 위에서부터 차례로 아래에서 떠오른다. Grid 안의 칸도 같은 효과로 이어진다. 사이드바의 애니메이션 끄기(<kbd>a</kbd>)로 끈다.</li><li>표는 머리글이 굵은 파란 글씨에 연한 바탕. 첫 열(항목 이름)은 굵게, 줄바꿈 없이 한 줄로 보인다. 레이아웃은 Slidev 기본 레이아웃(<code>default</code>, <code>cover</code>, <code>center</code>, <code>section</code>, <code>image-right</code> …)을 그대로 쓴다. 여러 단으로 나눌 때는 <a href="#c-grid">Grid</a>를 쓴다.</li></ul>
 <pre><code class="language-md">## 변수란 — 값에 붙이는 이름표
 
 - 변수는 값을 담는 **이름표**다. `=` 로 값을 넣는다
@@ -121,7 +121,7 @@ TypeError: can only concatenate str (not "int") to str
 &lt;/Steps&gt;</code></pre>
 <h2 id="classes">클래스</h2>
 <p>아래 클래스는 lecture 스타일에서 쓴다. talk 스타일의 상자는 <a href="talk.html#components">컴포넌트</a>(Card·Kicker 등)로 만든다.</p>
-<table><thead><tr><th>클래스</th><th>뜻</th></tr></thead><tbody><tr><td><code>.card</code></td><td>흰 카드. <code>.py</code> <code>.ai</code> <code>.ok</code>를 함께 주면 윗선 색(파랑·주황·초록). 안에 <code>&lt;h3&gt;</code>와 <code>&lt;p&gt;</code></td></tr><tr><td><code>.kicker</code></td><td>작은 대문자 라벨(파랑). <code>.ai</code> 주황, <code>.lab</code> 초록</td></tr><tr><td><code>.muted</code></td><td>회색 글</td></tr><tr><td><code>.small</code></td><td>작은 글</td></tr><tr><td><code>.sub</code></td><td>표지의 부제(회색, 1.3rem)</td></tr></tbody></table>
+<table><thead><tr><th>클래스</th><th>뜻</th></tr></thead><tbody><tr><td><code>.card</code></td><td>흰 카드. <code>.py</code> <code>.ai</code> <code>.ok</code>를 함께 주면 윗선 색(파랑·주황·초록). 안에 <code>&lt;h3&gt;</code>와 <code>&lt;p&gt;</code></td></tr><tr><td><code>.kicker</code></td><td>작은 대문자 라벨(파랑). <code>.ai</code> 주황, <code>.lab</code> 초록</td></tr><tr><td><code>.muted</code></td><td>회색 글</td></tr><tr><td><code>.small</code></td><td>작은 글</td></tr><tr><td><code>.sub</code></td><td>표지의 부제. 알약 모양 배지로 보인다</td></tr></tbody></table>
 <pre><code class="language-md">### 더 알아보기 — 형 변환
 
 &lt;span class="kicker lab"&gt;정리&lt;/span&gt;

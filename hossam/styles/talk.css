@@ -172,7 +172,8 @@ html.talk ::selection { background: #ffffff; color: #0a0a0a; }
 .slidev-layout.talk td { color: var(--fg-2); }
 .slidev-layout.talk th, .slidev-layout.talk td { padding: 12px 10px; border-bottom: 1px solid var(--line); }
 .slidev-layout.talk tr:first-child th { border-top: 1px solid var(--line); }
-.slidev-layout.talk td:first-child { color: var(--fg); font-weight: 500; }
+.slidev-layout.talk td:first-child { color: var(--fg); font-weight: 600; }
+.slidev-layout.talk td:first-child, .slidev-layout.talk th:first-child { white-space: nowrap; } /* 첫 열(항목 이름)은 굵게, 한 줄로 */
 .slidev-layout.talk hr { border: 0; border-top: 1px solid var(--line); margin: 24px 0; }
 .slidev-layout.talk img { border-radius: 12px; }
 .slidev-layout.talk kbd { font-family: var(--mono); font-size: 12px; padding: 2px 6px; border-radius: 5px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line-2); }

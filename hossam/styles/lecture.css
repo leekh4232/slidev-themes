@@ -260,30 +260,203 @@ html.lecture, :where(html.lecture) .slidev-layout {
   padding: 0.4em 0.7em;
   border-bottom: 1px solid var(--line);
 }
+/* 첫 열(항목 이름)은 굵게, 줄바꿈 없이 — 긴 설명 열이 폭을 가져가도 항목 이름은 한 줄로 */
+:where(html.lecture) .slidev-layout td:first-child, :where(html.lecture) .slidev-layout th:first-child {
+  white-space: nowrap;
+  font-weight: 700;
+}
 
 /* 2단: 좌우 단 사이 간격 */
 :where(html.lecture) .slidev-layout.two-columns {
   column-gap: 2.4rem;
 }
 
-/* 표지: 내용을 세로 가운데로 모은다 (기본 grid 는 줄마다 높이를 나눠 위아래로 흩어진다) */
+/* ── 표지 ───────────────────────────────────────────────
+   세로 가운데 정렬 + 장식: 과목색(--py · --ai · --ok)으로 번지는 빛 세 덩이, 가운데로 모이는 점 무늬, 오른쪽 아래 원호.
+   제목은 그라디언트 글자, 부제는 알약 모양, 아래에는 세 색 막대. 등장 애니메이션은 html.no-anim · 동작 줄이기 설정에서 꺼진다. */
 :where(html.lecture) .slidev-layout.cover {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   text-align: center;
   display: flex !important;
   flex-direction: column;
   justify-content: center;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
 }
+:where(html.lecture) .slidev-layout.cover .cover-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+:where(html.lecture) .slidev-layout.cover .blob {
+  position: absolute;
+  width: 46rem;
+  height: 46rem;
+  border-radius: 50%;
+  opacity: 0.75;
+  animation: cover-drift 16s ease-in-out infinite alternate;
+}
+:where(html.lecture) .slidev-layout.cover .b1 {
+  left: -14rem; top: -18rem;
+  background: radial-gradient(circle at center, rgba(10, 127, 194, 0.34) 0%, rgba(10, 127, 194, 0.12) 38%, transparent 68%);
+}
+:where(html.lecture) .slidev-layout.cover .b2 {
+  right: -16rem; top: -10rem;
+  width: 42rem; height: 42rem;
+  background: radial-gradient(circle at center, rgba(217, 97, 31, 0.26) 0%, rgba(217, 97, 31, 0.1) 40%, transparent 68%);
+  animation-delay: -6s;
+  animation-duration: 19s;
+}
+:where(html.lecture) .slidev-layout.cover .b3 {
+  left: 18%; bottom: -26rem;
+  width: 50rem; height: 50rem;
+  background: radial-gradient(circle at center, rgba(31, 157, 99, 0.22) 0%, rgba(31, 157, 99, 0.08) 40%, transparent 68%);
+  animation-delay: -11s;
+  animation-duration: 22s;
+}
+:where(html.lecture.dark) .slidev-layout.cover .b1 { background: radial-gradient(circle at center, rgba(95, 201, 248, 0.34) 0%, rgba(95, 201, 248, 0.12) 38%, transparent 68%); }
+:where(html.lecture.dark) .slidev-layout.cover .b2 { background: radial-gradient(circle at center, rgba(255, 156, 102, 0.3) 0%, rgba(255, 156, 102, 0.1) 40%, transparent 68%); }
+:where(html.lecture.dark) .slidev-layout.cover .b3 { background: radial-gradient(circle at center, rgba(95, 227, 161, 0.26) 0%, rgba(95, 227, 161, 0.08) 40%, transparent 68%); }
+:where(html.lecture) .slidev-layout.cover .dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--line-2) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 20%, transparent 78%);
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 20%, transparent 78%);
+  opacity: 0.9;
+}
+:where(html.lecture) .slidev-layout.cover .ring {
+  position: absolute;
+  right: -16rem; bottom: -24rem;
+  width: 48rem; height: 48rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--line-2);
+  animation: cover-spin 90s linear infinite;
+}
+:where(html.lecture) .slidev-layout.cover .ring::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  border-top-color: var(--py);
+  border-right-color: var(--ai);
+  opacity: 0.55;
+}
+:where(html.lecture) .slidev-layout.cover .ring.r2 {
+  right: -10rem; bottom: -18rem;
+  width: 36rem; height: 36rem;
+  animation-direction: reverse;
+  animation-duration: 70s;
+}
+:where(html.lecture) .slidev-layout.cover .ring.r2::before { border-top-color: var(--ok); border-right-color: transparent; }
+
+/* 머리말(과목명) · 본문 · 아래 막대: 위아래 auto 여백으로 본문을 가운데에 둔다 */
+:where(html.lecture) .slidev-layout.cover .cover-eyebrow {
+  margin-bottom: auto;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--py);
+  min-height: 1.4rem;
+  animation: cover-fade 0.8s ease both;
+}
+:where(html.lecture) .slidev-layout.cover .cover-eyebrow:not(.is-empty)::before,
+:where(html.lecture) .slidev-layout.cover .cover-eyebrow:not(.is-empty)::after {
+  content: '';
+  width: 2.4rem;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--py));
+}
+:where(html.lecture) .slidev-layout.cover .cover-eyebrow:not(.is-empty)::after { background: linear-gradient(90deg, var(--py), transparent); }
+
+:where(html.lecture) .slidev-layout.cover .cover-body > * { animation: cover-rise 0.7s var(--ease) both; }
+:where(html.lecture) .slidev-layout.cover .cover-body > :nth-child(1) { animation-delay: 0.1s; }
+:where(html.lecture) .slidev-layout.cover .cover-body > :nth-child(2) { animation-delay: 0.3s; }
+:where(html.lecture) .slidev-layout.cover .cover-body > :nth-child(3) { animation-delay: 0.5s; }
+:where(html.lecture) .slidev-layout.cover .cover-body > :nth-child(n+4) { animation-delay: 0.65s; }
+
 :where(html.lecture) .slidev-layout.cover h1 {
-  font-size: 3.2rem !important;
+  font-size: 3.6rem !important;
+  font-weight: 900;
   line-height: 1.15 !important;
+  letter-spacing: -0.03em;
+  padding-bottom: 0.08em; /* 그라디언트 글자는 clip 되므로 받침 여유 */
+  background: linear-gradient(94deg, var(--heading) 0%, var(--heading) 28%, var(--py) 62%, var(--ai) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--heading); /* 지원하지 않는 환경 대비 */
 }
 :where(html.lecture) .slidev-layout.cover h1 + p {
-  opacity: 0.85 !important;
-  margin-top: 0.4rem !important;
+  opacity: 1 !important;
+  margin-top: 0.5rem !important;
+  font-size: 1.35rem;
+  color: var(--muted);
+  letter-spacing: -0.005em;
 }
 :where(html.lecture) .slidev-layout.cover .sub {
-  font-size: 1.3rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.6rem;
+  padding: 0.4em 1.2em;
+  border-radius: 999px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  box-shadow: 0 6px 20px rgba(11, 18, 32, 0.08);
+}
+:where(html.lecture) .slidev-layout.cover .sub::before {
+  content: '';
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--py), var(--ai));
+}
+:where(html.lecture) .slidev-layout.cover .cover-foot {
+  margin-top: auto;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+:where(html.lecture) .slidev-layout.cover .cover-foot .bar {
+  width: 7.5rem;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--py), var(--ai), var(--ok));
+  animation: cover-grow 0.9s 0.5s var(--ease) both;
+}
+:where(html.lecture) .slidev-layout.cover .cover-foot .txt {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
   color: var(--muted);
+  animation: cover-fade 0.8s 0.8s ease both;
+}
+
+@keyframes cover-rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes cover-fade { from { opacity: 0; } }
+@keyframes cover-grow { from { width: 0; } }
+@keyframes cover-drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(3rem, 2rem) scale(1.08); } }
+@keyframes cover-spin { to { transform: rotate(360deg); } }
+html.no-anim .slidev-layout.cover *, html.no-anim .slidev-layout.cover *::before { animation: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  :where(html.lecture) .slidev-layout.cover *, :where(html.lecture) .slidev-layout.cover *::before { animation: none !important; }
 }
 
 /* 진행바 색 */
@@ -303,6 +476,25 @@ html.lecture, :where(html.lecture) .slidev-layout {
 }
 :where(html.lecture) .slidev-layout .prompt .slidev-code code .line::before {
   display: none !important; /* 프롬프트 상자 안의 글에는 줄 번호를 붙이지 않는다 */
+}
+
+/* 본문 등장 애니메이션: 제목(h1·h2·h3)을 뺀 슬라이드의 직계 요소(문단·목록·표·코드·콜아웃·카드 …)가 아래에서 위로 조금씩 시간차를 두고 떠오른다.
+   Grid(.stagger-box)는 칸마다 같은 효과를 이미 갖고 있어 제외. fill-mode 를 backwards 로 두어 끝난 뒤에는 v-click 의 opacity 를 건드리지 않는다. 표지는 자체 효과를 쓴다. */
+:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box) {
+  animation: lecture-rise 0.42s var(--ease) backwards;
+}
+:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(1) { animation-delay: 60ms; }
+:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(2) { animation-delay: 120ms; }
+:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(3) { animation-delay: 200ms; }
+:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(4) { animation-delay: 280ms; }
+:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(5) { animation-delay: 360ms; }
+:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(6) { animation-delay: 440ms; }
+:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(7) { animation-delay: 520ms; }
+:where(html.lecture) .slidev-layout:not(.cover) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(n+8) { animation-delay: 600ms; }
+@keyframes lecture-rise { from { opacity: 0; transform: translateY(14px); } }
+html.no-anim .slidev-layout > * { animation: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  :where(html.lecture) .slidev-layout > * { animation: none !important; }
 }
 
 /* 애니메이션 끔 (global-top.vue 가 html.no-anim 을 토글): 클릭 단계 요소를 전부 보이고 전환·강조 효과를 끈다 */
