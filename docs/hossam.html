@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>hossam 테마 · Slidev Themes</title>
-<meta name="description" content="강의·발표용 Slidev 테마 hossam: lecture·talk 두 스타일, 목차 사이드바, 콜아웃·프롬프트·출력, 예제 코드">
+<meta name="description" content="코딩 강의용 Slidev 테마 hossam: 목차 사이드바, 콜아웃·프롬프트·출력, 예제 코드">
 <meta name="color-scheme" content="light">
 <meta property="og:title" content="hossam 테마 · Slidev Themes">
-<meta property="og:description" content="강의·발표용 Slidev 테마 hossam: lecture·talk 두 스타일, 목차 사이드바, 콜아웃·프롬프트·출력, 예제 코드">
+<meta property="og:description" content="코딩 강의용 Slidev 테마 hossam: 목차 사이드바, 콜아웃·프롬프트·출력, 예제 코드">
 <meta property="og:image" content="https://slidev-themes.hossam.kr/img/lecture-cover.jpg">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="manual.css">
@@ -18,7 +18,7 @@
   "@context": "https://schema.org",
   "@type": "TechArticle",
   "headline": "hossam 테마 매뉴얼",
-  "description": "공통 설정, 목차 사이드바와 단축키, 글쓰기 규칙, lecture 스타일 컴포넌트, 클래스, 전체 예제.",
+  "description": "설정, 목차 사이드바와 단축키, 글쓰기 규칙, 컴포넌트, 클래스, 전체 예제.",
   "url": "https://slidev-themes.hossam.kr/hossam.html",
   "inLanguage": "ko",
   "author": {
@@ -40,18 +40,17 @@
 </script>
 </head>
 <body>
-<aside class="sidebar"><a class="brand" href="index.html">Slidev Themes</a><nav class="pages" aria-label="문서"><a href="hossam.html" class="current">hossam</a><a href="talk.html">talk 스타일</a><a href="https://github.com/leekh4232/slidev-themes">GitHub</a></nav><nav class="toc" aria-label="이 페이지의 목차"><a href="#start">시작하기</a><a href="#sidebar">사이드바와 조작</a><a href="#writing">글쓰기</a><a href="#components">컴포넌트</a><a href="#classes">클래스</a><a href="#example">전체 예제</a></nav></aside>
+<aside class="sidebar"><a class="brand" href="index.html">Slidev Themes</a><nav class="pages" aria-label="문서"><a href="hossam.html" class="current">hossam</a><a href="https://github.com/leekh4232/slidev-themes">GitHub</a></nav><nav class="toc" aria-label="이 페이지의 목차"><a href="#start">시작하기</a><a href="#sidebar">사이드바와 조작</a><a href="#writing">글쓰기</a><a href="#components">컴포넌트</a><a href="#classes">클래스</a><a href="#example">전체 예제</a></nav></aside>
 <main>
-<div class="hero"><h1>hossam 테마 <span class="badge">강의 · 발표</span></h1><p>스타일 두 가지를 헤더에서 고른다. <b>lecture</b>는 코딩 강의용 흰 바탕으로, 왼쪽 목차 사이드바와 콜아웃·프롬프트·출력 상자가 있다. <b>talk</b>는 특강·발표용 검정 바탕으로, 메시 그라디언트 표지와 카드·스탯·차트 컴포넌트가 있다. 이 페이지는 공통 설정과 lecture 스타일을, <a href="talk.html">talk 스타일 페이지</a>는 발표용 레이아웃과 컴포넌트를 다룬다.</p></div>
+<div class="hero"><h1>hossam 테마 <span class="badge">강의</span></h1><p>코딩 강의용 흰 바탕 테마. 왼쪽 목차 사이드바와 콜아웃·프롬프트·출력 상자가 있다.</p></div>
 <figure><img src="img/lecture-cover.jpg" alt="표지와 왼쪽 사이드바. 색이 번지는 배경 위에 그라디언트 제목과 알약 모양 부제, 사이드바 위에는 과정 이름과 단원, 아래에는 쪽 번호와 조작 버튼" loading="lazy"><figcaption>표지와 왼쪽 사이드바. 색이 번지는 배경 위에 그라디언트 제목과 알약 모양 부제, 사이드바 위에는 과정 이름과 단원, 아래에는 쪽 번호와 조작 버튼</figcaption></figure>
 <h2 id="start">시작하기</h2>
 <p>저장소를 받은 뒤(<code>git clone https://github.com/leekh4232/slidev-themes.git</code>) 프런트매터에 테마 폴더 경로(<code>theme: ./slidev-themes/hossam</code>처럼 md 파일 기준)를 적는다. 첫 슬라이드의 프런트매터(헤드매터)에서 아래 두 옵션으로 덱 전체 모양을 정한다.</p>
-<table><thead><tr><th>옵션</th><th>값</th><th>기본</th></tr></thead><tbody><tr><td><code>style</code></td><td><code>lecture</code>(흰 바탕 강의용) · <code>talk</code>(검정 바탕 발표용, <a href="talk.html">talk 스타일</a>)</td><td><code>lecture</code></td></tr><tr><td><code>sidebar</code></td><td><code>true</code>면 왼쪽 목차 사이드바, <code>false</code>면 사이드바 없이 화면 비율에 맞춘 슬라이드</td><td>lecture는 <code>true</code>, talk는 <code>false</code></td></tr></tbody></table>
-<p>컴포넌트는 두 스타일 어디서나 쓴다. 이 페이지의 Callout·Prompt·Output·Steps·Grid도, talk 페이지의 Card·Stat·차트 컴포넌트도 스타일에 맞는 색으로 보인다. <code>title</code>은 <code> · </code>(가운뎃점 양옆 공백)를 기준으로 앞은 과정 이름, 뒤는 단원 이름으로 사이드바에 올라간다. 첫 슬라이드는 <code>layout: cover</code>로 쓴다. 표지는 세 과목색(파랑·주황·초록)이 천천히 번지는 배경 위에 그라디언트 제목, 알약 모양 부제(<code>.sub</code>), 아래 세 색 막대가 놓이고, <code>title</code>의 <code> · </code> 앞부분(과정 이름)이 위쪽 머리말로 자동으로 올라간다. 프런트매터 <code>eyebrow</code>로 머리말을 바꾸고, <code>footer</code>로 막대 아래 작은 글을 둘 수 있다. 등장 애니메이션은 사이드바의 애니메이션 끄기와 운영체제의 동작 줄이기 설정을 따라 꺼진다.</p>
+<table><thead><tr><th>옵션</th><th>값</th><th>기본</th></tr></thead><tbody><tr><td><code>sidebar</code></td><td><code>true</code>면 왼쪽 목차 사이드바, <code>false</code>면 사이드바 없이 화면 비율에 맞춘 슬라이드</td><td><code>true</code></td></tr></tbody></table>
+<p><code>title</code>은 <code> · </code>(가운뎃점 양옆 공백)를 기준으로 앞은 과정 이름, 뒤는 단원 이름으로 사이드바에 올라간다. 첫 슬라이드는 <code>layout: cover</code>로 쓴다. 표지는 세 과목색(파랑·주황·초록)이 천천히 번지는 배경 위에 그라디언트 제목, 알약 모양 부제(<code>.sub</code>), 아래 세 색 막대가 놓이고, <code>title</code>의 <code> · </code> 앞부분(과정 이름)이 위쪽 머리말로 자동으로 올라간다. 프런트매터 <code>eyebrow</code>로 머리말을 바꾸고, <code>footer</code>로 막대 아래 작은 글을 둘 수 있다. 등장 애니메이션은 사이드바의 애니메이션 끄기와 운영체제의 동작 줄이기 설정을 따라 꺼진다.</p>
 <pre><code class="language-md">---
 theme: ./slidev-themes/hossam
-style: lecture        # 생략 가능 (기본값)
-sidebar: true         # 생략 가능 (lecture 기본값)
+sidebar: true         # 생략 가능 (기본값)
 title: 파이썬 기초 · 3. 변수와 자료형
 layout: cover
 ---
@@ -62,9 +61,9 @@ layout: cover
 
 &lt;p class="sub"&gt;파이썬 기초 과정 · 3강&lt;/p&gt;</code></pre>
 <h2 id="sidebar">사이드바와 조작</h2>
-<p>헤더의 <code>sidebar</code>가 켜져 있을 때 보인다(lecture 기본, talk는 <code>sidebar: true</code>로 켠다). 목차는 슬라이드마다 <b>첫 제목</b>을 모아 만든다. 표지(1쪽)와 프런트매터에 <code>hideInToc: true</code>를 적은 슬라이드(종료 페이지 등)는 목록에 넣지 않고, 사이드바 맨 위의 과정·단원 이름을 클릭하면 표지로 간다. 제목에서 <code> — </code> 뒤의 부제와 맨 앞 이모지는 목차에서 뗀다. 항목은 한 줄로 보이고, 넘치면 말줄임(…)으로 줄인다. 마우스를 올리면 전체 제목이 보인다. 항목을 클릭하면 그 쪽으로 이동한다.</p>
+<p>헤더의 <code>sidebar</code>가 켜져 있을 때 보인다(기본은 켬). 목차는 슬라이드마다 <b>첫 제목</b>을 모아 만든다. 표지(1쪽)와 프런트매터에 <code>hideInToc: true</code>를 적은 슬라이드(종료 페이지 등)는 목록에 넣지 않고, 사이드바 맨 위의 과정·단원 이름을 클릭하면 표지로 간다. 제목에서 <code> — </code> 뒤의 부제와 맨 앞 이모지는 목차에서 뗀다. 항목은 한 줄로 보이고, 넘치면 말줄임(…)으로 줄인다. 마우스를 올리면 전체 제목이 보인다. 항목을 클릭하면 그 쪽으로 이동한다.</p>
 <p><code>###</code> 제목으로 시작하는 슬라이드는 바로 위 <code>##</code> 항목 아래로 묶여 접힌다. 묶음이 있는 항목 오른쪽의 ▸를 누르면 펼쳐지고, 한 번에 한 묶음만 열린다. 슬라이드를 넘기면 그 슬라이드가 든 묶음이 저절로 열리고, 목차는 현재 항목이 가운데 오도록 스크롤된다.</p>
-<table><thead><tr><th>키</th><th>동작</th></tr></thead><tbody><tr><td><kbd>→</kbd> <kbd>←</kbd> <kbd>Space</kbd></td><td>다음·이전. 슬라이드가 창보다 길면 먼저 스크롤하고, 끝에 닿으면 넘어간다</td></tr><tr><td><kbd>s</kbd></td><td>사이드바 접기·펼치기(◀ / ☰ 버튼). 오른쪽 가장자리를 끌면 폭 조절, 더블클릭이면 기본 폭</td></tr><tr><td><kbd>a</kbd></td><td>애니메이션 켬·끔. 끄면 클릭 단계(<code>v-click</code>)가 전부 보이고 화살표가 슬라이드 단위로 움직인다</td></tr><tr><td><kbd>d</kbd></td><td>밝은·어두운 테마 전환(🌙 / ☀️ 버튼). lecture 스타일에서만</td></tr><tr><td><kbd>w</kbd></td><td>본문 폭 전환(사이드바의 <b>고정</b> / <b>100%</b> 버튼). 기본은 100%(창 전체 폭), 고정은 최대 1920px로 가운데</td></tr><tr><td><kbd>+</kbd> <kbd>-</kbd> <kbd>0</kbd></td><td>본문 확대·축소·원래 크기. 사이드바는 그대로</td></tr></tbody></table>
+<table><thead><tr><th>키</th><th>동작</th></tr></thead><tbody><tr><td><kbd>→</kbd> <kbd>←</kbd> <kbd>Space</kbd></td><td>다음·이전. 슬라이드가 창보다 길면 먼저 스크롤하고, 끝에 닿으면 넘어간다</td></tr><tr><td><kbd>s</kbd></td><td>사이드바 접기·펼치기(◀ / ☰ 버튼). 오른쪽 가장자리를 끌면 폭 조절, 더블클릭이면 기본 폭</td></tr><tr><td><kbd>a</kbd></td><td>애니메이션 켬·끔. 끄면 클릭 단계(<code>v-click</code>)가 전부 보이고 화살표가 슬라이드 단위로 움직인다</td></tr><tr><td><kbd>d</kbd></td><td>밝은·어두운 테마 전환(🌙 / ☀️ 버튼)</td></tr><tr><td><kbd>w</kbd></td><td>본문 폭 전환(사이드바의 <b>고정</b> / <b>100%</b> 버튼). 기본은 100%(창 전체 폭), 고정은 최대 1920px로 가운데</td></tr><tr><td><kbd>+</kbd> <kbd>-</kbd> <kbd>0</kbd></td><td>본문 확대·축소·원래 크기. 사이드바는 그대로</td></tr></tbody></table>
 <p>사이드바 폭·접힘·애니메이션·테마·본문 폭·배율은 브라우저에 기억된다. 발표 화면에서는 글자 크기를 고정하고 창 폭에 맞춰 줄바꿈하는 "웹페이지식" 배치라, 내용이 길면 슬라이드 안에서 스크롤한다. 발표자 모드·개요·인쇄 화면은 Slidev 기본 배치다.</p>
 <div class="two"><figure><img src="img/lecture-collapsed.jpg" alt="사이드바를 접으면 왼쪽 위에 작은 버튼만 남는다" loading="lazy"><figcaption>사이드바를 접으면 왼쪽 위에 작은 버튼만 남는다</figcaption></figure>
 <figure><img src="img/lecture-dark.jpg" alt="어두운 테마(d)" loading="lazy"><figcaption>어두운 테마(d)</figcaption></figure>
@@ -83,7 +82,7 @@ print(name, age)
 <figure><img src="img/lecture-code-callout.jpg" alt="제목 · 목록 · 코드 블록 · Callout" loading="lazy"><figcaption>제목 · 목록 · 코드 블록 · Callout</figcaption></figure>
 <h2 id="components">컴포넌트</h2>
 <h3 id="c-grid">Grid — 격자 배치</h3>
-<p>슬라이드 안의 원하는 곳을 여러 단으로 나눈다. talk 스타일에서도 같은 프롭으로 쓴다(기본 간격만 talk 20px). 제목은 Grid 위에 두면 전체 폭으로 보인다. 칸 안에 마크다운(코드 블록·목록)을 쓰려면 칸마다 <code>&lt;div&gt;</code>로 감싸고, 여는 태그와 닫는 태그를 빈 줄로 띄운다.</p>
+<p>슬라이드 안의 원하는 곳을 여러 단으로 나눈다. 제목은 Grid 위에 두면 전체 폭으로 보인다. 칸 안에 마크다운(코드 블록·목록)을 쓰려면 칸마다 <code>&lt;div&gt;</code>로 감싸고, 여는 태그와 닫는 태그를 빈 줄로 띄운다.</p>
 <table><thead><tr><th>프롭</th><th>뜻</th><th>기본</th></tr></thead><tbody><tr><td><code>cols</code></td><td>열 수(<code>2</code>, <code>3</code>) 또는 <code>grid-template-columns</code> 값(<code>"1fr 400px"</code>)</td><td>2</td></tr><tr><td><code>gap</code></td><td>칸 사이 px</td><td>32</td></tr><tr><td><code>align</code></td><td><code>align-items</code> 값(예: <code>start</code>)</td><td>-</td></tr><tr><td><code>title</code></td><td>격자 위에 붙는 작은 제목</td><td>-</td></tr></tbody></table>
 <pre><code class="language-md">## 실습 — 자기소개 출력
 
@@ -146,7 +145,6 @@ TypeError: can only concatenate str (not "int") to str
 &lt;li&gt;&lt;code&gt;print()&lt;/code&gt; 로 출력한다&lt;/li&gt;
 &lt;/Steps&gt;</code></pre>
 <h2 id="classes">클래스</h2>
-<p>아래 클래스는 lecture 스타일에서 쓴다. talk 스타일의 상자는 <a href="talk.html#components">컴포넌트</a>(Card·Kicker 등)로 만든다.</p>
 <table><thead><tr><th>클래스</th><th>뜻</th></tr></thead><tbody><tr><td><code>.card</code></td><td>흰 카드. <code>.py</code> <code>.ai</code> <code>.ok</code>를 함께 주면 윗선 색(파랑·주황·초록). 안에 <code>&lt;h3&gt;</code>와 <code>&lt;p&gt;</code></td></tr><tr><td><code>.kicker</code></td><td>작은 대문자 라벨(파랑). <code>.ai</code> 주황, <code>.lab</code> 초록</td></tr><tr><td><code>.muted</code></td><td>회색 글</td></tr><tr><td><code>.small</code></td><td>작은 글</td></tr><tr><td><code>.sub</code></td><td>표지의 부제. 알약 모양 배지로 보인다</td></tr></tbody></table>
 <pre><code class="language-md">### 더 알아보기 — 형 변환
 
@@ -160,7 +158,7 @@ TypeError: can only concatenate str (not "int") to str
 - &lt;span class="muted"&gt;다음 시간: 조건문&lt;/span&gt;</code></pre>
 <figure><img src="img/lecture-sub-card.jpg" alt="`###` 슬라이드(목차에서 들여쓰기) · kicker lab · card py" loading="lazy"><figcaption><code>###</code> 슬라이드(목차에서 들여쓰기) · kicker lab · card py</figcaption></figure>
 <h2 id="example">전체 예제</h2>
-<p><a href="examples/lecture-example.md">lecture-example.md</a> — 위 코드가 전부 들어 있는 6장짜리 lecture 덱. talk 스타일 예제는 <a href="examples/talk-example.md">talk-example.md</a>. 저장소 안에서 우클릭 → Open with Slidev.</p>
+<p><a href="examples/lecture-example.md">lecture-example.md</a> — 위 코드가 전부 들어 있는 예제 덱. 저장소 안에서 우클릭 → Open with Slidev.</p>
 </main>
 <footer>Slidev Themes · MIT · <a href="https://github.com/leekh4232/slidev-themes">GitHub</a> · VS Code에서 바로 쓰려면 <a href="https://open-with-slidev.hossam.kr/">Open with Slidev</a></footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" data-manual></script>

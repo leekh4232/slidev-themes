@@ -1,6 +1,6 @@
 /* @slidev/theme-default 0.25.0 의 styles/layouts.css 사본 (MIT).
    패키지에서 가져오면 테마 폴더를 경로(theme: ./hossam)로 열 때 찾지 못해 스타일 전체가 빠지므로 테마 안에 둔다.
-   lecture 스타일에만 적용한다 (talk 는 자체 레이아웃 규칙을 쓴다). */
+   html.lecture 아래에만 적용한다. */
 :where(html.lecture) .slidev-layout {
   h1 + p {
     @apply -mt-2 opacity-50 mb-4;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// 격자 배치. cols: 열 수(2, 3) 또는 grid-template-columns 값("1fr 400px"), gap: px(기본 talk 20 · lecture 32), align: start 등, title: 위에 붙는 작은 제목.
+// 격자 배치. cols: 열 수(2, 3) 또는 grid-template-columns 값("1fr 400px"), gap: px(기본 32), align: start 등, title: 위에 붙는 작은 제목.
 // 칸 안에 마크다운(코드 블록·목록)을 넣으려면 칸마다 <div> 로 감싸고 위아래에 빈 줄을 둔다.
 const props = withDefaults(defineProps<{ cols?: number | string; gap?: number | string; align?: string; title?: string }>(), { cols: 2 })
 const columns = /^\d+$/.test(String(props.cols)) ? `repeat(${props.cols}, minmax(0, 1fr))` : String(props.cols)

@@ -1,6 +1,6 @@
 # Slidev Themes · hossam
 
-> 강의 · 발표용 Slidev 테마 `hossam`. 덱 헤더의 `style: lecture | talk`로 흰 바탕 코딩 강의용과 검정 바탕 발표용을 고르고, `sidebar: true | false`로 왼쪽 목차 사이드바를 켜고 끈다. (A Slidev theme for coding lectures and talks, used by path from a cloned repository rather than from npm.)
+> 코딩 강의용 흰 바탕 Slidev 테마 `hossam`. 덱 헤더의 `sidebar: true | false`로 왼쪽 목차 사이드바를 켜고 끈다. (A Slidev theme for coding lectures, used by path from a cloned repository rather than from npm.)
 
 - npm 패키지가 아니다. 저장소를 받아 md 프런트매터에 테마 폴더 경로를 적는다(md 파일 위치 기준).
 
@@ -11,27 +11,23 @@ git clone https://github.com/leekh4232/slidev-themes.git
 ```md
 ---
 theme: ./slidev-themes/hossam
-style: talk          # 생략하면 lecture
-sidebar: true        # 생략하면 lecture는 켬, talk는 끔
+sidebar: true        # 생략하면 켬
 title: 과정 이름 · 단원 이름
 ---
 ```
 
 - 실행: VS Code에서 md 우클릭 → Open with Slidev, 또는 `npx slidev slides.md`. 새 버전은 `git pull`.
-- lecture: 흰 바탕, 목차 사이드바(폭 조절 · 접기 · 본문 폭 · 확대/축소 · 다크), Callout · Prompt · Output · Steps · Grid 컴포넌트.
-- talk: 검정 바탕, 메시 그라디언트 표지, 파트별 색, Card · Stat · 차트 컴포넌트.
-- 컴포넌트는 두 스타일 어디서나 쓴다. 프롭은 각 `.vue` 파일 머리 주석과 매뉴얼에 있다.
+- 흰 바탕, 목차 사이드바(폭 조절 · 접기 · 본문 폭 · 확대/축소 · 다크), Callout · Prompt · Output · Steps · Grid 컴포넌트.
+- 컴포넌트 프롭은 각 `.vue` 파일 머리 주석과 매뉴얼에 있다.
 
 ## Docs
 
-- [hossam 매뉴얼](https://slidev-themes.hossam.kr/hossam.html): 공통 설정, 사이드바와 단축키, 글쓰기 규칙, lecture 컴포넌트, 클래스, 전체 예제
-- [talk 스타일 매뉴얼](https://slidev-themes.hossam.kr/talk.html): 발표용 레이아웃 3종, 컴포넌트, 주의할 점, 전체 예제
+- [hossam 매뉴얼](https://slidev-themes.hossam.kr/hossam.html): 설정, 사이드바와 단축키, 글쓰기 규칙, 컴포넌트, 클래스, 전체 예제
 - [README](https://raw.githubusercontent.com/leekh4232/slidev-themes/main/README.md): 쓰는 법, 폴더 구조
 
 ## Examples
 
-- [lecture-example.md](https://slidev-themes.hossam.kr/examples/lecture-example.md): lecture 스타일 예제 덱(파이썬 기초 3강)
-- [talk-example.md](https://slidev-themes.hossam.kr/examples/talk-example.md): talk 스타일 예제 덱(분기 개발 생산성 리뷰, 가상 수치). 레이아웃과 컴포넌트를 모두 쓴다
+- [lecture-example.md](https://slidev-themes.hossam.kr/examples/lecture-example.md): 예제 덱(파이썬 기초 3강)
 
 ## Optional
 

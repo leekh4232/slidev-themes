@@ -2,7 +2,7 @@
   "name": "slidev-theme-hossam",
   "version": "1.0.0",
   "private": true,
-  "description": "강의·발표용 Slidev 테마. style: lecture(흰 바탕 강의용) · talk(검정 바탕 발표용), sidebar: true/false(왼쪽 목차 사이드바). 콜아웃·프롬프트·출력·카드·스탯·차트 컴포넌트.",
+  "description": "코딩 강의용 흰 바탕 Slidev 테마. sidebar: true/false(왼쪽 목차 사이드바). 콜아웃·프롬프트·출력·단계·격자 컴포넌트.",
   "keywords": [
     "slidev-theme",
     "slidev"

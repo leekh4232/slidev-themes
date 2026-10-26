@@ -1,83 +1,30 @@
-/* 두 스타일 공통: 사이드바 기본값, 그리고 컴포넌트가 어느 스타일에서도 보이도록 상대 스타일의 토큰을 채운다.
-   (Callout·Prompt·Output·Steps·사이드바는 lecture 토큰을, Card·Stat·차트 컴포넌트는 talk 토큰을 쓴다.) */
+/* 사이드바 기본값과 컴포넌트 공통 토큰 */
 
 :root {
   --sidebar-w: 0px; /* 사이드바가 켜지면 global-top.vue 가 실제 폭으로 바꾼다 */
   --base-zoom: 1;
 }
 
-/* lecture 의 글자 크기는 rem 기준. 사이드바 화면(html.fluid)은 lecture.css 가 정하고, 사이드바를 끈 비율 축소 화면은 1rem = 20px */
+/* 글자 크기는 rem 기준. 사이드바 화면(html.fluid)은 lecture.css 가 정하고, 사이드바를 끈 비율 축소 화면은 1rem = 20px */
 html.lecture:not(.fluid) {
   font-size: 20px;
 }
 
-/* lecture 에서 쓰는 talk 컴포넌트 색 (흰 바탕) */
+/* 컴포넌트 공통 색 (흰 바탕 · 어두운 바탕) */
 html.lecture {
   --card: #ffffff;
-  --card-2: #f3f6fb;
   --fg: #16213a;
   --fg-2: #4a5874;
-  --fg-3: #6b7890;
-  --fg-4: #8a96ab;
   --line-2: rgba(10, 20, 40, 0.16);
-  --c1: #0a7fc2;
-  --c2: #d9611f;
-  --c-mute: #c9d3e3;
-  --g1: #0a7fc2;
-  --g2: #00a3a3;
-  --sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  --sh: 0 4px 14px rgba(11, 18, 32, 0.06), inset 0 0 0 1px rgba(10, 20, 40, 0.1);
-  --sh-lo: 0 2px 6px rgba(11, 18, 32, 0.05), inset 0 0 0 1px rgba(10, 20, 40, 0.1);
   --ease: cubic-bezier(0.22, 0.7, 0.3, 1);
   --grid-gap: 32px;
+  --sh: 0 4px 14px rgba(11, 18, 32, 0.06), inset 0 0 0 1px rgba(10, 20, 40, 0.1);
 }
 html.lecture.dark {
   --card: #16213a;
-  --card-2: #121a2e;
   --fg: #e8eef8;
   --fg-2: #a9b6cc;
-  --fg-3: #8593ab;
-  --fg-4: #66748c;
   --line-2: rgba(255, 255, 255, 0.14);
-  --c1: #5fc9f8;
-  --c2: #ff9c66;
-  --c-mute: #2a3550;
-  --g1: #5fc9f8;
-  --g2: #5fe3a1;
   --sh: 0 1px 1px rgba(0, 0, 0, 0.3), 0 8px 16px -8px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-  --sh-lo: 0 1px 1px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.07);
-}
-
-/* talk 에서 쓰는 lecture 컴포넌트·사이드바 색 (검정 바탕). --bg · --line 은 talk.css 의 값을 쓴다 */
-html.talk {
-  --surface: #121212;
-  --surface-2: #1c1c1c;
-  --text: #ffffff;
-  --muted: #a1a1a1;
-  --py: #3291ff;
-  --py-soft: rgba(50, 145, 255, 0.14);
-  --yellow: #ffd45f;
-  --yellow-soft: rgba(255, 212, 95, 0.12);
-  --ai: #ff9c66;
-  --ai-soft: rgba(255, 156, 102, 0.14);
-  --ok: #5fe3a1;
-  --ok-soft: rgba(95, 227, 161, 0.14);
-  --warn: #ffcf5c;
-  --danger: #ff6b7a;
-  --danger-soft: rgba(255, 107, 122, 0.14);
-  --code-bg: #171717;
-  --heading: #ffffff;
-  --card-bg: #171717;
-  --title-line: rgba(255, 255, 255, 0.5);
-}
-
-/* talk + 사이드바: 본문을 사이드바 오른쪽으로 밀고, 사이드바의 확대/축소를 따른다 */
-html.talk .slidev-layout.talk {
-  padding-left: calc(var(--sidebar-w) / var(--zoom, 1) + 72px);
-  zoom: var(--zoom, 1);
-}
-/* talk 의 코드 블록에는 줄 번호를 붙이지 않는다 (테마 기본값 lineNumbers: true 는 강의용) */
-html.talk .slidev-code-line-numbers .slidev-code code .line::before {
-  display: none !important;
 }
