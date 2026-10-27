@@ -489,6 +489,16 @@ html.no-anim .slidev-layout.cover *, html.no-anim .slidev-layout.cover *::before
   :where(html.lecture) .slidev-layout.cover *, :where(html.lecture) .slidev-layout.cover *::before { animation: none !important; }
 }
 
+/* 표지 제목은 background-clip:text 그라디언트 글자인데, 일부 Chromium 은 PDF·PNG(slidev export) 렌더에서 글자 모양으로 잘리지 않고 요소 상자에 통째로 칠해(검은 박스) 글자를 가린다.
+   export 는 /export 라우트를 화면 미디어로 찍어 @media print 가 먹지 않으므로(사이드바도 isExport 로 숨긴다), export 전용 래퍼 .print-slide-container 로 스코프해 그라디언트를 끄고 단색 글자로 되돌린다. 라이브 화면·HTML 빌드(.print-slide-container 없음)는 그대로 그라디언트. */
+:where(html.lecture) .print-slide-container .slidev-layout.cover h1 {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: var(--heading);
+  color: var(--heading);
+}
+
 /* 진행바 색 */
 :where(html.lecture) .slidev-progress-bar {
   background: linear-gradient(90deg, var(--py), var(--ai)) !important;
