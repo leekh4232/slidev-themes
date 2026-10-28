@@ -225,11 +225,11 @@ html.lecture, :where(html.lecture) .slidev-layout {
   opacity: 0.55 !important;
 }
 
-/* 라벨 (kicker) */
+/* 라벨 (kicker) — 본문(1rem)보다 조금 크게 */
 :where(html.lecture) .kicker:where(:not(.acc)) {
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--py);
 }
@@ -824,9 +824,13 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
   color: var(--heading);
 }
 
-/* PDF·PNG 내보내기(/export, .print-slide-container 래퍼): Chromium 의 PDF 렌더는 상자 그림자를 회색 띠로 찍는다 → 내보내기에서는 그림자를 모두 끈다(테두리는 그대로) */
+/* PDF·PNG 내보내기(/export, .print-slide-container 래퍼):
+   - Chromium 의 PDF 렌더는 상자 그림자를 회색 띠로 찍는다 → 그림자를 모두 끈다(테두리는 그대로)
+   - 등장 애니메이션(불투명도 0 에서 시작)·전환이 캡처 시점에 끝나지 않으면 요소가 흐리거나 빠진 채 찍힌다 → 모두 끈다(최종 상태로 바로 그려진다) */
 :where(html.lecture) .print-slide-container *, :where(html.lecture) .print-slide-container *::before, :where(html.lecture) .print-slide-container *::after {
   box-shadow: none !important;
+  animation: none !important;
+  transition: none !important;
 }
 
 /* 진행바 색 */

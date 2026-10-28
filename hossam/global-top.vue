@@ -10,7 +10,7 @@ import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useDarkMode, useNav, useSlideContext } from '@slidev/client'
 import { useDeckOptions } from './deck'
 
-const { sidebar } = useDeckOptions()
+const { sidebar, exportDark } = useDeckOptions()
 
 const { currentPage, total, slides, go, nextSlide, prevSlide, clicks, clicksTotal } = useNav()
 // ---- 밝음/어두움 테마 (Slidev 내장 다크 모드를 그대로 쓴다: d 키와 같은 동작, 브라우저에 기억됨) ----
@@ -64,6 +64,9 @@ const unit = computed(() => deckTitle.value.split(' · ').slice(1).join(' · '))
 // ---- 사이드바는 메인 발표 화면에서만 그린다. 발표자 모드·개요·PDF·PNG 내보내기(/export)·인쇄(/print)에는 없고 슬라이드가 창 전체를 쓴다 ----
 const isPlay = typeof location !== 'undefined' && !/^\/(presenter|overview|print|export|notes|entry)/.test(location.pathname)
 const showSidebar = computed(() => sidebar.value && isPlay)
+// PDF·PNG 내보내기(/export, /print)는 발표 화면과 같이 어두운 테마로 찍는다(덱 헤더 exportDark: false 면 밝게). 내보내기 브라우저는 저장값이 없다
+const isExport = typeof location !== 'undefined' && /^\/(print|export)/.test(location.pathname)
+if (isExport && exportDark.value) isDark.value = true
 
 // ---- 폭·접힘 상태 ----
 const MIN_W = 180, MAX_W = 520, DEFAULT_W = 260
