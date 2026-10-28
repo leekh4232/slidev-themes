@@ -12,7 +12,7 @@ async function copy() {
 
 <template>
   <div class="prompt">
-    <div class="prompt-head">📋 오늘의 프롬프트 (Claude에 붙여넣기)</div>
+    <div class="prompt-head">📋 오늘의 프롬프트 (AI에게 지시하기)</div>
     <button class="copy" @click="copy">{{ done ? '복사됨 ✓' : '복사' }}</button>
     <div ref="box" class="prompt-body"><slot /></div>
   </div>

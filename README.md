@@ -10,7 +10,7 @@
 
 [Slidev](https://sli.dev) 테마 `hossam`을 담은 저장소입니다. 저장소를 받아 테마 폴더를 경로로 지정해 씁니다. VS Code에서는 [Open with Slidev](https://marketplace.visualstudio.com/items?itemName=leekh.open-with-slidev)로 바로 열 수 있습니다.
 
-`hossam`은 코딩 강의용 흰 바탕 테마입니다. 목차 사이드바(폭 조절 · 접기 · 본문 폭 · 확대/축소 · 다크), 표지 · 간지 · 카드형 · 웹진형 · 인포그래픽 레이아웃, 콜아웃 · 프롬프트 · 출력 · 흐름도 · 큰 숫자 컴포넌트가 있고, 덱 헤더(첫 슬라이드 프런트매터)의 `sidebar`로 사이드바를 켜고 끕니다. 자세한 내용은 [hossam 사용법](https://slidev-themes.hossam.kr/hossam.html)에 있습니다.
+`hossam`은 코딩 강의용 흰 바탕 테마입니다. 목차 사이드바(폭 조절 · 접기 · 본문 폭 · 확대/축소 · 다크), 표지 · 간지 · 카드형 · 웹진형 · 인포그래픽 레이아웃, 콜아웃 · 프롬프트 · 출력 · 흐름도 · 큰 숫자 컴포넌트가 있고, 모든 슬라이드 오른쪽 아래에 쪽 번호(현재/전체)가 붙고, 덱 헤더(첫 슬라이드 프런트매터)의 `sidebar`로 사이드바를 켜고 끕니다. 자세한 내용은 [hossam 사용법](https://slidev-themes.hossam.kr/hossam.html)에 있습니다.
 
 ![hossam 표지와 목차 사이드바](docs/img/lecture-cover.jpg)
 

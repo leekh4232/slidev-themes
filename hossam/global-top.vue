@@ -4,7 +4,7 @@
 //  - 오른쪽 가장자리를 드래그해 폭 조절(더블클릭 = 기본 폭), ◀/☰ 버튼 또는 s 키로 접기/펼치기
 //  - 폭과 접힘 상태는 브라우저에 기억된다
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
-import { useDarkMode, useNav } from '@slidev/client'
+import { useDarkMode, useNav, useSlideContext } from '@slidev/client'
 import { useDeckOptions } from './deck'
 
 const { sidebar } = useDeckOptions()
@@ -12,6 +12,11 @@ const { sidebar } = useDeckOptions()
 const { currentPage, total, slides, go, nextSlide, prevSlide, clicks, clicksTotal } = useNav()
 // ---- 밝음/어두움 테마 (Slidev 내장 다크 모드를 그대로 쓴다: d 키와 같은 동작, 브라우저에 기억됨) ----
 const { isDark, toggleDark } = useDarkMode()
+// ---- 쪽 번호: 모든 슬라이드 오른쪽 아래에 현재/전체 ----
+//  발표 화면은 전역 nav 를, PDF·PNG 내보내기(/export)는 페이지마다 따로 받는 nav 를 읽어야 쪽마다 번호가 맞다 → 슬라이드 컨텍스트의 nav 를 쓴다
+const { $slidev } = useSlideContext()
+const pageNo = computed(() => $slidev.nav.currentPage)
+const pageTotal = computed(() => $slidev.nav.total)
 // 목차용 짧은 제목: 앞의 이모지 제거, "—" 이후의 부제는 뗀다 ("5. 문자열 변수 — 글자를 담기" → "5. 문자열 변수")
 function shortTitle(raw: string) {
   return raw.replace(/<[^>]+>/g, '').replace(/[`*]/g, '').replace(/^[^\p{L}\p{N}]+/u, '').split(/\s+[—–-]\s+/)[0].trim()   // HTML 태그·마크다운 기호(` **) 제거
@@ -211,6 +216,7 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <div class="page-no" aria-label="쪽 번호">{{ pageNo }}/{{ pageTotal }}</div>
   <template v-if="showSidebar">
   <aside class="toc" :class="{ collapsed: !open }" :style="{ width: panelW + 'px' }">
     <button class="toc-toggle" title="사이드바 접기 (s)" @click="toggle">◀</button>
@@ -264,6 +270,12 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+.page-no {
+  position: absolute; right: 16px; bottom: 10px; z-index: 4;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: .02em; color: var(--muted, #5d6b85);
+  font-variant-numeric: tabular-nums; pointer-events: none; user-select: none;
+}
 .toc {
   position: absolute; left: 0; top: 0; bottom: 0; width: var(--sidebar-w, 260px);
   background: var(--surface, #f3f6fb); border-right: 1px solid var(--line, rgba(10,20,40,.1));
