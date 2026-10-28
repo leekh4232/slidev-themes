@@ -148,6 +148,10 @@ html.lecture {
 :where(html.lecture) .slidev-layout li::marker {
   color: var(--py);
 }
+/* 목록 단계 구분: 1수준 ■(파랑), 2수준 –(회색), 3수준 ·(회색) */
+:where(html.lecture) .slidev-layout ul ul { list-style-type: '– '; }
+:where(html.lecture) .slidev-layout ul ul ul { list-style-type: '· '; }
+:where(html.lecture) .slidev-layout ul ul li::marker { color: var(--muted); }
 :where(html.lecture) .slidev-layout a {
   color: var(--py);
 }
