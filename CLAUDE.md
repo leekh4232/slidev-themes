@@ -1,6 +1,6 @@
 # Slidev Themes 작업 지침
 
-Slidev 테마 `hossam`을 담은 저장소입니다. 코딩 강의용 흰 바탕 테마이고, 덱 헤더의 `sidebar: true | false`로 목차 사이드바를 켜고 끕니다. 사용자는 이 저장소를 받아 덱 프런트매터에 테마 폴더 경로(`theme: ./slidev-themes/hossam`)를 적어 씁니다. VS Code 확장 **Open with Slidev**(`/Users/leekh/open-with-slidev`)는 테마를 내려받지 않고, 경로로 적힌 테마를 그대로 Slidev에 넘깁니다. `main`에 push한 내용은 사용자가 `git pull`할 때 반영됩니다.
+Slidev 테마 `hossam`을 담은 저장소입니다. 코딩 강의용 테마(기본 어두운 바탕, d 키로 밝은 테마)이고, 덱 헤더의 `sidebar: true | false`로 목차 사이드바를 켜고 끕니다. 사용자는 이 저장소를 받아 덱 프런트매터에 테마 폴더 경로(`theme: ./slidev-themes/hossam`)를 적어 씁니다. VS Code 확장 **Open with Slidev**(`/Users/leekh/open-with-slidev`)는 테마를 내려받지 않고, 경로로 적힌 테마를 그대로 Slidev에 넘깁니다. `main`에 push한 내용은 사용자가 `git pull`할 때 반영됩니다.
 
 테마는 `@slidev/types` · `@slidev/theme-default` 같은 패키지를 import하지 않습니다. 테마 폴더를 경로로 열 때 그 패키지를 찾지 못해 실행이 멈추거나 스타일이 통째로 빠지기 때문입니다. 필요한 스타일은 테마 안에 복사해 둡니다(`hossam/styles/layouts.css`).
 

@@ -1,4 +1,4 @@
-/* hossam 테마 — 코딩 강의용 흰 바탕. 규칙은 html.lecture 아래에 묶는다.
+/* hossam 테마 — 코딩 강의용. 처음 열면 어두운 테마(global-top.vue), d 키로 밝게. 규칙은 html.lecture 아래에 묶는다.
    html.no-anim 규칙은 애니메이션 끔(사이드바 버튼 · a 키)이다. */
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
 
@@ -822,6 +822,11 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
   background-clip: border-box;
   -webkit-text-fill-color: var(--heading);
   color: var(--heading);
+}
+
+/* PDF·PNG 내보내기(/export, .print-slide-container 래퍼): Chromium 의 PDF 렌더는 상자 그림자를 회색 띠로 찍는다 → 내보내기에서는 그림자를 모두 끈다(테두리는 그대로) */
+:where(html.lecture) .print-slide-container *, :where(html.lecture) .print-slide-container *::before, :where(html.lecture) .print-slide-container *::after {
+  box-shadow: none !important;
 }
 
 /* 진행바 색 */

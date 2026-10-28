@@ -188,6 +188,9 @@ onMounted(() => {
   window.addEventListener('resize', scheduleMeasure)
   if (typeof document !== 'undefined' && 'fonts' in document) (document as any).fonts?.ready?.then(() => { measureTables(); scheduleOverflow() })
   if (!isPlay) return
+  // 처음 한 번만 어두운 테마로 시작한다(pyai-dark-init 표시). 그 뒤 d 키·🌙 버튼으로 고른 값은 Slidev 가 기억한다(slidev-color-schema —
+  // 시스템 설정과 같은 값을 고르면 'auto' 로 저장되므로, 그 값을 보고 판단하면 사용자의 선택을 되돌리게 된다)
+  try { if (!localStorage.getItem('pyai-dark-init')) { isDark.value = true; localStorage.setItem('pyai-dark-init', '1') } } catch { /* 무시 */ }
   scheduleOverflow(); setTimeout(scheduleOverflow, 400)
   // 등장 애니메이션(lecture-rise 등)이 끝나야 자리가 정해지므로 그때마다 다시 잰다
   document.addEventListener('animationend', scheduleOverflow, true)
@@ -206,7 +209,6 @@ onMounted(() => {
     const w = Number(localStorage.getItem('pyai-sidebar-w')); if (w) panelW.value = Math.min(MAX_W, Math.max(MIN_W, w))
     const o = localStorage.getItem('pyai-sidebar-open'); if (o === '0') open.value = false
     if (localStorage.getItem('pyai-anim') === '0') anim.value = false
-    if (!localStorage.getItem('slidev-color-schema')) isDark.value = false   // 처음엔 밝은 테마
     const z = Number(localStorage.getItem('pyai-zoom')); if (z) zoom.value = z
   } catch { /* 무시 */ }
   apply(); applyAnim(); applyZoom()
