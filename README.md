@@ -10,7 +10,7 @@
 
 [Slidev](https://sli.dev) 테마 `hossam`을 담은 저장소입니다. 저장소를 받아 테마 폴더를 경로로 지정해 씁니다. VS Code에서는 [Open with Slidev](https://marketplace.visualstudio.com/items?itemName=leekh.open-with-slidev)로 바로 열 수 있습니다.
 
-`hossam`은 코딩 강의용 흰 바탕 테마입니다. 목차 사이드바(폭 조절 · 접기 · 본문 폭 · 확대/축소 · 다크)와 콜아웃 · 프롬프트 · 출력 상자가 있고, 덱 헤더(첫 슬라이드 프런트매터)의 `sidebar`로 사이드바를 켜고 끕니다. 자세한 내용은 [hossam 사용법](https://slidev-themes.hossam.kr/hossam.html)에 있습니다.
+`hossam`은 코딩 강의용 흰 바탕 테마입니다. 목차 사이드바(폭 조절 · 접기 · 본문 폭 · 확대/축소 · 다크), 표지 · 간지 · 카드형 · 웹진형 · 인포그래픽 레이아웃, 콜아웃 · 프롬프트 · 출력 · 흐름도 · 큰 숫자 컴포넌트가 있고, 덱 헤더(첫 슬라이드 프런트매터)의 `sidebar`로 사이드바를 켜고 끕니다. 자세한 내용은 [hossam 사용법](https://slidev-themes.hossam.kr/hossam.html)에 있습니다.
 
 ![hossam 표지와 목차 사이드바](docs/img/lecture-cover.jpg)
 
@@ -27,6 +27,7 @@ git clone https://github.com/leekh4232/slidev-themes.git
 theme: ./slidev-themes/hossam
 sidebar: true        # 생략하면 켬
 title: 과정 이름 · 단원 이름
+author: 홍길동 강사    # 생략 가능. 표지 부제 아래 작성자
 ---
 ```
 
@@ -34,12 +35,12 @@ VS Code에서는 md 파일을 우클릭 → **Open with Slidev**로 열고, 터�
 
 ## 예제 덱
 
-- [docs/examples/lecture-example.md](docs/examples/lecture-example.md): 파이썬 기초 3강. 콜아웃 · 프롬프트 · 출력 · 단계 목록과 사이드바.
+- [docs/examples/lecture-example.md](docs/examples/lecture-example.md): 파이썬 기초 3강. 간지 · 카드형 · 웹진형 · 인포그래픽 레이아웃, 콜아웃 · 프롬프트 · 출력 · 단계 목록 · 흐름도 · 큰 숫자 타일과 사이드바.
 
 ## 폴더 구조
 
 ```
-hossam/   layouts/ · components/ · setup/ · styles/(lecture.css · shared.css) · deck.ts · global-top.vue · package.json
+hossam/   layouts/(cover · section · default · cards · magazine · infographic) · components/ · setup/ · styles/(lecture.css · shared.css) · deck.ts · global-top.vue · package.json
 docs/     소개 페이지 · 매뉴얼(hossam.html) · 화면(img/) · 예제 덱(examples/)
 ```
 

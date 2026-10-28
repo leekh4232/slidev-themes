@@ -1,14 +1,16 @@
 ---
 theme: ../../hossam
 title: 파이썬 기초 · 3. 변수와 자료형
+author: 홍길동 강사
 layout: cover
 ---
 
 <!--
 hossam 테마 예제 덱. title 의 " · " 앞은 사이드바 위 과정 이름, 뒤는 단원 이름이 된다.
 슬라이드의 첫 제목이 왼쪽 목차에 올라가고, ### 제목 슬라이드는 한 단계 들여쓴다.
-컴포넌트: Callout(kind: eli5·real·tip·warn·danger·ai) · Prompt(4개 백틱 text 펜스) · Output · Steps(color: py·ai·ok)
-클래스: .card(.py .ai .ok) · .kicker(.ai .lab) · .muted · .small · 표지의 .sub
+레이아웃: cover(author) · section(간지) · default(제목 아래 내용 세로 가운데) · cards(cols) · magazine(::right::) · infographic
+컴포넌트: Callout(kind: eli5·real·tip·warn·danger·ai) · Prompt(4개 백틱 text 펜스) · Output · Steps(color: py·ai·ok) · Grid · Flow · Stat
+클래스: .card(.py .ai .ok) · .kicker(.ai .lab) · .muted · .small · 표지의 .sub · .fill-img
 -->
 
 # 변수와 자료형
@@ -16,6 +18,14 @@ hossam 테마 예제 덱. title 의 " · " 앞은 사이드바 위 과정 이름
 값에 이름을 붙여 두고 다시 쓰는 방법
 
 <p class="sub">파이썬 기초 과정 · 3강</p>
+
+---
+layout: section
+---
+
+# #01. 변수
+
+값에 이름을 붙이면 다시 꺼내 쓸 수 있다
 
 ---
 
@@ -58,6 +68,42 @@ print(name, age)
 </Callout>
 
 ---
+layout: cards
+cols: 4
+---
+
+## 자료형 네 가지 한눈에
+
+<div class="py">
+
+#### 🔢 int
+
+정수. `3`, `-10` 처럼 소수점이 없는 수. 개수·나이·순서를 담는다.
+
+</div>
+<div class="py">
+
+#### 🧮 float
+
+소수. `3.14`, `0.5`. 평균·비율처럼 소수점이 필요한 값.
+
+</div>
+<div class="ai">
+
+#### 🔤 str
+
+글자. `"안녕"`. 따옴표로 감싼다. 숫자처럼 보여도 글자다.
+
+</div>
+<div class="ok">
+
+#### ✅ bool
+
+참/거짓. `True`, `False`. 조건문의 판단 결과가 된다.
+
+</div>
+
+---
 
 ## 실습 — 자기소개 출력
 
@@ -89,6 +135,53 @@ print(f"{name}님은 {age}살")
 </Output>
 
 </div>
+</Grid>
+
+---
+layout: magazine
+---
+
+## 좋은 변수 이름은 설명이 필요 없다
+
+이름만 보고도 무엇이 들어 있는지 알 수 있어야 한다. 짧게 줄이지 말고, 뜻이 드러나는 단어를 고른다.
+
+- 소문자와 밑줄로 잇는다: `user_name`, `total_price`
+- 숫자로 시작할 수 없고, 예약어(`if`, `for`)는 쓸 수 없다
+- 한 글자 이름(`a`, `x`)은 반복문 변수에만
+
+::right::
+
+<div class="card py">
+<h3>좋은 예</h3>
+<p><code>birth_year</code>, <code>is_member</code></p>
+</div>
+
+<div class="card ai">
+<h3>나쁜 예</h3>
+<p><code>a</code>, <code>data1</code>, <code>temp2</code></p>
+</div>
+
+<Callout kind="tip">
+읽는 사람이 미래의 나라고 생각하고 짓는다.
+</Callout>
+
+---
+layout: infographic
+---
+
+## 값이 변수가 되기까지
+
+<Flow>
+<li>⌨️<b>입력</b>키보드로 받은 글자</li>
+<li>🔁<b>변환</b><code>int()</code> 로 숫자로</li>
+<li>📦<b>저장</b>변수에 담는다</li>
+<li>🖨️<b>출력</b><code>print()</code> 로 화면에</li>
+</Flow>
+
+<Grid cols="3">
+<Stat value="4" label="기본 자료형" />
+<Stat value="1" unit="줄" label="변수를 만드는 데 필요한 코드" color="ai" />
+<Stat value="0" unit="원" label="이름표를 붙이는 비용" color="ok">바꿔 달 수도 있다</Stat>
 </Grid>
 
 ---

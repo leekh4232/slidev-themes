@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>hossam 테마 · Slidev Themes</title>
-<meta name="description" content="코딩 강의용 Slidev 테마 hossam: 목차 사이드바, 콜아웃·프롬프트·출력, 예제 코드">
+<meta name="description" content="코딩 강의용 Slidev 테마 hossam: 목차 사이드바, 표지·간지·카드형·웹진형·인포그래픽 레이아웃, 콜아웃·프롬프트·출력, 예제 코드">
 <meta name="color-scheme" content="light">
 <meta property="og:title" content="hossam 테마 · Slidev Themes">
-<meta property="og:description" content="코딩 강의용 Slidev 테마 hossam: 목차 사이드바, 콜아웃·프롬프트·출력, 예제 코드">
+<meta property="og:description" content="코딩 강의용 Slidev 테마 hossam: 목차 사이드바, 표지·간지·카드형·웹진형·인포그래픽 레이아웃, 콜아웃·프롬프트·출력, 예제 코드">
 <meta property="og:image" content="https://slidev-themes.hossam.kr/img/lecture-cover.jpg">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="manual.css">
@@ -18,7 +18,7 @@
   "@context": "https://schema.org",
   "@type": "TechArticle",
   "headline": "hossam 테마 매뉴얼",
-  "description": "설정, 목차 사이드바와 단축키, 글쓰기 규칙, 컴포넌트, 클래스, 전체 예제.",
+  "description": "설정, 목차 사이드바와 단축키, 글쓰기 규칙, 레이아웃, 컴포넌트, 클래스, 전체 예제.",
   "url": "https://slidev-themes.hossam.kr/hossam.html",
   "inLanguage": "ko",
   "author": {
@@ -40,18 +40,19 @@
 </script>
 </head>
 <body>
-<aside class="sidebar"><a class="brand" href="index.html">Slidev Themes</a><nav class="pages" aria-label="문서"><a href="hossam.html" class="current">hossam</a><a href="https://github.com/leekh4232/slidev-themes">GitHub</a></nav><nav class="toc" aria-label="이 페이지의 목차"><a href="#start">시작하기</a><a href="#sidebar">사이드바와 조작</a><a href="#writing">글쓰기</a><a href="#components">컴포넌트</a><a href="#classes">클래스</a><a href="#example">전체 예제</a></nav></aside>
+<aside class="sidebar"><a class="brand" href="index.html">Slidev Themes</a><nav class="pages" aria-label="문서"><a href="hossam.html" class="current">hossam</a><a href="https://github.com/leekh4232/slidev-themes">GitHub</a></nav><nav class="toc" aria-label="이 페이지의 목차"><a href="#start">시작하기</a><a href="#sidebar">사이드바와 조작</a><a href="#writing">글쓰기</a><a href="#layouts">레이아웃</a><a href="#components">컴포넌트</a><a href="#classes">클래스</a><a href="#example">전체 예제</a></nav></aside>
 <main>
-<div class="hero"><h1>hossam 테마 <span class="badge">강의</span></h1><p>코딩 강의용 흰 바탕 테마. 왼쪽 목차 사이드바와 콜아웃·프롬프트·출력 상자가 있다.</p></div>
-<figure><img src="img/lecture-cover.jpg" alt="표지와 왼쪽 사이드바. 색이 번지는 배경 위에 그라디언트 제목과 알약 모양 부제, 사이드바 위에는 과정 이름과 단원, 아래에는 쪽 번호와 조작 버튼" loading="lazy"><figcaption>표지와 왼쪽 사이드바. 색이 번지는 배경 위에 그라디언트 제목과 알약 모양 부제, 사이드바 위에는 과정 이름과 단원, 아래에는 쪽 번호와 조작 버튼</figcaption></figure>
+<div class="hero"><h1>hossam 테마 <span class="badge">강의</span></h1><p>코딩 강의용 흰 바탕 테마. 왼쪽 목차 사이드바, 표지·간지·카드형·웹진형·인포그래픽 레이아웃, 콜아웃·프롬프트·출력 상자가 있다.</p></div>
+<figure><img src="img/lecture-cover.jpg" alt="표지와 왼쪽 사이드바. 색이 번지는 배경 위에 그라디언트 제목과 알약 모양 부제, 그 아래 작성자, 사이드바 위에는 과정 이름과 단원, 아래에는 쪽 번호와 조작 버튼" loading="lazy"><figcaption>표지와 왼쪽 사이드바. 색이 번지는 배경 위에 그라디언트 제목과 알약 모양 부제, 그 아래 작성자, 사이드바 위에는 과정 이름과 단원, 아래에는 쪽 번호와 조작 버튼</figcaption></figure>
 <h2 id="start">시작하기</h2>
 <p>저장소를 받은 뒤(<code>git clone https://github.com/leekh4232/slidev-themes.git</code>) 프런트매터에 테마 폴더 경로(<code>theme: ./slidev-themes/hossam</code>처럼 md 파일 기준)를 적는다. 첫 슬라이드의 프런트매터(헤드매터)에서 아래 두 옵션으로 덱 전체 모양을 정한다.</p>
 <table><thead><tr><th>옵션</th><th>값</th><th>기본</th></tr></thead><tbody><tr><td><code>sidebar</code></td><td><code>true</code>면 왼쪽 목차 사이드바, <code>false</code>면 사이드바 없이 화면 비율에 맞춘 슬라이드</td><td><code>true</code></td></tr></tbody></table>
-<p><code>title</code>은 <code> · </code>(가운뎃점 양옆 공백)를 기준으로 앞은 과정 이름, 뒤는 단원 이름으로 사이드바에 올라간다. 첫 슬라이드는 <code>layout: cover</code>로 쓴다. 표지는 세 과목색(파랑·주황·초록)이 천천히 번지는 배경 위에 그라디언트 제목, 알약 모양 부제(<code>.sub</code>), 아래 세 색 막대가 놓이고, <code>title</code>의 <code> · </code> 앞부분(과정 이름)이 위쪽 머리말로 자동으로 올라간다. 프런트매터 <code>eyebrow</code>로 머리말을 바꾸고, <code>footer</code>로 막대 아래 작은 글을 둘 수 있다. 등장 애니메이션은 사이드바의 애니메이션 끄기와 운영체제의 동작 줄이기 설정을 따라 꺼진다.</p>
+<p><code>title</code>은 <code> · </code>(가운뎃점 양옆 공백)를 기준으로 앞은 과정 이름, 뒤는 단원 이름으로 사이드바에 올라간다. 첫 슬라이드는 <code>layout: cover</code>로 쓴다. 표지는 세 과목색(파랑·주황·초록)이 천천히 번지는 배경 위에 그라디언트 제목, 알약 모양 부제(<code>.sub</code>), 아래 세 색 막대가 놓이고, <code>title</code>의 <code> · </code> 앞부분(과정 이름)이 위쪽 머리말로 자동으로 올라간다. 프런트매터 <code>author</code>를 적으면 부제 아래에 작성자가 사람 아이콘과 함께 놓이고, <code>eyebrow</code>로 머리말을 바꾸고, <code>footer</code>로 막대 아래 작은 글을 둘 수 있다. 등장 애니메이션은 사이드바의 애니메이션 끄기와 운영체제의 동작 줄이기 설정을 따라 꺼진다.</p>
 <pre><code class="language-md">---
 theme: ./slidev-themes/hossam
 sidebar: true         # 생략 가능 (기본값)
 title: 파이썬 기초 · 3. 변수와 자료형
+author: 홍길동 강사   # 생략 가능. 표지 부제 아래 작성자
 layout: cover
 ---
 
@@ -68,7 +69,7 @@ layout: cover
 <div class="two"><figure><img src="img/lecture-collapsed.jpg" alt="사이드바를 접으면 왼쪽 위에 작은 버튼만 남는다" loading="lazy"><figcaption>사이드바를 접으면 왼쪽 위에 작은 버튼만 남는다</figcaption></figure>
 <figure><img src="img/lecture-dark.jpg" alt="어두운 테마(d)" loading="lazy"><figcaption>어두운 테마(d)</figcaption></figure>
 </div><h2 id="writing">글쓰기</h2>
-<ul><li><code>#</code> 큰 제목, <code>##</code> 앞에 📌가 붙고 밑줄이 있는 슬라이드 제목, <code>###</code> 그보다 조금 작고 밑줄이 있는 소제목(목차에서 하위 항목). 카드 안의 <code>&lt;h3&gt;</code>은 작은 제목 그대로다.</li><li>목록 글머리와 링크는 파랑, 인라인 코드(백틱 하나)는 연한 상자, <code>**굵게**</code>는 본문색 그대로 굵게.</li><li>코드 블록은 흰 바탕 위의 어두운 상자. 줄 번호가 기본으로 켜져 있고(<code>lineNumbers: true</code>), 주석은 설명이라 밝은 초록으로 보인다. 글꼴은 JetBrains Mono.</li><li>슬라이드를 열면 제목을 뺀 본문 요소(문단·목록·표·코드·콜아웃·카드 …)가 위에서부터 차례로 아래에서 떠오른다. Grid 안의 칸도 같은 효과로 이어진다. 사이드바의 애니메이션 끄기(<kbd>a</kbd>)로 끈다.</li><li>표는 머리글이 굵은 파란 글씨에 연한 바탕. 첫 열(항목 이름)은 굵게, 줄바꿈 없이 한 줄로 보인다. 첫 열이 표 폭의 30%를 넘을 만큼 길면 자동으로 줄바꿈을 허용한다. 슬라이드 프런트매터에 <code>class: tbl-wrap</code>(항상 줄바꿈) 또는 <code>class: tbl-nowrap</code>(항상 한 줄)을 적으면 자동 판정 대신 그 값을 쓴다. 레이아웃은 Slidev 기본 레이아웃(<code>default</code>, <code>cover</code>, <code>center</code>, <code>section</code>, <code>image-right</code> …)을 그대로 쓴다. 여러 단으로 나눌 때는 <a href="#c-grid">Grid</a>를 쓴다.</li></ul>
+<ul><li><code>#</code> 큰 제목, <code>##</code> 앞에 📌가 붙고 밑줄이 있는 슬라이드 제목, <code>###</code> 그보다 조금 작고 밑줄이 있는 소제목(목차에서 하위 항목). 카드 안의 <code>&lt;h3&gt;</code>은 작은 제목 그대로다.</li><li>목록 글머리와 링크는 파랑, 인라인 코드(백틱 하나)는 연한 상자, <code>**굵게**</code>는 본문색 그대로 굵게.</li><li>코드 블록은 흰 바탕 위의 어두운 상자. 줄 번호가 기본으로 켜져 있고(<code>lineNumbers: true</code>), 주석은 설명이라 밝은 초록으로 보인다. 글꼴은 JetBrains Mono.</li><li>슬라이드를 열면 제목을 뺀 본문 요소(문단·목록·표·코드·콜아웃·카드 …)가 위에서부터 차례로 아래에서 떠오른다. Grid 안의 칸도 같은 효과로 이어진다. 사이드바의 애니메이션 끄기(<kbd>a</kbd>)로 끈다.</li><li>표는 머리글이 굵은 파란 글씨에 연한 바탕. 첫 열(항목 이름)은 굵게, 줄바꿈 없이 한 줄로 보인다. 첫 열이 표 폭의 30%를 넘을 만큼 길면 자동으로 줄바꿈을 허용한다. 슬라이드 프런트매터에 <code>class: tbl-wrap</code>(항상 줄바꿈) 또는 <code>class: tbl-nowrap</code>(항상 한 줄)을 적으면 자동 판정 대신 그 값을 쓴다. 본문 슬라이드는 제목을 위에 두고 나머지 내용을 남은 세로 공간의 가운데에 놓는다(내용이 길면 위에서부터 흐르고 스크롤). 간지 · 카드형 · 웹진형 · 인포그래픽은 <a href="#layouts">레이아웃</a>에 있고, 여러 단으로 나눌 때는 <a href="#c-grid">Grid</a>를 쓴다.</li></ul>
 <pre><code class="language-md">## 변수란 — 값에 붙이는 이름표
 
 - 변수는 값을 담는 **이름표**다. `=` 로 값을 넣는다
@@ -80,6 +81,87 @@ name = "하늘"     # 문자열
 print(name, age)
 ```</code></pre>
 <figure><img src="img/lecture-code-callout.jpg" alt="제목 · 목록 · 코드 블록 · Callout" loading="lazy"><figcaption>제목 · 목록 · 코드 블록 · Callout</figcaption></figure>
+<h2 id="layouts">레이아웃</h2>
+<p>슬라이드 프런트매터의 <code>layout</code>으로 고른다. 적지 않으면 <code>default</code>. Slidev 기본 레이아웃(<code>center</code>, <code>two-cols</code>, <code>image-right</code> …)도 그대로 쓸 수 있다.</p>
+<table><thead><tr><th>layout</th><th>모양</th><th>프런트매터</th></tr></thead><tbody><tr><td><code>default</code></td><td>본문. 제목은 위에 고정, 나머지 내용은 남은 세로 공간의 가운데. 내용이 길면 위에서부터 흐르고 스크롤</td><td>-</td></tr><tr><td><code>cover</code></td><td>표지. 가운데 정렬, 색이 번지는 배경, 그라디언트 제목, 알약 부제(<code>.sub</code>), 작성자, 세 색 막대</td><td><code>author</code> <code>eyebrow</code> <code>footer</code></td></tr><tr><td><code>section</code></td><td>간지(파트 표지). 왼쪽 정렬, 위에 덱 제목 머리말, 제목 왼쪽 세로 막대, 아래 세 색 막대. 제목 뒤 문단은 부제</td><td>-</td></tr><tr><td><code>cards</code></td><td>카드형. 제목 아래의 칸(<code>&lt;div&gt;</code>)들이 카드 격자가 되어 남은 높이를 나눠 채운다</td><td><code>cols</code>(기본 3)</td></tr><tr><td><code>magazine</code></td><td>웹진형. 왼쪽 큰 제목 + 리드문 + 본문, 오른쪽 <code>::right::</code> 칸은 연한 바탕으로 가장자리까지</td><td>-</td></tr><tr><td><code>infographic</code></td><td>인포그래픽. 제목은 위, 나머지는 점 무늬 위에 가운데 정렬된 무대. <a href="#c-flow">Flow</a> · <a href="#c-stat">Stat</a> · Grid를 올려 놓는다</td><td>-</td></tr></tbody></table>
+<h3 id="l-section">section — 간지</h3>
+<p>단원 안의 파트를 나누는 중간 표지. <code>#</code> 제목 하나를 쓰고, 그 아래 문단은 부제가 된다. 머리말에는 덱 <code>title</code>(과정 · 단원)이 자동으로 올라간다.</p>
+<pre><code class="language-md">---
+layout: section
+---
+
+# #01. 변수
+
+값에 이름을 붙이면 다시 꺼내 쓸 수 있다</code></pre>
+<figure><img src="img/lecture-section.jpg" alt="간지: 왼쪽 정렬 제목과 세로 막대, 오른쪽 위 빛 덩이와 점 무늬" loading="lazy"><figcaption>간지: 왼쪽 정렬 제목과 세로 막대, 오른쪽 위 빛 덩이와 점 무늬</figcaption></figure>
+<h3 id="l-cards">cards — 카드형</h3>
+<p>제목 다음에 오는 모든 칸이 카드가 된다. 칸은 <code>&lt;div&gt;</code>로 감싸고 안의 마크다운(<code>####</code> 제목, 문단, 목록)은 여는 태그와 닫는 태그를 빈 줄로 띄운다. 칸에 <code>py</code> · <code>ai</code> · <code>ok</code> 클래스를 주면 윗선 색. 열 수는 <code>cols</code>.</p>
+<pre><code class="language-md">---
+layout: cards
+cols: 4
+---
+
+## 자료형 네 가지 한눈에
+
+&lt;div class="py"&gt;
+
+#### 🔢 int
+
+정수. `3`, `-10` 처럼 소수점이 없는 수.
+
+&lt;/div&gt;
+&lt;div class="ai"&gt;
+
+#### 🔤 str
+
+글자. `"안녕"`. 따옴표로 감싼다.
+
+&lt;/div&gt;</code></pre>
+<figure><img src="img/lecture-cards.jpg" alt="cards cols=4: 제목 아래 네 장의 카드가 슬라이드를 채운다" loading="lazy"><figcaption>cards cols=4: 제목 아래 네 장의 카드가 슬라이드를 채운다</figcaption></figure>
+<h3 id="l-magazine">magazine — 웹진형</h3>
+<p>왼쪽에는 큰 제목과 리드문(제목 바로 다음 문단, 크고 회색, 아래에 짧은 그라디언트 선), 이어서 본문. <code>::right::</code> 아래에 쓴 내용은 오른쪽 칸(그림 · 카드 · 콜아웃)에 연한 바탕으로 놓인다. <code>::right::</code>가 없으면 한 단이 된다.</p>
+<pre><code class="language-md">---
+layout: magazine
+---
+
+## 좋은 변수 이름은 설명이 필요 없다
+
+이름만 보고도 무엇이 들어 있는지 알 수 있어야 한다.
+
+- 소문자와 밑줄로 잇는다: `user_name`
+- 숫자로 시작할 수 없다
+
+::right::
+
+&lt;div class="card py"&gt;
+&lt;h3&gt;좋은 예&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;birth_year&lt;/code&gt;, &lt;code&gt;is_member&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;Callout kind="tip"&gt;
+읽는 사람이 미래의 나라고 생각하고 짓는다.
+&lt;/Callout&gt;</code></pre>
+<figure><img src="img/lecture-magazine.jpg" alt="magazine: 왼쪽 큰 제목과 리드문, 오른쪽 연한 바탕 칸의 카드와 콜아웃" loading="lazy"><figcaption>magazine: 왼쪽 큰 제목과 리드문, 오른쪽 연한 바탕 칸의 카드와 콜아웃</figcaption></figure>
+<h3 id="l-infographic">infographic — 인포그래픽</h3>
+<p>제목 아래 내용이 가운데 정렬된 무대에 놓인다. 흐름은 <a href="#c-flow">Flow</a>, 숫자는 <a href="#c-stat">Stat</a>, 나란히 놓을 때는 Grid를 쓴다.</p>
+<pre><code class="language-md">---
+layout: infographic
+---
+
+## 값이 변수가 되기까지
+
+&lt;Flow&gt;
+&lt;li&gt;⌨️&lt;b&gt;입력&lt;/b&gt;키보드로 받은 글자&lt;/li&gt;
+&lt;li&gt;🔁&lt;b&gt;변환&lt;/b&gt;&lt;code&gt;int()&lt;/code&gt; 로 숫자로&lt;/li&gt;
+&lt;li&gt;📦&lt;b&gt;저장&lt;/b&gt;변수에 담는다&lt;/li&gt;
+&lt;/Flow&gt;
+
+&lt;Grid cols="3"&gt;
+&lt;Stat value="4" label="기본 자료형" /&gt;
+&lt;Stat value="1" unit="줄" label="변수를 만드는 코드" color="ai" /&gt;
+&lt;Stat value="0" unit="원" label="이름표를 붙이는 비용" color="ok"&gt;바꿔 달 수도 있다&lt;/Stat&gt;
+&lt;/Grid&gt;</code></pre>
+<figure><img src="img/lecture-infographic.jpg" alt="infographic: Flow 흐름도와 Stat 숫자 타일이 점 무늬 무대 가운데에" loading="lazy"><figcaption>infographic: Flow 흐름도와 Stat 숫자 타일이 점 무늬 무대 가운데에</figcaption></figure>
 <h2 id="components">컴포넌트</h2>
 <h3 id="c-grid">Grid — 격자 배치</h3>
 <p>슬라이드 안의 원하는 곳을 여러 단으로 나눈다. 제목은 Grid 위에 두면 전체 폭으로 보인다. 칸 안에 마크다운(코드 블록·목록)을 쓰려면 칸마다 <code>&lt;div&gt;</code>로 감싸고, 여는 태그와 닫는 태그를 빈 줄로 띄운다.</p>
@@ -115,7 +197,7 @@ print(f"{name}님은 {age}살")
 &lt;/Callout&gt;</code></pre>
 <figure><img src="img/lecture-table-callouts.jpg" alt="표와 Callout tip · warn" loading="lazy"><figcaption>표와 Callout tip · warn</figcaption></figure>
 <h3 id="c-prompt">Prompt · Output — 프롬프트와 출력</h3>
-<p><code>Prompt</code>는 "오늘의 프롬프트" 상자다. 안에 백틱 <b>네 개</b>의 <code>text</code> 코드 펜스로 프롬프트를 넣으면 줄바꿈이 보존되고, 오른쪽 위 <b>복사</b> 버튼이 그 글을 클립보드에 넣는다. <code>Output</code>은 프로그램 출력 상자로, <code>label</code>(기본 "출력")을 바꿀 수 있다.</p>
+<p><code>Prompt</code>는 "오늘의 프롬프트" 상자다. 안에 백틱 <b>네 개</b>의 <code>text</code> 코드 펜스로 프롬프트를 넣으면 줄바꿈이 보존되고, 오른쪽 위 <b>복사</b> 버튼이 그 글을 클립보드에 넣는다. <code>Output</code>은 프로그램 출력 상자로, <code>label</code>(기본 "출력")을 바꿀 수 있다. 안에 코드 펜스를 넣어도 상자와 한 몸으로 보이므로(펜스의 배경·테두리·줄 번호가 빠진다) <code>&lt;</code> 같은 글자가 든 출력을 이스케이프 없이 그대로 둘 수 있다.</p>
 <pre><code class="language-md">&lt;Prompt&gt;
 
 ````text
@@ -144,8 +226,21 @@ TypeError: can only concatenate str (not "int") to str
 &lt;li&gt;f-문자열로 한 줄을 만든다&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;print()&lt;/code&gt; 로 출력한다&lt;/li&gt;
 &lt;/Steps&gt;</code></pre>
+<h3 id="c-flow">Flow — 가로 흐름도</h3>
+<p><code>&lt;li&gt;</code>를 나열하면 번호 상자가 나란히 놓이고 사이에 꺾쇠 화살표가 붙는다. <code>&lt;li&gt;</code> 안의 첫 <code>&lt;b&gt;</code>는 상자 제목이고 그 앞에 이모지를 둘 수 있다. <code>color</code>는 <code>py</code>(파랑, 기본) · <code>ai</code>(주황) · <code>ok</code>(초록). 상자가 많아 좁아지면 줄을 바꾼다.</p>
+<pre><code class="language-md">&lt;Flow color="ok"&gt;
+&lt;li&gt;📥&lt;b&gt;수집&lt;/b&gt;관찰 · 설문 · 실험&lt;/li&gt;
+&lt;li&gt;🧮&lt;b&gt;요약&lt;/b&gt;표 · 그래프 · 통계량&lt;/li&gt;
+&lt;li&gt;🔍&lt;b&gt;분석&lt;/b&gt;추론 · 예측&lt;/li&gt;
+&lt;/Flow&gt;</code></pre>
+<h3 id="c-stat">Stat — 큰 숫자 타일</h3>
+<p><code>value</code>는 큰 숫자(글), <code>unit</code>은 옆에 작게 붙는 단위, <code>label</code>은 아래 한 줄 설명. <code>color</code>는 <code>py</code> · <code>ai</code> · <code>ok</code>. 슬롯에 보충 설명을 넣을 수 있고, 여러 개는 <a href="#c-grid">Grid</a>로 나란히 둔다.</p>
+<pre><code class="language-md">&lt;Grid cols="2"&gt;
+&lt;Stat value="1,024" unit="TB" label="= 1 페타바이트" /&gt;
+&lt;Stat value="4" unit="PB" label="페이스북이 하루에 만드는 데이터" color="ai"&gt;2021년 기준&lt;/Stat&gt;
+&lt;/Grid&gt;</code></pre>
 <h2 id="classes">클래스</h2>
-<table><thead><tr><th>클래스</th><th>뜻</th></tr></thead><tbody><tr><td><code>.card</code></td><td>흰 카드. <code>.py</code> <code>.ai</code> <code>.ok</code>를 함께 주면 윗선 색(파랑·주황·초록). 안에 <code>&lt;h3&gt;</code>와 <code>&lt;p&gt;</code></td></tr><tr><td><code>.kicker</code></td><td>작은 대문자 라벨(파랑). <code>.ai</code> 주황, <code>.lab</code> 초록</td></tr><tr><td><code>.muted</code></td><td>회색 글</td></tr><tr><td><code>.small</code></td><td>작은 글</td></tr><tr><td><code>.sub</code></td><td>표지의 부제. 알약 모양 배지로 보인다</td></tr></tbody></table>
+<table><thead><tr><th>클래스</th><th>뜻</th></tr></thead><tbody><tr><td><code>.card</code></td><td>흰 카드. <code>.py</code> <code>.ai</code> <code>.ok</code>를 함께 주면 윗선 색(파랑·주황·초록). 안에 <code>&lt;h3&gt;</code>와 <code>&lt;p&gt;</code></td></tr><tr><td><code>.kicker</code></td><td>작은 대문자 라벨(파랑). <code>.ai</code> 주황, <code>.lab</code> 초록</td></tr><tr><td><code>.muted</code></td><td>회색 글</td></tr><tr><td><code>.small</code></td><td>작은 글</td></tr><tr><td><code>.sub</code></td><td>표지의 부제. 알약 모양 배지로 보인다</td></tr><tr><td><code>.fill-img</code></td><td>슬라이드 맨 아래 블록으로 두면 안의 그림을 남은 세로 공간에 비율 그대로 최대한 크게 보여 준다(스크롤 없음). 여러 장은 안에 <code>.fill-in</code>을 두고 <code>&lt;figure&gt;</code>마다 그림을 <code>.pic</code>으로 감싼다</td></tr></tbody></table>
 <pre><code class="language-md">### 더 알아보기 — 형 변환
 
 &lt;span class="kicker lab"&gt;정리&lt;/span&gt;
@@ -155,7 +250,14 @@ TypeError: can only concatenate str (not "int") to str
 &lt;p&gt;문자열을 정수로 바꾼다. 숫자가 아닌 글자가 섞이면 오류가 난다.&lt;/p&gt;
 &lt;/div&gt;
 
-- &lt;span class="muted"&gt;다음 시간: 조건문&lt;/span&gt;</code></pre>
+- &lt;span class="muted"&gt;다음 시간: 조건문&lt;/span&gt;
+
+&lt;div class="fill-img"&gt;&lt;img src="./img/sampling.png" alt="표본 추출 도식" /&gt;&lt;/div&gt;
+
+&lt;div class="fill-img"&gt;&lt;div class="fill-in"&gt;
+&lt;figure&gt;&lt;div class="kicker"&gt;left_join&lt;/div&gt;&lt;div class="pic"&gt;&lt;img src="./img/left.png" alt="left_join" /&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;figure&gt;&lt;div class="kicker"&gt;집합의 개념&lt;/div&gt;&lt;div class="pic"&gt;&lt;img src="./img/set.png" alt="집합" /&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;/div&gt;&lt;/div&gt;</code></pre>
 <figure><img src="img/lecture-sub-card.jpg" alt="`###` 슬라이드(목차에서 들여쓰기) · kicker lab · card py" loading="lazy"><figcaption><code>###</code> 슬라이드(목차에서 들여쓰기) · kicker lab · card py</figcaption></figure>
 <h2 id="example">전체 예제</h2>
 <p><a href="examples/lecture-example.md">lecture-example.md</a> — 위 코드가 전부 들어 있는 예제 덱. 저장소 안에서 우클릭 → Open with Slidev.</p>
