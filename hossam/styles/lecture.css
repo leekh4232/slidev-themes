@@ -707,7 +707,7 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
 :where(html.lecture) .slidev-layout.cards > div > :last-child { margin-bottom: 0; }
 :where(html.lecture) .slidev-layout.cards > div h4 {
   margin: 0 0 0.55rem;
-  font-size: 1.3rem !important;
+  font-size: 1.2rem !important;
   line-height: 1.25;
   font-weight: 800;
   color: var(--heading);
