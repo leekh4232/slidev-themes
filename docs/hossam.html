@@ -95,7 +95,7 @@ layout: section
 값에 이름을 붙이면 다시 꺼내 쓸 수 있다</code></pre>
 <figure><img src="img/lecture-section.jpg" alt="간지: 왼쪽 정렬 제목과 세로 막대, 오른쪽 위 빛 덩이와 점 무늬" loading="lazy"><figcaption>간지: 왼쪽 정렬 제목과 세로 막대, 오른쪽 위 빛 덩이와 점 무늬</figcaption></figure>
 <h3 id="l-cards">cards — 카드형</h3>
-<p><code>&lt;div&gt;</code>로 감싼 칸이 카드가 된다. 안의 마크다운(<code>####</code> 제목, 문단, 목록)은 여는 태그와 닫는 태그를 빈 줄로 띄운다. 칸에 <code>py</code> · <code>ai</code> · <code>ok</code> 클래스를 주면 윗선 색. 열 수는 <code>cols</code>. <code>&lt;div&gt;</code>가 아닌 것(도입 불릿, 인용, Callout, 표)은 카드 위아래에 전체 폭으로 놓이고, 그때는 카드가 내용 높이대로 위에서부터 쌓인다.</p>
+<p><code>&lt;div&gt;</code>로 감싼 칸이 카드가 된다. 안의 마크다운(<code>####</code> 제목, 문단, 목록)은 여는 태그와 닫는 태그를 빈 줄로 띄운다. 칸에 <code>py</code> · <code>ai</code> · <code>ok</code> 클래스를 주면 윗선 색. 열 수는 <code>cols</code>. <code>&lt;div&gt;</code>가 아닌 것(도입 불릿, 인용, Callout, 표)과 <code>.kicker</code> 라벨은 카드 위아래에 전체 폭으로 놓이고, 그때는 카드가 내용 높이대로 위에서부터 쌓인다.</p>
 <pre><code class="language-md">---
 layout: cards
 cols: 4
