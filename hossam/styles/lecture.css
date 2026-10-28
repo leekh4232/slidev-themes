@@ -657,7 +657,7 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
    제목 아래의 <div> 칸들이 카드 격자가 된다. 열 수는 프런트매터 cols(기본 3, cards.vue 가 --cards-cols 로 넘긴다).
    <div> 가 아닌 요소(불릿 · 문단 · 인용 · 표)와 컴포넌트(Callout · Output · Prompt · Grid · Stat) · 라벨(.kicker)은 전체 폭 한 줄로 놓인다 → 도입 문장이나 마무리 콜아웃을 카드 위아래에 둘 수 있다.
    칸만 있는 슬라이드는 카드 행들이 남는 높이를 나눠 가져 슬라이드를 채우고, 전체 폭 요소가 섞이면 내용 높이대로 위에서부터 쌓는다(그 요소까지 늘어나지 않게).
-   칸 안 내용은 세로 가운데. 칸에 py | ai | ok 를 주면 윗선 색. */
+   칸 안 내용은 왼쪽 위부터. 칸에 py | ai | ok 를 주면 윗선 색. */
 :where(html.lecture) .slidev-layout.cards {
   display: grid;
   grid-template-columns: repeat(var(--cards-cols, 3), minmax(0, 1fr));
@@ -678,7 +678,7 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
   min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* 칸이 내용보다 크면 내용을 세로 가운데에 */
+  justify-content: flex-start; /* 칸이 내용보다 커도 내용은 왼쪽 위부터 */
   padding: 1.2rem 1.4rem;
   background: var(--card);
   color: var(--fg);
@@ -692,8 +692,9 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
 :where(html.lecture) .slidev-layout.cards > div > :first-child { margin-top: 0; }
 :where(html.lecture) .slidev-layout.cards > div > :last-child { margin-bottom: 0; }
 :where(html.lecture) .slidev-layout.cards > div h4 {
-  margin: 0 0 0.5rem;
-  font-size: 1.15rem !important;
+  margin: 0 0 0.6rem;
+  font-size: 1.5rem !important;
+  line-height: 1.25;
   font-weight: 800;
   color: var(--heading);
 }
