@@ -254,9 +254,16 @@ html.lecture, :where(html.lecture) .slidev-layout {
   padding: 24px;
   box-shadow: var(--sh);
 }
+/* 카드 안 첫 요소의 위 여백과 마지막 요소(목록·문단)의 아래 여백을 없애 위아래 안쪽 여백을 패딩(24px)으로 같게 한다 (카드형 레이아웃의 칸과 동일) */
+:where(html.lecture) .card:where(:not(:has(> .d))) > :first-child { margin-top: 0; }
+:where(html.lecture) .card:where(:not(:has(> .d))) > :last-child { margin-bottom: 0; }
 :where(html.lecture) .card:where(:not(:has(> .d))) h3 {
   margin: 0 0 0.3rem 0;
 }
+/* 카드가 Grid 칸일 때는 위의 블록 간격 규칙(특이도 0,6,1)이 카드 안 마지막 요소에도 붙어 아래 여백이 커진다 → 더 높은 특이도로 0 */
+:where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) .grid-cells > .card:not(:has(> .d)) > :last-child { margin-bottom: 0; }
+/* UnoCSS 가 class="py" 를 padding-y 유틸리티로도 만들어 카드 패딩(24px)을 1rem 으로 덮는다 → 색 클래스가 있어도 패딩은 그대로 */
+:where(html.lecture) .card:where(:not(:has(> .d))):is(.py, .ai, .ok) { padding: 24px; }
 :where(html.lecture) .card:where(:not(:has(> .d))) p {
   margin: 0;
   font-size: 0.95rem;
