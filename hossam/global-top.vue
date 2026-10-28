@@ -20,9 +20,9 @@ const { isDark, toggleDark } = useDarkMode()
 const { $slidev } = useSlideContext()
 const pageNo = computed(() => $slidev.nav.currentPage)
 const pageTotal = computed(() => $slidev.nav.total)
-// 목차용 짧은 제목: 앞의 이모지 제거, "—" 이후의 부제는 뗀다 ("5. 문자열 변수 — 글자를 담기" → "5. 문자열 변수")
+// 목차용 짧은 제목: 앞의 이모지 제거(번호 "#01." 의 # 은 남긴다), "—" 이후의 부제는 뗀다 ("#05. 문자열 변수 — 글자를 담기" → "#05. 문자열 변수")
 function shortTitle(raw: string) {
-  return raw.replace(/<[^>]+>/g, '').replace(/[`*]/g, '').replace(/^[^\p{L}\p{N}]+/u, '').split(/\s+[—–-]\s+/)[0].trim()   // HTML 태그·마크다운 기호(` **) 제거
+  return raw.replace(/<[^>]+>/g, '').replace(/[`*]/g, '').replace(/^[^\p{L}\p{N}#]+/u, '').split(/\s+[—–-]\s+/)[0].trim()   // HTML 태그·마크다운 기호(` **) 제거
 }
 // 표지(1쪽)와 프런트매터 hideInToc: true 인 슬라이드(종료 페이지 등)는 목록에 넣지 않는다
 const items = computed(() =>
