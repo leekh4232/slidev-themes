@@ -22,7 +22,7 @@ async function copy() {
 
 <style scoped>
 .prompt { position: relative; border: 1px solid var(--line); border-left: 5px solid var(--ai); background: var(--ai-soft); border-radius: 14px; padding: 0.7rem 1rem 0.5rem; margin: 0.5rem 0; }
-.prompt-head { font-size: 0.9rem; font-weight: 800; letter-spacing: 0.05em; color: var(--ai); margin-bottom: 0.2rem; }
+.prompt-head { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.02em; color: var(--ai); margin-bottom: 0.2rem; }   /* 본문(1rem)보다 크게 */
 .prompt-body :deep(pre), .prompt-body :deep(.slidev-code) { background: transparent !important; border: none !important; padding: 0 !important; margin: 0 !important; font-family: inherit !important; }
 .prompt-body :deep(pre) { column-count: var(--prompt-cols, 1); column-gap: 2rem; column-rule: 1px solid var(--line); }   /* cols 가 2 이상이면 다단 */
 .prompt-body :deep(code), .prompt-body :deep(.line) { font-family: "Pretendard Variable", Pretendard, sans-serif !important; font-size: 1rem; line-height: 1.6; color: var(--text) !important; white-space: pre-wrap; word-break: break-word; }

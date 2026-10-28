@@ -21,7 +21,7 @@ const m = meta[props.kind] ?? meta.eli5
 
 <style scoped>
 .callout { border: 1px solid var(--line); border-left-width: 5px; border-radius: 14px; padding: 0.7rem 1rem; margin: 0.6rem 0; }
-.callout-head { font-size: 0.9rem; font-weight: 800; letter-spacing: 0.04em; margin-bottom: 0.2rem; }
+.callout-head { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.02em; margin-bottom: 0.2rem; }   /* 본문(1rem)보다 크게 */
 .callout-body { font-size: 1rem; }
 .callout-body :deep(p) { margin: 0; }
 </style>
