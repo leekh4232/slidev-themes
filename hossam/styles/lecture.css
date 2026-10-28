@@ -190,14 +190,35 @@ html.lecture {
   font-size: 0.95rem;
   line-height: 1.6;
   font-variant-ligatures: none;
-  overflow-x: auto;
+  overflow-x: hidden;
+  white-space: pre-wrap; /* 긴 줄은 가로 스크롤 대신 줄바꿈 */
   box-shadow: 0 6px 20px rgba(11, 18, 32, 0.12);
   margin-top: 1rem;
   margin-bottom: 1rem;
   padding: 20px 10px !important;
 }
+/* 긴 코드 줄은 상자 폭에서 줄을 바꾼다(띄어쓰기 없는 긴 토큰도 끊는다). 줄(.line)을 폭 100% 의 inline-block 으로 두어 줄마다 따로 접히게 하고,
+   줄 번호가 있으면 바뀐 줄을 번호 폭(2em + 1.1em)만큼 들여 코드 시작에 맞춘다(text-indent 로 첫 줄만 번호 자리로 당긴다). */
+:where(html.lecture) .slidev-layout .slidev-code code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
 :where(html.lecture) .slidev-layout .slidev-code .line {
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
   padding: 0 0.2em;
+}
+:where(html.lecture) .slidev-layout .slidev-code-line-numbers .slidev-code code .line {
+  padding-left: 3.3em;
+  text-indent: -3.1em;
+}
+/* 줄 번호를 숨기는 곳(카드 · 프롬프트 · 출력 상자)에서는 들여쓰기도 없앤다 */
+:where(html.lecture) .slidev-layout .card:where(:not(:has(> .d))) .slidev-code code .line,
+:where(html.lecture) .slidev-layout .prompt .slidev-code code .line,
+:where(html.lecture) .output .slidev-code code .line {
+  padding-left: 0.2em;
+  text-indent: 0;
 }
 /* Slidev 는 코드 크기를 변수(--slidev-code-font-size)로 !important 적용한다 → 변수 자체를 키운다 */
 html.lecture, :where(html.lecture) .slidev-layout {
