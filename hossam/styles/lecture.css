@@ -713,8 +713,8 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
 :where(html.lecture) .slidev-layout.cards > div > :first-child { margin-top: 0; }
 :where(html.lecture) .slidev-layout.cards > div > :last-child { margin-bottom: 0; }
 :where(html.lecture) .slidev-layout.cards > div h4 {
-  margin: 0 0 0.6rem;
-  font-size: 1.5rem !important;
+  margin: 0 0 0.55rem;
+  font-size: 1.3rem !important;
   line-height: 1.25;
   font-weight: 800;
   color: var(--heading);
