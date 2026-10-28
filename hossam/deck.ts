@@ -1,6 +1,8 @@
 // 덱 헤더(첫 슬라이드 프런트매터)의 테마 옵션을 읽는다.
 //   sidebar: true | false (기본: 켬)
-//   exportDark: true | false (기본: 켬) — PDF·PNG 내보내기를 어두운 테마로
+//   exportDark: true | false (기본: 켬) — PDF·PNG 내보내기를 어두운 테마로. 생략하고 colorMode 를 적으면 내보내기도 colorMode 를 따른다
+//   colorMode: light | dark (생략: 처음 한 번만 어둡게, 그 뒤엔 브라우저에 기억된 값) — 덱을 열 때의 테마. d 키로 바꿀 수 있다
+//   fontScale: 숫자 0.6~2 (생략: 브라우저에 기억된 배율) — 덱을 열 때의 본문 배율이자 0 키·배율 버튼이 돌아가는 값. 내보내기에도 적용
 // 테마 CSS 는 <html> 의 lecture 클래스 아래에 묶여 있어서, 이 함수를 쓰는 곳(레이아웃·global-top)이 클래스를 붙인다.
 import { computed } from 'vue'
 import { useNav } from '@slidev/client'
@@ -14,7 +16,19 @@ export function useDeckOptions() {
     return v === true || v === 'true'
   })
   const sidebar = flag('sidebar')
-  const exportDark = flag('exportDark')
+  const exportDark = computed(() => {
+    const v = fm.value.exportDark
+    if (v === undefined || v === null || v === '') return colorMode.value ? colorMode.value === 'dark' : true
+    return v === true || v === 'true'
+  })
+  const colorMode = computed(() => {
+    const v = String(fm.value.colorMode ?? '').toLowerCase()
+    return v === 'light' || v === 'dark' ? v : null
+  })
+  const fontScale = computed(() => {
+    const v = Number(fm.value.fontScale)
+    return v ? Math.round(Math.min(2, Math.max(0.6, v)) * 10) / 10 : null
+  })
   if (typeof document !== 'undefined') document.documentElement.classList.add('lecture')
-  return { sidebar, exportDark }
+  return { sidebar, exportDark, colorMode, fontScale }
 }

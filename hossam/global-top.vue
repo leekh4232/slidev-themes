@@ -10,7 +10,7 @@ import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useDarkMode, useNav, useSlideContext } from '@slidev/client'
 import { useDeckOptions } from './deck'
 
-const { sidebar, exportDark } = useDeckOptions()
+const { sidebar, exportDark, colorMode, fontScale } = useDeckOptions()
 
 const { currentPage, total, slides, go, nextSlide, prevSlide, clicks, clicksTotal } = useNav()
 // ---- 밝음/어두움 테마 (Slidev 내장 다크 모드를 그대로 쓴다: d 키와 같은 동작, 브라우저에 기억됨) ----
@@ -66,7 +66,7 @@ const isPlay = typeof location !== 'undefined' && !/^\/(presenter|overview|print
 const showSidebar = computed(() => sidebar.value && isPlay)
 // PDF·PNG 내보내기(/export, /print)는 발표 화면과 같이 어두운 테마로 찍는다(덱 헤더 exportDark: false 면 밝게). 내보내기 브라우저는 저장값이 없다
 const isExport = typeof location !== 'undefined' && /^\/(print|export)/.test(location.pathname)
-if (isExport && exportDark.value) isDark.value = true
+if (isExport) isDark.value = exportDark.value
 
 // ---- 폭·접힘 상태 ----
 const MIN_W = 180, MAX_W = 520, DEFAULT_W = 260
@@ -96,7 +96,9 @@ function applyZoom() {
 function setZoom(z: number) { zoom.value = Math.round(Math.min(2, Math.max(0.6, z)) * 10) / 10; applyZoom() }
 function zoomIn() { setZoom(zoom.value + 0.1) }
 function zoomOut() { setZoom(zoom.value - 0.1) }
-function zoomReset() { setZoom(1) }
+function zoomReset() { setZoom(fontScale.value ?? 1) }
+// 덱 헤더에 fontScale 이 있으면 사이드바 유무·내보내기와 상관없이 그 배율로 연다(브라우저에 기억된 배율보다 우선)
+if (typeof document !== 'undefined' && fontScale.value) { zoom.value = fontScale.value; document.documentElement.style.setProperty('--zoom', String(zoom.value)) }
 
 // ---- 넘침 표시: 현재 슬라이드의 모든 요소 중 가장 아래·오른쪽 끝이 캔버스(.slidev-page 상자)를 넘는 길이를 잰다(캔버스 px, 축소 배율로 되돌림).
 //  표지·간지의 장식(aria-hidden)은 일부러 밖으로 나가 있으므로 뺀다. 슬라이드 전환·클릭·배율·글꼴 로딩·등장 애니메이션 끝마다 다시 잰다. 발표 화면에서만 (내보내기에는 없다) ----
@@ -193,7 +195,9 @@ onMounted(() => {
   if (!isPlay) return
   // 처음 한 번만 어두운 테마로 시작한다(pyai-dark-init 표시). 그 뒤 d 키·🌙 버튼으로 고른 값은 Slidev 가 기억한다(slidev-color-schema —
   // 시스템 설정과 같은 값을 고르면 'auto' 로 저장되므로, 그 값을 보고 판단하면 사용자의 선택을 되돌리게 된다)
-  try { if (!localStorage.getItem('pyai-dark-init')) { isDark.value = true; localStorage.setItem('pyai-dark-init', '1') } } catch { /* 무시 */ }
+  // 덱 헤더에 colorMode 가 있으면 열 때마다 그 테마로 시작한다(d 키로 바꾼 값은 다시 열면 헤더 값으로 돌아간다)
+  if (colorMode.value) isDark.value = colorMode.value === 'dark'
+  else try { if (!localStorage.getItem('pyai-dark-init')) { isDark.value = true; localStorage.setItem('pyai-dark-init', '1') } } catch { /* 무시 */ }
   scheduleOverflow(); setTimeout(scheduleOverflow, 400)
   // 등장 애니메이션(lecture-rise 등)이 끝나야 자리가 정해지므로 그때마다 다시 잰다
   document.addEventListener('animationend', scheduleOverflow, true)
@@ -212,7 +216,7 @@ onMounted(() => {
     const w = Number(localStorage.getItem('pyai-sidebar-w')); if (w) panelW.value = Math.min(MAX_W, Math.max(MIN_W, w))
     const o = localStorage.getItem('pyai-sidebar-open'); if (o === '0') open.value = false
     if (localStorage.getItem('pyai-anim') === '0') anim.value = false
-    const z = Number(localStorage.getItem('pyai-zoom')); if (z) zoom.value = z
+    const z = Number(localStorage.getItem('pyai-zoom')); if (z && !fontScale.value) zoom.value = z
   } catch { /* 무시 */ }
   apply(); applyAnim(); applyZoom()
   setTimeout(() => scrollToCurrent('auto'), 300)   // 새로 열었을 때도 현재 항목이 보이게

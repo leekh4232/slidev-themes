@@ -13,13 +13,15 @@ git clone https://github.com/leekh4232/slidev-themes.git
 theme: ./slidev-themes/hossam
 sidebar: true        # 생략하면 켬
 exportDark: true     # 생략하면 켬. PDF·PNG 내보내기를 어두운 테마로
+colorMode: dark      # 생략 가능. light | dark, 덱을 열 때의 테마(d 키로 바꿀 수 있음)
+fontScale: 1        # 생략 가능. 0.6~2, 덱을 열 때의 본문 배율
 title: 과정 이름 · 단원 이름
 author: 홍길동 강사    # 생략 가능. 표지 부제 아래 작성자
 ---
 ```
 
 - 실행: VS Code에서 md 우클릭 → Open with Slidev, 또는 `npx slidev slides.md`. 새 버전은 `git pull`.
-- 기본 어두운 바탕(d 키 · 🌙/☀️ 버튼으로 밝게), 목차 사이드바(폭 조절 · 접기 · 확대/축소 · 다크, 슬라이드 바깥). 슬라이드는 항상 16:9, 창에 맞춰 비율대로 확대·축소, 넘치는 내용은 스크롤 없이 잘리고 빨간 테두리와 넘친 길이가 표시됨(발표 화면만). 레이아웃 cover(author) · section(간지) · default(본문) · cards(카드형, cols) · magazine(웹진형, ::right::) · infographic. Callout · Prompt · Output · Steps · Grid · Flow · Stat · YoutubeCard(유튜브 썸네일, file:// 에서도 보임) 컴포넌트, Slidev 내장 Iconify 아이콘(<carbon:bot />, 카드 안 class="ico"), .fill-img 클래스, 프런트매터 class: dense(코드 상자 촘촘하게). 모든 슬라이드 오른쪽 아래에 쪽 번호(현재/전체).
+- 기본 어두운 바탕(d 키 · 🌙/☀️ 버튼으로 밝게), 목차 사이드바(폭 조절 · 접기 · 확대/축소 · 다크, 슬라이드 바깥). 슬라이드는 항상 16:9, 창에 맞춰 비율대로 확대·축소, 넘치는 내용은 스크롤 없이 잘리고 빨간 테두리와 넘친 길이가 표시됨(발표 화면만). 레이아웃 cover(author) · section(간지) · default(본문) · cards(카드형, cols) · magazine(웹진형, ::right::) · infographic. Callout · Prompt · Output · Steps · Grid · Flow · Timeline(타임라인, 세로 가능) · Stat · YoutubeCard(유튜브 썸네일, file:// 에서도 보임) 컴포넌트, Slidev 내장 Iconify 아이콘(<carbon:bot />, 카드 안 class="ico"), .fill-img 클래스, 프런트매터 class: dense(코드 상자 촘촘하게). 모든 슬라이드 오른쪽 아래에 쪽 번호(현재/전체).
 - 컴포넌트 프롭은 각 `.vue` 파일 머리 주석과 매뉴얼에 있다.
 
 ## Docs

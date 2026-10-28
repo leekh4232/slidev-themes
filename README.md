@@ -27,6 +27,8 @@ git clone https://github.com/leekh4232/slidev-themes.git
 theme: ./slidev-themes/hossam
 sidebar: true        # 생략하면 켬
 exportDark: true     # 생략하면 켬. PDF·PNG 내보내기를 어두운 테마로
+colorMode: dark      # 생략 가능. light | dark, 덱을 열 때의 테마(d 키로 바꿀 수 있음)
+fontScale: 1        # 생략 가능. 0.6~2, 덱을 열 때의 본문 배율
 title: 과정 이름 · 단원 이름
 author: 홍길동 강사    # 생략 가능. 표지 부제 아래 작성자
 ---

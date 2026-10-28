@@ -9,7 +9,7 @@ layout: cover
 hossam 테마 예제 덱. title 의 " · " 앞은 사이드바 위 과정 이름, 뒤는 단원 이름이 된다.
 슬라이드의 첫 제목이 왼쪽 목차에 올라가고, ### 제목 슬라이드는 한 단계 들여쓴다.
 레이아웃: cover(author) · section(간지) · default(본문) · cards(cols) · magazine(::right::) · infographic
-컴포넌트: Callout(kind: eli5·real·tip·warn·danger·ai) · Prompt(4개 백틱 text 펜스) · Output · Steps(color: py·ai·ok) · Grid · Flow · Stat
+컴포넌트: Callout(kind: eli5·real·tip·warn·danger·ai) · Prompt(4개 백틱 text 펜스) · Output · Steps(color: py·ai·ok) · Grid · Flow · Timeline(color, vertical, li.now) · Stat
 클래스: .card(.py .ai .ok) · .kicker(.ai .lab) · .muted · .small · 표지의 .sub · .fill-img
 -->
 
@@ -183,6 +183,23 @@ layout: infographic
 <Stat value="1" unit="줄" label="변수를 만드는 데 필요한 코드" color="ai" />
 <Stat value="0" unit="원" label="이름표를 붙이는 비용" color="ok">바꿔 달 수도 있다</Stat>
 </Grid>
+
+---
+
+## 파이썬이 걸어온 길
+
+<Timeline>
+<li><b>1991</b>귀도 반 로섬이 첫 버전을 공개</li>
+<li><b>2000</b>파이썬 2.0, 리스트 컴프리헨션</li>
+<li><b>2008</b>파이썬 3.0, <code>print()</code>가 함수로</li>
+<li class="now"><b>오늘</b>3강 변수와 자료형</li>
+</Timeline>
+
+<Timeline color="ai" vertical>
+<li><b>1교시</b>변수 만들기 · 이름 규칙</li>
+<li class="now"><b>2교시</b>자료형과 <code>type()</code></li>
+<li><b>3교시</b>형 변환 실습</li>
+</Timeline>
 
 ---
 

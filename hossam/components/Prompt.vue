@@ -27,6 +27,12 @@ async function copy() {
 .prompt-body :deep(pre) { column-count: var(--prompt-cols, 1); column-gap: 2rem; column-rule: 1px solid var(--line); }   /* cols 가 2 이상이면 다단 */
 .prompt-body :deep(code), .prompt-body :deep(.line) { font-family: "Pretendard Variable", Pretendard, sans-serif !important; font-size: 1rem; line-height: 1.6; color: var(--text) !important; white-space: pre-wrap; word-break: break-word; }
 .prompt-body :deep(span) { color: var(--text) !important; }
+/* 상자 바탕이 밝은 테마에서도 밝으므로 Shiki 색(어두운 바탕용)을 테마 색으로 바꿔 강조한다: 제목·함수 / 연산자·키워드 / 문자열 / 목록 기호 / 주석 */
+.prompt-body :deep(span[style*="#91CBFF" i]) { color: var(--py) !important; }
+.prompt-body :deep(span[style*="#FF9492" i]) { color: var(--danger) !important; }
+.prompt-body :deep(span[style*="#ADDCFF" i]) { color: var(--ok) !important; }
+.prompt-body :deep(span[style*="#FFB757" i]) { color: var(--warn) !important; }
+.prompt-body :deep(span[style*="#BDC4CC" i]) { color: var(--muted) !important; }
 .copy { position: absolute; top: 0.5rem; right: 0.6rem; font-size: 0.85rem; font-weight: 700; color: var(--muted); background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 0.2em 0.65em; cursor: pointer; }
 .copy:hover { color: var(--text); }
 </style>
