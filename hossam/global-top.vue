@@ -258,7 +258,7 @@ onUnmounted(() => {
       <span>확대/축소</span>
       <span class="foot-btns">
         <button class="anim-btn" title="축소 (-)" @click="zoomOut">－</button>
-        <button class="anim-btn" title="원래 크기 (0)" @click="zoomReset">{{ Math.round(zoom * 100) }}%</button>
+        <button class="anim-btn" title="기본 크기 100% 로 (0)" @click="zoomReset">{{ Math.round(zoom * 100) }}%</button>
         <button class="anim-btn" title="확대 (+)" @click="zoomIn">＋</button>
       </span>
     </div>
@@ -268,6 +268,7 @@ onUnmounted(() => {
   <button v-if="!open" class="toc-open anim-float" :class="{ off: !anim }" :title="anim ? '애니메이션 끄기 (a)' : '애니메이션 켜기 (a)'" @click="toggleAnim">{{ anim ? '✨' : '⏸' }}</button>
   <button v-if="!open" class="toc-open dark-float" :title="isDark ? '밝은 테마 (d)' : '어두운 테마 (d)'" @click="toggleDark()">{{ isDark ? '☀️' : '🌙' }}</button>
   <button v-if="!open" class="toc-open zoom-float-out" title="축소 (-)" @click="zoomOut">－</button>
+  <button v-if="!open" class="toc-open zoom-float-reset" title="기본 크기 100% 로 (0)" @click="zoomReset">{{ Math.round(zoom * 100) }}%</button>
   <button v-if="!open" class="toc-open zoom-float-in" title="확대 (+)" @click="zoomIn">＋</button>
   </Teleport>
 </template>
@@ -331,7 +332,8 @@ onUnmounted(() => {
 .anim-float { left: 52px; }
 .dark-float { left: 90px; }
 .zoom-float-out { left: 128px; }
-.zoom-float-in { left: 166px; }
+.zoom-float-reset { left: 166px; width: auto; padding: 0 8px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.zoom-float-in { left: 240px; }   /* 가운데 배율 버튼("100%", 폭 약 65px) 뒤 */
 .toc-zoom { font-size: 0.9rem; color: var(--muted, #5d6b85); padding: 6px 6px 0; display: flex; align-items: center; justify-content: space-between; gap: 6px; white-space: nowrap; }
 .anim-float.off { color: var(--ai, #d9611f); }
 /* 넘침 표시: 캔버스(#slide-content) 안에 있어 캔버스와 함께 축소된다 */
