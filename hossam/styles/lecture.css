@@ -85,6 +85,7 @@ html.lecture .slidev-page {
   color: var(--text);
   padding: 2.2rem 2.6rem 2.2rem 2.4rem;
   line-height: 1.5;
+  zoom: var(--zoom, 1); /* 본문 확대/축소(사이드바 ＋/－, global-top.vue 가 설정). 캔버스 상자는 그대로고 글자·여백(px·rem)만 배율대로 */
 }
 :where(html.lecture) .slidev-layout h1 {
   font-weight: 800;

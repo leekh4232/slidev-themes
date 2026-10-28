@@ -3,7 +3,9 @@
 //  - 사이드바는 슬라이드(16:9 캔버스) 바깥, 브라우저 창에 붙는다(Teleport → body). 슬라이드는 사이드바를 뺀 나머지 창에 비율대로 맞춰진다(lecture.css 의 #page-root)
 //  - 제목이 있는 슬라이드를 나열하고 현재 위치를 강조, 클릭하면 이동
 //  - 오른쪽 가장자리를 드래그해 폭 조절(더블클릭 = 기본 폭), ◀/☰ 버튼 또는 s 키로 접기/펼치기
-//  - 폭과 접힘 상태는 브라우저에 기억된다
+//  - 본문 확대/축소(＋/－ 버튼, + - 0 키): 캔버스는 그대로, 글자·여백만 바뀐다
+//  - 넘침 표시: 현재 슬라이드의 내용이 캔버스를 벗어나면 빨간 테두리와 넘친 길이를 띄운다(발표 화면에서만)
+//  - 폭·접힘·배율은 브라우저에 기억된다
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useDarkMode, useNav, useSlideContext } from '@slidev/client'
 import { useDeckOptions } from './deck'
@@ -82,6 +84,40 @@ function setWidth(px: number) { panelW.value = Math.round(Math.min(MAX_W, Math.m
 function toggle() { open.value = !open.value }
 function resetWidth() { setWidth(DEFAULT_W) }
 
+// ---- 본문 확대/축소: 캔버스(1280×720)는 그대로 두고 .slidev-layout 에 CSS zoom(lecture.css 의 --zoom) → 글자·여백만 커지거나 작아지고, 넘치면 잘린다(넘침 표시가 알려 준다) ----
+const zoom = ref(1)
+function applyZoom() {
+  document.documentElement.style.setProperty('--zoom', String(zoom.value))
+  try { localStorage.setItem('pyai-zoom', String(zoom.value)) } catch { /* 무시 */ }
+}
+function setZoom(z: number) { zoom.value = Math.round(Math.min(2, Math.max(0.6, z)) * 10) / 10; applyZoom() }
+function zoomIn() { setZoom(zoom.value + 0.1) }
+function zoomOut() { setZoom(zoom.value - 0.1) }
+function zoomReset() { setZoom(1) }
+
+// ---- 넘침 표시: 현재 슬라이드의 모든 요소 중 가장 아래·오른쪽 끝이 캔버스(.slidev-page 상자)를 넘는 길이를 잰다(캔버스 px, 축소 배율로 되돌림).
+//  표지·간지의 장식(aria-hidden)은 일부러 밖으로 나가 있으므로 뺀다. 슬라이드 전환·클릭·배율·글꼴 로딩·등장 애니메이션 끝마다 다시 잰다. 발표 화면에서만 (내보내기에는 없다) ----
+const over = ref<{ y: number; x: number } | null>(null)
+function measureOverflow() {
+  const pg = document.querySelector<HTMLElement>(`#slide-content .slidev-page[data-slidev-no="${currentPage.value}"]`)
+  const layout = pg?.querySelector<HTMLElement>('.slidev-layout')
+  if (!pg || !layout) { over.value = null; return }
+  const scale = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--slidev-slide-scale')) || 1
+  const box = pg.getBoundingClientRect()
+  let maxB = -Infinity, maxR = -Infinity
+  for (const el of layout.querySelectorAll<HTMLElement>('*')) {
+    if (el.closest('[aria-hidden="true"]')) continue
+    const r = el.getBoundingClientRect(); if (!r.width && !r.height) continue
+    if (r.bottom > maxB) maxB = r.bottom
+    if (r.right > maxR) maxR = r.right
+  }
+  const y = Math.round((maxB - box.bottom) / scale), x = Math.round((maxR - box.right) / scale)
+  over.value = y > 0 || x > 0 ? { y, x } : null
+}
+let overRaf = 0
+function scheduleOverflow() { cancelAnimationFrame(overRaf); overRaf = requestAnimationFrame(measureOverflow) }
+watch([currentPage, clicks, zoom], () => nextTick(scheduleOverflow))
+
 // ---- 애니메이션 켬/끔 ----
 //  끔: 클릭 단계 없이 슬라이드의 모든 내용이 바로 보이고(클릭 수를 최대로), →/← 가 슬라이드 단위로 이동, 전환 효과 없음
 const CLICKS_MAX = 99999
@@ -126,6 +162,9 @@ function onKey(e: KeyboardEvent) {
   if (e.ctrlKey || e.metaKey || e.altKey) return
   if (e.key === 's') { e.preventDefault(); toggle() }
   if (e.key === 'a') { e.preventDefault(); toggleAnim() }
+  if (e.key === '+' || e.key === '=') { e.preventDefault(); zoomIn() }
+  if (e.key === '-' || e.key === '_') { e.preventDefault(); zoomOut() }
+  if (e.key === '0') { e.preventDefault(); zoomReset() }
 }
 
 // ---- 표 첫 열: 기본은 nowrap(항목 열). 첫 열이 표 폭의 30% 를 넘을 만큼 길면 table.first-long 을 붙여 줄바꿈을 허용한다.
@@ -147,9 +186,19 @@ watch(currentPage, scheduleMeasure)
 onMounted(() => {
   scheduleMeasure(); setTimeout(measureTables, 400)   // 글꼴 로딩 뒤 한 번 더
   window.addEventListener('resize', scheduleMeasure)
-  if (typeof document !== 'undefined' && 'fonts' in document) (document as any).fonts?.ready?.then(measureTables)
+  if (typeof document !== 'undefined' && 'fonts' in document) (document as any).fonts?.ready?.then(() => { measureTables(); scheduleOverflow() })
+  if (!isPlay) return
+  scheduleOverflow(); setTimeout(scheduleOverflow, 400)
+  // 등장 애니메이션(lecture-rise 등)이 끝나야 자리가 정해지므로 그때마다 다시 잰다
+  document.addEventListener('animationend', scheduleOverflow, true)
+  document.addEventListener('transitionend', scheduleOverflow, true)
 })
-onUnmounted(() => window.removeEventListener('resize', scheduleMeasure))
+onUnmounted(() => {
+  window.removeEventListener('resize', scheduleMeasure)
+  document.removeEventListener('animationend', scheduleOverflow, true)
+  document.removeEventListener('transitionend', scheduleOverflow, true)
+  cancelAnimationFrame(overRaf)
+})
 
 onMounted(() => {
   if (!showSidebar.value) return
@@ -158,8 +207,9 @@ onMounted(() => {
     const o = localStorage.getItem('pyai-sidebar-open'); if (o === '0') open.value = false
     if (localStorage.getItem('pyai-anim') === '0') anim.value = false
     if (!localStorage.getItem('slidev-color-schema')) isDark.value = false   // 처음엔 밝은 테마
+    const z = Number(localStorage.getItem('pyai-zoom')); if (z) zoom.value = z
   } catch { /* 무시 */ }
-  apply(); applyAnim()
+  apply(); applyAnim(); applyZoom()
   setTimeout(() => scrollToCurrent('auto'), 300)   // 새로 열었을 때도 현재 항목이 보이게
   window.addEventListener('keydown', onKey)
   window.addEventListener('keydown', onKeyCapture, true)
@@ -173,6 +223,10 @@ onUnmounted(() => {
 
 <template>
   <div class="page-no" aria-label="쪽 번호">{{ pageNo }}/{{ pageTotal }}</div>
+  <!-- 넘침 표시: 캔버스 안쪽 빨간 테두리 + 오른쪽 위에 넘친 길이. 발표 화면에서만 -->
+  <div v-if="isPlay && over" class="over-frame" aria-hidden="true">
+    <span class="over-tag">내용 넘침 <template v-if="over.y > 0">↓{{ over.y }}px</template><template v-if="over.x > 0"> →{{ over.x }}px</template></span>
+  </div>
   <!-- 사이드바는 슬라이드 캔버스(#slide-content, 비율 축소됨) 바깥에 두어야 하므로 body 로 보낸다 -->
   <Teleport v-if="showSidebar" to="body">
   <aside class="toc" :class="{ collapsed: !open }" :style="{ width: panelW + 'px' }">
@@ -200,11 +254,21 @@ onUnmounted(() => {
         <button class="anim-btn" :title="isDark ? '밝은 테마 (d)' : '어두운 테마 (d)'" @click="toggleDark()">{{ isDark ? '☀️' : '🌙' }}</button>
       </span>
     </div>
+    <div class="toc-zoom">
+      <span>확대/축소</span>
+      <span class="foot-btns">
+        <button class="anim-btn" title="축소 (-)" @click="zoomOut">－</button>
+        <button class="anim-btn" title="원래 크기 (0)" @click="zoomReset">{{ Math.round(zoom * 100) }}%</button>
+        <button class="anim-btn" title="확대 (+)" @click="zoomIn">＋</button>
+      </span>
+    </div>
     <div class="resizer" title="드래그해서 폭 조절 · 더블클릭하면 기본 폭" @pointerdown="startDrag" @dblclick="resetWidth" />
   </aside>
   <button v-if="!open" class="toc-open" title="사이드바 펼치기 (s)" @click="toggle">☰</button>
   <button v-if="!open" class="toc-open anim-float" :class="{ off: !anim }" :title="anim ? '애니메이션 끄기 (a)' : '애니메이션 켜기 (a)'" @click="toggleAnim">{{ anim ? '✨' : '⏸' }}</button>
   <button v-if="!open" class="toc-open dark-float" :title="isDark ? '밝은 테마 (d)' : '어두운 테마 (d)'" @click="toggleDark()">{{ isDark ? '☀️' : '🌙' }}</button>
+  <button v-if="!open" class="toc-open zoom-float-out" title="축소 (-)" @click="zoomOut">－</button>
+  <button v-if="!open" class="toc-open zoom-float-in" title="확대 (+)" @click="zoomIn">＋</button>
   </Teleport>
 </template>
 
@@ -266,5 +330,16 @@ onUnmounted(() => {
 .anim-btn:hover { border-color: currentColor; }
 .anim-float { left: 52px; }
 .dark-float { left: 90px; }
+.zoom-float-out { left: 128px; }
+.zoom-float-in { left: 166px; }
+.toc-zoom { font-size: 0.9rem; color: var(--muted, #5d6b85); padding: 6px 6px 0; display: flex; align-items: center; justify-content: space-between; gap: 6px; white-space: nowrap; }
 .anim-float.off { color: var(--ai, #d9611f); }
+/* 넘침 표시: 캔버스(#slide-content) 안에 있어 캔버스와 함께 축소된다 */
+.over-frame { position: absolute; inset: 0; z-index: 7; pointer-events: none; box-shadow: inset 0 0 0 5px var(--danger, #c8323f); }
+.over-tag {
+  position: absolute; top: 12px; right: 12px; padding: 6px 12px; border-radius: 999px;
+  background: var(--danger, #c8323f); color: #fff;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-size: 0.75rem; font-weight: 700; letter-spacing: .02em; font-variant-numeric: tabular-nums;
+}
 </style>
