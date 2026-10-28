@@ -711,7 +711,11 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
 :where(html.lecture) .slidev-layout.cards > div p,
 :where(html.lecture) .slidev-layout.cards > div li { font-size: 0.95rem; }
 :where(html.lecture) .slidev-layout.cards > div ul,
-:where(html.lecture) .slidev-layout.cards > div ol { margin: 0; padding-left: 1.2em; }
+:where(html.lecture) .slidev-layout.cards > div ol { margin: 0; padding-left: 0; }
+/* 카드(카드형 칸 · .card) 안 목록의 들여쓰기: 목록 패딩 없이 항목 여백만 글머리 폭(1em)으로 → 글머리는 카드 글의 왼쪽 끝에 맞고 글자는 바로 옆에서 시작 */
+:where(html.lecture) .slidev-layout.cards > div li,
+:where(html.lecture) .slidev-layout .card:where(:not(:has(> .d))) li { margin-left: 1em; padding-left: 0; }
+:where(html.lecture) .slidev-layout .card:where(:not(:has(> .d))) :is(ul, ol) { padding-left: 0; }
 
 /* ── 웹진형(magazine) ─────────────────────────────────────
    왼쪽(7)은 큰 제목 + 리드문(제목 다음 문단, 아래에 짧은 그라디언트 선) + 본문, 오른쪽(4)은 ::right:: 슬롯이 연한 바탕으로 가장자리까지 닿는 칸.
