@@ -1,5 +1,6 @@
 <script setup lang="ts">
-// 덱 헤더의 sidebar 가 켜져 있으면 모든 슬라이드 왼쪽에 고정되는 목차 사이드바를 그린다.
+// 덱 헤더의 sidebar 가 켜져 있으면 발표 화면 왼쪽에 고정되는 목차 사이드바를 그린다.
+//  - 사이드바는 슬라이드(16:9 캔버스) 바깥, 브라우저 창에 붙는다(Teleport → body). 슬라이드는 사이드바를 뺀 나머지 창에 비율대로 맞춰진다(lecture.css 의 #page-root)
 //  - 제목이 있는 슬라이드를 나열하고 현재 위치를 강조, 클릭하면 이동
 //  - 오른쪽 가장자리를 드래그해 폭 조절(더블클릭 = 기본 폭), ◀/☰ 버튼 또는 s 키로 접기/펼치기
 //  - 폭과 접힘 상태는 브라우저에 기억된다
@@ -58,20 +59,18 @@ const deckTitle = computed(() => (slides.value[0]?.meta?.slide?.frontmatter?.tit
 const lab = computed(() => deckTitle.value.split(' · ')[0])
 const unit = computed(() => deckTitle.value.split(' · ').slice(1).join(' · '))
 
-// ---- 웹페이지식 배치: 메인 발표 화면에서만 html.fluid 를 켠다 (스타일은 base.css) ----
+// ---- 사이드바는 메인 발표 화면에서만 그린다. 발표자 모드·개요·PDF·PNG 내보내기(/export)·인쇄(/print)에는 없고 슬라이드가 창 전체를 쓴다 ----
 const isPlay = typeof location !== 'undefined' && !/^\/(presenter|overview|print|export|notes|entry)/.test(location.pathname)
-// PDF·PNG 내보내기 화면(/print, /export)에는 사이드바를 그리지 않고 본문 왼쪽 자리도 비우지 않는다
-const isExport = typeof location !== 'undefined' && /^\/(print|export)/.test(location.pathname)
-const showSidebar = computed(() => sidebar.value && !isExport)
+const showSidebar = computed(() => sidebar.value && isPlay)
 
 // ---- 폭·접힘 상태 ----
 const MIN_W = 180, MAX_W = 520, DEFAULT_W = 260
 const panelW = ref(DEFAULT_W)
 const open = ref(true)
-// 사이드바가 꺼져 있으면 본문 왼쪽 여백(--sidebar-w)을 0 으로 둔다. 켜져 있으면 마운트 전(발표자 화면 포함)에도 기본 폭을 비워 둔다.
+// --sidebar-w 는 슬라이드 영역(#page-root)의 왼쪽 여백 → 슬라이드는 그 나머지에 16:9 로 맞춰진다. 사이드바가 없으면 0, 켜져 있으면 마운트 전에도 기본 폭을 비워 둔다.
 if (typeof document !== 'undefined') document.documentElement.style.setProperty('--sidebar-w', showSidebar.value ? `${DEFAULT_W}px` : '0px')
 function apply() {
-  // --sidebar-w 는 본문 왼쪽 여백에 쓰인다. 접히면 0.
+  // 접히면 0 → 슬라이드가 창 전체로 커진다.
   document.documentElement.style.setProperty('--sidebar-w', open.value ? `${panelW.value}px` : '0px')
   try {
     localStorage.setItem('pyai-sidebar-w', String(panelW.value))
@@ -82,25 +81,6 @@ watch([panelW, open], apply)
 function setWidth(px: number) { panelW.value = Math.round(Math.min(MAX_W, Math.max(MIN_W, px))) }
 function toggle() { open.value = !open.value }
 function resetWidth() { setWidth(DEFAULT_W) }
-
-// ---- 본문 확대/축소 (사이드바는 그대로, .slidev-layout 에 CSS zoom) ----
-const zoom = ref(1)
-function applyZoom() {
-  document.documentElement.style.setProperty('--zoom', String(zoom.value))
-  try { localStorage.setItem('pyai-zoom', String(zoom.value)) } catch { /* 무시 */ }
-}
-function setZoom(z: number) { zoom.value = Math.round(Math.min(2, Math.max(0.6, z)) * 10) / 10; applyZoom() }
-function zoomIn() { setZoom(zoom.value + 0.1) }
-function zoomOut() { setZoom(zoom.value - 0.1) }
-function zoomReset() { setZoom(1) }
-
-// ---- 본문 폭: 고정(최대 1920px, 가운데) / 100%(창 전체, 기본) ----
-const wide = ref(true)
-function applyWide() {
-  document.documentElement.classList.toggle('wide', wide.value)
-  try { localStorage.setItem('pyai-width', wide.value ? 'full' : 'fixed') } catch { /* 무시 */ }
-}
-function toggleWide() { wide.value = !wide.value; applyWide() }
 
 // ---- 애니메이션 켬/끔 ----
 //  끔: 클릭 단계 없이 슬라이드의 모든 내용이 바로 보이고(클릭 수를 최대로), →/← 가 슬라이드 단위로 이동, 전환 효과 없음
@@ -114,31 +94,17 @@ function applyAnim() {
 function toggleAnim() { anim.value = !anim.value; applyAnim() }
 function goTo(no: number) { go(no, anim.value ? 0 : CLICKS_MAX) }
 watch(currentPage, () => { if (!anim.value && clicks.value < clicksTotal.value) go(currentPage.value, CLICKS_MAX) })
-// ---- 방향키: 슬라이드가 화면보다 길면 먼저 스크롤, 끝에 닿으면 다음 클릭/슬라이드 (←는 위로 스크롤 후 이전) ----
+// ---- 방향키: 애니메이션 끔이면 클릭 단계를 건너뛰고 슬라이드 단위로 움직인다 (켬이면 Slidev 기본 동작: 다음 클릭/슬라이드) ----
 const NEXT_KEYS = ['ArrowRight', 'ArrowDown', ' ', 'PageDown', 'Enter']
 const PREV_KEYS = ['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace']
-function activePage(): HTMLElement | null {
-  return [...document.querySelectorAll<HTMLElement>('#slide-content .slidev-page')].find(el => el.style.display !== 'none') ?? null
-}
-function scrollStep(dir: 1 | -1): boolean {
-  const el = activePage(); if (!el) return false
-  const step = Math.round(el.clientHeight * 0.85)
-  if (dir > 0 && el.scrollTop + el.clientHeight < el.scrollHeight - 2) { el.scrollBy({ top: step, behavior: 'smooth' }); return true }
-  if (dir < 0 && el.scrollTop > 2) { el.scrollBy({ top: -step, behavior: 'smooth' }); return true }
-  return false
-}
-watch(currentPage, () => { requestAnimationFrame(() => { const el = activePage(); if (el) el.scrollTop = 0 }) })
 function onKeyCapture(e: KeyboardEvent) {
+  if (anim.value) return
   if (e.ctrlKey || e.metaKey || e.altKey) return
   const t = e.target as HTMLElement | null
   if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return
   const next = NEXT_KEYS.includes(e.key), prev = PREV_KEYS.includes(e.key)
   if (!next && !prev) return
-  // 1) 스크롤할 내용이 남아 있으면 스크롤만 하고 끝
-  if (scrollStep(next ? 1 : -1)) { e.preventDefault(); e.stopImmediatePropagation(); return }
-  // 2) 애니메이션 끔이면 슬라이드 단위로 이동
-  if (!anim.value) { e.preventDefault(); e.stopImmediatePropagation(); next ? nextSlide(true) : prevSlide(true) }
-  // 3) 그 외엔 Slidev 기본 동작(다음 클릭/슬라이드)
+  e.preventDefault(); e.stopImmediatePropagation(); next ? nextSlide(true) : prevSlide(true)
 }
 
 function startDrag(e: PointerEvent) {
@@ -160,14 +126,10 @@ function onKey(e: KeyboardEvent) {
   if (e.ctrlKey || e.metaKey || e.altKey) return
   if (e.key === 's') { e.preventDefault(); toggle() }
   if (e.key === 'a') { e.preventDefault(); toggleAnim() }
-  if (e.key === 'w') { e.preventDefault(); toggleWide() }
-  if (e.key === '+' || e.key === '=') { e.preventDefault(); zoomIn() }
-  if (e.key === '-' || e.key === '_') { e.preventDefault(); zoomOut() }
-  if (e.key === '0') { e.preventDefault(); zoomReset() }
 }
 
 // ---- 표 첫 열: 기본은 nowrap(항목 열). 첫 열이 표 폭의 30% 를 넘을 만큼 길면 table.first-long 을 붙여 줄바꿈을 허용한다.
-//  슬라이드 프런트매터 class: tbl-wrap / tbl-nowrap 이면 자동 판정을 건너뛴다(CSS 가 강제). 슬라이드 전환·창 크기·배율 변화마다 다시 잰다.
+//  슬라이드 프런트매터 class: tbl-wrap / tbl-nowrap 이면 자동 판정을 건너뛴다(CSS 가 강제). 슬라이드 전환·창 크기 변화마다 다시 잰다.
 const FIRST_COL_MAX = 0.3
 function measureTables() {
   const tables = document.querySelectorAll<HTMLTableElement>('#slide-content .slidev-layout table, #slide-content .slidev-layout .first-long')
@@ -181,7 +143,7 @@ function measureTables() {
   })
 }
 function scheduleMeasure() { nextTick(() => requestAnimationFrame(measureTables)) }
-watch([currentPage, zoom, wide, open, panelW], scheduleMeasure)
+watch(currentPage, scheduleMeasure)
 onMounted(() => {
   scheduleMeasure(); setTimeout(measureTables, 400)   // 글꼴 로딩 뒤 한 번 더
   window.addEventListener('resize', scheduleMeasure)
@@ -190,34 +152,29 @@ onMounted(() => {
 onUnmounted(() => window.removeEventListener('resize', scheduleMeasure))
 
 onMounted(() => {
-  if (!isPlay || !sidebar.value) return
-  document.documentElement.classList.add('fluid')
+  if (!showSidebar.value) return
   try {
     const w = Number(localStorage.getItem('pyai-sidebar-w')); if (w) panelW.value = Math.min(MAX_W, Math.max(MIN_W, w))
     const o = localStorage.getItem('pyai-sidebar-open'); if (o === '0') open.value = false
     if (localStorage.getItem('pyai-anim') === '0') anim.value = false
     if (!localStorage.getItem('slidev-color-schema')) isDark.value = false   // 처음엔 밝은 테마
-    const z = Number(localStorage.getItem('pyai-zoom')); if (z) zoom.value = z
-    // 예전 키(pyai-wide)는 열 때마다 '0'이 저장돼 기본값을 덮으므로 읽지 않는다
-    if (localStorage.getItem('pyai-width') === 'fixed') wide.value = false
   } catch { /* 무시 */ }
-  apply(); applyAnim(); applyZoom(); applyWide()
+  apply(); applyAnim()
   setTimeout(() => scrollToCurrent('auto'), 300)   // 새로 열었을 때도 현재 항목이 보이게
   window.addEventListener('keydown', onKey)
   window.addEventListener('keydown', onKeyCapture, true)
 })
 onUnmounted(() => {
-  document.documentElement.classList.remove('fluid')
   window.removeEventListener('keydown', onKey)
   window.removeEventListener('keydown', onKeyCapture, true)
   document.documentElement.classList.remove('no-anim')
-  document.documentElement.classList.remove('wide')
 })
 </script>
 
 <template>
   <div class="page-no" aria-label="쪽 번호">{{ pageNo }}/{{ pageTotal }}</div>
-  <template v-if="showSidebar">
+  <!-- 사이드바는 슬라이드 캔버스(#slide-content, 비율 축소됨) 바깥에 두어야 하므로 body 로 보낸다 -->
+  <Teleport v-if="showSidebar" to="body">
   <aside class="toc" :class="{ collapsed: !open }" :style="{ width: panelW + 'px' }">
     <button class="toc-toggle" title="사이드바 접기 (s)" @click="toggle">◀</button>
     <div class="toc-head" title="표지로 이동" @click="goTo(1)">
@@ -243,30 +200,12 @@ onUnmounted(() => {
         <button class="anim-btn" :title="isDark ? '밝은 테마 (d)' : '어두운 테마 (d)'" @click="toggleDark()">{{ isDark ? '☀️' : '🌙' }}</button>
       </span>
     </div>
-    <div class="toc-zoom">
-      <span>본문 폭</span>
-      <span class="foot-btns">
-        <button class="anim-btn" :class="{ on: !wide }" title="고정 폭 (w)" @click="wide && toggleWide()">고정</button>
-        <button class="anim-btn" :class="{ on: wide }" title="창 전체 폭 (w)" @click="!wide && toggleWide()">100%</button>
-      </span>
-    </div>
-    <div class="toc-zoom">
-      <span>확대/축소</span>
-      <span class="foot-btns">
-        <button class="anim-btn" title="축소 (-)" @click="zoomOut">－</button>
-        <button class="anim-btn" title="원래 크기 (0)" @click="zoomReset">{{ Math.round(zoom * 100) }}%</button>
-        <button class="anim-btn" title="확대 (+)" @click="zoomIn">＋</button>
-      </span>
-    </div>
     <div class="resizer" title="드래그해서 폭 조절 · 더블클릭하면 기본 폭" @pointerdown="startDrag" @dblclick="resetWidth" />
   </aside>
   <button v-if="!open" class="toc-open" title="사이드바 펼치기 (s)" @click="toggle">☰</button>
   <button v-if="!open" class="toc-open anim-float" :class="{ off: !anim }" :title="anim ? '애니메이션 끄기 (a)' : '애니메이션 켜기 (a)'" @click="toggleAnim">{{ anim ? '✨' : '⏸' }}</button>
   <button v-if="!open" class="toc-open dark-float" :title="isDark ? '밝은 테마 (d)' : '어두운 테마 (d)'" @click="toggleDark()">{{ isDark ? '☀️' : '🌙' }}</button>
-  <button v-if="!open" class="toc-open zoom-float-out" title="축소 (-)" @click="zoomOut">－</button>
-  <button v-if="!open" class="toc-open zoom-float-in" title="확대 (+)" @click="zoomIn">＋</button>
-  <button v-if="!open" class="toc-open wide-float" :title="wide ? '고정 폭 (w)' : '창 전체 폭 (w)'" @click="toggleWide">{{ wide ? '⇥⇤' : '⇤⇥' }}</button>
-  </template>
+  </Teleport>
 </template>
 
 <style scoped>
@@ -276,8 +215,9 @@ onUnmounted(() => {
   font-size: 0.75rem; font-weight: 600; letter-spacing: .02em; color: var(--muted, #5d6b85);
   font-variant-numeric: tabular-nums; pointer-events: none; user-select: none;
 }
+/* 사이드바와 떠 있는 버튼은 body 에 붙으므로 창 기준(fixed). 슬라이드 축소 배율과 무관하게 실제 픽셀 크기 그대로 보인다 */
 .toc {
-  position: absolute; left: 0; top: 0; bottom: 0; width: var(--sidebar-w, 260px);
+  position: fixed; left: 0; top: 0; bottom: 0; width: var(--sidebar-w, 260px);
   background: var(--surface, #f3f6fb); border-right: 1px solid var(--line, rgba(10,20,40,.1));
   display: flex; flex-direction: column; padding: 18px 14px 12px; z-index: 5;
   font-family: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
@@ -293,7 +233,7 @@ onUnmounted(() => {
 .toc-toggle { position: absolute; top: 12px; right: 12px; }
 .toc-toggle:hover, .toc-open:hover { color: var(--py, #0a7fc2); border-color: var(--py, #0a7fc2); }
 @media print { .toc, .toc-open { display: none !important; } }
-.toc-open { position: absolute; top: 14px; left: 14px; z-index: 6; box-shadow: 0 2px 8px rgba(11,18,32,.12); }
+.toc-open { position: fixed; top: 14px; left: 14px; z-index: 6; box-shadow: 0 2px 8px rgba(11,18,32,.12); }
 .toc-head { padding: 0 44px 10px 4px; border-bottom: 1px solid var(--line, rgba(10,20,40,.1)); margin-bottom: 8px; cursor: pointer; }   /* 클릭하면 표지(1쪽)로. 표지는 목록에 넣지 않는다 */
 .toc-head:hover .toc-unit { color: var(--py, #0a7fc2); }
 .toc-lab { font-size: 0.9rem; font-weight: 800; letter-spacing: .08em; color: var(--py, #0a7fc2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -323,13 +263,8 @@ onUnmounted(() => {
 .foot-btns { display: flex; gap: 4px; }
 .anim-btn { font-size: 0.8rem; font-weight: 700; padding: 4px 8px; border-radius: 8px; border: 1px solid var(--line, rgba(10,20,40,.1)); background: var(--card-bg, #fff); color: var(--py, #0a7fc2); cursor: pointer; white-space: nowrap; }
 .anim-btn.off { color: var(--ai, #d9611f); }
-.anim-btn.on { background: var(--py-soft, rgba(10,127,194,.1)); border-color: var(--py, #0a7fc2); }
 .anim-btn:hover { border-color: currentColor; }
 .anim-float { left: 52px; }
 .dark-float { left: 90px; }
-.zoom-float-out { left: 128px; }
-.zoom-float-in { left: 166px; }
-.wide-float { left: 204px; width: auto; padding: 0 6px; }
-.toc-zoom { font-size: 0.9rem; color: var(--muted, #5d6b85); padding: 6px 6px 0; display: flex; align-items: center; justify-content: space-between; gap: 6px; white-space: nowrap; }
 .anim-float.off { color: var(--ai, #d9611f); }
 </style>

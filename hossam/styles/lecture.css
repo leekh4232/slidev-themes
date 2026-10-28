@@ -1,5 +1,5 @@
 /* hossam 테마 — 코딩 강의용 흰 바탕. 규칙은 html.lecture 아래에 묶는다.
-   html.fluid · html.wide · html.no-anim 규칙은 사이드바·애니메이션 조작이다. */
+   html.no-anim 규칙은 애니메이션 끔(사이드바 버튼 · a 키)이다. */
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
 
 html.lecture {
@@ -56,38 +56,21 @@ html.lecture.dark {
 html.lecture, :where(html.lecture) body, :where(html.lecture) #app {
   background: var(--bg) !important;
 }
-html.fluid {
-  font-size: 22px;
+/* 발표 화면: 슬라이드는 항상 16:9(1280×720 캔버스)이고 Slidev 가 창 크기에 맞춰 비율대로 확대·축소한다.
+   사이드바(global-top.vue)는 캔버스 바깥, 창 왼쪽에 붙으므로 슬라이드 영역(#page-root)의 왼쪽을 사이드바 폭만큼 비운다(접으면 0). */
+html.lecture #page-root {
+  box-sizing: border-box;
+  padding-left: var(--sidebar-w);
+  transition: padding-left 0.2s ease;
 }
-html.fluid #slide-container {
-  --slidev-slide-container-background: var(--bg); /* 1920px 바깥 여백도 같은 바탕색 (Slidev 기본은 검정) */
-  background: var(--bg) !important;
+/* 캔버스 바깥 여백은 연한 바탕색 → 16:9 테두리가 보인다 (Slidev 기본은 검정) */
+html.lecture #slide-container {
+  --slidev-slide-container-background: var(--surface);
 }
-html.fluid #slide-container #slide-content {
-  left: 50% !important;
-  top: 0 !important;
-  width: 100% !important;
-  max-width: 1920px; /* 슬라이드(사이드바 포함) 최대 폭. 더 넓은 창에서는 가운데 정렬 */
-  height: 100% !important;
-  transform: translateX(-50%) !important;
-  --slidev-slide-scale: 1 !important;
-}
-/* 본문 폭 100% (사이드바 '본문 폭' 버튼 또는 w 키): 최대 폭 제한을 푼다 */
-html.fluid.wide #slide-container #slide-content {
-  max-width: none;
-}
-/* Slidev 기본 조작 막대(마우스를 올리면 나타남)를 왼쪽 아래에서 오른쪽 아래로 옮긴다 → 사이드바 버튼과 겹치지 않게 */
-html.fluid #slide-container > .absolute.bottom-0.left-0 {
-  left: auto !important;
-  right: 0 !important;
-}
-html.fluid #slide-content .slidev-page {
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-html.fluid #slide-content .slidev-layout {
-  height: auto !important;
-  min-height: 100%;
+/* 내용이 캔버스를 넘치면 스크롤하지 않고 잘라낸다 → 잘린 부분이 보이면 내용을 줄인다 (clip 은 스크립트 스크롤도 막는다) */
+html.lecture .slidev-page {
+  overflow: hidden;
+  overflow: clip;
 }
 
 :where(html.lecture) .slidev-layout {
@@ -100,10 +83,8 @@ html.fluid #slide-content .slidev-layout {
     sans-serif;
   background: var(--bg);
   color: var(--text);
-  padding: 2.2rem 2.6rem 2.2rem calc(var(--sidebar-w) / (var(--base-zoom) * var(--zoom, 1)) + 2.4rem); /* 왼쪽은 사이드바 자리(접히면 0). zoom 보정 */
-  transition: padding-left 0.2s ease;
+  padding: 2.2rem 2.6rem 2.2rem 2.4rem;
   line-height: 1.5;
-  zoom: calc(var(--base-zoom) * var(--zoom, 1)); /* 기본 배율 × 사용자 배율(사이드바 ＋/－, global-top.vue 가 --zoom 설정) */
 }
 :where(html.lecture) .slidev-layout h1 {
   font-weight: 800;
