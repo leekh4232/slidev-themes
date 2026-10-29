@@ -9,8 +9,8 @@ layout: cover
 hossam 테마 예제 덱. title 의 " · " 앞은 사이드바 위 과정 이름, 뒤는 단원 이름이 된다.
 슬라이드의 첫 제목이 왼쪽 목차에 올라가고, ### 제목 슬라이드는 한 단계 들여쓴다.
 레이아웃: cover(author) · section(간지) · default(본문) · cards(cols) · magazine(::right::) · infographic
-컴포넌트: Callout(kind: eli5·real·tip·warn·danger·ai) · Prompt(4개 백틱 text 펜스) · Output · Steps(color: py·ai·ok) · Grid · Flow · Timeline(color, vertical, li.now) · Stat
-클래스: .card(.py .ai .ok) · .kicker(.ai .lab) · .muted · .small · 표지의 .sub · .fill-img
+컴포넌트: Callout(kind: eli5·real·tip·warn·danger·ai·prompt·output·plain · title·icon·color·n·tag·copy·cols) · Prompt(4개 백틱 text 펜스) · Output(Callout의 짧은 이름) · Steps(type: list·flow·timeline · color: py·ai·ok·pastel · start·vertical · li class="ai") · Flow · Timeline(Steps의 짧은 이름, li.now) · Grid · Stat
+클래스: .card(.py .ai .ok) · .kicker(.ai .lab) · .muted · .small · .tight · .flush · 표지의 .sub · .fill-img
 -->
 
 # 변수와 자료형
@@ -221,6 +221,70 @@ layout: infographic
 <Callout kind="danger">
 이름, 전화번호, 계정 같은 개인정보는 프롬프트에 넣지 않는다.
 </Callout>
+
+---
+
+## 상자와 번호 — 프롭으로 바꾸기
+
+<Callout icon="📌" title="오늘의 약속" color="ok">코드는 내가 쓴다. AI에게는 방향 · 해석 · 오류 원인만 묻는다</Callout>
+
+<Callout n="3" title="내 분류 채점받기" tag="초안 검토" color="ai"><b>언제?</b> 비슷한 것들이 헷갈릴 때. 내가 먼저 나눠 보고, 정답이 아니라 나누는 기준을 받는다</Callout>
+
+<Grid cols="2" align="start">
+<div>
+
+<Steps start="4">
+<li>앞 슬라이드의 3번에 이어 <b>4번부터</b></li>
+<li>번호는 <code>start</code>로 잇는다</li>
+</Steps>
+
+</div>
+<div>
+
+<Steps type="flow" color="pastel" start="4">
+<li><carbon:pen /><b>설계</b>입력 · 출력 정하기</li>
+<li><carbon:code /><b>코드</b>한 줄씩 쓴다</li>
+<li class="ok"><carbon:checkmark-outline /><b>확인</b>이 항목만 초록</li>
+</Steps>
+
+</div>
+</Grid>
+
+---
+
+## 칸 간격과 여백 — gap · tight
+
+<Callout kind="warn" title="이렇게는 안 쓴다">
+<Grid cols="2" gap="6 32">
+<div>문제를 통째로 주고 정답 코드 받기</div>
+<div>내 코드를 AI가 직접 고치게 하기</div>
+<div>보고서를 통째로 대신 쓰게 하기</div>
+<div>검증하지 않고 그대로 믿기</div>
+</Grid>
+</Callout>
+
+<Grid cols="2" align="start">
+<div class="tight">
+
+<span class="kicker">tight 칸</span>
+
+- 블록 사이가 0.35rem
+- 짧은 메모를 촘촘하게
+
+<Callout kind="tip">콜아웃도 바짝 붙는다</Callout>
+
+</div>
+<div>
+
+<span class="kicker">기본 칸</span>
+
+- 블록 사이가 1.1rem
+- 본문 읽기에 맞는 간격
+
+<Callout kind="tip">콜아웃 위에 여백이 남는다</Callout>
+
+</div>
+</Grid>
 
 ---
 

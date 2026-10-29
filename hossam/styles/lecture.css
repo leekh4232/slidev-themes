@@ -25,6 +25,13 @@ html.lecture {
   --card-bg: #ffffff;
   --slidev-theme-primary: #0a7fc2;
   --title-line: rgba(0, 0, 0, 0.5);
+  /* 파스텔 여섯 색(분홍 · 살구 · 버터 · 민트 · 하늘 · 라벤더). Steps · Flow · Timeline 의 color="pastel" 이 항목마다 돌아가며 쓴다. 밝은 바탕에서는 조금 진하게 */
+  --pastel-1: #ef8fa9;
+  --pastel-2: #f2b063;
+  --pastel-3: #d9c04a;
+  --pastel-4: #6cc9a7;
+  --pastel-5: #6fb3ec;
+  --pastel-6: #a68cf0;
 }
 
 /* 어두운 테마 (사이드바 ☀️/🌙 버튼 또는 d 키) */
@@ -51,6 +58,12 @@ html.lecture.dark {
   --card-bg: #16213a;
   --slidev-theme-primary: #5fc9f8;
   --title-line: rgba(255, 255, 255, 0.5);
+  --pastel-1: #ffb3c6;
+  --pastel-2: #ffd08a;
+  --pastel-3: #fff0a0;
+  --pastel-4: #b5ead7;
+  --pastel-5: #a0d8ff;
+  --pastel-6: #cdb4ff;
 }
 
 html.lecture, :where(html.lecture) body, :where(html.lecture) #app {
@@ -134,6 +147,10 @@ html.lecture .slidev-page {
 html.lecture {
   --block-gap: 1.1rem;
 }
+/* 블록 간격 줄이기: 슬라이드(프런트매터 class: tight) · Grid 칸 · 카드 등 어느 요소에 주어도 그 안쪽의 블록 간격이 바뀐다(변수가 상속된다).
+   tight 는 촘촘하게(0.35rem), flush 는 0. 카드형(cards)의 카드 사이는 격자 gap 이라 영향이 없다. 개별 요소의 여백은 Slidev 내장 UnoCSS 유틸리티(mb-0 · mt-2 · p-0 …)로 준다. */
+:where(html.lecture) .tight { --block-gap: 0.35rem; }
+:where(html.lecture) .flush { --block-gap: 0; }
 :where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) > :not(h1):not(h2):not(h3):not(.cover-bg),
 :where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) .grid-cells > :not(.cover-bg) > :not(h3) {
   margin-bottom: var(--block-gap);
