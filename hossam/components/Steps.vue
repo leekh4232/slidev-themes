@@ -60,8 +60,9 @@ ol :deep(li.pastel-6) { --c: var(--pastel-6); }
 .timeline { --dot: 1.2rem; list-style: none; margin: 0.6rem 0; padding: 0; display: flex; }
 .timeline :deep(li) { position: relative; flex: 1 1 0; min-width: 0; margin: 0; padding: calc(var(--dot) + 0.8rem) 1rem 0 0; font-size: 0.95rem; line-height: 1.45; color: var(--text); }
 .timeline :deep(li)::before { content: ''; position: absolute; top: 0; left: 0; z-index: 1; box-sizing: border-box; width: var(--dot); height: var(--dot); background: var(--bg); border: 3px solid var(--c); }
-/* 선: 이 점의 가운데에서 다음 점의 가운데까지 (마지막 항목은 선이 없다) */
+/* 선: 이 점의 가운데에서 다음 점의 가운데까지. 마지막 점 뒤로는 끝까지 옅어지며 이어진다(끝이 비어 보이지 않게). center 는 대칭이라 꼬리를 그리지 않는다 */
 .timeline :deep(li:not(:last-child))::after { content: ''; position: absolute; top: calc(var(--dot) / 2 - 1.5px); left: calc(var(--dot) / 2); width: 100%; height: 3px; background: var(--c); opacity: 0.4; }
+.timeline:not(.center) :deep(li:last-child)::after { content: ''; position: absolute; top: calc(var(--dot) / 2 - 1.5px); left: calc(var(--dot) / 2); right: 0; height: 3px; background: linear-gradient(90deg, var(--c), transparent); opacity: 0.4; }
 .timeline :deep(li.now)::before { background: var(--c); box-shadow: 0 0 0 5px color-mix(in srgb, var(--c) 28%, transparent); }
 .timeline :deep(li > b:first-child) { display: block; margin-bottom: 0.2rem; font-size: 1.05rem; font-weight: 800; color: var(--c); }
 .timeline :deep(li.now > b:first-child) { color: var(--heading); }
@@ -73,4 +74,5 @@ ol :deep(li.pastel-6) { --c: var(--pastel-6); }
 .timeline.vertical :deep(li) { padding: 0 0 1rem calc(var(--dot) + 0.9rem); }
 .timeline.vertical :deep(li)::before { top: 0.18rem; }   /* 점을 첫 줄(시점) 글자 가운데에 맞춘다 */
 .timeline.vertical :deep(li:not(:last-child))::after { top: calc(var(--dot) / 2); left: calc(var(--dot) / 2 - 1.5px); width: 3px; height: 100%; }
+.timeline.vertical:not(.center) :deep(li:last-child)::after { top: calc(var(--dot) / 2); left: calc(var(--dot) / 2 - 1.5px); right: auto; width: 3px; height: calc(100% - var(--dot) / 2); background: linear-gradient(180deg, var(--c), transparent); }
 </style>
