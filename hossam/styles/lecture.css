@@ -171,6 +171,10 @@ html.lecture {
 :where(html.lecture) .slidev-layout ul ul { list-style-type: '– '; }
 :where(html.lecture) .slidev-layout ul ul ul { list-style-type: '· '; }
 :where(html.lecture) .slidev-layout ul ul li::marker { color: var(--muted); }
+/* 목록 항목 사이 여백: 줄 간격(1.8em) 위에 0.3rem 을 더 띄운다. 카드(.card · 카드형 칸) 안은 촘촘한 목록이라 절반만.
+   번호 목록 컴포넌트(Steps · Flow · Timeline)는 자체 간격을 쓰므로 제외한다 */
+:where(html.lecture) .slidev-layout :is(ul, ol:not(.steps, .flow, .timeline)) > li + li { margin-top: 0.3rem; }
+:where(html.lecture) .slidev-layout :is(.cards > div, .card) :is(ul, ol) > li + li { margin-top: 0.15rem; }
 :where(html.lecture) .slidev-layout a {
   color: var(--py);
 }
