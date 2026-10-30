@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<{
 
 // 묶음(preset): 아이콘 · 머리말 · 색 이름 · 바탕. bg 가 없으면 색을 옅게 깐다.
 const PRESETS: Record<string, { icon: string; title: string; color: string; bg?: string }> = {
-  eli5:   { icon: '💡', title: '비유',          color: 'yellow' },
+  eli5:   { icon: '💡', title: '풀이',          color: 'yellow' },
   real:   { icon: '🧭', title: '현업에서는',     color: 'py' },
   tip:    { icon: '✅', title: '막히면',         color: 'ok' },
   warn:   { icon: '⚠️', title: '주의',           color: 'warn',   bg: 'var(--surface)' },
