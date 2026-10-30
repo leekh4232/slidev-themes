@@ -29,10 +29,10 @@ function play() {
 </template>
 
 <style scoped>
-.yt-thumb { position: relative; display: block; padding: 0; margin: 0; border: 1px solid var(--line, rgba(10,20,40,.1)); border-radius: 12px; overflow: hidden; background: #000; cursor: pointer; }
+.yt-thumb { position: relative; display: block; padding: 0; margin: 0; border: 1px solid var(--line, rgba(10,20,40,.1)); overflow: hidden; background: #000; cursor: pointer; }
 .yt-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; margin: 0; max-width: none; opacity: .92; }
 .yt-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); filter: drop-shadow(0 2px 8px rgba(0,0,0,.4)); transition: transform .15s; }
 .yt-thumb:hover .yt-play { transform: translate(-50%, -50%) scale(1.08); }
-.yt-hint { position: absolute; right: 10px; bottom: 8px; padding: 3px 8px; border-radius: 6px; background: rgba(0,0,0,.55); color: #fff; font-size: 12px; font-weight: 600; }
-iframe.youtube { display: block; border-radius: 12px; }
+.yt-hint { position: absolute; right: 10px; bottom: 8px; padding: 3px 8px; background: rgba(0,0,0,.55); color: #fff; font-size: 12px; font-weight: 600; }
+iframe.youtube { display: block; }
 </style>

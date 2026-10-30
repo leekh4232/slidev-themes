@@ -25,6 +25,7 @@ html.lecture {
   --card-bg: #ffffff;
   --slidev-theme-primary: #0a7fc2;
   --title-line: rgba(0, 0, 0, 0.5);
+  --mag-side: #e4ecf7; /* 웹진형 오른쪽 칸 바탕: 슬라이드 바탕과 뚜렷이 구분되는 옅은 파랑 */
   /* 파스텔 여섯 색(분홍 · 살구 · 버터 · 민트 · 하늘 · 라벤더). Steps · Flow · Timeline 의 color="pastel" 이 항목마다 돌아가며 쓴다. 밝은 바탕에서는 조금 진하게 */
   --pastel-1: #ef8fa9;
   --pastel-2: #f2b063;
@@ -58,6 +59,7 @@ html.lecture.dark {
   --card-bg: #16213a;
   --slidev-theme-primary: #5fc9f8;
   --title-line: rgba(255, 255, 255, 0.5);
+  --mag-side: #1c2d4f;
   --pastel-1: #ffb3c6;
   --pastel-2: #ffd08a;
   --pastel-3: #fff0a0;
@@ -181,21 +183,18 @@ html.lecture {
   border: 1px solid var(--line);
   color: var(--py);
   padding: 0.05em 0.4em;
-  border-radius: 6px;
   font-size: 0.92em;
 }
 
-/* 코드 블록: 흰 바탕 위의 어두운 상자, 합자 끔, 주석은 설명이라 밝게 */
+/* 코드 블록: 흰 바탕 위의 어두운 직각 상자(그림자 없음), 합자 끔, 주석은 설명이라 밝게 */
 :where(html.lecture) .slidev-layout pre.shiki, :where(html.lecture) .slidev-layout .slidev-code {
   background: var(--code-bg) !important;
   border: 1px solid var(--line);
-  border-radius: 14px;
   font-size: 0.95rem;
   line-height: 1.6;
   font-variant-ligatures: none;
   overflow-x: hidden;
   white-space: pre-wrap; /* 긴 줄은 가로 스크롤 대신 줄바꿈 */
-  box-shadow: 0 6px 20px rgba(11, 18, 32, 0.12);
   margin-top: 1rem;
   margin-bottom: 1rem;
   padding: 20px 10px !important;
@@ -263,7 +262,7 @@ html.lecture, :where(html.lecture) .slidev-layout {
   font-size: 0.9rem;
 }
 
-/* 카드 */
+/* 카드: 직각 상자. 1px 가는 선에 4px 윗선(기본 파랑, .py .ai .ok 로 바꾼다). 그림자 없음 */
 :where(html.lecture) .card:where(:not(:has(> .d))) {
   position: relative;
   overflow: hidden;
@@ -271,9 +270,8 @@ html.lecture, :where(html.lecture) .slidev-layout {
   color: var(--fg);
   line-height: 1.5;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-top: 4px solid var(--py);
   padding: 24px;
-  box-shadow: var(--sh);
 }
 /* 카드 안 첫 요소의 위 여백과 마지막 요소(목록·문단)의 아래 여백을 없애 위아래 안쪽 여백을 패딩(24px)으로 같게 한다 (카드형 레이아웃의 칸과 동일) */
 :where(html.lecture) .card:where(:not(:has(> .d))) > :first-child { margin-top: 0; }
@@ -338,7 +336,7 @@ html.lecture, :where(html.lecture) .slidev-layout {
 
 /* ── 표지 ───────────────────────────────────────────────
    세로 가운데 정렬 + 장식: 과목색(--py · --ai · --ok)으로 번지는 빛 세 덩이, 가운데로 모이는 점 무늬, 오른쪽 아래 원호.
-   제목은 그라디언트 글자, 부제는 알약 모양, 아래에는 세 색 막대. 등장 애니메이션은 html.no-anim · 동작 줄이기 설정에서 꺼진다. */
+   제목은 그라디언트 글자, 부제는 테두리 상자, 아래에는 세 색 막대. 등장 애니메이션은 html.no-anim · 동작 줄이기 설정에서 꺼진다. */
 :where(html.lecture) .slidev-layout.cover {
   position: relative;
   overflow: hidden;
@@ -440,7 +438,6 @@ html.lecture, :where(html.lecture) .slidev-layout {
   content: '';
   width: 2.4rem;
   height: 2px;
-  border-radius: 2px;
   background: linear-gradient(90deg, transparent, var(--py));
 }
 :where(html.lecture) .slidev-layout.cover .cover-eyebrow:not(.is-empty)::after { background: linear-gradient(90deg, var(--py), transparent); }
@@ -476,19 +473,16 @@ html.lecture, :where(html.lecture) .slidev-layout {
   gap: 0.6rem;
   margin-top: 1.6rem;
   padding: 0.4em 1.2em;
-  border-radius: 999px;
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--text);
   background: var(--card-bg);
   border: 1px solid var(--line);
-  box-shadow: 0 6px 20px rgba(11, 18, 32, 0.08);
 }
 :where(html.lecture) .slidev-layout.cover .sub::before {
   content: '';
   width: 0.55em;
   height: 0.55em;
-  border-radius: 50%;
   background: linear-gradient(135deg, var(--py), var(--ai));
 }
 /* 작성자 (프런트매터 author): 부제 아래, 그라디언트 사람 아이콘과 함께. 블록 수준 flex 라 알약(.sub) 다음 줄에 놓인다 */
@@ -542,7 +536,6 @@ html.lecture, :where(html.lecture) .slidev-layout {
 :where(html.lecture) .slidev-layout.cover .cover-foot .bar {
   width: 7.5rem;
   height: 4px;
-  border-radius: 999px;
   background: linear-gradient(90deg, var(--py), var(--ai), var(--ok));
   animation: cover-grow 0.9s 0.5s var(--ease) both;
 }
@@ -638,7 +631,6 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
   content: '';
   width: 2.4rem;
   height: 2px;
-  border-radius: 2px;
   background: var(--py);
 }
 :where(html.lecture) .slidev-layout.section .section-body {
@@ -650,7 +642,6 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
   position: absolute;
   left: 0; top: 0.15em; bottom: 0.15em;
   width: 6px;
-  border-radius: 999px;
   background: linear-gradient(180deg, var(--py), var(--ai));
   transform-origin: top;
   animation: section-grow 0.7s 0.2s var(--ease) both;
@@ -678,7 +669,6 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
   margin: 1.8rem 0 0 1.6rem;
   width: 7.5rem;
   height: 4px;
-  border-radius: 999px;
   background: linear-gradient(90deg, var(--py), var(--ai), var(--ok));
   animation: cover-grow 0.9s 0.5s var(--ease) both;
 }
@@ -688,7 +678,7 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
    제목 아래의 <div> 칸들이 카드 격자가 된다. 열 수는 프런트매터 cols(기본 3, cards.vue 가 --cards-cols 로 넘긴다).
    <div> 가 아닌 요소(불릿 · 문단 · 인용 · 표)와 컴포넌트(Callout · Output · Prompt · Grid · Stat) · 라벨(.kicker)은 전체 폭 한 줄로 놓인다 → 도입 문장이나 마무리 콜아웃을 카드 위아래에 둘 수 있다.
    칸만 있는 슬라이드는 카드 행들이 남는 높이를 나눠 가져 슬라이드를 채우고, 전체 폭 요소가 섞이면 내용 높이대로 위에서부터 쌓는다(그 요소까지 늘어나지 않게).
-   칸 안 내용은 왼쪽 위부터. 칸에 py | ai | ok 를 주면 윗선 색. */
+   칸 안 내용은 왼쪽 위부터. 칸은 직각 카드(1px 선 · 4px 윗선, 기본 파랑)이고 py | ai | ok 를 주면 윗선 색. Tile 컴포넌트를 두면 그 타일이 칸이 된다(카드 꾸밈은 붙지 않는다). */
 :where(html.lecture) .slidev-layout.cards {
   display: grid;
   grid-template-columns: repeat(var(--cards-cols, 3), minmax(0, 1fr));
@@ -705,7 +695,7 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
 }
 :where(html.lecture) .slidev-layout.cards > :is(h1, h2, h3) { margin-bottom: 0.2rem; }
 :where(html.lecture) .slidev-layout.cards > :is(p, ul, ol, blockquote, table) { margin: 0; }
-:where(html.lecture) .slidev-layout.cards > div:not(.callout, .output, .prompt, .grid-box, .stat, .fill-img, .kicker) {
+:where(html.lecture) .slidev-layout.cards > div:not(.callout, .output, .prompt, .grid-box, .stat, .fill-img, .kicker, .tile) {
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -714,8 +704,7 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
   background: var(--card);
   color: var(--fg);
   border: 1px solid var(--line);
-  border-radius: 14px;
-  box-shadow: var(--sh);
+  border-top: 4px solid var(--py);
 }
 :where(html.lecture) .slidev-layout.cards > div.py { border-top: 4px solid var(--py); }
 :where(html.lecture) .slidev-layout.cards > div.ai { border-top: 4px solid var(--ai); }
@@ -741,8 +730,9 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
 :where(html.lecture) .slidev-layout .card:where(:not(:has(> .d))) :is(ul, ol) { padding-left: 0; }
 
 /* ── 웹진형(magazine) ─────────────────────────────────────
-   왼쪽(7)은 큰 제목 + 리드문(제목 다음 문단, 아래에 짧은 그라디언트 선) + 본문, 오른쪽(4)은 ::right:: 슬롯이 연한 바탕으로 가장자리까지 닿는 칸.
-   두 칸 모두 세로 가운데. ::right:: 가 없으면(.no-side) 한 단. 칸 안 요소는 .stagger 로 차례로 떠오른다. */
+   왼쪽(7)은 큰 제목 + 리드문(제목 다음 문단, 아래에 짧은 그라디언트 선) + 본문, 오른쪽(4)은 ::right:: 슬롯이 옅은 파란 바탕(--mag-side)으로 가장자리까지 닿는 칸.
+   두 칸 모두 세로 가운데. ::right:: 가 없으면(.no-side) 한 단. 칸 안 요소는 .stagger 로 차례로 떠오른다.
+   오른쪽 칸의 첫 요소가 그림이면 여백 없이 칸을 세로로 가득 채우고(object-fit: cover), 그 아래 문단은 설명 띠가 된다. */
 :where(html.lecture) .slidev-layout.magazine {
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
@@ -766,8 +756,25 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
   min-width: 0;
   margin: -2.2rem 0; /* 레이아웃의 위아래 여백을 넘어 가장자리까지 */
   padding: 2.2rem 2.4rem;
-  background: var(--surface);
+  background: var(--mag-side);
   border-left: 1px solid var(--line);
+}
+/* 오른쪽 칸을 그림으로 채우기: 첫 요소가 <img> 면 칸의 여백을 없애고 그림이 남은 높이를 모두 차지한다. 뒤따르는 문단(설명)은 아래 띠 */
+:where(html.lecture) .slidev-layout.magazine .mag-side:has(> img:first-child) {
+  padding: 0;
+  justify-content: flex-start;
+}
+:where(html.lecture) .slidev-layout.magazine .mag-side > img:first-child {
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  object-fit: cover;
+}
+:where(html.lecture) .slidev-layout.magazine .mag-side:has(> img:first-child) > :not(img) {
+  margin: 0;
+  padding: 0.7rem 1.4rem;
 }
 :where(html.lecture) .slidev-layout.magazine .mag-main > :not(h1, h2, h3),
 :where(html.lecture) .slidev-layout.magazine .mag-side > * { margin-bottom: var(--block-gap); }
@@ -795,12 +802,7 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
   width: 3.5rem;
   height: 4px;
   margin-top: 1.1rem;
-  border-radius: 999px;
   background: linear-gradient(90deg, var(--py), var(--ai));
-}
-:where(html.lecture) .slidev-layout.magazine .mag-side img {
-  border-radius: 12px;
-  box-shadow: var(--sh);
 }
 
 /* ── 인포그래픽(infographic) ───────────────────────────────
@@ -998,4 +1000,82 @@ html.no-anim .slidev-page, html.no-anim [class*="-enter-active"], html.no-anim [
 }
 :where(html.lecture) .fill-in .pic > img {
   object-position: left top;
+}
+
+/* ── 인용 · 핵심 한 줄 · 형광펜 · 빈칸 ──────────────────────
+   인용(> 문단)은 왼쪽에 회색 세로선만 둔 큰 글. Slidev 기본(코드 상자색 · 둥근 모서리)을 덮는다 */
+:where(html.lecture) .slidev-layout blockquote {
+  margin: 0.6rem 0;
+  padding: 0.3rem 0 0.3rem 1.1rem;
+  background: none;
+  border: 0;
+  border-left: 5px solid var(--line-2);
+  border-radius: 0;
+  color: var(--text);
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
+:where(html.lecture) .slidev-layout blockquote p { margin: 0; font-size: 1.1rem; }
+/* 핵심 한 줄(Core): 슬라이드의 마지막 블록이면 남은 높이를 건너뛰어 맨 아래에 붙는다(레이아웃을 세로 flex 로 바꾼다). 인포그래픽은 무대를 가운데 두는 ::after 여백을 끈다 */
+:where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards):has(> .core:last-child) {
+  display: flex;
+  flex-direction: column;
+}
+:where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) > .core:last-child {
+  margin-top: auto;
+  margin-bottom: 0;
+}
+:where(html.lecture) .slidev-layout.infographic:has(> .core:last-child)::after { margin-top: 0; }
+:where(html.lecture) .slidev-layout.infographic > .core { text-align: left; }
+/* 형광펜(.hl): 글자 아래쪽 절반에 옅은 색 띠. 색은 .py(기본) .ai .ok .yellow .warn .danger, .ink 는 띠 대신 굵은 밑줄.
+   v-click 을 주면 숨김 대신 띠가 왼쪽에서 오른쪽으로 칠해진다 */
+:where(html.lecture) .hl {
+  --hl-c: var(--py);
+  --hl-h: 46%;
+  padding: 0 2px;
+  background: linear-gradient(color-mix(in srgb, var(--hl-c) 30%, transparent), color-mix(in srgb, var(--hl-c) 30%, transparent)) no-repeat 0 88% / 100% var(--hl-h);
+}
+:where(html.lecture) .hl.ai { --hl-c: var(--ai); }
+:where(html.lecture) .hl.ok { --hl-c: var(--ok); }
+:where(html.lecture) .hl.yellow { --hl-c: var(--yellow); }
+:where(html.lecture) .hl.warn { --hl-c: var(--warn); }
+:where(html.lecture) .hl.danger { --hl-c: var(--danger); }
+:where(html.lecture) .hl.ink {
+  --hl-h: 3px;
+  font-weight: 700;
+  padding-bottom: 1px;
+  background: linear-gradient(var(--heading), var(--heading)) no-repeat 0 100% / 100% var(--hl-h);
+}
+/* 애니메이션 끔(html.no-anim)이면 클릭 단계가 전부 보여야 하므로 숨김 모양을 적용하지 않는다 */
+:where(html.lecture) .hl.slidev-vclick-target { transition: background-size 0.45s var(--ease); }
+:where(html.lecture:not(.no-anim)) .hl.slidev-vclick-hidden { opacity: 1 !important; background-size: 0% var(--hl-h); }
+/* 빈칸(.blank): 밑줄 친 답. v-click 을 주면 답이 나오기 전까지 data-ph 의 자리표시(○○)가 회색으로 보인다.
+   <span class="blank" data-ph="○○" v-click>제조</span> */
+:where(html.lecture) .blank {
+  --blank-c: var(--py);
+  display: inline-block;
+  position: relative;
+  min-width: 2.5em;
+  padding: 0 0.3em;
+  text-align: center;
+  border-bottom: 3px solid var(--blank-c);
+  color: var(--blank-c);
+  font-weight: 700;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+:where(html.lecture) .blank.ai { --blank-c: var(--ai); }
+:where(html.lecture) .blank.ok { --blank-c: var(--ok); }
+:where(html.lecture) .blank.danger { --blank-c: var(--danger); }
+:where(html.lecture:not(.no-anim)) .blank.slidev-vclick-hidden {
+  opacity: 1 !important;
+  color: transparent;
+  border-bottom-color: var(--line-2);
+}
+:where(html.lecture:not(.no-anim)) .blank.slidev-vclick-hidden::after {
+  content: attr(data-ph);
+  position: absolute;
+  left: 0; right: 0;
+  color: var(--muted);
+  font-weight: 400;
 }

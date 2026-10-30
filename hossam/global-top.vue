@@ -2,7 +2,8 @@
 // 덱 헤더의 sidebar 가 켜져 있으면 발표 화면 왼쪽에 고정되는 목차 사이드바를 그린다.
 //  - 사이드바는 슬라이드(16:9 캔버스) 바깥, 브라우저 창에 붙는다(Teleport → body). 슬라이드는 사이드바를 뺀 나머지 창에 비율대로 맞춰진다(lecture.css 의 #page-root)
 //  - 제목이 있는 슬라이드를 나열하고 현재 위치를 강조, 클릭하면 이동
-//  - 오른쪽 가장자리를 드래그해 폭 조절(더블클릭 = 기본 폭), ◀/☰ 버튼 또는 s 키로 접기/펼치기
+//  - 오른쪽 가장자리를 드래그해 폭 조절(더블클릭 = 기본 폭), ◀/☰ 버튼 또는 s 키로 접기/펼치기.
+//    접으면 왼쪽 위에 반투명한 ☰ 버튼만 남고, 거기에 마우스를 올리면(또는 키보드 포커스) 선명해지면서 애니메이션 · 테마 · 확대/축소 버튼이 오른쪽으로 펼쳐진다
 //  - 본문 확대/축소(＋/－ 버튼, + - 0 키): 캔버스는 그대로, 글자·여백만 바뀐다
 //  - 넘침 표시: 현재 슬라이드의 내용이 캔버스를 벗어나면 빨간 테두리와 넘친 길이를 띄운다(발표 화면에서만)
 //  - 폭·접힘·배율은 브라우저에 기억된다
@@ -273,12 +274,17 @@ onUnmounted(() => {
     </div>
     <div class="resizer" title="드래그해서 폭 조절 · 더블클릭하면 기본 폭" @pointerdown="startDrag" @dblclick="resetWidth" />
   </aside>
-  <button v-if="!open" class="toc-open" title="사이드바 펼치기 (s)" @click="toggle">☰</button>
-  <button v-if="!open" class="toc-open anim-float" :class="{ off: !anim }" :title="anim ? '애니메이션 끄기 (a)' : '애니메이션 켜기 (a)'" @click="toggleAnim">{{ anim ? '✨' : '⏸' }}</button>
-  <button v-if="!open" class="toc-open dark-float" :title="isDark ? '밝은 테마 (d)' : '어두운 테마 (d)'" @click="toggleDark()">{{ isDark ? '☀️' : '🌙' }}</button>
-  <button v-if="!open" class="toc-open zoom-float-out" title="축소 (-)" @click="zoomOut">－</button>
-  <button v-if="!open" class="toc-open zoom-float-reset" title="기본 크기 100% 로 (0)" @click="zoomReset">{{ Math.round(zoom * 100) }}%</button>
-  <button v-if="!open" class="toc-open zoom-float-in" title="확대 (+)" @click="zoomIn">＋</button>
+  <!-- 접힌 상태: ☰ 만 보이고, 마우스를 올리면 나머지 버튼이 오른쪽으로 펼쳐진다 -->
+  <div v-if="!open" class="toc-float">
+    <button class="toc-open" title="사이드바 펼치기 (s) · 올리면 조작 버튼" @click="toggle">☰</button>
+    <div class="float-tray">
+      <button class="toc-open" :class="{ off: !anim }" :title="anim ? '애니메이션 끄기 (a)' : '애니메이션 켜기 (a)'" @click="toggleAnim">{{ anim ? '✨' : '⏸' }}</button>
+      <button class="toc-open" :title="isDark ? '밝은 테마 (d)' : '어두운 테마 (d)'" @click="toggleDark()">{{ isDark ? '☀️' : '🌙' }}</button>
+      <button class="toc-open" title="축소 (-)" @click="zoomOut">－</button>
+      <button class="toc-open zoom-reset" title="기본 크기 100% 로 (0)" @click="zoomReset">{{ Math.round(zoom * 100) }}%</button>
+      <button class="toc-open" title="확대 (+)" @click="zoomIn">＋</button>
+    </div>
+  </div>
   </Teleport>
 </template>
 
@@ -300,14 +306,21 @@ onUnmounted(() => {
 }
 .toc.collapsed { transform: translateX(-100%); }
 .toc-toggle, .toc-open {
-  width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--line, rgba(10,20,40,.1));
+  width: 30px; height: 30px; border: 1px solid var(--line, rgba(10,20,40,.1));
   background: var(--card-bg, #fff); color: var(--muted, #5d6b85); cursor: pointer; font-size: 0.8rem; line-height: 1;
   display: grid; place-items: center;
 }
 .toc-toggle { position: absolute; top: 12px; right: 12px; }
 .toc-toggle:hover, .toc-open:hover { color: var(--py, #0a7fc2); border-color: var(--py, #0a7fc2); }
-@media print { .toc, .toc-open { display: none !important; } }
-.toc-open { position: fixed; top: 14px; left: 14px; z-index: 6; box-shadow: 0 2px 8px rgba(11,18,32,.12); }
+@media print { .toc, .toc-float { display: none !important; } }
+/* 접힌 상태의 떠 있는 버튼 묶음: 창 왼쪽 위에 고정. ☰ 은 늘 보이고, 묶음에 마우스를 올리거나 안의 버튼에 포커스가 가면 쟁반(.float-tray)이 오른쪽으로 펼쳐진다 */
+.toc-float { position: fixed; top: 14px; left: 14px; z-index: 6; display: flex; align-items: center; gap: 8px; opacity: 0.45; transition: opacity .2s ease; }   /* 평소에는 반투명, 올리면 선명 */
+.toc-float:hover, .toc-float:focus-within { opacity: 1; }
+.float-tray { display: flex; align-items: center; gap: 8px; max-width: 0; overflow: hidden; opacity: 0; transform: translateX(-10px); transition: max-width .25s ease, opacity .18s ease, transform .25s ease; }
+.toc-float:hover .float-tray, .toc-float:focus-within .float-tray { max-width: 320px; opacity: 1; transform: none; }
+.float-tray .toc-open { flex: none; }
+.float-tray .zoom-reset { width: auto; padding: 0 8px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.float-tray .toc-open.off { color: var(--ai, #d9611f); }
 .toc-head { padding: 0 44px 10px 4px; border-bottom: 1px solid var(--line, rgba(10,20,40,.1)); margin-bottom: 8px; cursor: pointer; }   /* 클릭하면 표지(1쪽)로. 표지는 목록에 넣지 않는다 */
 .toc-head:hover .toc-unit { color: var(--py, #0a7fc2); }
 .toc-lab { font-size: 0.9rem; font-weight: 800; letter-spacing: .08em; color: var(--py, #0a7fc2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -316,14 +329,14 @@ onUnmounted(() => {
 .toc-list li .txt { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }   /* 항목은 한 줄, 넘치면 말줄임 (전체 제목은 마우스를 올리면 보인다) */
 .toc-list li {
   display: flex; align-items: flex-start; gap: 9px; padding: 6px 8px; margin: 2px 0;
-  font-size: 0.9rem; line-height: 1.3; border-radius: 7px; cursor: pointer; color: var(--muted, #5d6b85);
+  font-size: 0.9rem; line-height: 1.3; cursor: pointer; color: var(--muted, #5d6b85);
 }
 .toc-list li:hover { background: rgba(10,127,194,.08); }
 .toc-list li.sub { padding-left: 24px; }   /* ### 슬라이드: 한 단계 들여쓰기 */
 .toc-list li.sub .txt { font-size: .93em; }
 .toc-list li .caret {
   margin-left: auto; flex: 0 0 auto; width: 20px; height: 20px; border: none; background: none; padding: 0;
-  color: var(--muted, #5d6b85); font-size: .8rem; line-height: 20px; cursor: pointer; border-radius: 5px; transition: transform .15s;
+  color: var(--muted, #5d6b85); font-size: .8rem; line-height: 20px; cursor: pointer; transition: transform .15s;
 }
 .toc-list li .caret:hover { background: rgba(10,127,194,.12); color: var(--py, #0a7fc2); }
 .toc-list li .caret.open { transform: rotate(90deg); }
@@ -335,20 +348,14 @@ onUnmounted(() => {
 .resizer:hover, .resizer:active { background: rgba(10,127,194,.35); }
 .toc-foot { font-size: 0.9rem; color: var(--muted, #5d6b85); padding: 8px 6px 0; border-top: 1px solid var(--line, rgba(10,20,40,.1)); font-variant-numeric: tabular-nums; display: flex; align-items: center; justify-content: space-between; gap: 6px; }
 .foot-btns { display: flex; gap: 4px; }
-.anim-btn { font-size: 0.8rem; font-weight: 700; padding: 4px 8px; border-radius: 8px; border: 1px solid var(--line, rgba(10,20,40,.1)); background: var(--card-bg, #fff); color: var(--py, #0a7fc2); cursor: pointer; white-space: nowrap; }
+.anim-btn { font-size: 0.8rem; font-weight: 700; padding: 4px 8px; border: 1px solid var(--line, rgba(10,20,40,.1)); background: var(--card-bg, #fff); color: var(--py, #0a7fc2); cursor: pointer; white-space: nowrap; }
 .anim-btn.off { color: var(--ai, #d9611f); }
 .anim-btn:hover { border-color: currentColor; }
-.anim-float { left: 52px; }
-.dark-float { left: 90px; }
-.zoom-float-out { left: 128px; }
-.zoom-float-reset { left: 166px; width: auto; padding: 0 8px; font-weight: 700; font-variant-numeric: tabular-nums; }
-.zoom-float-in { left: 240px; }   /* 가운데 배율 버튼("100%", 폭 약 65px) 뒤 */
 .toc-zoom { font-size: 0.9rem; color: var(--muted, #5d6b85); padding: 6px 6px 0; display: flex; align-items: center; justify-content: space-between; gap: 6px; white-space: nowrap; }
-.anim-float.off { color: var(--ai, #d9611f); }
 /* 넘침 표시: 캔버스(#slide-content) 안에 있어 캔버스와 함께 축소된다 */
 .over-frame { position: absolute; inset: 0; z-index: 7; pointer-events: none; box-shadow: inset 0 0 0 5px var(--danger, #c8323f); }
 .over-tag {
-  position: absolute; top: 12px; right: 12px; padding: 6px 12px; border-radius: 999px;
+  position: absolute; top: 12px; right: 12px; padding: 6px 12px;
   background: var(--danger, #c8323f); color: #fff;
   font-family: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   font-size: 0.75rem; font-weight: 700; letter-spacing: .02em; font-variant-numeric: tabular-nums;

@@ -9,8 +9,8 @@ layout: cover
 hossam 테마 예제 덱. title 의 " · " 앞은 사이드바 위 과정 이름, 뒤는 단원 이름이 된다.
 슬라이드의 첫 제목이 왼쪽 목차에 올라가고, ### 제목 슬라이드는 한 단계 들여쓴다.
 레이아웃: cover(author) · section(간지) · default(본문) · cards(cols) · magazine(::right::) · infographic
-컴포넌트: Callout(kind: eli5·real·tip·warn·danger·ai·prompt·output·plain · title·icon·color·n·tag·copy·cols) · Prompt(4개 백틱 text 펜스) · Output(Callout의 짧은 이름) · Steps(type: list·flow·timeline · color: py·ai·ok·pastel · start·vertical · li class="ai") · Flow · Timeline(Steps의 짧은 이름, li.now) · Grid · Stat
-클래스: .card(.py .ai .ok) · .kicker(.ai .lab) · .muted · .small · .tight · .flush · 표지의 .sub · .fill-img
+컴포넌트: Callout(kind: eli5·real·tip·warn·danger·ai·prompt·output·plain · title·icon·color·n·tag·copy·cols) · Prompt(4개 백틱 text 펜스) · Output(Callout의 짧은 이름) · Steps(type: list·flow·timeline · color: py·ai·ok·pastel · start·vertical · li class="ai") · Flow · Timeline(Steps의 짧은 이름, li.now · center) · Grid · Stat · Tile(kind: plain·surface·soft·fill · color·tag·title·value) · Core(color) · Chip(kind: soft·outline·dashed·fill · color)
+클래스: .card(.py .ai .ok) · .kicker(.ai .lab) · .muted · .small · .tight · .flush · 표지의 .sub · .fill-img · .hl(.ai .ok .warn .danger .ink, v-click) · .blank(data-ph, v-click)
 -->
 
 # 변수와 자료형
@@ -285,6 +285,24 @@ layout: infographic
 
 </div>
 </Grid>
+
+---
+
+## 타일 · 핵심 한 줄 · 칩 — Tile · Core · Chip
+
+<p><Chip color="ai">자료형</Chip> int · float · str · bool · <Chip kind="fill">함수</Chip> type() · <Chip kind="outline" color="ink">필수</Chip> <Chip kind="dashed" color="muted">선택</Chip></p>
+
+<Grid cols="3" gap="12">
+<Tile tag="입력" title="값 하나" kind="soft">age = 20 처럼 = 로 넣는다</Tile>
+<Tile tag="변환" title="이름표 붙이기" kind="fill" color="ai">변수 이름으로 값을 다시 꺼낸다</Tile>
+<Tile tag="결과" value="4" color="ok">기본 자료형의 수</Tile>
+</Grid>
+
+변수 하나 = <span class="hl" v-click>이름</span> + <span class="hl ink" v-click>값</span> + <span class="hl ok" v-click>자료형</span>
+
+<span class="blank" data-ph="○○" v-click>int</span> 는 정수를, <span class="blank ai" data-ph="△△" v-click>str</span> 은 글자를 담는다
+
+<Core>값에 이름표를 붙이면, 이름만으로 값을 꺼내 쓴다</Core>
 
 ---
 

@@ -12,7 +12,7 @@ withDefaults(defineProps<{ value: string | number; unit?: string; label?: string
 </template>
 
 <style scoped>
-.stat { display: flex; flex-direction: column; justify-content: center; text-align: center; padding: 1.2rem 1.4rem; margin: 0.4rem 0; background: var(--card); border: 1px solid var(--line); border-top: 4px solid var(--c); border-radius: 14px; box-shadow: var(--sh); }
+.stat { display: flex; flex-direction: column; justify-content: center; text-align: center; padding: 1.2rem 1.4rem; margin: 0.4rem 0; background: var(--card); border: 1px solid var(--line); border-top: 4px solid var(--c); }   /* 직각 타일 */
 .stat.py { --c: var(--py); }
 .stat.ai { --c: var(--ai); }
 .stat.ok { --c: var(--ok); }

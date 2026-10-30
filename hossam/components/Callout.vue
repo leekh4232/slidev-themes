@@ -5,7 +5,7 @@
 //   title: 머리말 글(묶음의 기본 머리말을 바꾼다). icon: 머리말 앞 아이콘(이모지 · 글자). "" 를 주면 아이콘을 뺀다.
 //   color: 테두리 · 머리말 색. py | ai | ok | yellow | warn | danger | muted | pastel-1 ~ 6 또는 CSS 색(#0a7fc2 · tomato …). 바탕은 그 색을 옅게 깐다.
 //   본문(슬롯) 없이 title 만 주면 머리말 한 줄짜리 상자가 되고 위아래 여백이 같아진다.
-//   n:     왼쪽에 붙는 번호 동그라미(템플릿 번호 · 단계 번호). tag: 머리말 오른쪽 알약(패턴 이름 · 분류).
+//   n:     왼쪽에 붙는 번호 상자(템플릿 번호 · 단계 번호). tag: 머리말 오른쪽 작은 테두리 글(패턴 이름 · 분류).
 //   copy:  오른쪽 위 복사 버튼(본문 글을 클립보드로). prompt 는 기본 켬. cols: 본문을 여러 단으로 이어 흘린다(긴 프롬프트).
 //   class="small": 본문 글자를 0.82rem 로(프롬프트 · 출력 포함). 상자를 Grid 칸 같은 좁은 자리에 넣을 때.
 import { computed, ref } from 'vue'
@@ -74,7 +74,7 @@ async function copyText() {
 </template>
 
 <style scoped>
-.callout { position: relative; display: flex; align-items: center; gap: 1rem; border: 1px solid var(--line); border-left: 5px solid var(--c); border-radius: 14px; padding: 0.7rem 1rem; margin: 0.6rem 0; }
+.callout { position: relative; display: flex; align-items: center; gap: 1rem; border: 1px solid var(--line); border-left: 5px solid var(--c); padding: 0.7rem 1rem; margin: 0.6rem 0; }   /* 직각 상자 */
 .callout-main { min-width: 0; flex: 1 1 auto; }
 .callout-head { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.02em; margin-bottom: 0.2rem; color: var(--c); }   /* 본문(1rem)보다 크게 */
 .callout.head-only .callout-head { margin-bottom: 0; }   /* 제목만 있는 상자: 위아래 여백을 같게 */
@@ -84,18 +84,18 @@ async function copyText() {
 .callout.small .callout-body, .callout.small .prompt-body :deep(code), .callout.small .prompt-body :deep(.line) { font-size: 0.82rem; }
 .callout.small .prompt-body :deep(.line) { vertical-align: top; }   /* inline-block 줄의 기준선 여백을 없애 줄 간격을 줄인다 */
 .callout.small .output-pre, .callout.small .output-pre :deep(pre) { font-size: 0.95rem; }
-/* 알약(tag): 머리말 옆, 테두리만 색 */
-.callout-tag { margin-left: 0.6rem; vertical-align: 0.15em; font-size: 0.8rem; font-weight: 700; color: var(--c); border: 1px solid var(--c); border-radius: 999px; padding: 0.05em 0.6em; white-space: nowrap; }
+/* 분류(tag): 머리말 옆, 직각 테두리만 색 */
+.callout-tag { margin-left: 0.6rem; vertical-align: 0.15em; font-size: 0.8rem; font-weight: 700; color: var(--c); border: 1px solid var(--c); padding: 0.05em 0.6em; white-space: nowrap; }
 
-/* 번호 머리띠(n): 왼쪽 번호 동그라미, 머리말은 제목색, 본문은 작게 */
-.callout.has-n { padding: 0.4rem 1rem; margin: 0.3rem 0; border-left-width: 6px; box-shadow: var(--sh); }
-.callout-n { flex: none; width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center; font-size: 1.45rem; font-weight: 900; color: #06101f; background: var(--c); font-variant-numeric: tabular-nums; }
+/* 번호 머리띠(n): 왼쪽 번호 상자(정사각), 머리말은 제목색, 본문은 작게 */
+.callout.has-n { padding: 0.4rem 1rem; margin: 0.3rem 0; border-left-width: 6px; }
+.callout-n { flex: none; width: 2.6rem; height: 2.6rem; display: grid; place-items: center; font-size: 1.45rem; font-weight: 900; color: #06101f; background: var(--c); font-variant-numeric: tabular-nums; }
 .callout.has-n .callout-head { font-size: 1.2rem; color: var(--heading); line-height: 1.2; margin-bottom: 0.15rem; }
 .callout.has-n .callout-body { font-size: 0.9rem; color: var(--fg-2); line-height: 1.4; }
 .callout.has-n .callout-body :deep(b:first-child) { color: var(--c); margin-right: 0.4em; }
 
 /* 프롬프트(kind="prompt"): 복사 버튼, 다단 본문, 코드 펜스를 본문 글꼴로 */
-.copy { position: absolute; top: 0.5rem; right: 0.6rem; font-size: 0.85rem; font-weight: 700; color: var(--muted); background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 0.2em 0.65em; cursor: pointer; }
+.copy { position: absolute; top: 0.5rem; right: 0.6rem; font-size: 0.85rem; font-weight: 700; color: var(--muted); background: var(--surface-2); border: 1px solid var(--line); padding: 0.2em 0.65em; cursor: pointer; }
 .copy:hover { color: var(--text); }
 .callout.prompt { padding-bottom: 0.5rem; margin: 0.5rem 0; }
 .prompt-body :deep(pre), .prompt-body :deep(.slidev-code) { background: transparent !important; border: none !important; padding: 0 !important; margin: 0 !important; font-family: inherit !important; }
@@ -110,7 +110,7 @@ async function copyText() {
 .prompt-body :deep(span[style*="#BDC4CC" i]) { color: var(--muted) !important; }
 
 /* 출력(kind="output"): 어두운 바탕, 왼쪽 위에 떠 있는 라벨, 고정폭 글꼴 */
-.callout.output { border-left-width: 4px; box-shadow: 0 6px 20px rgba(11,18,32,0.12); padding: 1.5rem 1rem 0.8rem; margin: 0.4rem 0; }
-.output-label { position: absolute; top: 0; left: 1rem; margin: 0; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; color: var(--c); background: var(--surface-2); padding: 0.15em 0.6em; border-radius: 0 0 8px 8px; }
+.callout.output { border-left-width: 4px; padding: 1.5rem 1rem 0.8rem; margin: 0.4rem 0; }
+.output-label { position: absolute; top: 0; left: 1rem; margin: 0; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; color: var(--c); background: var(--surface-2); padding: 0.15em 0.6em; }
 .output-pre, .output-pre :deep(pre) { margin: 0; padding: 0; background: none; font-family: "JetBrains Mono", Consolas, "Apple SD Gothic Neo", "Malgun Gothic", monospace; font-size: 1.1rem; line-height: 1.55; white-space: pre-wrap; color: #dbe4f3; font-variant-ligatures: none; }
 </style>
