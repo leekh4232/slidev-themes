@@ -10,7 +10,7 @@ hossam 테마 예제 덱. title 의 " · " 앞은 사이드바 위 과정 이름
 슬라이드의 첫 제목이 왼쪽 목차에 올라가고, ### 제목 슬라이드는 한 단계 들여쓴다.
 레이아웃: cover(author) · section(간지) · default(본문) · cards(cols) · magazine(::right::) · infographic
 컴포넌트: Callout(kind: eli5·real·tip·warn·danger·ai·prompt·output·plain · title·icon·color·n·tag·copy·cols) · Prompt(4개 백틱 text 펜스) · Output(Callout의 짧은 이름) · Steps(type: list·flow·timeline · color: py·ai·ok·pastel · start·vertical · li class="ai") · Flow · Timeline(Steps의 짧은 이름, li.now · center) · Grid · Stat · Tile(kind: plain·surface·soft·fill · color·tag·title·value) · Core(color) · Chip(kind: soft·outline·dashed·fill · color)
-클래스: .card(.py .ai .ok) · .kicker(.ai .lab) · .muted · .small · .tight · .flush · 표지의 .sub · .fill-img · .hl(.ai .ok .warn .danger .ink, v-click) · .blank(data-ph, v-click)
+클래스: .card(.py .ai .ok) · .kicker(.ai .lab) · .muted · .small · .tight · .flush · .compact · .labels · .comic(.panel) · 표지의 .sub · .fill-img · .hl(.ai .ok .warn .danger .ink, v-click) · .blank(data-ph, v-click)
 -->
 
 # 변수와 자료형

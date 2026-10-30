@@ -167,6 +167,9 @@ html.lecture {
 :where(html.lecture) .slidev-layout li::marker {
   color: var(--py);
 }
+/* 목록 머리말(.labels): 항목 맨 앞의 굵은 글(**언제** · **핵심 문장** …)을 노랑으로 칠하고 내용과 반 글자 띄운다.
+   슬라이드(프런트매터 class: labels) · 카드 · Grid 칸 등 감싸는 요소에 준다. */
+:where(html.lecture) .labels li > strong:first-child { color: var(--yellow); margin-right: 0.5em; }
 /* 목록 단계 구분: 1수준 ■(파랑), 2수준 –(회색), 3수준 ·(회색) */
 :where(html.lecture) .slidev-layout ul ul { list-style-type: '– '; }
 :where(html.lecture) .slidev-layout ul ul ul { list-style-type: '· '; }
@@ -237,6 +240,8 @@ html.lecture, :where(html.lecture) .slidev-layout {
 :where(html.lecture) .slidev-layout .grid-cells .slidev-code {
   --slidev-code-font-size: 0.9rem;
 } /* Grid 칸(2단)은 폭이 좁으므로 살짝 줄여 약 48자까지 가로 잘림을 막는다 */
+/* Grid 칸 안 코드 상자는 <pre> 기본 윗여백(1em)을 없앤다 → 라벨(.kicker) 바로 아래에 붙고, 옆 칸의 타일 · 카드와 윗선이 맞는다(블록 간격은 아래 여백만 쓴다) */
+:where(html.lecture) .slidev-layout .grid-cells .slidev-code { margin-top: 0; }
 /* 주석은 설명이므로 테마 기본 회색(#BDC4CC) 대신 흰색에 가까운 연한 초록으로 */
 :where(html.lecture) .slidev-layout .shiki span[style*="#BDC4CC"], :where(html.lecture) .slidev-layout .shiki span[style*="#bdc4cc"] {
   color: #dcf5e3 !important;
@@ -722,6 +727,9 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
   font-weight: 800;
   color: var(--heading);
 }
+/* class: compact — 카드 안쪽 여백(1.2rem 1.4rem → 0.7rem 1.2rem)과 카드 제목 아래 간격을 줄여 한 화면에 더 담는다 */
+:where(html.lecture) .slidev-layout.cards.compact > div:not(.callout, .output, .prompt, .grid-box, .stat, .fill-img, .kicker, .tile) { padding: 0.7rem 1.2rem; }
+:where(html.lecture) .slidev-layout.cards.compact > div h4 { margin-bottom: 0.3rem; }
 :where(html.lecture) .slidev-layout.cards > div p,
 :where(html.lecture) .slidev-layout.cards > div li { font-size: 0.95rem; }
 :where(html.lecture) .slidev-layout.cards > div li,
@@ -1006,6 +1014,13 @@ html.no-anim .slidev-page, html.no-anim [class*="-enter-active"], html.no-anim [
 :where(html.lecture) .fill-in .pic > img {
   object-position: left top;
 }
+
+/* ── 만화 격자(.comic) ─────────────────────────────────────
+   .comic 안에 .panel(그림 한 장)을 차례로 두면 정사각 칸 3열 격자가 되고, 칸마다 왼쪽 위에 컷 번호(1, 2, 3 …)가 붙는다. */
+:where(html.lecture) .comic { display: grid; grid-template-columns: repeat(3, 12.4rem); justify-content: center; gap: 0.5rem; counter-reset: cut; }
+:where(html.lecture) .comic > .panel { position: relative; counter-increment: cut; }
+:where(html.lecture) .comic > .panel img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; margin: 0; background: #fff; border: 2px solid var(--line-2); }
+:where(html.lecture) .comic > .panel::before { content: counter(cut); position: absolute; left: 0; top: 0; z-index: 1; width: 1.4rem; height: 1.4rem; display: grid; place-items: center; font-size: 0.8rem; font-weight: 800; color: #06101f; background: var(--ai); }
 
 /* ── 인용 · 핵심 한 줄 · 형광펜 · 빈칸 ──────────────────────
    인용(> 문단)은 왼쪽에 회색 세로선만 둔 큰 글. Slidev 기본(코드 상자색 · 둥근 모서리)을 덮는다 */
