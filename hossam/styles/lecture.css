@@ -734,9 +734,10 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
 :where(html.lecture) .slidev-layout .card:where(:not(:has(> .d))) :is(ul, ol) { padding-left: 0; }
 
 /* ── 웹진형(magazine) ─────────────────────────────────────
-   왼쪽(7)은 큰 제목 + 리드문(제목 다음 문단, 아래에 짧은 그라디언트 선) + 본문, 오른쪽(4)은 ::right:: 슬롯이 옅은 파란 바탕(--mag-side)으로 가장자리까지 닿는 칸.
+   왼쪽(7)은 큰 제목 + 리드문(제목 다음 문단, 아래에 짧은 그라디언트 선) + 본문, 오른쪽(4)은 ::right:: 슬롯이 가장자리까지 닿는 칸.
    두 칸 모두 세로 가운데. ::right:: 가 없으면(.no-side) 한 단. 칸 안 요소는 .stagger 로 차례로 떠오른다.
-   오른쪽 칸의 첫 요소가 그림이면 여백 없이 칸을 세로로 가득 채우고(object-fit: cover), 그 아래 문단은 설명 띠가 된다. */
+   오른쪽 칸의 첫 요소가 그림이면 옅은 파란 바탕(--mag-side) 띠가 되어 그림이 여백 없이 칸을 세로로 가득 채우고(object-fit: cover), 그 아래 문단은 설명 띠가 된다.
+   그림이 아니면(카드 · 콜아웃 · 타임라인) 바탕색 없이 본문과 같은 바탕에 놓인다. */
 :where(html.lecture) .slidev-layout.magazine {
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
@@ -760,13 +761,13 @@ html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:
   min-width: 0;
   margin: -2.2rem 0; /* 레이아웃의 위아래 여백을 넘어 가장자리까지 */
   padding: 2.2rem 2.4rem;
-  background: var(--mag-side);
-  border-left: 1px solid var(--line);
 }
-/* 오른쪽 칸을 그림으로 채우기: 첫 요소가 <img> 면 칸의 여백을 없애고 그림이 남은 높이를 모두 차지한다. 뒤따르는 문단(설명)은 아래 띠 */
+/* 오른쪽 칸을 그림으로 채우기: 첫 요소가 <img> 면 칸이 옅은 파란 띠가 되고, 여백 없이 그림이 남은 높이를 모두 차지한다. 뒤따르는 문단(설명)은 아래 띠 */
 :where(html.lecture) .slidev-layout.magazine .mag-side:has(> img:first-child) {
   padding: 0;
   justify-content: flex-start;
+  background: var(--mag-side);
+  border-left: 1px solid var(--line);
 }
 :where(html.lecture) .slidev-layout.magazine .mag-side > img:first-child {
   flex: 1 1 0;
