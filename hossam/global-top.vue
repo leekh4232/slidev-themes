@@ -5,7 +5,7 @@
 //  - 오른쪽 가장자리를 드래그해 폭 조절(더블클릭 = 기본 폭), ◀/☰ 버튼 또는 s 키로 접기/펼치기.
 //    접으면 왼쪽 위에 반투명한 ☰ 버튼만 남고, 거기에 마우스를 올리면(또는 키보드 포커스) 선명해지면서 애니메이션 · 테마 · 확대/축소 버튼이 오른쪽으로 펼쳐진다
 //  - 본문 확대/축소(＋/－ 버튼, + - 0 키): 캔버스는 그대로, 글자·여백만 바뀐다
-//  - 넘침 표시: 현재 슬라이드의 내용이 캔버스를 벗어나면 빨간 테두리와 넘친 길이를 띄운다(발표 화면에서만)
+//  - 넘침 표시: 현재 슬라이드의 내용이 캔버스를 벗어나면 빨간 테두리와 넘친 길이를 띄운다(발표 화면에서만, 등장 애니메이션이 끝난 뒤에 잰다)
 //  - 폭·접힘·배율은 브라우저에 기억된다
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useDarkMode, useNav, useSlideContext } from '@slidev/client'
@@ -102,7 +102,7 @@ function zoomReset() { setZoom(fontScale.value ?? 1) }
 if (typeof document !== 'undefined' && fontScale.value) { zoom.value = fontScale.value; document.documentElement.style.setProperty('--zoom', String(zoom.value)) }
 
 // ---- 넘침 표시: 현재 슬라이드의 모든 요소 중 가장 아래·오른쪽 끝이 캔버스(.slidev-page 상자)를 넘는 길이를 잰다(캔버스 px, 축소 배율로 되돌림).
-//  표지·간지의 장식(aria-hidden)은 일부러 밖으로 나가 있으므로 뺀다. 슬라이드 전환·클릭·배율·글꼴 로딩·등장 애니메이션 끝마다 다시 잰다. 발표 화면에서만 (내보내기에는 없다) ----
+//  표지·간지의 장식(aria-hidden)은 일부러 밖으로 나가 있으므로 뺀다. 슬라이드 전환·클릭·배율·글꼴 로딩 때마다 다시 재되, 애니메이션이 모두 끝난 뒤에 잰다. 발표 화면에서만 (내보내기에는 없다) ----
 const over = ref<{ y: number; x: number } | null>(null)
 function measureOverflow() {
   const pg = document.querySelector<HTMLElement>(`#slide-content .slidev-page[data-slidev-no="${currentPage.value}"]`)
@@ -120,8 +120,31 @@ function measureOverflow() {
   const y = Math.round((maxB - box.bottom) / scale), x = Math.round((maxR - box.right) / scale)
   over.value = y > 0 || x > 0 ? { y, x } : null
 }
-let overRaf = 0
-function scheduleOverflow() { cancelAnimationFrame(overRaf); overRaf = requestAnimationFrame(measureOverflow) }
+// 등장 애니메이션(lecture-rise · cover-rise · v-click 전환 등)이 도는 동안은 요소가 제자리에 없어 잘못 잰다 → 현재 슬라이드 안의
+//  애니메이션 · 전환이 모두 끝난 뒤에만 잰다. 끝나기 전에는 표시를 지운다. 무한 반복(표지 장식 cover-drift · cover-spin)은 끝나지 않으므로 기다리지 않는다
+let overRaf = 0, overToken = 0
+function pendingAnimations(pg: HTMLElement): Animation[] {
+  if (typeof pg.getAnimations !== 'function') return []
+  return pg.getAnimations({ subtree: true }).filter(a => {
+    if (a.playState === 'finished' || a.playState === 'idle') return false
+    const t = a.effect?.getTiming?.()
+    if (t && t.iterations === Infinity) return false
+    const target = (a.effect as KeyframeEffect | null)?.target as Element | null
+    if (target?.closest?.('[aria-hidden="true"]')) return false
+    return true
+  })
+}
+function scheduleOverflow() {
+  cancelAnimationFrame(overRaf)
+  const token = ++overToken
+  overRaf = requestAnimationFrame(() => {
+    const pg = document.querySelector<HTMLElement>(`#slide-content .slidev-page[data-slidev-no="${currentPage.value}"]`)
+    const anims = pg ? pendingAnimations(pg) : []
+    if (!anims.length) { measureOverflow(); return }
+    over.value = null
+    Promise.allSettled(anims.map(a => a.finished)).then(() => { if (token === overToken) scheduleOverflow() })
+  })
+}
 watch([currentPage, clicks, zoom], () => nextTick(scheduleOverflow))
 
 // ---- 애니메이션 켬/끔 ----
@@ -200,7 +223,7 @@ onMounted(() => {
   if (colorMode.value) isDark.value = colorMode.value === 'dark'
   else try { if (!localStorage.getItem('pyai-dark-init')) { isDark.value = true; localStorage.setItem('pyai-dark-init', '1') } } catch { /* 무시 */ }
   scheduleOverflow(); setTimeout(scheduleOverflow, 400)
-  // 등장 애니메이션(lecture-rise 등)이 끝나야 자리가 정해지므로 그때마다 다시 잰다
+  // 반응형 상태 변화 없이 시작된 애니메이션(hover 등)이 끝났을 때도 다시 잰다(scheduleOverflow 가 남은 애니메이션을 또 기다린다)
   document.addEventListener('animationend', scheduleOverflow, true)
   document.addEventListener('transitionend', scheduleOverflow, true)
 })
