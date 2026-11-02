@@ -10,7 +10,7 @@
 
 [Slidev](https://sli.dev) 테마 `hossam`을 담은 저장소입니다. 저장소를 받아 테마 폴더를 경로로 지정해 씁니다. VS Code에서는 [Open with Slidev](https://marketplace.visualstudio.com/items?itemName=leekh.open-with-slidev)로 바로 열 수 있습니다.
 
-`hossam`은 코딩 강의용 테마입니다. 처음 열면 어두운 바탕이고 d 키(🌙/☀️ 버튼)로 밝게 바꿉니다. 상자는 모두 직각(1px 가는 선 · 4px 윗선, 그림자 없음)입니다. 목차 사이드바(폭 조절 · 접기 · 확대/축소 · 다크), 표지 · 간지 · 카드형 · 웹진형 · 인포그래픽 레이아웃, 상자(Callout: 콜아웃 · 프롬프트 · 출력 · 번호 머리띠를 `kind`와 프롭으로 조정) · 타일(Tile: 라벨 · 제목 · 큰 숫자 · 본문을 쌓는 직각 상자, `kind`로 바탕 조정) · 핵심 한 줄(Core) · 칩(Chip) · 번호 목록(Steps: 단계 · 흐름도 · 타임라인을 `type`으로 조정) · 격자 · 큰 숫자 · 유튜브 썸네일 컴포넌트와 형광펜(`.hl`) · 빈칸(`.blank`) 클래스가 있고, 모든 슬라이드 오른쪽 아래에 쪽 번호(현재/전체)가 붙고, 덱 헤더(첫 슬라이드 프런트매터)의 `sidebar`로 사이드바를 켜고 끕니다. 슬라이드는 항상 16:9 비율로 창에 맞춰 확대·축소되고, 넘치는 내용은 스크롤 없이 잘리며 빨간 테두리로 표시됩니다. 자세한 내용은 [hossam 사용법](https://slidev-themes.hossam.kr/hossam.html)에 있습니다.
+`hossam`은 코딩 강의용 테마입니다. 처음 열면 어두운 바탕이고 d 키(🌙/☀️ 버튼)로 밝게 바꿉니다. 상자는 모두 직각(1px 가는 선 · 4px 윗선, 그림자 없음)입니다. 목차 사이드바(폭 조절 · 접기 · 확대/축소 · 다크), 표지 · 간지 · 카드형 · 웹진형 · 인포그래픽 레이아웃, 상자(Callout: 콜아웃 · 프롬프트 · 출력 · 번호 머리띠를 `kind`와 프롭으로 조정) · 타일(Tile: 라벨 · 제목 · 큰 숫자 · 본문을 쌓는 직각 상자, `kind`로 바탕 조정) · 핵심 한 줄(Core) · 칩(Chip) · 번호 목록(Steps: 단계 · 흐름도 · 타임라인을 `type`으로 조정) · 격자 · 큰 숫자 · 유튜브 썸네일 컴포넌트와 형광펜(`.hl`) · 빈칸(`.blank`) 클래스가 있고, 모든 슬라이드 오른쪽 아래에 쪽 번호(현재/전체)가 붙고, 덱 헤더(첫 슬라이드 프런트매터)의 `sidebar`로 사이드바를 켜고 끕니다(켜도 처음에는 접힌 채 열리고 ☰ 버튼 · s 키로 펼칩니다). 슬라이드는 항상 16:9 비율로 창에 맞춰 확대·축소되고, 넘치는 내용은 스크롤 없이 잘리며 빨간 테두리로 표시됩니다. 자세한 내용은 [hossam 사용법](https://slidev-themes.hossam.kr/hossam.html)에 있습니다.
 
 ![hossam 표지와 목차 사이드바](docs/img/lecture-cover.jpg)
 
@@ -25,7 +25,7 @@ git clone https://github.com/leekh4232/slidev-themes.git
 ```md
 ---
 theme: ./slidev-themes/hossam
-sidebar: true        # 생략하면 켬
+sidebar: true        # 생략하면 켬. 처음엔 접힌 채 열리고 s 키로 펼침
 exportDark: true     # 생략하면 켬. PDF·PNG 내보내기를 어두운 테마로
 colorMode: dark      # 생략 가능. light | dark, 덱을 열 때의 테마(d 키로 바꿀 수 있음)
 fontScale: 1        # 생략 가능. 0.6~2, 덱을 열 때의 본문 배율

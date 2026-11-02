@@ -6,7 +6,7 @@
 //    접으면 왼쪽 위에 반투명한 ☰ 버튼만 남고, 거기에 마우스를 올리면(또는 키보드 포커스) 선명해지면서 애니메이션 · 테마 · 확대/축소 버튼이 오른쪽으로 펼쳐진다
 //  - 본문 확대/축소(＋/－ 버튼, + - 0 키): 캔버스는 그대로, 글자·여백만 바뀐다
 //  - 넘침 표시: 현재 슬라이드의 내용이 캔버스를 벗어나면 빨간 테두리와 넘친 길이를 띄운다(발표 화면에서만, 등장 애니메이션이 끝난 뒤에 잰다)
-//  - 폭·접힘·배율은 브라우저에 기억된다
+//  - 처음 열면 접힌 채 시작한다(☰ 버튼 · s 키로 펼침). 폭·접힘·배율은 브라우저에 기억되므로 한 번 펼쳐 두면 다음에도 펼친 채 열린다
 //  - 스마트폰(터치 · 1024px 이하): 사이드바는 접힌 채 시작하고 펼치면 슬라이드 위에 덮인다. 떠 있는 버튼은 ☰ 하나, 세로 화면이면 가로로 돌리라는 안내를 띄운다
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useDarkMode, useNav, useSlideContext } from '@slidev/client'
@@ -86,10 +86,12 @@ const showRotateHint = computed(() => isPhone.value && isPortrait.value && !hint
 // ---- 폭·접힘 상태 ----
 const MIN_W = 180, MAX_W = 520, DEFAULT_W = 260
 const panelW = ref(DEFAULT_W)
-const open = ref(!isPhone.value)
-// --sidebar-w 는 슬라이드 영역(#page-root)의 왼쪽 여백 → 슬라이드는 그 나머지에 16:9 로 맞춰진다. 사이드바가 없으면 0, 켜져 있으면 마운트 전에도 기본 폭을 비워 둔다.
+// 기본은 접힌 채 시작. 브라우저에 '펼침'이 기억되어 있을 때만 펼친 채 연다(스마트폰은 늘 접힌 채). 마운트 전에 읽어야 첫 그림부터 여백이 맞는다
+const storedOpen = (() => { try { return localStorage.getItem('pyai-sidebar-open') } catch { return null } })()
+const open = ref(!isPhone.value && storedOpen === '1')
+// --sidebar-w 는 슬라이드 영역(#page-root)의 왼쪽 여백 → 슬라이드는 그 나머지에 16:9 로 맞춰진다. 사이드바가 없거나 접혀 있으면 0, 펼친 채 열면 마운트 전에도 기본 폭을 비워 둔다.
 //  스마트폰에서는 사이드바가 슬라이드를 덮으므로 여백을 두지 않는다
-if (typeof document !== 'undefined') document.documentElement.style.setProperty('--sidebar-w', showSidebar.value && !isPhone.value ? `${DEFAULT_W}px` : '0px')
+if (typeof document !== 'undefined') document.documentElement.style.setProperty('--sidebar-w', showSidebar.value && open.value ? `${DEFAULT_W}px` : '0px')
 function apply() {
   // 접히면 0 → 슬라이드가 창 전체로 커진다. 스마트폰에서는 덮는 방식이라 항상 0
   document.documentElement.style.setProperty('--sidebar-w', open.value && !isPhone.value ? `${panelW.value}px` : '0px')
@@ -256,7 +258,6 @@ onMounted(() => {
   if (!showSidebar.value) return
   try {
     const w = Number(localStorage.getItem('pyai-sidebar-w')); if (w) panelW.value = Math.min(MAX_W, Math.max(MIN_W, w))
-    const o = localStorage.getItem('pyai-sidebar-open'); if (o === '0' && !isPhone.value) open.value = false
     if (localStorage.getItem('pyai-anim') === '0') anim.value = false
     const z = Number(localStorage.getItem('pyai-zoom')); if (z && !fontScale.value) zoom.value = z
   } catch { /* 무시 */ }
