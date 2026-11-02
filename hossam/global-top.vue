@@ -7,6 +7,7 @@
 //  - 본문 확대/축소(＋/－ 버튼, + - 0 키): 캔버스는 그대로, 글자·여백만 바뀐다
 //  - 넘침 표시: 현재 슬라이드의 내용이 캔버스를 벗어나면 빨간 테두리와 넘친 길이를 띄운다(발표 화면에서만, 등장 애니메이션이 끝난 뒤에 잰다)
 //  - 폭·접힘·배율은 브라우저에 기억된다
+//  - 스마트폰(터치 · 1024px 이하): 사이드바는 접힌 채 시작하고 펼치면 슬라이드 위에 덮인다. 떠 있는 버튼은 ☰ 하나, 세로 화면이면 가로로 돌리라는 안내를 띄운다
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useDarkMode, useNav, useSlideContext } from '@slidev/client'
 import { useDeckOptions } from './deck'
@@ -69,20 +70,37 @@ const showSidebar = computed(() => sidebar.value && isPlay)
 const isExport = typeof location !== 'undefined' && /^\/(print|export)/.test(location.pathname)
 if (isExport) isDark.value = exportDark.value
 
+// ---- 스마트폰(터치 · 좁은 창) 판정 ----
+//  손가락으로 쓰는 좁은 화면에서는 사이드바를 기본으로 접고, 펼치면 슬라이드를 밀지 않고 그 위에 덮는다(슬라이드가 더 작아지지 않게).
+//  떠 있는 버튼은 ☰ 하나만 두고(슬라이드가 창을 다 쓰므로 내용을 가리지 않게), 애니메이션 · 테마 · 확대 버튼은 사이드바 안의 것을 쓴다.
+//  세로로 들고 있으면 가로로 돌리라는 안내를 한 번 띄운다. 넘기기는 Slidev 의 좌우 스와이프(터치)를 그대로 쓴다
+const phoneMq = typeof window !== 'undefined' ? window.matchMedia('(pointer: coarse) and (max-width: 1024px)') : null
+const isPhone = ref(!!phoneMq?.matches)
+phoneMq?.addEventListener?.('change', e => { isPhone.value = e.matches })
+const portraitMq = typeof window !== 'undefined' ? window.matchMedia('(orientation: portrait)') : null
+const isPortrait = ref(!!portraitMq?.matches)
+portraitMq?.addEventListener?.('change', e => { isPortrait.value = e.matches })
+const hintClosed = ref(false)
+const showRotateHint = computed(() => isPhone.value && isPortrait.value && !hintClosed.value && isPlay)
+
 // ---- 폭·접힘 상태 ----
 const MIN_W = 180, MAX_W = 520, DEFAULT_W = 260
 const panelW = ref(DEFAULT_W)
-const open = ref(true)
+const open = ref(!isPhone.value)
 // --sidebar-w 는 슬라이드 영역(#page-root)의 왼쪽 여백 → 슬라이드는 그 나머지에 16:9 로 맞춰진다. 사이드바가 없으면 0, 켜져 있으면 마운트 전에도 기본 폭을 비워 둔다.
-if (typeof document !== 'undefined') document.documentElement.style.setProperty('--sidebar-w', showSidebar.value ? `${DEFAULT_W}px` : '0px')
+//  스마트폰에서는 사이드바가 슬라이드를 덮으므로 여백을 두지 않는다
+if (typeof document !== 'undefined') document.documentElement.style.setProperty('--sidebar-w', showSidebar.value && !isPhone.value ? `${DEFAULT_W}px` : '0px')
 function apply() {
-  // 접히면 0 → 슬라이드가 창 전체로 커진다.
-  document.documentElement.style.setProperty('--sidebar-w', open.value ? `${panelW.value}px` : '0px')
+  // 접히면 0 → 슬라이드가 창 전체로 커진다. 스마트폰에서는 덮는 방식이라 항상 0
+  document.documentElement.style.setProperty('--sidebar-w', open.value && !isPhone.value ? `${panelW.value}px` : '0px')
   try {
     localStorage.setItem('pyai-sidebar-w', String(panelW.value))
-    localStorage.setItem('pyai-sidebar-open', open.value ? '1' : '0')
+    if (!isPhone.value) localStorage.setItem('pyai-sidebar-open', open.value ? '1' : '0')   // 스마트폰의 접힘은 기억하지 않는다(늘 접힌 채 시작)
   } catch { /* 저장 불가 환경 무시 */ }
 }
+watch(isPhone, apply)
+// 스마트폰에서 목차 항목을 고르면 사이드바를 닫아 슬라이드가 바로 보이게 한다
+function pick(no: number) { goTo(no); if (isPhone.value) open.value = false }
 watch([panelW, open], apply)
 function setWidth(px: number) { panelW.value = Math.round(Math.min(MAX_W, Math.max(MIN_W, px))) }
 function toggle() { open.value = !open.value }
@@ -238,7 +256,7 @@ onMounted(() => {
   if (!showSidebar.value) return
   try {
     const w = Number(localStorage.getItem('pyai-sidebar-w')); if (w) panelW.value = Math.min(MAX_W, Math.max(MIN_W, w))
-    const o = localStorage.getItem('pyai-sidebar-open'); if (o === '0') open.value = false
+    const o = localStorage.getItem('pyai-sidebar-open'); if (o === '0' && !isPhone.value) open.value = false
     if (localStorage.getItem('pyai-anim') === '0') anim.value = false
     const z = Number(localStorage.getItem('pyai-zoom')); if (z && !fontScale.value) zoom.value = z
   } catch { /* 무시 */ }
@@ -262,7 +280,8 @@ onUnmounted(() => {
   </div>
   <!-- 사이드바는 슬라이드 캔버스(#slide-content, 비율 축소됨) 바깥에 두어야 하므로 body 로 보낸다 -->
   <Teleport v-if="showSidebar" to="body">
-  <aside class="toc" :class="{ collapsed: !open }" :style="{ width: panelW + 'px' }">
+  <div v-if="isPhone && open" class="toc-backdrop" aria-hidden="true" @click="toggle" />
+  <aside class="toc" :class="{ collapsed: !open, phone: isPhone }" :style="{ width: isPhone ? undefined : panelW + 'px' }">
     <button class="toc-toggle" title="사이드바 접기 (s)" @click="toggle">◀</button>
     <div class="toc-head" title="표지로 이동" @click="goTo(1)">
       <div class="toc-lab" :title="lab">{{ lab }}</div>
@@ -273,7 +292,7 @@ onUnmounted(() => {
         <li
           v-if="!it.sub || openGroup === it.parent"
           :class="{ current: it.no === currentPage || (it.no === hiddenCurParent), done: it.no < currentPage, sub: it.sub }"
-          @click="goTo(it.no)"
+          @click="pick(it.no)"
         >
           <span class="txt" :title="it.title">{{ it.title }}</span>
           <button v-if="it.hasKids" class="caret" :class="{ open: openGroup === it.no }" title="하위 항목 펼치기/접기" @click.stop="toggleGroup(it.no)">▸</button>
@@ -295,18 +314,23 @@ onUnmounted(() => {
         <button class="anim-btn" title="확대 (+)" @click="zoomIn">＋</button>
       </span>
     </div>
-    <div class="resizer" title="드래그해서 폭 조절 · 더블클릭하면 기본 폭" @pointerdown="startDrag" @dblclick="resetWidth" />
+    <div v-if="!isPhone" class="resizer" title="드래그해서 폭 조절 · 더블클릭하면 기본 폭" @pointerdown="startDrag" @dblclick="resetWidth" />
   </aside>
   <!-- 접힌 상태: ☰ 만 보이고, 마우스를 올리면 나머지 버튼이 오른쪽으로 펼쳐진다 -->
-  <div v-if="!open" class="toc-float">
+  <div v-if="!open" class="toc-float" :class="{ phone: isPhone }">
     <button class="toc-open" title="사이드바 펼치기 (s) · 올리면 조작 버튼" @click="toggle">☰</button>
-    <div class="float-tray">
+    <div v-if="!isPhone" class="float-tray">
       <button class="toc-open" :class="{ off: !anim }" :title="anim ? '애니메이션 끄기 (a)' : '애니메이션 켜기 (a)'" @click="toggleAnim">{{ anim ? '✨' : '⏸' }}</button>
       <button class="toc-open" :title="isDark ? '밝은 테마 (d)' : '어두운 테마 (d)'" @click="toggleDark()">{{ isDark ? '☀️' : '🌙' }}</button>
       <button class="toc-open" title="축소 (-)" @click="zoomOut">－</button>
       <button class="toc-open zoom-reset" title="기본 크기 100% 로 (0)" @click="zoomReset">{{ Math.round(zoom * 100) }}%</button>
       <button class="toc-open" title="확대 (+)" @click="zoomIn">＋</button>
     </div>
+  </div>
+  <!-- 스마트폰 세로 화면: 가로로 돌리라는 안내(한 번 닫으면 다시 안 뜸) -->
+  <div v-if="showRotateHint" class="rotate-hint" role="status">
+    <span>📱 가로로 돌리면 슬라이드가 커져요 · 좌우로 밀어 넘기세요</span>
+    <button title="닫기" @click="hintClosed = true">✕</button>
   </div>
   </Teleport>
 </template>
@@ -375,6 +399,19 @@ onUnmounted(() => {
 .anim-btn.off { color: var(--ai, #d9611f); }
 .anim-btn:hover { border-color: currentColor; }
 .toc-zoom { font-size: 0.9rem; color: var(--muted, #5d6b85); padding: 6px 6px 0; display: flex; align-items: center; justify-content: space-between; gap: 6px; white-space: nowrap; }
+/* 스마트폰: 사이드바는 슬라이드 위에 덮이는 서랍(창의 82%, 최대 320px), 뒤에 반투명 배경막. 떠 있는 버튼은 ☰ 하나뿐이고 손가락 크기(36px) · 반투명 */
+.toc-backdrop { position: fixed; inset: 0; z-index: 4; background: rgba(10,20,40,.35); }
+.toc.phone { width: min(82vw, 320px); box-shadow: 0 0 24px rgba(0,0,0,.25); }
+.toc.phone .toc-list li { padding: 10px 8px; font-size: 1rem; }
+.toc.phone .toc-toggle, .toc.phone .anim-btn { min-height: 36px; min-width: 36px; }
+.toc-float.phone { top: 8px; left: 8px; opacity: 0.6; }
+.toc-float.phone .toc-open { width: 36px; height: 36px; font-size: 1rem; }
+.rotate-hint {
+  position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 6; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 10px 12px; background: var(--py, #0a7fc2); color: #fff; font-size: 0.9rem; font-weight: 600;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+.rotate-hint button { flex: none; width: 32px; height: 32px; border: 1px solid rgba(255,255,255,.6); background: transparent; color: #fff; cursor: pointer; }
 /* 넘침 표시: 캔버스(#slide-content) 안에 있어 캔버스와 함께 축소된다 */
 .over-frame { position: absolute; inset: 0; z-index: 7; pointer-events: none; box-shadow: inset 0 0 0 5px var(--danger, #c8323f); }
 .over-tag {
