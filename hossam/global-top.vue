@@ -7,12 +7,14 @@
 //  - 본문 확대/축소(＋/－ 버튼, + - 0 키): 캔버스는 그대로, 글자·여백만 바뀐다
 //  - 넘침 표시: 현재 슬라이드의 내용이 캔버스를 벗어나면 빨간 테두리와 넘친 길이를 띄운다(발표 화면에서만, 등장 애니메이션이 끝난 뒤에 잰다)
 //  - 처음 열면 접힌 채 시작한다(☰ 버튼 · s 키로 펼침). 폭·접힘·배율은 브라우저에 기억되므로 한 번 펼쳐 두면 다음에도 펼친 채 열린다
+//  - 덱 헤더 manuscript: true 면 📄 원고 버튼: 덱 원고(md)를 깃헙 스타일 일반 페이지로 덮어 보여 준다(Esc · ✕ 로 닫기, manuscript.ts)
 //  - 스마트폰(터치 · 1024px 이하): 사이드바는 접힌 채 시작하고 펼치면 슬라이드 위에 덮인다. 떠 있는 버튼은 ☰ 하나, 세로 화면이면 가로로 돌리라는 안내를 띄운다
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useDarkMode, useNav, useSlideContext } from '@slidev/client'
 import { useDeckOptions } from './deck'
+import { GITHUB_CSS_URL, renderManuscript } from './manuscript'
 
-const { sidebar, exportDark, colorMode, fontScale } = useDeckOptions()
+const { sidebar, exportDark, colorMode, fontScale, manuscript } = useDeckOptions()
 
 const { currentPage, total, slides, go, nextSlide, prevSlide, clicks, clicksTotal } = useNav()
 // ---- 밝음/어두움 테마 (Slidev 내장 다크 모드를 그대로 쓴다: d 키와 같은 동작, 브라우저에 기억됨) ----
@@ -205,6 +207,27 @@ function startDrag(e: PointerEvent) {
   }
   handle.addEventListener('pointermove', move); handle.addEventListener('pointerup', stop)
 }
+// ---- 원고 보기: 원고 화면이 떠 있는 동안에는 슬라이드 단축키(방향키 · s · a · d …)를 막고, Esc 로 닫는다 ----
+const msOpen = ref(false), msHtml = ref(''), msError = ref('')
+const msEl = ref<HTMLElement | null>(null)
+async function openManuscript() {
+  msOpen.value = true
+  if (isPhone.value) open.value = false
+  if (!document.querySelector('link[data-ms-css]')) {
+    const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = GITHUB_CSS_URL; l.dataset.msCss = ''; document.head.appendChild(l)
+  }
+  nextTick(() => msEl.value?.focus())
+  if (msHtml.value) return
+  msError.value = ''
+  try { msHtml.value = await renderManuscript(deckTitle.value) }
+  catch { msError.value = '원고를 불러오지 못했어요. 인터넷 연결을 확인해 주세요.' }
+}
+function closeManuscript() { msOpen.value = false }
+function onMsKey(e: KeyboardEvent) {
+  if (!msOpen.value) return
+  if (e.key === 'Escape') { e.preventDefault(); closeManuscript() }
+  e.stopImmediatePropagation()   // 기본 동작(스크롤)은 두고, Slidev · 테마 단축키로는 보내지 않는다
+}
 function onKey(e: KeyboardEvent) {
   const t = e.target as HTMLElement | null
   if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return
@@ -263,10 +286,12 @@ onMounted(() => {
   } catch { /* 무시 */ }
   apply(); applyAnim(); applyZoom()
   setTimeout(() => scrollToCurrent('auto'), 300)   // 새로 열었을 때도 현재 항목이 보이게
+  window.addEventListener('keydown', onMsKey, true)   // onKeyCapture 보다 먼저 받아야 원고 화면에서 슬라이드가 넘어가지 않는다
   window.addEventListener('keydown', onKey)
   window.addEventListener('keydown', onKeyCapture, true)
 })
 onUnmounted(() => {
+  window.removeEventListener('keydown', onMsKey, true)
   window.removeEventListener('keydown', onKey)
   window.removeEventListener('keydown', onKeyCapture, true)
   document.documentElement.classList.remove('no-anim')
@@ -315,6 +340,10 @@ onUnmounted(() => {
         <button class="anim-btn" title="확대 (+)" @click="zoomIn">＋</button>
       </span>
     </div>
+    <div v-if="manuscript" class="toc-zoom">
+      <span>원고 보기</span>
+      <button class="anim-btn" title="원고(md)를 일반 문서로 보기" @click="openManuscript">📄 원고</button>
+    </div>
     <div v-if="!isPhone" class="resizer" title="드래그해서 폭 조절 · 더블클릭하면 기본 폭" @pointerdown="startDrag" @dblclick="resetWidth" />
   </aside>
   <!-- 접힌 상태: ☰ 만 보이고, 마우스를 올리면 나머지 버튼이 오른쪽으로 펼쳐진다 -->
@@ -326,12 +355,23 @@ onUnmounted(() => {
       <button class="toc-open" title="축소 (-)" @click="zoomOut">－</button>
       <button class="toc-open zoom-reset" title="기본 크기 100% 로 (0)" @click="zoomReset">{{ Math.round(zoom * 100) }}%</button>
       <button class="toc-open" title="확대 (+)" @click="zoomIn">＋</button>
+      <button v-if="manuscript" class="toc-open" title="원고(md)를 일반 문서로 보기" @click="openManuscript">📄</button>
     </div>
   </div>
   <!-- 스마트폰 세로 화면: 가로로 돌리라는 안내(한 번 닫으면 다시 안 뜸) -->
   <div v-if="showRotateHint" class="rotate-hint" role="status">
     <span>📱 가로로 돌리면 슬라이드가 커져요 · 좌우로 밀어 넘기세요</span>
     <button title="닫기" @click="hintClosed = true">✕</button>
+  </div>
+  <!-- 원고 보기: 창 전체를 덮는 깃헙 스타일 문서 -->
+  <div v-if="msOpen" ref="msEl" class="ms-view" tabindex="-1" role="dialog" aria-label="원고 보기">
+    <div class="ms-bar">
+      <span class="ms-title">📄 {{ unit || lab }} · 원고</span>
+      <button class="anim-btn" title="슬라이드로 돌아가기 (Esc)" @click="closeManuscript">✕ 슬라이드로</button>
+    </div>
+    <p v-if="msError" class="ms-msg">{{ msError }}</p>
+    <p v-else-if="!msHtml" class="ms-msg">원고를 불러오는 중…</p>
+    <article v-else class="markdown-body" v-html="msHtml" />
   </div>
   </Teleport>
 </template>
@@ -413,6 +453,17 @@ onUnmounted(() => {
   font-family: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 }
 .rotate-hint button { flex: none; width: 32px; height: 32px; border: 1px solid rgba(255,255,255,.6); background: transparent; color: #fff; cursor: pointer; }
+/* 원고 보기: 사이드바 · 떠 있는 버튼보다 위. 깃헙 마크다운 CSS(.markdown-body)는 열 때 CDN 에서 받는다 */
+.ms-view { position: fixed; inset: 0; z-index: 20; overflow-y: auto; background: #fff; outline: none; }
+.ms-bar {
+  position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 20px; background: #f6f8fa; border-bottom: 1px solid #d0d7de;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+.ms-title { font-size: 0.95rem; font-weight: 700; color: #1f2328; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ms-view .markdown-body { box-sizing: border-box; max-width: 900px; margin: 0 auto; padding: 32px 24px 80px; font-family: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+.ms-view .markdown-body :deep(img), .ms-view .markdown-body :deep(svg) { max-width: 100%; height: auto; }
+.ms-msg { max-width: 900px; margin: 40px auto; padding: 0 24px; color: #59636e; font-family: "Pretendard Variable", Pretendard, sans-serif; }
 /* 넘침 표시: 캔버스(#slide-content) 안에 있어 캔버스와 함께 축소된다 */
 .over-frame { position: absolute; inset: 0; z-index: 7; pointer-events: none; box-shadow: inset 0 0 0 5px var(--danger, #c8323f); }
 .over-tag {
