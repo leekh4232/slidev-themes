@@ -8,7 +8,8 @@
 //   n:     왼쪽에 붙는 번호 상자(템플릿 번호 · 단계 번호). tag: 머리말 오른쪽 작은 테두리 글(패턴 이름 · 분류).
 //   copy:  오른쪽 위 복사 버튼(본문 글을 클립보드로). prompt 는 기본 켬. cols: 본문을 여러 단으로 이어 흘린다(긴 프롬프트).
 //   class="small": 본문 글자를 0.82rem 로(프롬프트 · 출력 포함). 상자를 Grid 칸 같은 좁은 자리에 넣을 때.
-import { computed, ref } from 'vue'
+//   프롬프트 글 안의 {...}(치환할 자리)는 노랑 굵은 글로 칠한다.
+import { computed, onMounted, onUpdated, ref } from 'vue'
 
 const props = withDefaults(defineProps<{
   kind?: string; title?: string; icon?: string; color?: string
@@ -58,6 +59,38 @@ async function copyText() {
   try { await navigator.clipboard.writeText(text) } catch { /* 클립보드 불가 환경 무시 */ }
   done.value = true; setTimeout(() => (done.value = false), 1500)
 }
+
+// 프롬프트의 치환 자리 {...} 를 span.ph 로 감싼다. Shiki 가 한 자리를 여러 span 으로 쪼갤 수 있어 줄(.line) 단위로 글자 위치를 모아 감싼다.
+// 글은 그대로라 복사 결과는 같다. 이미 감싼 글은 건너뛰므로 다시 불려도 안전하다.
+const PH = /\{[^{}\n]+\}/g
+function markPlaceholders() {
+  if (kind.value !== 'prompt' || !box.value) return
+  const lines = box.value.querySelectorAll('.line')
+  for (const line of lines.length ? lines : [box.value]) {
+    const nodes: Text[] = []
+    const walker = document.createTreeWalker(line, NodeFilter.SHOW_TEXT)
+    while (walker.nextNode()) nodes.push(walker.currentNode as Text)
+    const ranges = [...nodes.map(n => n.data).join('').matchAll(PH)].map(m => [m.index!, m.index! + m[0].length])
+    if (!ranges.length) continue
+    let pos = 0
+    for (const node of nodes) {
+      const start = pos
+      pos += node.data.length
+      if (node.parentElement?.closest('.ph')) continue
+      const cuts = ranges.map(([a, b]) => [Math.max(a, start), Math.min(b, pos)]).filter(([a, b]) => a < b)
+      for (const [a, b] of cuts.reverse()) {   // 뒤에서부터 잘라야 앞쪽 위치가 그대로다
+        const mid = node.splitText(a - start)
+        mid.splitText(b - a)
+        const span = document.createElement('span')
+        span.className = 'ph'
+        mid.replaceWith(span)
+        span.append(mid)
+      }
+    }
+  }
+}
+onMounted(markPlaceholders)
+onUpdated(markPlaceholders)
 </script>
 
 <template>
@@ -105,6 +138,7 @@ async function copyText() {
 .prompt-body :deep(pre) { column-count: var(--prompt-cols, 1); column-gap: 2rem; column-rule: 1px solid var(--line); }   /* cols 가 2 이상이면 다단 */
 .prompt-body :deep(code), .prompt-body :deep(.line) { font-family: "Pretendard Variable", Pretendard, sans-serif !important; font-size: 1rem; line-height: 1.6; color: var(--text) !important; white-space: pre-wrap; word-break: keep-all; overflow-wrap: anywhere; }
 .prompt-body :deep(span) { color: var(--text) !important; }
+.prompt-body :deep(.ph) { color: var(--yellow) !important; font-weight: 800; }   /* 치환 자리 {...} */
 /* 상자 바탕이 밝은 테마에서도 밝으므로 Shiki 색(어두운 바탕용)을 테마 색으로 바꿔 강조한다: 제목·함수 / 연산자·키워드 / 문자열 / 목록 기호 / 주석 */
 .prompt-body :deep(span[style*="#91CBFF" i]) { color: var(--py) !important; }
 .prompt-body :deep(span[style*="#FF9492" i]) { color: var(--danger) !important; }
