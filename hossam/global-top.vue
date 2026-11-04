@@ -7,7 +7,7 @@
 //  - 본문 확대/축소(＋/－ 버튼, + - 0 키): 캔버스는 그대로, 글자·여백만 바뀐다
 //  - 넘침 표시: 현재 슬라이드의 내용이 캔버스를 벗어나면 빨간 테두리와 넘친 길이를 띄운다(발표 화면에서만, 등장 애니메이션이 끝난 뒤에 잰다)
 //  - 처음 열면 접힌 채 시작한다(☰ 버튼 · s 키로 펼침). 폭·접힘·배율은 브라우저에 기억되므로 한 번 펼쳐 두면 다음에도 펼친 채 열린다
-//  - 덱 헤더 manuscript: true 면 📄 원고 버튼: 덱 원고(md)를 깃헙 스타일 일반 페이지로 덮어 보여 준다(Esc · ✕ 로 닫기, manuscript.ts)
+//  - 📄 원고 버튼(기본 켬, 덱 헤더 manuscript: false 면 뺀다): 덱 원고(md)를 깃헙 스타일 일반 페이지로 덮어 보여 준다(Esc · ✕ 로 닫기, manuscript.ts)
 //  - 스마트폰(터치 · 1024px 이하): 사이드바는 접힌 채 시작하고 펼치면 슬라이드 위에 덮인다. 떠 있는 버튼은 ☰ 하나, 세로 화면이면 가로로 돌리라는 안내를 띄운다
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useDarkMode, useNav, useSlideContext } from '@slidev/client'
