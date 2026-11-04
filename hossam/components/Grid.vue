@@ -23,5 +23,6 @@ const gap = computed(() => props.gap === undefined ? undefined
 .grid-cells { gap: var(--grid-gap, 20px); }
 /* 칸이 내용(긴 코드 줄) 때문에 넓어지지 않게: 코드 상자는 칸 안에서 가로 스크롤 */
 .grid-cells > :deep(*) { min-width: 0; }
-.grid-cells > :deep(*) > :first-child { margin-top: 0; }
+/* 칸의 첫 요소는 윗여백 없이 → 칸끼리 윗면이 맞는다. Callout(프롬프트 · 출력 상자)의 scoped 여백보다 우선하도록 .grid-box 를 앞에 붙인다 */
+.grid-box .grid-cells > :deep(*) > :first-child { margin-top: 0; }
 </style>
