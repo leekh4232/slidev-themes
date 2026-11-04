@@ -80,9 +80,9 @@ async function copyText() {
 .callout.head-only .callout-head { margin-bottom: 0; }   /* 제목만 있는 상자: 위아래 여백을 같게 */
 .callout-body { font-size: 1rem; }
 .callout-body :deep(p) { margin: 0; }
-/* 상자 안 목록은 카드 안 목록과 같게: 줄 간격 1.25, 항목 사이 0.25rem (lecture.css 의 본문 목록 규칙보다 우선하도록 .callout 을 앞에 붙인다) */
-.callout .callout-body :deep(li) { line-height: 1.25; }
-.callout .callout-body :deep(:is(ul, ol) > li + li) { margin-top: 0.25rem; }
+/* 상자 안 목록은 카드 안 목록과 같게: 줄 간격 1.75, 항목 사이 0.75rem (lecture.css 의 본문 목록 규칙보다 우선하도록 .callout 을 앞에 붙인다) */
+.callout .callout-body :deep(li) { line-height: 1.75; }
+.callout .callout-body :deep(:is(ul, ol) > li + li) { margin-top: 0.75rem; }
 /* class="small": 좁은 자리용. 본문 · 프롬프트 글 · 출력 글을 작게 */
 .callout.small .callout-body, .callout.small .prompt-body :deep(code), .callout.small .prompt-body :deep(.line) { font-size: 0.82rem; }
 .callout.small .prompt-body :deep(.line) { vertical-align: top; }   /* inline-block 줄의 기준선 여백을 없애 줄 간격을 줄인다 */
