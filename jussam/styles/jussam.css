@@ -1,0 +1,1239 @@
+/* jussam 테마 — 특강·발표용. 검정 바탕에 메시 그라디언트 표지 · 파트 시그니처 색 · 둥근 카드(12px)와 그림자.
+   처음 열면 어두운 테마(global-top.vue), d 키로 밝게. 규칙은 html.jussam 아래에 묶는다.
+   html.no-anim 규칙은 애니메이션 끔(사이드바 버튼 · a 키)이다. */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
+/* 밝은 테마 (d 키 · ☀️ 버튼) */
+html.jussam {
+  --bg: #ffffff;
+  --surface: #f5f5f5;
+  --surface-2: #ebebeb;
+  --line: rgba(0, 0, 0, 0.08);
+  --text: #0a0a0a;
+  --muted: #666666;
+  --py: #0070f3;
+  --py-soft: rgba(0, 112, 243, 0.1);
+  --yellow: #a67c00;
+  --yellow-soft: #fff6d6;
+  --ai: #d9611f;
+  --ai-soft: rgba(217, 97, 31, 0.1);
+  --ok: #1f9d63;
+  --ok-soft: rgba(31, 157, 99, 0.1);
+  --warn: #b57a00;
+  --danger: #c8323f;
+  --danger-soft: rgba(200, 50, 63, 0.1);
+  --code-bg: #171717;
+  --heading: #000000;
+  --card-bg: #ffffff;
+  --slidev-theme-primary: #0070f3;
+  --title-line: rgba(0, 0, 0, 0.12);
+  --mag-side: #f2f2f2;
+  --pastel-1: #ef8fa9;
+  --pastel-2: #f2b063;
+  --pastel-3: #d9c04a;
+  --pastel-4: #6cc9a7;
+  --pastel-5: #6fb3ec;
+  --pastel-6: #a68cf0;
+  /* talk 토큰: 카드 · 글자 단계 · 차트 두 색 · 파트 그라디언트 */
+  --card-2: #fafafa;
+  --fg-3: #666666;
+  --fg-4: #8f8f8f;
+  --c1: #0070f3;
+  --c2: #e6007a;
+  --c-mute: #d4d4d4;
+  --g1: #0070f3;
+  --g2: #00b8b2;
+  --sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  --sh-lo: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --radius: 12px;
+  --track: rgba(0, 0, 0, 0.06);
+}
+
+/* 줄바꿈은 단어(띄어쓰기) 단위로: 한글도 낱글자에서 끊지 않는다. 칸보다 긴 단어 · 토큰만 어디서든 끊는다 */
+html.jussam {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* 어두운 테마 (기본, 사이드바 ☀️/🌙 버튼 또는 d 키) — 예전 talk 스타일의 검정 바탕 */
+html.jussam.dark {
+  --bg: #0a0a0a;
+  --surface: #121212;
+  --surface-2: #1c1c1c;
+  --line: rgba(255, 255, 255, 0.08);
+  --text: #ffffff;
+  --muted: #a1a1a1;
+  --py: #3291ff;
+  --py-soft: rgba(50, 145, 255, 0.14);
+  --yellow: #ffd45f;
+  --yellow-soft: rgba(255, 212, 95, 0.12);
+  --ai: #ff9c66;
+  --ai-soft: rgba(255, 156, 102, 0.14);
+  --ok: #5fe3a1;
+  --ok-soft: rgba(95, 227, 161, 0.14);
+  --warn: #ffcf5c;
+  --danger: #ff6b7a;
+  --danger-soft: rgba(255, 107, 122, 0.14);
+  --code-bg: #171717;
+  --heading: #ffffff;
+  --card-bg: #171717;
+  --slidev-theme-primary: #007cf0;
+  --title-line: rgba(255, 255, 255, 0.14);
+  --mag-side: #141414;
+  --pastel-1: #ffb3c6;
+  --pastel-2: #ffd08a;
+  --pastel-3: #fff0a0;
+  --pastel-4: #b5ead7;
+  --pastel-5: #a0d8ff;
+  --pastel-6: #cdb4ff;
+  --card-2: #121212;
+  --fg-3: #888888;
+  --fg-4: #5f5f5f;
+  --c1: #007cf0;
+  --c2: #ff0080;
+  --c-mute: #3d3d3d;
+  --g1: #007cf0;
+  --g2: #00dfd8;
+  --sh-lo: 0 1px 1px rgba(0, 0, 0, 0.3), 0 2px 2px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+  --track: rgba(255, 255, 255, 0.07);
+}
+
+/* 파트별 시그니처 — 파트 표지와 그 파트의 본문 슬라이드가 같은 색을 쓴다 (프런트매터 part: 1~4).
+   짧은 이름(p1, h3, pt, ml …)은 UnoCSS 유틸리티(padding, height …)로 해석되므로 피한다. */
+:where(html.jussam) .part-1 { --g1: #007cf0; --g2: #00dfd8; }
+:where(html.jussam) .part-2 { --g1: #7928ca; --g2: #ff0080; }
+:where(html.jussam) .part-3 { --g1: #ff4d4d; --g2: #f9cb28; }
+:where(html.jussam) .part-4 { --g1: #007cf0; --g2: #ff0080; }
+html.jussam ::selection { background: var(--text); color: var(--bg); }
+
+html.jussam, :where(html.jussam) body, :where(html.jussam) #app {
+  background: var(--bg) !important;
+}
+/* 발표 화면: 슬라이드는 항상 16:9(1280×720 캔버스)이고 Slidev 가 창 크기에 맞춰 비율대로 확대·축소한다.
+   사이드바(global-top.vue)는 캔버스 바깥, 창 왼쪽에 붙으므로 슬라이드 영역(#page-root)의 왼쪽을 사이드바 폭만큼 비운다(접으면 0). */
+html.jussam #page-root {
+  box-sizing: border-box;
+  padding-left: var(--sidebar-w);
+  transition: padding-left 0.2s ease;
+}
+/* 캔버스 바깥 여백은 연한 바탕색 → 16:9 테두리가 보인다 (Slidev 기본은 검정) */
+html.jussam #slide-container {
+  --slidev-slide-container-background: var(--surface);
+}
+/* 내용이 캔버스를 넘치면 스크롤하지 않고 잘라낸다 → 잘린 부분이 보이면 내용을 줄인다 (clip 은 스크립트 스크롤도 막는다) */
+html.jussam .slidev-page {
+  overflow: hidden;
+  overflow: clip;
+}
+
+:where(html.jussam) .slidev-layout {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  padding: 2.8rem 3.6rem 3.8rem; /* 아래는 출처 각주(.src) 자리 */
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  zoom: var(--zoom, 1); /* 본문 확대/축소(사이드바 ＋/－, global-top.vue 가 설정). 캔버스 상자는 그대로고 글자·여백(px·rem)만 배율대로 */
+}
+/* 본문 슬라이드는 talk 처럼 내용을 세로 가운데에 모은다(표지 · 간지 · 카드형 · 웹진형 · 인포그래픽은 자체 배치) */
+:where(html.jussam) .slidev-layout.default {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* 슬라이드 제목: # 과 ## 모두 큰 제목(2.2rem = 44px), ### 은 작은 제목 */
+:where(html.jussam) .slidev-layout h1,
+:where(html.jussam) .slidev-layout > h2 {
+  font-weight: 600;
+  font-size: 2.2rem !important;
+  line-height: 1.16;
+  letter-spacing: -0.042em;
+  color: var(--heading);
+  margin: 0 0 1.8rem;
+  padding: 0;
+  border: 0;
+}
+:where(html.jussam) .slidev-layout h2 {
+  font-weight: 600;
+  font-size: 1.3rem !important;
+  line-height: 1.34;
+  letter-spacing: -0.03em;
+  color: var(--heading);
+  margin: 0 0 0.8rem;
+}
+:where(html.jussam) .slidev-layout h3 {
+  font-weight: 600;
+  font-size: 0.95rem !important;
+  letter-spacing: -0.025em;
+  color: var(--heading);
+  margin: 0 0 0.5rem;
+}
+/* 슬라이드 제목으로 쓴 ### (슬라이드 바로 아래): ## 보다 작은 제목 */
+:where(html.jussam) .slidev-layout > h3 {
+  font-size: 1.6rem !important;
+  letter-spacing: -0.035em;
+  margin: 0 0 1.4rem;
+}
+/* 제목 바로 아래 설명 줄 */
+:where(html.jussam) .slidev-layout > :is(h1, h2) + p { margin-top: -1rem; margin-bottom: 1.8rem; }
+/* 제목 안의 **굵게** 는 파트 시그니처 그라디언트 글자 */
+:where(html.jussam) .slidev-layout :is(h1, h2) strong {
+  font-weight: inherit;
+  background-image: linear-gradient(96deg, var(--g1), var(--g2));
+  -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+}
+:where(html.jussam) .slidev-layout p, :where(html.jussam) .slidev-layout li {
+  font-size: 1rem;
+  letter-spacing: -0.012em;
+}
+:where(html.jussam) .slidev-layout p {
+  margin: 0.35rem 0;
+  line-height: 1.62;
+  color: var(--fg-2);
+}
+/* 블록 사이 간격: 슬라이드 직계 요소와 Grid 칸 안의 요소(제목 제외)는 아래에 --block-gap 만큼 띄운다.
+   컴포넌트(Callout·Steps·Prompt·Output)의 scoped 여백(0,2,0)보다 우선하도록 :not() 으로 특이도를 올린다. 라벨(.kicker)은 바로 아래 내용과 붙어 있어야 하므로 작게.
+   표지·간지는 자체 배치, 카드형(cards)은 격자 gap 이 간격이므로 제외한다. */
+html.jussam {
+  --block-gap: 1.1rem;
+}
+/* 블록 간격 줄이기: 슬라이드(프런트매터 class: tight) · Grid 칸 · 카드 등 어느 요소에 주어도 그 안쪽의 블록 간격이 바뀐다(변수가 상속된다).
+   tight 는 촘촘하게(0.35rem), flush 는 0. 카드형(cards)의 카드 사이는 격자 gap 이라 영향이 없다. 개별 요소의 여백은 Slidev 내장 UnoCSS 유틸리티(mb-0 · mt-2 · p-0 …)로 준다. */
+:where(html.jussam) .tight { --block-gap: 0.35rem; }
+:where(html.jussam) .flush { --block-gap: 0; }
+:where(html.jussam) .slidev-layout:not(.cover):not(.section):not(.cards) > :not(h1):not(h2):not(h3):not(.cover-bg),
+:where(html.jussam) .slidev-layout:not(.cover):not(.section):not(.cards) .grid-cells > :not(.cover-bg) > :not(h3) {
+  margin-bottom: var(--block-gap);
+}
+:where(html.jussam) .slidev-layout:not(.cover):not(.section):not(.cards) > .kicker, :where(html.jussam) .slidev-layout:not(.cover):not(.section):not(.cards) > p:has(> .kicker:only-child),
+:where(html.jussam) .slidev-layout:not(.cover):not(.section):not(.cards) .grid-cells > :not(.cover-bg) > .kicker {
+  margin-bottom: 0.45rem;
+}
+:where(html.jussam) .slidev-layout:not(.cover):not(.section):not(.cards) > br, :where(html.jussam) .slidev-layout:not(.cover):not(.section):not(.cards) .grid-cells > :not(.cover-bg) > br {
+  margin-bottom: 0;
+}
+/* 목록: 글머리는 짧은 가로선(1수준) · 점(2수준), 번호는 모노 글꼴 파트 색 */
+:where(html.jussam) .slidev-layout ul:not([class]) { list-style: none; padding-left: 0; }
+:where(html.jussam) .slidev-layout ul:not([class]) > li { position: relative; padding-left: 1.1rem; color: var(--fg-2); line-height: 1.6; font-size: 0.9rem; }
+:where(html.jussam) .slidev-layout ul:not([class]) > li::before {
+  content: ''; position: absolute; left: 0; top: 0.8em; width: 0.45rem; height: 1px; background: var(--fg-4);
+}
+:where(html.jussam) .slidev-layout ul:not([class]) ul:not([class]) > li::before { width: 3px; height: 3px; border-radius: 50%; top: 0.75em; }
+:where(html.jussam) .slidev-layout ol:not([class]) > li { color: var(--fg-2); line-height: 1.6; font-size: 0.9rem; }
+:where(html.jussam) .slidev-layout li::marker { font-family: var(--mono); font-size: 0.65rem; color: var(--g2); }
+/* 목록 머리말(.labels): 항목 맨 앞의 굵은 글(**언제** · **핵심 문장** …)을 노랑으로 칠하고 내용과 반 글자 띄운다.
+   슬라이드(프런트매터 class: labels) · 카드 · Grid 칸 등 감싸는 요소에 준다. */
+:where(html.jussam) .labels li > strong:first-child { color: var(--yellow); margin-right: 0.5em; }
+/* 목록 항목 사이 여백 0.3rem. 번호 목록 컴포넌트(Steps · Flow · Timeline)는 자체 간격을 쓰므로 제외한다 */
+:where(html.jussam) .slidev-layout :is(ul, ol:not(.steps, .flow, .timeline)) > li + li { margin-top: 0.3rem; }
+:where(html.jussam) .slidev-layout :is(.cards > div, .card) :is(ul, ol) > li + li { margin-top: 0.3rem; }
+:where(html.jussam) .slidev-layout a {
+  color: var(--text);
+  border-bottom: 1px dashed var(--fg-4);
+}
+:where(html.jussam) .slidev-layout a:hover { border-bottom-style: solid; }
+:where(html.jussam) .slidev-layout strong, :where(html.jussam) .slidev-layout b {
+  color: var(--text);
+  font-weight: 600;
+}
+:where(html.jussam) .slidev-layout :not(pre) > code {
+  font-family: var(--mono);
+  background: var(--card);
+  color: var(--text);
+  padding: 0.1em 0.35em;
+  border-radius: 5px;
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-size: 0.92em;
+}
+:where(html.jussam) .slidev-layout kbd { font-family: var(--mono); font-size: 0.6rem; padding: 2px 6px; border-radius: 5px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line-2); }
+:where(html.jussam) .slidev-layout hr { border: 0; border-top: 1px solid var(--line); margin: 1.2rem 0; }
+:where(html.jussam) .slidev-layout img { border-radius: var(--radius); }
+
+/* 코드 블록: 어두운 둥근 상자(12px)와 그림자, 합자 끔, 주석은 설명이라 밝게 */
+:where(html.jussam) .slidev-layout pre.shiki, :where(html.jussam) .slidev-layout .slidev-code {
+  background: var(--code-bg) !important;
+  border: 0;
+  border-radius: var(--radius);
+  box-shadow: var(--sh);
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  font-variant-ligatures: none;
+  overflow-x: hidden;
+  white-space: pre-wrap; /* 긴 줄은 가로 스크롤 대신 줄바꿈 */
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 20px 14px !important;
+}
+/* 긴 코드 줄은 상자 폭에서 줄을 바꾼다(띄어쓰기 없는 긴 토큰도 끊는다). 줄(.line)을 폭 100% 의 inline-block 으로 두어 줄마다 따로 접히게 하고,
+   줄 번호가 있으면 바뀐 줄을 번호 폭(2em + 1.1em)만큼 들여 코드 시작에 맞춘다(text-indent 로 첫 줄만 번호 자리로 당긴다). */
+:where(html.jussam) .slidev-layout .slidev-code code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+:where(html.jussam) .slidev-layout .slidev-code .line {
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 0.2em;
+}
+:where(html.jussam) .slidev-layout .slidev-code-line-numbers .slidev-code code .line {
+  padding-left: 3.3em;
+  text-indent: -3.1em;
+}
+/* 줄 번호를 숨기는 곳(카드 · 프롬프트 · 출력 상자)에서는 들여쓰기도 없앤다 */
+:where(html.jussam) .slidev-layout .card:where(:not(:has(> .d))) .slidev-code code .line,
+:where(html.jussam) .slidev-layout .prompt .slidev-code code .line,
+:where(html.jussam) .output .slidev-code code .line {
+  padding-left: 0.2em;
+  text-indent: 0;
+}
+/* Slidev 는 코드 크기를 변수(--slidev-code-font-size)로 !important 적용한다 → 변수 자체를 키운다 */
+html.jussam, :where(html.jussam) .slidev-layout {
+  --slidev-code-font-size: 1.1rem;
+  --slidev-code-line-height: 1.55;
+} /* 22px */
+:where(html.jussam) .slidev-layout .card:where(:not(:has(> .d))) {
+  --slidev-code-font-size: 1rem;
+} /* 좁은 카드 안의 코드는 조금 작게 */
+:where(html.jussam) .slidev-layout .grid-cells .slidev-code {
+  --slidev-code-font-size: 0.9rem;
+} /* Grid 칸(2단)은 폭이 좁으므로 살짝 줄여 약 48자까지 가로 잘림을 막는다 */
+/* Grid 칸 안 코드 상자는 <pre> 기본 윗여백(1em)을 없앤다 → 라벨(.kicker) 바로 아래에 붙고, 옆 칸의 타일 · 카드와 윗선이 맞는다(블록 간격은 아래 여백만 쓴다) */
+:where(html.jussam) .slidev-layout .grid-cells .slidev-code { margin-top: 0; }
+/* 주석은 설명이므로 테마 기본 회색(#BDC4CC) 대신 흰색에 가까운 연한 초록으로 */
+:where(html.jussam) .slidev-layout .shiki span[style*="#BDC4CC"], :where(html.jussam) .slidev-layout .shiki span[style*="#bdc4cc"] {
+  color: #dcf5e3 !important;
+}
+:where(html.jussam) .slidev-code-dishonored {
+  opacity: 0.55 !important;
+}
+
+
+/* 라벨 (kicker) — 모노 글꼴 작은 대문자. <Kicker> 컴포넌트(.kicker.acc)는 아래 talk 컴포넌트 절에서 따로 칠한다 */
+:where(html.jussam) .kicker:where(:not(.acc)) {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--g2);
+}
+:where(html.jussam) .kicker:where(:not(.acc)).ai {
+  color: var(--ai);
+}
+:where(html.jussam) .kicker:where(:not(.acc)).lab {
+  color: var(--ok);
+}
+:where(html.jussam) .muted {
+  color: var(--muted);
+}
+:where(html.jussam) .small {
+  font-size: 0.9rem;
+}
+
+/* 카드(.card 클래스를 준 마크다운 칸): 둥근 상자(12px)에 그림자. .py .ai .ok 를 주면 위에 2px 색 선, 기본은 파트 그라디언트 선 없음.
+   <Card> 컴포넌트(안에 .d 가 있는 카드)는 아래 talk 컴포넌트 절의 규칙을 쓴다 */
+:where(html.jussam) .card:where(:not(:has(> .d))) {
+  position: relative;
+  overflow: hidden;
+  background: var(--card);
+  color: var(--fg);
+  line-height: 1.5;
+  border-radius: var(--radius);
+  box-shadow: var(--sh);
+  padding: 24px;
+}
+/* 카드 안 첫 요소의 위 여백과 마지막 요소(목록·문단)의 아래 여백을 없애 위아래 안쪽 여백을 패딩(24px)으로 같게 한다 (카드형 레이아웃의 칸과 동일) */
+:where(html.jussam) .card:where(:not(:has(> .d))) > :first-child { margin-top: 0; }
+:where(html.jussam) .card:where(:not(:has(> .d))) > :last-child { margin-bottom: 0; }
+:where(html.jussam) .card:where(:not(:has(> .d))) h3 {
+  margin: 0 0 0.3rem 0;
+}
+/* 카드가 Grid 칸일 때는 위의 블록 간격 규칙(특이도 0,6,1)이 카드 안 마지막 요소에도 붙어 아래 여백이 커진다 → 더 높은 특이도로 0 */
+:where(html.jussam) .slidev-layout:not(.cover):not(.section):not(.cards) .grid-cells > .card:not(:has(> .d)) > :last-child { margin-bottom: 0; }
+/* UnoCSS 가 class="py" 를 padding-y 유틸리티로도 만들어 카드 패딩(24px)을 1rem 으로 덮는다 → 색 클래스가 있어도 패딩은 그대로 */
+:where(html.jussam) .card:where(:not(:has(> .d))):is(.py, .ai, .ok) { padding: 24px; }
+:where(html.jussam) .card:where(:not(:has(> .d))) p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+:where(html.jussam) :is(.card:where(:not(:has(> .d))), .slidev-layout.cards > div):is(.py, .ai, .ok)::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--c);
+}
+:where(html.jussam) :is(.card, .cards > div).py { --c: var(--py); }
+:where(html.jussam) :is(.card, .cards > div).ai { --c: var(--ai); }
+:where(html.jussam) :is(.card, .cards > div).ok { --c: var(--ok); }
+
+/* 표: 위아래 가는 선, 머리글은 모노 글꼴 작은 대문자 */
+:where(html.jussam) .slidev-layout table {
+  font-size: 0.85rem;
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1rem; /* 표 바로 아래 콜아웃·문단과 붙지 않게 */
+}
+:where(html.jussam) .slidev-layout th {
+  white-space: nowrap; /* 머리글(열 제목)은 어떤 경우에도 한 줄 */
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-4);
+  background: none;
+  text-align: left;
+  border-top: 1px solid var(--line);
+}
+:where(html.jussam) .slidev-layout td { color: var(--fg-2); }
+:where(html.jussam) .slidev-layout td:first-child { color: var(--text); }
+:where(html.jussam) .slidev-layout td, :where(html.jussam) .slidev-layout th {
+  padding: 0.55em 0.6em;
+  border-bottom: 1px solid var(--line);
+}
+/* 첫 열(항목 이름)은 굵게, 줄바꿈 없이 — 긴 설명 열이 폭을 가져가도 항목 이름은 한 줄로.
+   첫 열이 표 폭의 30% 를 넘을 만큼 길면 global-top.vue 가 table.first-long 을 붙여 줄바꿈을 허용한다.
+   슬라이드 프런트매터 class: tbl-wrap(항상 줄바꿈) · tbl-nowrap(항상 한 줄)으로 강제할 수 있다. 머리글(th)은 이 설정과 상관없이 늘 한 줄이다. */
+:where(html.jussam) .slidev-layout td:first-child, :where(html.jussam) .slidev-layout th:first-child {
+  white-space: nowrap;
+  font-weight: 700;
+}
+:where(html.jussam) .slidev-layout table.first-long td:first-child,
+:where(html.jussam) .slidev-layout.tbl-wrap td:first-child {
+  white-space: normal;
+}
+:where(html.jussam) .slidev-layout.tbl-nowrap td:first-child, :where(html.jussam) .slidev-layout.tbl-nowrap th:first-child {
+  white-space: nowrap;
+}
+
+/* 2단: 좌우 단 사이 간격 */
+:where(html.jussam) .slidev-layout.two-columns {
+  column-gap: 2.4rem;
+}
+
+/* ── 표지(cover) · 간지(section) ─────────────────────────
+   위에 머리말(모노 글꼴), 아래로 퍼지는 메시 그라디언트, 왼쪽 정렬 큰 제목. 제목 안의 **굵게** 는 무지개 그라디언트(표지) 글자.
+   표지 머리말은 eyebrow(없으면 덱 제목의 " · " 앞부분), 간지 머리말은 eyebrow → part(part 0N) → 덱 제목 순으로 고른다.
+   등장 애니메이션은 html.no-anim · 동작 줄이기 설정에서 꺼진다. */
+:where(html.jussam) .slidev-layout:is(.cover, .section) {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  padding: 3.6rem 3.6rem 3.8rem;
+}
+:where(html.jussam) .slidev-layout .mesh {
+  position: absolute; left: -12%; right: -12%; top: -24%;
+  height: 118%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.62;
+  background:
+    radial-gradient(40% 52% at 16% 34%, rgba(0, 124, 240, 0.62), transparent 68%),
+    radial-gradient(34% 46% at 36% 16%, rgba(0, 223, 216, 0.4), transparent 70%),
+    radial-gradient(42% 56% at 58% 30%, rgba(121, 40, 202, 0.58), transparent 68%),
+    radial-gradient(34% 46% at 78% 16%, rgba(255, 0, 128, 0.46), transparent 70%),
+    radial-gradient(32% 44% at 90% 46%, rgba(255, 77, 77, 0.34), transparent 70%),
+    radial-gradient(30% 40% at 6% 66%, rgba(249, 203, 40, 0.22), transparent 72%);
+  animation: mesh-in 0.9s ease both;
+}
+:where(html.jussam:not(.dark)) .slidev-layout .mesh { opacity: 0.38; }
+:where(html.jussam) .slidev-layout .mesh.is-soft { opacity: 0.34; height: 92%; top: -30%; }
+:where(html.jussam:not(.dark)) .slidev-layout .mesh.is-soft { opacity: 0.2; }
+:where(html.jussam) .slidev-layout .mesh::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 34%, color-mix(in srgb, var(--bg) 72%, transparent) 74%, var(--bg) 100%);
+}
+/* 파트 간지의 메시는 그 파트 색 두 가지로 */
+:where(html.jussam) .slidev-layout.section[class*="part-"] .mesh {
+  background:
+    radial-gradient(42% 56% at 20% 30%, color-mix(in srgb, var(--g1) 62%, transparent), transparent 68%),
+    radial-gradient(40% 52% at 70% 22%, color-mix(in srgb, var(--g2) 50%, transparent), transparent 70%);
+}
+:where(html.jussam) .slidev-layout .eyebrow {
+  font-family: var(--mono); font-size: 0.6rem; font-weight: 400;
+  letter-spacing: 0.08em; color: var(--fg-3);
+  text-transform: uppercase;
+}
+:where(html.jussam) .slidev-layout .eyebrow.acc { color: var(--g2); margin-bottom: 0.7rem; }
+:where(html.jussam) .slidev-layout .eyebrow.foot { letter-spacing: 0.06em; }
+:where(html.jussam) .slidev-layout .spacer { flex: 1; }
+:where(html.jussam) .slidev-layout .src {
+  position: absolute; left: 3.6rem; right: 3.6rem; bottom: 1.7rem;
+  font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.02em;
+  color: var(--fg-4);
+}
+:where(html.jussam) .slidev-layout.cover h1 {
+  font-size: 3.6rem !important; font-weight: 600; line-height: 1.06 !important; letter-spacing: -0.05em; margin: 0; color: var(--heading);
+}
+:where(html.jussam) .slidev-layout.cover h2 { font-size: 2.2rem !important; line-height: 1.16; letter-spacing: -0.042em; margin: 0; }
+:where(html.jussam) .slidev-layout.cover h3 { font-size: 1.3rem !important; font-weight: 600; line-height: 1.34; letter-spacing: -0.03em; color: var(--fg-2); margin: 0; }
+:where(html.jussam) .slidev-layout.cover :is(h1, h2) + p {
+  opacity: 1 !important; font-size: 1.2rem; line-height: 1.55; letter-spacing: -0.015em; margin: 1.3rem 0 0 !important; color: var(--fg-2);
+}
+:where(html.jussam) .slidev-layout.cover :is(h1, h3) strong {
+  font-weight: inherit;
+  background-image: linear-gradient(96deg, #007cf0 0%, #00dfd8 20%, #7928ca 48%, #ff0080 70%, #ff4d4d 86%, #f9cb28 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+}
+:where(html.jussam) .slidev-layout.section h1 {
+  font-size: 3.1rem !important; font-weight: 600; line-height: 1.08 !important; letter-spacing: -0.05em; margin: 0;
+  background-image: linear-gradient(96deg, #007cf0 0%, #00dfd8 20%, #7928ca 48%, #ff0080 70%, #ff4d4d 86%, #f9cb28 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+}
+:where(html.jussam) .slidev-layout.section[class*="part-"] h1 { background-image: linear-gradient(96deg, var(--g1), var(--g2)); }
+:where(html.jussam) .slidev-layout.section h1 + p {
+  opacity: 1 !important; font-size: 1.2rem; line-height: 1.55; letter-spacing: -0.015em; margin: 1.2rem 0 0 !important; color: var(--fg-2);
+}
+/* 부제 상자(.sub): 표지 아래쪽 한 줄 (과정 · 강사 등) */
+:where(html.jussam) .slidev-layout.cover .sub {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  align-self: flex-start;
+  margin-top: 1.6rem;
+  padding: 0.4em 1em;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--fg-2);
+  background: var(--card);
+  border-radius: 9999px;
+  box-shadow: inset 0 0 0 1px var(--line-2);
+}
+:where(html.jussam) .slidev-layout.cover .sub::before {
+  content: '';
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+}
+/* 작성자 (프런트매터 author): 제목 아래, 그라디언트 사람 아이콘과 함께 */
+:where(html.jussam) .slidev-layout.cover .cover-author {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.4rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--fg-2);
+}
+:where(html.jussam) .slidev-layout.cover .cover-author .avatar {
+  position: relative;
+  flex: 0 0 auto;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+}
+:where(html.jussam) .slidev-layout.cover .cover-author .avatar::before {
+  content: '';
+  position: absolute;
+  left: 50%; top: 18%;
+  width: 38%; height: 38%;
+  border-radius: 50%;
+  background: var(--bg);
+  transform: translateX(-50%);
+}
+:where(html.jussam) .slidev-layout.cover .cover-author .avatar::after {
+  content: '';
+  position: absolute;
+  left: 50%; top: 64%;
+  width: 74%; height: 70%;
+  border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+  background: var(--bg);
+  transform: translateX(-50%);
+}
+/* 표지 · 간지 안 요소는 차례로 떠오른다 */
+:where(html.jussam) .slidev-layout:is(.cover, .section) > :not(.mesh):not(.spacer):not(.src) { animation: jussam-rise 0.5s var(--ease) backwards; }
+:where(html.jussam) .slidev-layout:is(.cover, .section) > :not(.mesh):nth-child(2) { animation-delay: 0.1s; }
+:where(html.jussam) .slidev-layout:is(.cover, .section) > :not(.mesh):nth-child(3) { animation-delay: 0.2s; }
+:where(html.jussam) .slidev-layout:is(.cover, .section) > :not(.mesh):nth-child(4) { animation-delay: 0.3s; }
+:where(html.jussam) .slidev-layout:is(.cover, .section) > :not(.mesh):nth-child(n+5) { animation-delay: 0.4s; }
+@keyframes mesh-in { from { opacity: 0; } }
+html.no-anim .slidev-layout:is(.cover, .section) *, html.no-anim .slidev-layout:is(.cover, .section) *::before { animation: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  :where(html.jussam) .slidev-layout:is(.cover, .section) *, :where(html.jussam) .slidev-layout:is(.cover, .section) *::before { animation: none !important; }
+}
+
+/* ── 카드형(cards) ───────────────────────────────────────
+   제목 아래의 <div> 칸들이 카드 격자가 된다. 열 수는 프런트매터 cols(기본 3, cards.vue 가 --cards-cols 로 넘긴다).
+   <div> 가 아닌 요소(불릿 · 문단 · 인용 · 표)와 컴포넌트(Callout · Output · Prompt · Grid · Stat) · 라벨(.kicker)은 전체 폭 한 줄로 놓인다 → 도입 문장이나 마무리 콜아웃을 카드 위아래에 둘 수 있다.
+   칸만 있는 슬라이드는 카드 행들이 남는 높이를 나눠 가져 슬라이드를 채우고, 전체 폭 요소가 섞이면 내용 높이대로 위에서부터 쌓는다(그 요소까지 늘어나지 않게).
+   칸 안 내용은 왼쪽 위부터. 칸은 둥근 카드(12px · 그림자)이고 py | ai | ok 를 주면 위에 2px 색 선. Tile 컴포넌트를 두면 그 타일이 칸이 된다(카드 꾸밈은 붙지 않는다). */
+:where(html.jussam) .slidev-layout.cards {
+  display: grid;
+  grid-template-columns: repeat(var(--cards-cols, 3), minmax(0, 1fr));
+  grid-template-rows: max-content;
+  gap: var(--grid-gap);
+}
+:where(html.jussam) .slidev-layout.cards:has(> :not(h1, h2, h3, div)),
+:where(html.jussam) .slidev-layout.cards:has(> .callout, > .output, > .prompt, > .grid-box, > .stat, > .fill-img, > .kicker) {
+  align-content: start;
+}
+:where(html.jussam) .slidev-layout.cards > :not(div),
+:where(html.jussam) .slidev-layout.cards > :is(.callout, .output, .prompt, .grid-box, .stat, .fill-img, .kicker) {
+  grid-column: 1 / -1;
+}
+:where(html.jussam) .slidev-layout.cards > :is(h1, h2, h3) { margin-bottom: 0.2rem; }
+:where(html.jussam) .slidev-layout.cards > :is(p, ul, ol, blockquote, table) { margin: 0; }
+:where(html.jussam) .slidev-layout.cards > div:not(.callout, .output, .prompt, .grid-box, .stat, .fill-img, .kicker, .tile) {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* 칸이 내용보다 커도 내용은 왼쪽 위부터 */
+  position: relative;
+  overflow: hidden;
+  padding: 1.2rem 1.4rem;
+  background: var(--card);
+  color: var(--fg);
+  box-shadow: var(--sh);
+}
+:where(html.jussam) .slidev-layout.cards > div > :first-child { margin-top: 0; }
+:where(html.jussam) .slidev-layout.cards > div > :last-child { margin-bottom: 0; }
+:where(html.jussam) .slidev-layout.cards > div h4 {
+  margin: 0 0 0.55rem;
+  font-size: 1.2rem !important;
+  line-height: 1.25;
+  font-weight: 800;
+  color: var(--heading);
+}
+/* class: compact — 카드 안쪽 여백(1.2rem 1.4rem → 0.7rem 1.2rem)과 카드 제목 아래 간격을 줄여 한 화면에 더 담는다 */
+:where(html.jussam) .slidev-layout.cards.compact > div:not(.callout, .output, .prompt, .grid-box, .stat, .fill-img, .kicker, .tile) { padding: 0.7rem 1.2rem; }
+:where(html.jussam) .slidev-layout.cards.compact > div h4 { margin-bottom: 0.3rem; }
+:where(html.jussam) .slidev-layout.cards > div p,
+:where(html.jussam) .slidev-layout.cards > div li { font-size: 0.95rem; }
+:where(html.jussam) .slidev-layout.cards > div li,
+:where(html.jussam) .slidev-layout .card:where(:not(:has(> .d))) li { line-height: 1.3; }   /* 카드 안 목록은 본문(1.8em)보다 촘촘하게 */
+:where(html.jussam) .slidev-layout.cards > div ul,
+:where(html.jussam) .slidev-layout.cards > div ol { margin: 0; padding-left: 0; }
+/* 카드(카드형 칸 · .card) 안 목록의 들여쓰기: 목록 패딩 없이 항목 여백만 글머리 폭(1em)으로 → 글머리는 카드 글의 왼쪽 끝에 맞고 글자는 바로 옆에서 시작 */
+:where(html.jussam) .slidev-layout.cards > div li,
+:where(html.jussam) .slidev-layout .card:where(:not(:has(> .d))) li { margin-left: 1em; padding-left: 0; }
+:where(html.jussam) .slidev-layout .card:where(:not(:has(> .d))) :is(ul, ol) { padding-left: 0; }
+
+/* ── 웹진형(magazine) ─────────────────────────────────────
+   왼쪽(7)은 큰 제목 + 리드문(제목 다음 문단, 아래에 짧은 그라디언트 선) + 본문, 오른쪽(4)은 ::right:: 슬롯이 가장자리까지 닿는 칸.
+   두 칸 모두 세로 가운데. ::right:: 가 없으면(.no-side) 한 단. 칸 안 요소는 .stagger 로 차례로 떠오른다.
+   오른쪽 칸의 첫 요소가 그림이면 옅은 바탕(--mag-side) 띠가 되어 그림이 여백 없이 칸을 세로로 가득 채우고(object-fit: cover), 그 아래 문단은 설명 띠가 된다.
+   그림이 아니면(카드 · 콜아웃 · 타임라인) 바탕색 없이 본문과 같은 바탕에 놓인다. */
+:where(html.jussam) .slidev-layout.magazine {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  padding-right: 0;
+}
+:where(html.jussam) .slidev-layout.magazine.no-side {
+  grid-template-columns: minmax(0, 1fr);
+  padding-right: 2.6rem;
+}
+:where(html.jussam) .slidev-layout.magazine .mag-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding-right: 2.6rem;
+}
+:where(html.jussam) .slidev-layout.magazine .mag-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  margin: -2.2rem 0; /* 레이아웃의 위아래 여백을 넘어 가장자리까지 */
+  padding: 2.2rem 2.4rem;
+}
+/* 오른쪽 칸을 그림으로 채우기: 첫 요소가 <img> 면 칸이 옅은 파란 띠가 되고, 여백 없이 그림이 남은 높이를 모두 차지한다. 뒤따르는 문단(설명)은 아래 띠 */
+:where(html.jussam) .slidev-layout.magazine .mag-side:has(> img:first-child) {
+  padding: 0;
+  justify-content: flex-start;
+  background: var(--mag-side);
+  border-left: 1px solid var(--line);
+}
+:where(html.jussam) .slidev-layout.magazine .mag-side > img:first-child {
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  object-fit: cover;
+}
+:where(html.jussam) .slidev-layout.magazine .mag-side:has(> img:first-child) > :not(img) {
+  margin: 0;
+  padding: 0.7rem 1.4rem;
+}
+:where(html.jussam) .slidev-layout.magazine .mag-main > :not(h1, h2, h3),
+:where(html.jussam) .slidev-layout.magazine .mag-side > * { margin-bottom: var(--block-gap); }
+:where(html.jussam) .slidev-layout.magazine .mag-main > :last-child,
+:where(html.jussam) .slidev-layout.magazine .mag-side > :last-child { margin-bottom: 0; }
+:where(html.jussam) .slidev-layout.magazine .mag-main > :is(h1, h2, h3) {
+  margin: 0 0 0.8rem;
+  padding: 0;
+  border: 0;
+  font-size: 2.5rem !important;
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--heading);
+}
+:where(html.jussam) .slidev-layout.magazine .mag-main > :is(h1, h2, h3) + p {
+  margin: 0 0 1.4rem;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+:where(html.jussam) .slidev-layout.magazine .mag-main > :is(h1, h2, h3) + p::after {
+  content: '';
+  display: block;
+  width: 3.5rem;
+  height: 2px;
+  margin-top: 1.1rem;
+  background: linear-gradient(90deg, var(--g1), var(--g2));
+}
+
+/* ── 인포그래픽(infographic) ───────────────────────────────
+   제목은 위, 나머지는 연한 점 무늬 위에 가운데 정렬된 무대(세로 가운데는 default 와 같은 방식). Flow · Stat · Grid · 카드를 올려 놓는다. */
+:where(html.jussam) .slidev-layout.infographic {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+}
+:where(html.jussam) .slidev-layout.infographic::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(var(--line-2) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(ellipse 65% 60% at 50% 58%, #000 10%, transparent 75%);
+  mask-image: radial-gradient(ellipse 65% 60% at 50% 58%, #000 10%, transparent 75%);
+  opacity: 0.8;
+}
+:where(html.jussam) .slidev-layout.infographic > :is(h1, h2, h3):first-child + *,
+:where(html.jussam) .slidev-layout.infographic > :first-child:not(h1, h2, h3) {
+  margin-top: auto;
+}
+:where(html.jussam) .slidev-layout.infographic::after {
+  content: '';
+  margin-top: auto;
+}
+:where(html.jussam) .slidev-layout.infographic > :not(h1, h2, h3) { text-align: center; }
+
+/* 표지 제목은 background-clip:text 그라디언트 글자인데, 일부 Chromium 은 PDF·PNG(slidev export) 렌더에서 글자 모양으로 잘리지 않고 요소 상자에 통째로 칠해(검은 박스) 글자를 가린다.
+   export 는 /export 라우트를 화면 미디어로 찍어 @media print 가 먹지 않으므로(사이드바도 isExport 로 숨긴다), export 전용 래퍼 .print-slide-container 로 스코프해 그라디언트를 끄고 단색 글자로 되돌린다. 라이브 화면·HTML 빌드(.print-slide-container 없음)는 그대로 그라디언트. */
+:where(html.jussam) .print-slide-container .slidev-layout.cover h1 {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: var(--heading);
+  color: var(--heading);
+}
+
+/* PDF·PNG 내보내기(/export, .print-slide-container 래퍼):
+   - Chromium 의 PDF 렌더는 상자 그림자를 회색 띠로 찍는다 → 그림자를 모두 끈다(테두리는 그대로)
+   - 등장 애니메이션(불투명도 0 에서 시작)·전환이 캡처 시점에 끝나지 않으면 요소가 흐리거나 빠진 채 찍힌다 → 모두 끈다(최종 상태로 바로 그려진다) */
+:where(html.jussam) .print-slide-container *, :where(html.jussam) .print-slide-container *::before, :where(html.jussam) .print-slide-container *::after {
+  box-shadow: none !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+/* 진행바 색 */
+:where(html.jussam) .slidev-progress-bar {
+  background: linear-gradient(90deg, var(--g1), var(--g2)) !important;
+  height: 2px !important;
+}
+
+/* 줄 번호: 어두운 상자에서 보이게, 좁은 카드 안에서는 숨김 */
+:where(html.jussam) .slidev-layout .slidev-code-line-numbers .slidev-code code .line::before {
+  color: #7f8ea8 !important;
+  width: 2em;
+  margin-right: 1.1em;
+}
+:where(html.jussam) .slidev-layout .card:where(:not(:has(> .d))) .slidev-code code .line::before {
+  display: none !important;
+}
+:where(html.jussam) .slidev-layout .prompt .slidev-code code .line::before {
+  display: none !important; /* 프롬프트 상자 안의 글에는 줄 번호를 붙이지 않는다 */
+}
+/* 출력(Output) 상자 안에 넣은 코드 펜스는 상자와 한 몸처럼: 자체 배경·테두리·그림자·모서리·줄 번호를 지운다 (출력 원문을 이스케이프 없이 그대로 둘 수 있다) */
+:where(html.jussam) .output .slidev-code, :where(html.jussam) .output pre.shiki {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+:where(html.jussam) .output .slidev-code code .line::before {
+  display: none !important;
+}
+
+/* 본문 등장 애니메이션: 제목(h1·h2·h3)을 뺀 슬라이드의 직계 요소(문단·목록·표·코드·콜아웃·카드 …)가 아래에서 위로 조금씩 시간차를 두고 떠오른다.
+   슬라이드 전환(--slidev-transition-duration, 기본 0.5s)과 겹치면 느껴지지 않으므로 --rise-delay 만큼 늦게 시작한다. Grid(.stagger-box) 칸의 시간차도 같은 값만큼 민다.
+   fill-mode 를 backwards 로 두어 끝난 뒤에는 v-click 의 opacity 를 건드리지 않는다. 표지·간지는 자체 효과를 쓴다. */
+html.jussam {
+  --rise-delay: 0.45s;
+}
+:where(html.jussam) .slidev-layout:not(.cover):not(.section) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box) {
+  animation: jussam-rise 0.42s var(--ease) backwards;
+  animation-delay: calc(var(--rise-delay) + 600ms);
+}
+:where(html.jussam) .slidev-layout:not(.cover):not(.section) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(1) { animation-delay: calc(var(--rise-delay) + 60ms); }
+:where(html.jussam) .slidev-layout:not(.cover):not(.section) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(2) { animation-delay: calc(var(--rise-delay) + 120ms); }
+:where(html.jussam) .slidev-layout:not(.cover):not(.section) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(3) { animation-delay: calc(var(--rise-delay) + 200ms); }
+:where(html.jussam) .slidev-layout:not(.cover):not(.section) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(4) { animation-delay: calc(var(--rise-delay) + 280ms); }
+:where(html.jussam) .slidev-layout:not(.cover):not(.section) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(5) { animation-delay: calc(var(--rise-delay) + 360ms); }
+:where(html.jussam) .slidev-layout:not(.cover):not(.section) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(6) { animation-delay: calc(var(--rise-delay) + 440ms); }
+:where(html.jussam) .slidev-layout:not(.cover):not(.section) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(7) { animation-delay: calc(var(--rise-delay) + 520ms); }
+/* Grid 칸(.stagger)은 칸마다 시간차를 두고 올라온다. 이것도 전환이 끝난 뒤 시작한다 */
+:where(html.jussam) .stagger > * { animation: jussam-rise 0.42s var(--ease) backwards; }
+:where(html.jussam) .slidev-layout .stagger > :nth-child(1) { animation-delay: calc(var(--rise-delay) + 200ms); }
+:where(html.jussam) .slidev-layout .stagger > :nth-child(2) { animation-delay: calc(var(--rise-delay) + 270ms); }
+:where(html.jussam) .slidev-layout .stagger > :nth-child(3) { animation-delay: calc(var(--rise-delay) + 340ms); }
+:where(html.jussam) .slidev-layout .stagger > :nth-child(4) { animation-delay: calc(var(--rise-delay) + 410ms); }
+:where(html.jussam) .slidev-layout .stagger > :nth-child(n+5) { animation-delay: calc(var(--rise-delay) + 470ms); }
+@keyframes jussam-rise { from { opacity: 0; transform: translateY(14px); } }
+html.no-anim .slidev-layout > * { animation: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  :where(html.jussam) .slidev-layout > * { animation: none !important; }
+}
+
+/* 애니메이션 끔 (global-top.vue 가 html.no-anim 을 토글): 클릭 단계 요소를 전부 보이고 전환·강조 효과를 끈다 */
+html.no-anim .slidev-vclick-target {
+  transition: none !important;
+}
+html.no-anim .slidev-vclick-hidden {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+html.no-anim .slidev-code-dishonored {
+  opacity: 1 !important;
+}
+html.no-anim .slidev-page, html.no-anim [class*="-enter-active"], html.no-anim [class*="-leave-active"], html.no-anim .shiki-magic-move-container, html.no-anim .shiki-magic-move-container * {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Grid 격자와 위에 붙는 작은 제목 */
+:where(html.jussam) .grid-cells { display: grid; }
+:where(html.jussam) .chart-title { font-size: 14px; font-weight: 500; letter-spacing: -0.02em; color: var(--fg-2); }
+:where(html.jussam) .grid-box > .chart-title { margin-bottom: 20px; }
+
+/* ── 아이콘 ──────────────────────────────────────────────
+   Slidev 내장 Iconify 세트(carbon · ph)를 <carbon:bot /> 처럼 쓴다. 카드(.card · 카드형 칸) 안에서 class="ico" 를 주면 제목 위에 크게, 카드 색(py·ai·ok)으로.
+   흐름도(Flow) 항목 맨 앞에 두면 번호 아래 크게 놓인다. 제목(h3·h4) 안에 그냥 두면 글자 크기로 앞에 붙는다. */
+:where(html.jussam) .slidev-layout .ico { display: block; font-size: 1.9rem; line-height: 1; margin: 0 0 0.5rem; color: var(--py); }
+:where(html.jussam) .slidev-layout :is(.card.ai, .cards > div.ai) .ico { color: var(--ai); }
+:where(html.jussam) .slidev-layout :is(.card.ok, .cards > div.ok) .ico { color: var(--ok); }
+:where(html.jussam) .slidev-layout .flow > li > .slidev-icon { font-size: 1.8rem; color: var(--c, var(--py)); margin-bottom: 0.2rem; }
+:where(html.jussam) .slidev-layout :is(h2, h3, h4) > .slidev-icon { vertical-align: -0.12em; margin-right: 0.3em; }
+
+/* ── 프런트매터 class: dense ──────────────────────────────────
+   그 슬라이드의 코드 상자와 프롬프트 상자를 촘촘하게(글자 크기는 그대로, 줄간격 1.6 → 1.3 · 안쪽 여백 12px).
+   긴 코드 예제가 캔버스를 넘칠 때 내용이나 빈 줄을 줄이지 않고 맞춘다. */
+:where(html.jussam) .slidev-layout.dense pre.shiki, :where(html.jussam) .slidev-layout.dense .slidev-code {
+  --slidev-code-line-height: 1.3;
+  line-height: 1.3;
+  padding: 12px 10px !important;
+}
+:where(html.jussam) .slidev-layout.dense .prompt-body code, :where(html.jussam) .slidev-layout.dense .prompt-body .line {
+  line-height: 1.3;
+}
+
+/* ── 그림 채우기(.fill-img) ─────────────────────────────────
+   슬라이드 맨 아래 블록으로 두면 남은 세로 공간에 그림을 비율 그대로 최대한 크게 보여 준다(스크롤 없음).
+   여러 장은 .fill-in 안에 <figure> 로 나란히 두고, 그림은 .pic 으로 감싼다. */
+:where(html.jussam) .slidev-layout:has(> .fill-img) {
+  display: flex;
+  flex-direction: column;
+}
+:where(html.jussam) .slidev-layout > .fill-img {
+  flex: 1 1 0;
+  position: relative;
+  min-height: 200px;
+}
+:where(html.jussam) .fill-img > .fill-in {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  gap: 24px;
+}
+:where(html.jussam) .fill-in > * {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+:where(html.jussam) .fill-in .pic {
+  flex: 1 1 0;
+  position: relative;
+  min-height: 0;
+}
+:where(html.jussam) .fill-img > img, :where(html.jussam) .fill-in .pic > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  margin: 0;
+  object-fit: contain;
+  object-position: center top;
+}
+:where(html.jussam) .fill-in .pic > img {
+  object-position: left top;
+}
+
+/* ── 만화 격자(.comic) ─────────────────────────────────────
+   .comic 안에 .panel(그림 한 장)을 차례로 두면 정사각 칸 3열 격자가 되고, 칸마다 왼쪽 위에 컷 번호(1, 2, 3 …)가 붙는다. */
+:where(html.jussam) .comic { display: grid; grid-template-columns: repeat(3, 12.4rem); justify-content: center; gap: 0.5rem; counter-reset: cut; }
+:where(html.jussam) .comic > .panel { position: relative; counter-increment: cut; }
+:where(html.jussam) .comic > .panel img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; margin: 0; background: #fff; border: 2px solid var(--line-2); }
+:where(html.jussam) .comic > .panel::before { content: counter(cut); position: absolute; left: 0; top: 0; z-index: 1; width: 1.4rem; height: 1.4rem; display: grid; place-items: center; font-size: 0.8rem; font-weight: 800; color: #06101f; background: var(--ai); }
+
+/* ── 인용 · 핵심 한 줄 · 형광펜 · 빈칸 ──────────────────────
+   인용(> 문단)은 왼쪽에 파트 색 세로선을 둔 카드 바탕 상자 */
+:where(html.jussam) .slidev-layout blockquote {
+  margin: 0.6rem 0;
+  padding: 0.8rem 1.1rem;
+  background: var(--card);
+  border: 0;
+  border-left: 3px solid var(--g1);
+  border-radius: 0 10px 10px 0;
+  color: var(--fg-2);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+:where(html.jussam) .slidev-layout blockquote p { margin: 0; font-size: 0.9rem; }
+/* 핵심 한 줄(Core): 슬라이드의 마지막 블록이면 남은 높이를 건너뛰어 맨 아래에 붙는다(레이아웃을 세로 flex 로 바꾼다). 인포그래픽은 무대를 가운데 두는 ::after 여백을 끈다 */
+:where(html.jussam) .slidev-layout:not(.cover):not(.section):not(.cards):has(> .core:last-child) {
+  display: flex;
+  flex-direction: column;
+}
+:where(html.jussam) .slidev-layout:not(.cover):not(.section):not(.cards) > .core:last-child {
+  margin-top: auto;
+  margin-bottom: 0;
+}
+:where(html.jussam) .slidev-layout.infographic:has(> .core:last-child)::after { margin-top: 0; }
+:where(html.jussam) .slidev-layout.infographic > .core { text-align: left; }
+/* 형광펜(.hl): 글자 아래쪽 절반에 옅은 색 띠. 색은 .py(기본) .ai .ok .yellow .warn .danger, .ink 는 띠 대신 굵은 밑줄.
+   v-click 을 주면 숨김 대신 띠가 왼쪽에서 오른쪽으로 칠해진다 */
+:where(html.jussam) .hl {
+  --hl-c: var(--py);
+  --hl-h: 46%;
+  padding: 0 2px;
+  background: linear-gradient(color-mix(in srgb, var(--hl-c) 30%, transparent), color-mix(in srgb, var(--hl-c) 30%, transparent)) no-repeat 0 88% / 100% var(--hl-h);
+}
+:where(html.jussam) .hl.ai { --hl-c: var(--ai); }
+:where(html.jussam) .hl.ok { --hl-c: var(--ok); }
+:where(html.jussam) .hl.yellow { --hl-c: var(--yellow); }
+:where(html.jussam) .hl.warn { --hl-c: var(--warn); }
+:where(html.jussam) .hl.danger { --hl-c: var(--danger); }
+:where(html.jussam) .hl.ink {
+  --hl-h: 3px;
+  font-weight: 700;
+  padding-bottom: 1px;
+  background: linear-gradient(var(--heading), var(--heading)) no-repeat 0 100% / 100% var(--hl-h);
+}
+/* 애니메이션 끔(html.no-anim)이면 클릭 단계가 전부 보여야 하므로 숨김 모양을 적용하지 않는다 */
+:where(html.jussam) .hl.slidev-vclick-target { transition: background-size 0.45s var(--ease); }
+:where(html.jussam:not(.no-anim)) .hl.slidev-vclick-hidden { opacity: 1 !important; background-size: 0% var(--hl-h); }
+/* 빈칸(.blank): 밑줄 친 답. v-click 을 주면 답이 나오기 전까지 data-ph 의 자리표시(○○)가 회색으로 보인다.
+   <span class="blank" data-ph="○○" v-click>제조</span> */
+:where(html.jussam) .blank {
+  --blank-c: var(--py);
+  display: inline-block;
+  position: relative;
+  min-width: 2.5em;
+  padding: 0 0.3em;
+  text-align: center;
+  border-bottom: 3px solid var(--blank-c);
+  color: var(--blank-c);
+  font-weight: 700;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+:where(html.jussam) .blank.ai { --blank-c: var(--ai); }
+:where(html.jussam) .blank.ok { --blank-c: var(--ok); }
+:where(html.jussam) .blank.danger { --blank-c: var(--danger); }
+:where(html.jussam:not(.no-anim)) .blank.slidev-vclick-hidden {
+  opacity: 1 !important;
+  color: transparent;
+  border-bottom-color: var(--line-2);
+}
+:where(html.jussam:not(.no-anim)) .blank.slidev-vclick-hidden::after {
+  content: attr(data-ph);
+  position: absolute;
+  left: 0; right: 0;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+/* ══ talk 컴포넌트 ══════════════════════════════════════
+   Card · Stat(n) · Hero · Agenda/NumList/Item · BeforeAfter/Side · Kicker · Note · Mul/Formula · Funnel · Branch · Gauge · Slope · Meter · HBar · Bars · Timeline(events) · Spacer.
+   1280×720 캔버스 기준 px 값. 색은 토큰을 써서 밝은 · 어두운 테마 모두에서 보인다. */
+
+/* ── 글자 클래스 ── */
+:where(html.jussam) .title-hero { font-size: 72px; font-weight: 600; line-height: 1.06; letter-spacing: -0.05em; }
+:where(html.jussam) .h-part { font-size: 62px; font-weight: 600; line-height: 1.08; letter-spacing: -0.05em; }
+:where(html.jussam) .title { font-size: 44px; font-weight: 600; line-height: 1.16; letter-spacing: -0.042em; }
+:where(html.jussam) .title-sub { font-size: 26px; font-weight: 600; line-height: 1.34; letter-spacing: -0.03em; color: var(--fg); }
+:where(html.jussam) .lead { font-size: 20px; font-weight: 400; line-height: 1.62; color: var(--fg-2); letter-spacing: -0.012em; }
+:where(html.jussam) .lead-lg { font-size: 24px; line-height: 1.55; color: var(--fg-2); letter-spacing: -0.015em; }
+:where(html.jussam) .body-s { font-size: 14px; line-height: 1.6; color: var(--fg-3); }
+:where(html.jussam) .mono { font-family: var(--mono); }
+:where(html.jussam) .fg { color: var(--fg); }
+:where(html.jussam) .note { font-size: 13px; line-height: 1.6; color: var(--fg-4); }
+:where(html.jussam) .slidev-layout p.note { font-size: 13px; color: var(--fg-4); }
+:where(html.jussam) .slidev-layout p.title-sub { font-size: 26px; font-weight: 600; line-height: 1.34; letter-spacing: -0.03em; color: var(--fg); }
+:where(html.jussam) .slidev-layout p.lead-lg { font-size: 24px; line-height: 1.55; }
+/* 전체 메시 그라디언트 글자 (표지 제목) */
+:where(html.jussam) .grad {
+  background-image: linear-gradient(96deg, #007cf0 0%, #00dfd8 20%, #7928ca 48%, #ff0080 70%, #ff4d4d 86%, #f9cb28 100%);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+}
+/* 파트 시그니처 그라디언트 글자 (제목 핵심어 · 큰 숫자) */
+:where(html.jussam) .gp {
+  background-image: linear-gradient(96deg, var(--g1), var(--g2));
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+}
+:where(html.jussam) .u { font-size: 0.58em; letter-spacing: -0.02em; }
+:where(html.jussam) .head { margin-bottom: 36px; }
+:where(html.jussam) .head .eyebrow { margin-bottom: 14px; }
+:where(html.jussam) .head .lead { margin-top: 16px; }
+:where(html.jussam) .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+:where(html.jussam) .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+/* ── Kicker: 왼쪽에 그라디언트 세로선이 붙는 맺음말 ── */
+:where(html.jussam) .kicker.acc { position: relative; padding-left: 22px; margin-top: 44px; color: var(--fg); }
+:where(html.jussam) .kicker.acc::before {
+  content: ''; position: absolute; left: 0; top: 5px; bottom: 5px; width: 3px;
+  border-radius: 2px; background: linear-gradient(180deg, var(--g1), var(--g2));
+}
+:where(html.jussam) .kicker.acc.muted { color: var(--fg-2); }
+
+/* ── Card (안에 .k · .t · .d) ── */
+:where(html.jussam) .card:has(> .d) {
+  position: relative; overflow: hidden;
+  background: var(--card); color: var(--fg); line-height: 1.5;
+  border-radius: var(--radius); padding: 24px; box-shadow: var(--sh);
+}
+:where(html.jussam) .card-sm { padding: 20px; border-radius: 10px; box-shadow: var(--sh-lo); }
+:where(html.jussam) .card-lg { padding: 30px; }
+:where(html.jussam) .card.acc::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px;
+  background: linear-gradient(90deg, var(--g1), var(--g2));
+}
+:where(html.jussam) .card .k { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--fg-4); margin-bottom: 12px; text-transform: uppercase; }
+:where(html.jussam) .card .t { font-size: 19px; font-weight: 600; letter-spacing: -0.025em; margin-bottom: 10px; }
+:where(html.jussam) .card-lg .t { margin-bottom: 14px; }
+:where(html.jussam) .card .d { font-size: 14px; line-height: 1.66; color: var(--fg-2); }
+:where(html.jussam) .card .d p, :where(html.jussam) .kicker p, :where(html.jussam) .note p, :where(html.jussam) .item .dd p, :where(html.jussam) .stat-big .s p { margin: 0; font: inherit; color: inherit; letter-spacing: inherit; }
+:where(html.jussam) .card .d p + p { margin-top: 14px; }
+:where(html.jussam) .card.dim { background: var(--card-2); box-shadow: inset 0 0 0 1px var(--line); }
+:where(html.jussam) .card.dim .t { color: var(--fg-3); }
+:where(html.jussam) .card.dim .d { color: var(--fg-4); }
+/* 한 줄로 쓴 컴포넌트(<Kicker>…</Kicker>)는 마크다운이 <p> 로 감싼다 → 그 문단의 글꼴·색·여백이 새지 않게 되돌린다 */
+:where(html.jussam) .slidev-layout p:has(> .kicker.acc, > .note, > .card, > .tlx, > .bars, > .hero) { margin: 0; font-size: 16px; line-height: 1.5; color: var(--fg); letter-spacing: 0; }
+
+/* ── Stat(n): 큰 숫자 카드 (n 을 주면 이 모양, value 를 주면 기본 타일) ── */
+:where(html.jussam) .stat-big .n { font-family: var(--mono); font-size: 58px; font-weight: 600; line-height: 1; letter-spacing: -0.045em; color: var(--fg); }
+:where(html.jussam) .stat-big .n.sm { font-size: 42px; }
+:where(html.jussam) .stat-big .l { margin-top: 14px; font-size: 15px; font-weight: 500; letter-spacing: -0.02em; }
+:where(html.jussam) .stat-big .s { margin-top: 10px; font-size: 13px; line-height: 1.6; color: var(--fg-3); }
+:where(html.jussam) .hero-n { font-family: var(--mono); font-size: 132px; font-weight: 600; line-height: 0.92; letter-spacing: -0.055em; }
+
+/* ── Agenda · NumList: 한 줄은 Item, 번호는 자동 ── */
+:where(html.jussam) .agenda, :where(html.jussam) .numlist { counter-reset: item; color: var(--fg); line-height: 1.5; }
+:where(html.jussam) .item { display: flex; align-items: flex-start; gap: 22px; padding: 15px 0; border-bottom: 1px solid var(--line); }
+:where(html.jussam) .item:first-child { border-top: 1px solid var(--line); }
+:where(html.jussam) .item .no { font-family: var(--mono); font-weight: 500; flex: none; }
+:where(html.jussam) .item .no::before {
+  counter-increment: item; content: counter(item, decimal-leading-zero);
+  background-image: linear-gradient(96deg, var(--g1), var(--g2));
+  -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+}
+:where(html.jussam) .item-body { flex: 1; min-width: 0; }
+:where(html.jussam) .agenda .item { align-items: baseline; gap: 24px; padding: 22px 0; }
+:where(html.jussam) .agenda .item .no { font-size: 14px; width: 34px; }
+:where(html.jussam) .agenda .item-body { display: flex; align-items: baseline; gap: 24px; }
+:where(html.jussam) .agenda .tt { font-size: 26px; font-weight: 600; letter-spacing: -0.03em; flex: none; width: 330px; }
+:where(html.jussam) .agenda .dd { font-size: 16px; color: var(--fg-2); flex: 1; }
+:where(html.jussam) .numlist .item .no { font-size: 12px; width: 28px; padding-top: 6px; }
+:where(html.jussam) .numlist .tt { font-size: 19px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.45; }
+:where(html.jussam) .numlist .dd { margin-top: 5px; font-size: 14px; line-height: 1.55; color: var(--fg-3); }
+
+/* ── BeforeAfter · Side ── */
+:where(html.jussam) .ba { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; position: relative; color: var(--fg); line-height: 1.5; }
+:where(html.jussam) .ba::after { content: '→'; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-family: var(--mono); font-size: 20px; color: var(--fg-4); }
+:where(html.jussam) .ba .side { padding: 28px 26px; border-radius: var(--radius); position: relative; overflow: hidden; }
+:where(html.jussam) .ba .from { background: var(--card-2); box-shadow: inset 0 0 0 1px var(--line); }
+:where(html.jussam) .ba .to { background: var(--card); box-shadow: var(--sh); }
+:where(html.jussam) .ba .to::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: linear-gradient(90deg, var(--g1), var(--g2)); }
+:where(html.jussam) .ba .k { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--fg-4); margin-bottom: 12px; text-transform: uppercase; }
+:where(html.jussam) .ba .v { font-size: 28px; font-weight: 600; letter-spacing: -0.035em; line-height: 1.25; }
+:where(html.jussam) .ba .from .v { color: var(--fg-3); }
+:where(html.jussam) .ba .d { margin-top: 12px; font-size: 14px; line-height: 1.62; color: var(--fg-2); }
+:where(html.jussam) .ba .from .d { color: var(--fg-4); }
+:where(html.jussam) .ba .d p { margin: 0; font: inherit; color: inherit; letter-spacing: inherit; }
+:where(html.jussam) .ba .d ul { margin-top: 4px; display: flex; flex-direction: column; gap: 10px; }
+:where(html.jussam) .slidev-layout .ba li { margin: 0; font-size: 14.5px; line-height: 1.55; color: inherit; }
+:where(html.jussam) .slidev-layout .ba li + li { margin-top: 0; }
+
+/* ── 차트 공통 ── */
+:where(html.jussam) .axis-t { font-family: var(--mono); font-size: 11px; color: var(--fg-4); font-variant-numeric: tabular-nums; }
+:where(html.jussam) .legend { display: flex; gap: 22px; align-items: center; }
+:where(html.jussam) .legend .li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--fg-2); }
+:where(html.jussam) .dot { width: 9px; height: 9px; border-radius: 9999px; background: var(--k); flex: none; }
+:where(html.jussam) .svg-axis text { font-family: var(--mono); font-size: 11px; fill: var(--fg-4); }
+:where(html.jussam) .svg-val { font-family: var(--mono); font-size: 15px; font-weight: 600; }
+:where(html.jussam) .svg-val.big { font-size: 18px; }
+:where(html.jussam) .svg-grid { stroke: var(--line); }
+:where(html.jussam) .svg-base { stroke: var(--line-2); }
+
+/* Timeline(events): 수평 날짜 축 */
+:where(html.jussam) .tlx { position: relative; color: var(--fg); line-height: 1.5; }
+:where(html.jussam) .tlx-cards { position: relative; height: 150px; margin-top: 4px; }
+:where(html.jussam) .tlx-card { position: absolute; top: 0; width: 320px; }
+:where(html.jussam) .tlx-card .date { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--g2); }
+:where(html.jussam) .tlx-card .name { margin-top: 9px; font-size: 23px; font-weight: 600; letter-spacing: -0.032em; }
+:where(html.jussam) .tlx-card .org { margin-top: 4px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--fg-4); }
+:where(html.jussam) .tlx-card .desc { margin-top: 11px; font-size: 14px; line-height: 1.6; color: var(--fg-2); }
+
+/* Gauge: --d (0~377) 만큼 채운다 */
+:where(html.jussam) .gauge-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px; background: var(--card); border-radius: var(--radius); box-shadow: var(--sh); color: var(--fg); }
+:where(html.jussam) .gauge { position: relative; width: 210px; height: 170px; flex: none; }
+:where(html.jussam) .gauge svg { width: 210px; height: 170px; overflow: visible; }
+:where(html.jussam) .gauge .gtrack { stroke: var(--track); }
+:where(html.jussam) .gauge .gv { stroke-dasharray: var(--d) 503; stroke-dashoffset: 0; animation: gauge-in 0.85s var(--ease) 0.25s both; }
+:where(html.jussam) .gauge .cap { position: absolute; left: 0; right: 0; top: 52px; text-align: center; font-family: var(--mono); font-size: 46px; font-weight: 600; letter-spacing: -0.04em; }
+:where(html.jussam) .gauge .cap-s { position: absolute; left: 0; right: 0; top: 106px; text-align: center; font-size: 13px; color: var(--fg-3); }
+
+/* Slope: 두 점 기울기 */
+:where(html.jussam) .slope .ln { stroke-dasharray: 600; stroke-dashoffset: 0; animation: dash-in 0.8s var(--ease) 0.3s both; }
+:where(html.jussam) .slope .marks { animation: fade-in 0.3s ease 0.95s both; }
+:where(html.jussam) .slope .mk { stroke: var(--bg); }
+:where(html.jussam) .slope .v-from { fill: var(--fg-2); }
+:where(html.jussam) .slope .v-to { fill: var(--fg); }
+
+/* Meter: --w 가 채움 폭 */
+:where(html.jussam) .meter { color: var(--fg); }
+:where(html.jussam) .meter + .meter { margin-top: 24px; }
+:where(html.jussam) .meter-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 10px; }
+:where(html.jussam) .meter-head .meter-label { font-size: 17px; font-weight: 500; letter-spacing: -0.02em; }
+:where(html.jussam) .meter-head .meter-value { font-family: var(--mono); font-size: 24px; font-weight: 600; letter-spacing: -0.03em; }
+:where(html.jussam) .meter-track { position: relative; height: 14px; border-radius: 9999px; background: var(--track); box-shadow: inset 0 0 0 1px var(--line); }
+:where(html.jussam) .meter-fill { position: absolute; left: 0; top: 0; height: 14px; border-radius: 9999px; background: var(--c1); min-width: 6px; width: var(--w); animation: grow-w 0.7s var(--ease) 0.3s both; }
+:where(html.jussam) .meter-fill.is-part { background: linear-gradient(90deg, var(--g1), var(--g2)); }
+:where(html.jussam) .meter-ref { position: absolute; top: -5px; width: 1px; height: 24px; background: var(--line-2); }
+:where(html.jussam) .meter-scale { display: flex; justify-content: space-between; margin-top: 8px; }
+:where(html.jussam) .meter-foot { margin-top: 10px; font-size: 13.5px; color: var(--fg-3); }
+
+/* HBar: --w 가 막대 길이 */
+:where(html.jussam) .hbar-box { color: var(--fg); }
+:where(html.jussam) .hbar { display: flex; flex-direction: column; gap: 22px; }
+:where(html.jussam) .hbar-row { display: flex; align-items: center; gap: 18px; }
+:where(html.jussam) .hbar-key { width: 150px; flex: none; font-size: 16px; font-weight: 500; letter-spacing: -0.02em; text-align: right; }
+:where(html.jussam) .hbar-track { position: relative; flex: 1; height: 24px; border-left: 1px solid var(--line-2); }
+:where(html.jussam) .hbar-fill { position: absolute; left: 0; top: 0; height: 24px; border-radius: 0 4px 4px 0; background: var(--c-mute); width: var(--w); animation: grow-w 0.7s var(--ease) 0.3s both; }
+:where(html.jussam) .hbar-fill.is-hi { background: var(--c1); }
+:where(html.jussam) .hbar-val {
+  position: absolute; top: 0; left: var(--w); line-height: 24px; transform: translateX(14px);
+  font-family: var(--mono); font-size: 16px; font-weight: 600; color: var(--fg);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+  animation: slide-l 0.7s var(--ease) 0.3s both;
+}
+:where(html.jussam) .hbar-val.is-mute { color: var(--fg-3); font-weight: 400; }
+
+/* Bars: 스몰 멀티플 세로 막대, --h 가 막대 높이 */
+:where(html.jussam) .bars { color: var(--fg); line-height: 1.5; }
+:where(html.jussam) .sm { display: flex; align-items: flex-start; }
+:where(html.jussam) .sm-y { width: 46px; flex: none; }
+:where(html.jussam) .sm-ruler { position: relative; height: 220px; }
+:where(html.jussam) .sm-y .yt { position: absolute; right: 12px; transform: translateY(50%); }
+:where(html.jussam) .sm-panels { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 44px; }
+:where(html.jussam) .sm-panel .sm-head, :where(html.jussam) .sm-y .sm-head { display: flex; align-items: center; gap: 9px; margin-bottom: 20px; font-size: 17px; font-weight: 600; letter-spacing: -0.025em; }
+:where(html.jussam) .sm-plot { position: relative; height: 220px; }
+:where(html.jussam) .sm-grid { position: absolute; left: 0; right: 0; height: 1px; background: var(--line); }
+:where(html.jussam) .sm-grid.base { background: var(--line-2); }
+:where(html.jussam) .sm-cols { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: space-around; }
+:where(html.jussam) .sm-col { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; width: 64px; }
+:where(html.jussam) .sm-val { font-family: var(--mono); font-size: 15px; font-weight: 600; margin-bottom: 8px; font-variant-numeric: tabular-nums; }
+:where(html.jussam) .sm-val.is-na { color: var(--fg-4); font-weight: 400; font-size: 11px; letter-spacing: 0.02em; margin: auto 0; }
+:where(html.jussam) .sm-bar { width: 24px; border-radius: 4px 4px 0 0; height: var(--h); animation: grow-h 0.7s var(--ease) 0.3s both; }
+:where(html.jussam) .sm-xrow { display: flex; justify-content: space-around; margin-top: 10px; }
+:where(html.jussam) .sm-x { width: 64px; text-align: center; }
+:where(html.jussam) .sm-foot { margin-top: 16px; font-size: 13.5px; line-height: 1.55; color: var(--fg-2); }
+
+/* Funnel */
+:where(html.jussam) .funnel { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+:where(html.jussam) .fn-row {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px; padding: 0 22px; border-radius: 8px;
+  background: var(--card); box-shadow: inset 0 0 0 1px var(--line); width: 100%;
+}
+:where(html.jussam) .fn-row .fl { font-size: 15px; font-weight: 500; letter-spacing: -0.02em; color: var(--fg-2); }
+:where(html.jussam) .fn-row .fv { font-family: var(--mono); font-size: 15px; font-weight: 600; color: var(--fg-3); }
+:where(html.jussam) .fn-row.is-final { background: linear-gradient(90deg, var(--g1), var(--g2)); box-shadow: none; }
+:where(html.jussam) .fn-row.is-final .fl, :where(html.jussam) .fn-row.is-final .fv { color: #0a0a0a; font-weight: 600; }
+
+/* Branch: 분기 도식 */
+:where(html.jussam) .brx { display: flex; flex-direction: column; align-items: center; color: var(--fg); }
+:where(html.jussam) .brx-src { padding: 16px 28px; border-radius: 9999px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line-2); font-size: 18px; font-weight: 600; letter-spacing: -0.025em; }
+:where(html.jussam) .brx-wire { width: 100%; height: 46px; display: block; }
+:where(html.jussam) .brx-wire g { stroke: var(--line-2); }
+
+/* Mul · Formula: 곱셈 도식(카드 셋 사이 ×), 수식 한 줄 */
+:where(html.jussam) .mul { display: grid; grid-template-columns: repeat(3, 1fr); gap: 46px; position: relative; }
+:where(html.jussam) .mul::before, :where(html.jussam) .mul::after {
+  content: '×'; position: absolute; top: 50%; transform: translate(-50%, -50%);
+  font-family: var(--mono); font-size: 26px; font-weight: 600;
+  background-image: linear-gradient(96deg, var(--g1), var(--g2));
+  -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+}
+:where(html.jussam) .mul::before { left: calc(100% / 3 - 8px); }
+:where(html.jussam) .mul::after { left: calc(200% / 3 + 8px); }
+:where(html.jussam) .formula {
+  margin-top: 26px; display: flex; align-items: center; gap: 14px;
+  padding: 18px 24px; border-radius: 10px;
+  background: var(--card-2); box-shadow: inset 0 0 0 1px var(--line);
+  font-family: var(--mono); font-size: 17px; color: var(--fg-4); letter-spacing: -0.01em;
+}
+:where(html.jussam) .formula .z { color: var(--fg); font-size: 22px; font-weight: 600; }
+:where(html.jussam) .formula-note { margin-left: 16px; font-family: var(--sans); font-size: 15px; color: var(--fg-2); }
+
+/* Hero: 왼쪽 큰 숫자 + 오른쪽 제목 · 설명 */
+:where(html.jussam) .hero { display: flex; align-items: flex-end; gap: 60px; color: var(--fg); line-height: 1.5; }
+:where(html.jussam) .hero-left { flex: none; }
+:where(html.jussam) .hero-right { flex: 1; }
+:where(html.jussam) .hero-u { font-size: 56px; letter-spacing: -0.03em; }
+:where(html.jussam) .slidev-layout .hero-right h2 { margin: 0; font-size: 1.3rem !important; }
+:where(html.jussam) .slidev-layout .hero-right h2 + p { font-size: 20px; line-height: 1.62; letter-spacing: -0.012em; margin: 20px 0 0; }
+
+@keyframes grow-w { from { width: 0; } }
+@keyframes grow-h { from { height: 0; } }
+@keyframes slide-l { from { left: 0; } }
+@keyframes gauge-in { from { stroke-dashoffset: var(--d); } }
+@keyframes dash-in { from { stroke-dashoffset: 600; } }
+@keyframes fade-in { from { opacity: 0; } }
+html.no-anim .slidev-layout :is(.gv, .ln, .marks, .meter-fill, .hbar-fill, .hbar-val, .sm-bar) { animation: none !important; }
+
+/* ── 기본 컴포넌트(Callout · Prompt · Output · Tile · Stat · Core · YoutubeCard)도 jussam 에서는 둥근 상자 ── */
+:where(html.jussam) .slidev-layout :is(.callout, .tile, .stat, .yt-thumb) { border-radius: var(--radius); }
+:where(html.jussam) .slidev-layout.cards > div:not(.callout, .output, .prompt, .grid-box, .stat, .fill-img, .kicker, .tile) { border-radius: var(--radius); }
+
+/* ── 인쇄·PDF 내보내기: 그라디언트 글자는 단색으로 (일부 Chromium 이 글자 대신 상자를 칠한다) ── */
+:where(html.jussam) .print-slide-container :is(.grad, .gp, .slidev-layout.section h1, .slidev-layout :is(h1, h2, h3) strong) {
+  background: none !important;
+  color: var(--heading) !important;
+  -webkit-text-fill-color: var(--heading) !important;
+}
+:where(html.jussam) .print-slide-container .item .no::before { background: none !important; color: var(--g1) !important; -webkit-text-fill-color: var(--g1) !important; }
+:where(html.jussam) .print-slide-container .slidev-layout .gp { color: var(--g1) !important; -webkit-text-fill-color: var(--g1) !important; }

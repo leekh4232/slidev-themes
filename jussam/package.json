@@ -1,0 +1,25 @@
+{
+  "name": "slidev-theme-jussam",
+  "version": "1.0.0",
+  "private": true,
+  "description": "특강·발표용 Slidev 테마(기본은 검정 바탕, d 키로 밝게, 메시 그라디언트 표지 · 파트 시그니처 색 · 둥근 카드). sidebar: true/false(왼쪽 목차 사이드바). 카드·스탯·히어로·목차·전후 비교·차트(게이지·슬로프·미터·막대·퍼널·분기·타임라인) 컴포넌트와 콜아웃·프롬프트·출력·타일·단계·격자 컴포넌트.",
+  "keywords": [
+    "slidev-theme",
+    "slidev"
+  ],
+  "slidev": {
+    "defaults": {
+      "aspectRatio": "16/9",
+      "canvasWidth": 1280,
+      "fonts": {
+        "sans": "Pretendard Variable",
+        "mono": "JetBrains Mono",
+        "local": "Pretendard Variable, Pretendard"
+      },
+      "transition": "slide-left",
+      "lineNumbers": true
+    },
+    "colorSchema": "both",
+    "highlighter": "shiki"
+  }
+}

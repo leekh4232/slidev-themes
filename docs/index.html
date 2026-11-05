@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Slidev Themes · hossam</title>
-<meta name="description" content="Slidev 테마 hossam: 목차 사이드바와 표지·간지·카드형·웹진형·인포그래픽 레이아웃이 있는 코딩 강의용 테마(기본 어두운 바탕).">
+<meta name="description" content="Slidev 테마 두 가지: 코딩 강의용 hossam(직각 상자)과 특강·발표용 jussam(메시 그라디언트 · 차트 컴포넌트). 둘 다 목차 사이드바와 기본 어두운 바탕.">
 <meta name="color-scheme" content="light">
 <meta property="og:title" content="Slidev Themes · hossam">
-<meta property="og:description" content="Slidev 테마 hossam: 목차 사이드바와 표지·간지·카드형·웹진형·인포그래픽 레이아웃이 있는 코딩 강의용 테마(기본 어두운 바탕).">
+<meta property="og:description" content="Slidev 테마 두 가지: 코딩 강의용 hossam(직각 상자)과 특강·발표용 jussam(메시 그라디언트 · 차트 컴포넌트). 둘 다 목차 사이드바와 기본 어두운 바탕.">
 <meta property="og:image" content="https://slidev-themes.hossam.kr/img/lecture-cover.jpg">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="code.css">
@@ -20,6 +20,7 @@
     --fg: #1f2328;
     --muted: #59636e;
     --hossam: #0969da;
+    --jussam: #7928ca;
   }
   * { box-sizing: border-box; }
   html { background: var(--bg); }
@@ -66,6 +67,8 @@
   .links { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 16px; font-weight: 700; }
   .links a { text-decoration: none; }
   .hossam .links a { color: var(--hossam); }
+  .theme.jussam { border-top: 3px solid var(--jussam); }
+  .jussam .links a { color: var(--jussam); }
 
   .use { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
   .box { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; }
@@ -90,8 +93,8 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareSourceCode",
-  "name": "Slidev Themes · hossam",
-  "description": "코딩 강의용 Slidev 테마 hossam. 기본 어두운 바탕(밝은 테마 전환), 왼쪽 목차 사이드바(sidebar: true | false), 원고 md를 깃헙 스타일 문서로 보는 📄 원고 버튼(기본 켬, manuscript: false 로 끔), 표지 · 간지 · 카드형 · 웹진형 · 인포그래픽 레이아웃, 직각 상자(콜아웃 · 프롬프트 · 출력 · 타일 · 핵심 한 줄 · 칩), 모든 슬라이드 오른쪽 아래 쪽 번호(현재/전체).",
+  "name": "Slidev Themes · hossam · jussam",
+  "description": "Slidev 테마 두 가지. 특강·발표용 jussam: 검정 바탕 메시 그라디언트 표지, 파트 시그니처 색, 둥근 카드, 카드 · 스탯 · 히어로 · 목차 · 전후 비교 · 차트(게이지 · 슬로프 · 미터 · 막대 · 퍼널 · 분기 · 타임라인) 컴포넌트. 코딩 강의용 hossam: 기본 어두운 바탕(밝은 테마 전환), 왼쪽 목차 사이드바(sidebar: true | false), 원고 md를 깃헙 스타일 문서로 보는 📄 원고 버튼(기본 켬, manuscript: false 로 끔), 표지 · 간지 · 카드형 · 웹진형 · 인포그래픽 레이아웃, 직각 상자(콜아웃 · 프롬프트 · 출력 · 타일 · 핵심 한 줄 · 칩), 모든 슬라이드 오른쪽 아래 쪽 번호(현재/전체).",
   "url": "https://slidev-themes.hossam.kr/",
   "codeRepository": "https://github.com/leekh4232/slidev-themes",
   "programmingLanguage": [
@@ -114,7 +117,7 @@
 <header>
   <div class="wrap">
     <h1><span>Slidev</span> Themes</h1>
-    <p class="tagline"><a href="https://sli.dev">Slidev</a> 테마 <b>hossam</b>.<br>목차 사이드바가 있는 코딩 강의용 테마입니다. 기본은 어두운 바탕입니다.</p>
+    <p class="tagline"><a href="https://sli.dev">Slidev</a> 테마 <b>hossam</b> · <b>jussam</b>.<br>코딩 강의용과 특강·발표용, 두 테마 모두 목차 사이드바가 있고 기본은 어두운 바탕입니다.</p>
     <div class="actions">
       <a class="btn primary" href="https://github.com/leekh4232/slidev-themes">GitHub에서 보기</a>
       <a class="btn" href="https://open-with-slidev.hossam.kr/">Open with Slidev</a>
@@ -122,6 +125,7 @@
     <div class="badges">
       <a href="https://sli.dev"><img src="https://img.shields.io/badge/Slidev-theme-2b90b6" alt="Slidev theme" height="20"></a>
       <img src="https://img.shields.io/badge/theme-hossam-ff3d9a" alt="theme hossam" height="20">
+      <img src="https://img.shields.io/badge/theme-jussam-007cf0" alt="theme jussam" height="20">
       <a href="https://github.com/leekh4232/slidev-themes/commits/main"><img src="https://img.shields.io/github/last-commit/leekh4232/slidev-themes?color=7c5cff" alt="Last commit" height="20"></a>
       <a href="https://marketplace.visualstudio.com/items?itemName=leekh.open-with-slidev"><img src="https://img.shields.io/badge/Open%20with%20Slidev-VS%20Code-007ACC" alt="Open with Slidev" height="20"></a>
       <a href="https://github.com/leekh4232/slidev-themes/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-2ea44f" alt="License MIT" height="20"></a>
@@ -148,6 +152,22 @@
     </div>
   </section>
 
+  <section class="theme jussam">
+    <div class="theme-head"><h3>jussam</h3><span class="badge">발표</span></div>
+    <p class="desc">특강·발표용 테마입니다. 처음 열면 검정 바탕이고 d 키로 밝게 바꿉니다. 메시 그라디언트 표지, 파트별 시그니처 색, 둥근 카드와 그림자, 카드 · 스탯 · 히어로 · 목차 · 전후 비교 · 차트(게이지 · 슬로프 · 미터 · 막대 · 퍼널 · 분기 · 타임라인) 컴포넌트가 있습니다. 목차 사이드바와 원고 보기, 콜아웃 · 프롬프트 · 타일 같은 기본 컴포넌트도 들어 있습니다.</p>
+    <div class="shots">
+      <img src="img/jussam-cover.jpg" alt="메시 그라디언트 표지" loading="lazy">
+      <div class="side">
+        <img src="img/jussam-stat.jpg" alt="큰 숫자 카드 세 장" loading="lazy">
+        <img src="img/jussam-light.jpg" alt="밝은 화면" loading="lazy">
+      </div>
+    </div>
+    <div class="links">
+      <a href="jussam.html">사용법 →</a>
+      <a href="https://github.com/leekh4232/slidev-themes/tree/main/jussam">소스 →</a>
+    </div>
+  </section>
+
   <h2>쓰는 법</h2>
   <div class="use">
     <div class="box">
@@ -159,7 +179,7 @@
       <h3>2. 경로로 지정</h3>
       <p>md 파일 프런트매터에 테마 폴더 경로를 적고, 우클릭 → <b>Open with Slidev</b>(또는 <code>npx slidev slides.md</code>)로 엽니다.</p>
       <pre><code class="language-yaml">---
-theme: ./slidev-themes/hossam
+theme: ./slidev-themes/hossam   # 또는 ./slidev-themes/jussam
 sidebar: true      # 생략하면 켬
 ---</code></pre>
     </div>
@@ -169,7 +189,11 @@ sidebar: true      # 생략하면 켬
   <div class="use">
     <div class="box">
       <h3><a href="examples/lecture-example.md">lecture-example.md</a></h3>
-      <p>파이썬 기초 3강. 콜아웃 · 프롬프트 · 출력 · 타일 · 핵심 한 줄 · 단계 목록과 사이드바.</p>
+      <p>hossam · 파이썬 기초 3강. 콜아웃 · 프롬프트 · 출력 · 타일 · 핵심 한 줄 · 단계 목록과 사이드바.</p>
+    </div>
+    <div class="box">
+      <h3><a href="examples/jussam-example.md">jussam-example.md</a></h3>
+      <p>jussam · 분기 개발 생산성 리뷰(가상의 수치). 발표 컴포넌트 전부와 기본 컴포넌트.</p>
     </div>
   </div>
 </main>
