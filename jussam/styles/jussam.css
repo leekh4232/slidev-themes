@@ -1293,7 +1293,7 @@ html.no-anim .slidev-layout :is(.gv, .ln, .marks, .meter-fill, .hbar-fill, .hbar
   content: ''; display: block; width: 72px; height: 6px; margin-top: 14px; border-radius: 9999px;
   background: linear-gradient(90deg, var(--g1), var(--g2));
 }
-:where(html.jussam.vivid) .slidev-layout.default > h1 + p { margin-top: -0.6rem; color: var(--fg-2); font-weight: 500; }
+:where(html.jussam.vivid) .slidev-layout.default > h1 + p { margin-top: -0.6rem; color: var(--fg-2); font-weight: 500; opacity: 1; }
 :where(html.jussam.vivid) .slidev-layout .eyebrow.acc {
   align-self: flex-start; display: inline-block; padding: 0.22rem 0.75rem; border-radius: 9999px;
   font-weight: 600; color: #fff; background: linear-gradient(90deg, var(--g1), var(--g2));
@@ -1352,3 +1352,40 @@ html.no-anim .slidev-layout :is(.gv, .ln, .marks, .meter-fill, .hbar-fill, .hbar
 :where(html.jussam.vivid) .nm-head { fill: color-mix(in srgb, var(--g1) 70%, var(--fg-2)); }
 /* 인쇄·PDF: 간지 제목은 그라디언트 바탕 위 흰 글자 그대로 */
 :where(html.jussam.vivid) .print-slide-container .slidev-layout.section h1 { color: #fff !important; -webkit-text-fill-color: #fff !important; }
+
+/* Grid 칸 안 Card(.k · .t · .d)의 마지막 블록에는 칸 블록 간격(--block-gap)을 붙이지 않는다 → 카드 아래 빈 여백 없음 */
+:where(html.jussam) .slidev-layout:not(.cover):not(.section):not(.cards) .grid-cells > .card > :last-child { margin-bottom: 0; }
+:where(html.jussam) .card .d > :last-child { margin-bottom: 0; }
+
+/* ── 시대 영역도(Eras) ─────────────────────────────────────
+   층마다 반투명 파트 색 그라디언트(안쪽일수록 진하게) · 위 테두리 빛 · 흐림 유리. 아래 축은 그라디언트 선과 눈금. */
+:where(html.jussam) .eras { position: relative; width: 100%; }
+:where(html.jussam) .eras-stage { position: relative; }
+:where(html.jussam) .era {
+  position: absolute; right: 0; bottom: 0; box-sizing: border-box;
+  border-radius: 18px 18px 0 0; overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--g1) 45%, transparent); border-bottom: 0;
+  backdrop-filter: blur(6px);
+}
+:where(html.jussam) .era::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 4px;
+  background: linear-gradient(90deg, var(--g1), var(--g2));
+}
+:where(html.jussam) .era-1 { background: linear-gradient(160deg, color-mix(in srgb, var(--g1) 16%, transparent), color-mix(in srgb, var(--g2) 8%, transparent)); }
+:where(html.jussam) .era-2 { background: linear-gradient(160deg, color-mix(in srgb, var(--g1) 30%, transparent), color-mix(in srgb, var(--g2) 18%, transparent)); box-shadow: -18px 0 40px -24px color-mix(in srgb, var(--g1) 80%, transparent); }
+:where(html.jussam) .era-3 { background: linear-gradient(160deg, color-mix(in srgb, var(--g1) 48%, transparent), color-mix(in srgb, var(--g2) 34%, transparent)); box-shadow: -18px 0 44px -22px color-mix(in srgb, var(--g2) 85%, transparent); }
+:where(html.jussam) .era-body { width: var(--era-w); box-sizing: border-box; padding: 22px 22px 16px 26px; }
+:where(html.jussam) .era-t {
+  font-size: 26px; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; margin-bottom: 14px;
+  background-image: linear-gradient(96deg, var(--heading) 30%, color-mix(in srgb, var(--g2) 60%, var(--heading)));
+  -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+}
+:where(html.jussam) .slidev-layout .era-items { list-style: none; margin: 0; padding: 0; }
+:where(html.jussam) .slidev-layout .era-items li { margin: 0; padding: 0; font-size: 15px; line-height: 1.75; color: var(--fg-2); }
+:where(html.jussam) .slidev-layout .era-items li::before { content: none; }
+:where(html.jussam) .eras-axis { position: relative; height: 44px; border-top: 2px solid transparent; border-image: linear-gradient(90deg, var(--g1), var(--g2)) 1; }
+:where(html.jussam) .era-tick { position: absolute; top: -2px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--fg-3); white-space: nowrap; }
+:where(html.jussam) .era-tick i { display: block; width: 3px; height: 12px; border-radius: 2px; background: linear-gradient(180deg, var(--g1), var(--g2)); }
+:where(html.jussam) .print-slide-container .era-t { background: none !important; color: var(--heading) !important; -webkit-text-fill-color: var(--heading) !important; }
+/* vivid 어두운 테마: 회색 글자(설명 줄 · 카드 본문 · 목록 · 축 눈금)를 한 단계 밝게. 흰색보다는 옅게 둔다 */
+html.jussam.vivid.dark { --fg-2: #d4d4da; --fg-3: #c0c0c7; --fg-4: #a6a6ae; --muted: #c8c8ce; }
