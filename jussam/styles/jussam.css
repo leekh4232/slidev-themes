@@ -1237,3 +1237,118 @@ html.no-anim .slidev-layout :is(.gv, .ln, .marks, .meter-fill, .hbar-fill, .hbar
 }
 :where(html.jussam) .print-slide-container .item .no::before { background: none !important; color: var(--g1) !important; -webkit-text-fill-color: var(--g1) !important; }
 :where(html.jussam) .print-slide-container .slidev-layout .gp { color: var(--g1) !important; -webkit-text-fill-color: var(--g1) !important; }
+
+/* ── 그림(Figure) ─────────────────────────────────────────
+   슬라이드 직계 블록이면(fig-fill) 남은 세로 공간을 채우고, h 를 주면 그 높이. 그림은 비율 그대로 칸 안에서 가장 크게.
+   paper: 그림 크기에 맞춘 흰 받침(투명 배경 + 어두운 글자 그림용). */
+:where(html.jussam) .fig { margin: 0; display: flex; flex-direction: column; min-height: 0; }
+:where(html.jussam) .slidev-layout > .fig-fill { flex: 1 1 0; min-height: 160px; }
+:where(html.jussam) .fig-box { position: relative; flex: 1 1 0; min-height: 0; }
+:where(html.jussam) .fig-in { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+:where(html.jussam) .fig-in > p { display: contents; }
+:where(html.jussam) .fig-in img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; margin: 0; object-fit: contain; border-radius: var(--radius); box-shadow: var(--sh-lo); }
+:where(html.jussam) .fig.paper .fig-in img { background: #fff; padding: 10px; box-sizing: border-box; }
+:where(html.jussam) .fig-cap { margin-top: 10px; text-align: center; font-size: 15px; font-weight: 500; color: var(--muted); letter-spacing: -0.01em; }
+
+/* ── 로드맵(Roadmap) ───────────────────────────────────────
+   단계 꺾쇠 띠 위에 양방향 화살표 띠(bands), 아래에 단계 눈금에 맞춘 막대(rows). */
+:where(html.jussam) .roadmap { display: flex; flex-direction: column; gap: 10px; color: var(--text); }
+:where(html.jussam) .rm-track { position: relative; height: 38px; }
+:where(html.jussam) .rm-band, :where(html.jussam) .rm-bar { position: absolute; top: 0; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; letter-spacing: -0.02em; white-space: nowrap; }
+:where(html.jussam) .rm-band { height: 44px; top: -3px; color: #fff; background: linear-gradient(90deg, var(--g1), var(--g2)); clip-path: polygon(0 50%, 22px 0, calc(100% - 22px) 0, 100% 50%, calc(100% - 22px) 100%, 22px 100%); }
+:where(html.jussam) .rm-stages { display: flex; margin: 6px 0 8px; }
+:where(html.jussam) .rm-stage { flex: 1 1 0; height: 64px; margin-left: -14px; display: flex; align-items: center; justify-content: center; padding: 0 22px; background: var(--surface-2); color: var(--text); font-size: 17px; font-weight: 600; letter-spacing: -0.02em; text-align: center; clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 50%, calc(100% - 22px) 100%, 0 100%, 22px 50%); }
+:where(html.jussam) .rm-stage:nth-child(even) { background: var(--surface); box-shadow: inset 0 0 0 999px var(--line); }
+:where(html.jussam) .rm-stage.first { margin-left: 0; clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 50%, calc(100% - 22px) 100%, 0 100%); }
+:where(html.jussam) .rm-bar { border-radius: 9999px; color: #0a0a0a; }
+:where(html.jussam) .rm-bar.c1 { background: var(--pastel-5); }
+:where(html.jussam) .rm-bar.c2 { background: var(--pastel-4); }
+:where(html.jussam) .rm-bar.c3 { background: var(--pastel-3); }
+:where(html.jussam) .rm-bar.c4 { background: var(--pastel-2); }
+:where(html.jussam) .rm-bar.c5 { background: var(--pastel-1); }
+:where(html.jussam) .rm-bar.c6 { background: var(--pastel-6); }
+
+/* ── 좌표 흐름도(NodeMap) ─────────────────────────────────
+   상자는 좌표 % 로 놓고, 선은 같은 좌표의 SVG. 상자 글은 가운데 정렬. */
+:where(html.jussam) .nodemap { position: relative; margin: 0 auto; flex: none; }
+:where(html.jussam) .nm-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+:where(html.jussam) .nm-edge { fill: none; stroke: var(--fg-2); stroke-width: 1.4; }
+:where(html.jussam) .nm-head { fill: var(--fg-2); }
+:where(html.jussam) .nm-node { position: absolute; box-sizing: border-box; display: flex; align-items: center; justify-content: center; padding: 2px 6px; text-align: center; font-size: var(--nm-size); font-weight: 500; line-height: 1.25; letter-spacing: -0.02em; color: var(--text); background: var(--surface-2); border: 1px solid var(--line-2); border-radius: 8px; }
+:where(html.jussam) .nm-node.term { border-radius: 9999px; color: #fff; border: 0; background: linear-gradient(96deg, var(--g1), var(--g2)); font-weight: 600; }
+:where(html.jussam) .nm-node.io { border: 1.5px solid var(--g1); }
+
+/* ── 화려한 모양(vivid): 덱 헤더 vivid: true → <html> 에 vivid 클래스 ─────────────
+   본문 바탕 모서리 색 번짐, 제목 아래 그라디언트 막대, 그라디언트 머리말 알약, 굵은 카드 윗선 + 색 그림자(Grid 칸마다 다른 색),
+   꽉 찬 그라디언트 간지(흰 글자), 진한 표지 메시, 색 머리줄 표, 색 꺾쇠 로드맵. 파트 색(part: 1~4)은 그대로 따른다. */
+:where(html.jussam.vivid) { --g1: #6a3df5; --g2: #ff2d87; }
+:where(html.jussam.vivid) .slidev-layout.default {
+  background:
+    radial-gradient(48% 62% at 102% -6%, color-mix(in srgb, var(--g2) 26%, transparent), transparent 72%),
+    radial-gradient(46% 60% at -4% 108%, color-mix(in srgb, var(--g1) 24%, transparent), transparent 72%),
+    var(--bg);
+}
+:where(html.jussam.vivid) .slidev-layout.default > h1 { font-weight: 800; letter-spacing: -0.045em; }
+:where(html.jussam.vivid) .slidev-layout.default > h1::after {
+  content: ''; display: block; width: 72px; height: 6px; margin-top: 14px; border-radius: 9999px;
+  background: linear-gradient(90deg, var(--g1), var(--g2));
+}
+:where(html.jussam.vivid) .slidev-layout.default > h1 + p { margin-top: -0.6rem; color: var(--fg-2); font-weight: 500; }
+:where(html.jussam.vivid) .slidev-layout .eyebrow.acc {
+  align-self: flex-start; display: inline-block; padding: 0.22rem 0.75rem; border-radius: 9999px;
+  font-weight: 600; color: #fff; background: linear-gradient(90deg, var(--g1), var(--g2));
+  box-shadow: 0 6px 16px -6px color-mix(in srgb, var(--g2) 70%, transparent);
+}
+/* 카드: 굵은 윗선 · 색 그림자 · 머리말 색. Grid 안의 카드는 칸마다 색을 돌린다 */
+:where(html.jussam.vivid) .card:has(> .d) {
+  box-shadow: 0 18px 40px -18px color-mix(in srgb, var(--g1) 55%, transparent), inset 0 0 0 1px color-mix(in srgb, var(--g1) 22%, transparent);
+}
+:where(html.jussam.vivid) .card.acc::before { height: 7px; }
+:where(html.jussam.vivid) .card .k { color: var(--g1); font-weight: 600; }
+:where(html.jussam.vivid) .card .t { font-weight: 700; color: var(--heading); }
+:where(html.jussam.vivid) .grid-cells > .card:nth-child(4n+1) { --g1: #007cf0; --g2: #00c6d8; }
+:where(html.jussam.vivid) .grid-cells > .card:nth-child(4n+2) { --g1: #7928ca; --g2: #ff0080; }
+:where(html.jussam.vivid) .grid-cells > .card:nth-child(4n+3) { --g1: #ff4d4d; --g2: #f9a825; }
+:where(html.jussam.vivid) .grid-cells > .card:nth-child(4n+4) { --g1: #00a86b; --g2: #00c6d8; }
+:where(html.jussam.vivid) .kicker.acc::before { width: 6px; border-radius: 3px; }
+:where(html.jussam.vivid) .item .no { font-weight: 700; }
+/* 표: 그라디언트 머리줄 · 흰 글자 · 줄무늬 */
+:where(html.jussam.vivid) .slidev-layout table { border-collapse: separate; border-spacing: 0; border-radius: var(--radius); overflow: hidden; box-shadow: 0 18px 40px -20px color-mix(in srgb, var(--g1) 55%, transparent); }
+:where(html.jussam.vivid) .slidev-layout th { color: #fff !important; font-weight: 700; background: linear-gradient(90deg, var(--g1), var(--g2)); }
+:where(html.jussam.vivid) .slidev-layout tbody tr:nth-child(odd) td { background: color-mix(in srgb, var(--g1) 7%, var(--bg)); }
+:where(html.jussam.vivid) .slidev-layout tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--g2) 6%, var(--bg)); }
+/* 간지: 파트 색으로 꽉 찬 그라디언트, 흰 글자 */
+:where(html.jussam.vivid) .slidev-layout.section { background: linear-gradient(130deg, var(--g1), var(--g2)); }
+:where(html.jussam.vivid) .slidev-layout.section .mesh {
+  opacity: 0.55; background:
+    radial-gradient(38% 50% at 84% 18%, rgba(255, 255, 255, 0.55), transparent 70%),
+    radial-gradient(40% 56% at 8% 96%, rgba(255, 255, 255, 0.35), transparent 70%);
+}
+:where(html.jussam.vivid) .slidev-layout.section .mesh::after { display: none; }
+:where(html.jussam.vivid) .slidev-layout.section :is(h1, [class*="part-"] h1),
+:where(html.jussam.vivid) .slidev-layout.section[class*="part-"] h1 {
+  background: none; color: #fff; -webkit-text-fill-color: #fff; font-weight: 800; text-shadow: 0 6px 30px rgba(0, 0, 0, 0.18);
+}
+:where(html.jussam.vivid) .slidev-layout.section :is(.eyebrow, h1 + p, p) { color: rgba(255, 255, 255, 0.9) !important; }
+:where(html.jussam.vivid) .slidev-layout.section .eyebrow { font-weight: 600; }
+/* 표지: 메시를 진하게 */
+:where(html.jussam.vivid:not(.dark)) .slidev-layout.cover .mesh { opacity: 0.85; }
+:where(html.jussam.vivid:not(.dark)) .slidev-layout.cover .mesh.is-soft { opacity: 0.6; height: 118%; top: -24%; }
+:where(html.jussam.vivid) .slidev-layout.cover h1 { font-weight: 800; }
+/* 그림: 색 그림자 */
+:where(html.jussam.vivid) .fig-in img { box-shadow: 0 20px 44px -20px color-mix(in srgb, var(--g1) 60%, transparent), inset 0 0 0 1px var(--line); }
+/* 로드맵: 단계마다 진한 색 꺾쇠, 흰 글자 */
+:where(html.jussam.vivid) .rm-stage { color: #fff; box-shadow: none !important; }
+:where(html.jussam.vivid) .rm-stage:nth-child(1) { background: linear-gradient(90deg, #007cf0, #00a3e0); }
+:where(html.jussam.vivid) .rm-stage:nth-child(2) { background: linear-gradient(90deg, #00a3e0, #7928ca); }
+:where(html.jussam.vivid) .rm-stage:nth-child(3) { background: linear-gradient(90deg, #7928ca, #d6007a); }
+:where(html.jussam.vivid) .rm-stage:nth-child(4) { background: linear-gradient(90deg, #d6007a, #ff4d4d); }
+:where(html.jussam.vivid) .rm-stage:nth-child(5) { background: linear-gradient(90deg, #ff4d4d, #f9a825); }
+:where(html.jussam.vivid) .rm-bar { box-shadow: 0 8px 18px -10px rgba(0, 0, 0, 0.35); }
+/* 좌표 흐름도: 상자에 파트 색 테두리와 옅은 바탕 */
+:where(html.jussam.vivid) .nm-node.box { background: color-mix(in srgb, var(--g1) 8%, var(--bg)); border-color: color-mix(in srgb, var(--g1) 45%, transparent); }
+:where(html.jussam.vivid) .nm-node.io { background: color-mix(in srgb, var(--g2) 10%, var(--bg)); border-color: var(--g2); }
+:where(html.jussam.vivid) .nm-edge { stroke: color-mix(in srgb, var(--g1) 70%, var(--fg-2)); }
+:where(html.jussam.vivid) .nm-head { fill: color-mix(in srgb, var(--g1) 70%, var(--fg-2)); }
+/* 인쇄·PDF: 간지 제목은 그라디언트 바탕 위 흰 글자 그대로 */
+:where(html.jussam.vivid) .print-slide-container .slidev-layout.section h1 { color: #fff !important; -webkit-text-fill-color: #fff !important; }

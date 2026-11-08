@@ -10,7 +10,7 @@ footer: 플랫폼팀 / 2026년 10월
 <!--
 jussam 테마 예제 덱 (가상의 수치). title 의 " · " 앞은 사이드바 위 머리말, 뒤는 단원 이름이 된다.
 레이아웃: cover(eyebrow · footer · mesh · source · author) · section(part · eyebrow) · default(eyebrow · part · source) · cards(cols) · magazine(::right::) · infographic
-발표 컴포넌트: Hero · Spacer · Agenda/NumList/Item · Timeline(events) · Gauge · Slope · Card(k · t · acc · sm · lg · dim) · Stat(n · fill · mark · scale · sm) · Kicker(lead · muted) · Funnel · Branch · BeforeAfter/Side · HBar · Bars · Meter · Mul · Formula · Note
+발표 컴포넌트: Hero · Spacer · Agenda/NumList/Item · Timeline(events) · Gauge · Slope · Card(k · t · acc · sm · lg · dim) · Stat(n · fill · mark · scale · sm) · Kicker(lead · muted) · Funnel · Branch · BeforeAfter/Side · HBar · Bars · Meter · Mul · Formula · Note · Roadmap · NodeMap · Figure(paper · h · caption)
 기본 컴포넌트: Callout · Prompt · Output · Steps · Flow · Timeline(li) · Grid · Stat(value) · Tile · Core · Chip · YoutubeCard
 헤더 옵션: sidebar · exportDark · colorMode · fontScale · manuscript
 -->
@@ -352,6 +352,58 @@ eyebrow: faq · onboarding
 </BeforeAfter>
 
 <Kicker>읽은 문서 양이 아니라, 올린 PR 수가 온보딩의 지표</Kicker>
+
+---
+part: 4
+eyebrow: roadmap
+roadmap:
+  stages: ['계획', '개발', '리뷰', '배포']
+  bands:
+    - { label: 개발팀, from: 0, to: 2.5 }
+    - { label: 플랫폼팀, from: 2.3, to: 4 }
+  rows:
+    - { label: 설계 문서, from: 0, to: 1 }
+    - { label: 자동 테스트, from: 1, to: 4 }
+    - { label: 리뷰어 자동 배정, from: 2, to: 3 }
+    - { label: 카나리 배포, from: 3, to: 4 }
+---
+
+# 다음 분기 **작업 흐름**
+
+<Roadmap v-bind="$frontmatter.roadmap" />
+
+---
+part: 4
+eyebrow: alert flow
+nodemap:
+  w: 600
+  h: 200
+  height: 300
+  nodes:
+    - { label: 알림 184건, x: 0, y: 70, w: 120, h: 60, kind: term }
+    - { label: 분류, x: 240, y: 70, w: 120, h: 60 }
+    - { label: 온콜 대응, x: 480, y: 0, w: 120, h: 60, kind: io }
+    - { label: 일일 요약, x: 480, y: 140, w: 120, h: 60 }
+  edges:
+    - 'M120,100 L240,100'
+    - 'M360,100 L420,100 L420,30 L480,30'
+    - 'M360,100 L420,100 L420,170 L480,170'
+---
+
+# 알림이 **흘러가는 길**
+
+<NodeMap v-bind="$frontmatter.nodemap" />
+
+---
+part: 4
+eyebrow: figure
+---
+
+# 표지 **다시 보기**
+
+<Figure paper caption="Figure paper · 남은 세로 공간을 채운다">
+<img src="./img/jussam-cover.jpg" alt="jussam 표지 화면" />
+</Figure>
 
 ---
 layout: section

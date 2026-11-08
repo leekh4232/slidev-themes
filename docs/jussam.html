@@ -283,6 +283,54 @@ bars:
 
 &lt;Formula :tokens="['자동화', '×', '가시성', '×', '0', '=', '0']" note="하나라도 0이면 결과도 0" /&gt;</code></pre>
 <figure><img src="img/jussam-mul.jpg" alt="Mul + Formula" loading="lazy"><figcaption>Mul + Formula</figcaption></figure>
+<h3 id="c-figure">Figure — 그림 한 장</h3>
+<p>그림을 비율 그대로 칸 안에서 가장 크게 보여 준다. 슬라이드 직계 블록이면 남은 세로 공간을 모두 채우고, Grid 칸 안에서는 <code>h</code>로 높이를 준다. 그림은 슬롯의 <code>&lt;img&gt;</code>로 넣는다(빌드 때 그림 파일이 함께 묶이도록).</p>
+<table><thead><tr><th>프롭</th><th>뜻</th></tr></thead><tbody><tr><td><code>h</code></td><td>그림 칸 높이(px). 없으면 남은 세로 공간</td></tr><tr><td><code>paper</code></td><td>그림 크기에 딱 맞는 흰 받침. 투명 배경에 어두운 글자가 있는 그림을 검정 바탕에서도 읽히게</td></tr><tr><td><code>caption</code></td><td>그림 아래 한 줄</td></tr><tr><td>슬롯</td><td><code>&lt;img src="./img/…" alt="…" /&gt;</code></td></tr></tbody></table>
+<pre><code class="language-md">&lt;Figure paper&gt;
+&lt;img src="./img/diagram.png" alt="투명 배경 도표" /&gt;
+&lt;/Figure&gt;
+
+&lt;Grid cols="2" gap="80"&gt;
+&lt;Figure h="380" caption="단톡방"&gt;
+&lt;img src="./img/qr-group.png" alt="단톡방 QR" /&gt;
+&lt;/Figure&gt;
+&lt;Figure h="380" caption="1:1 톡방"&gt;
+&lt;img src="./img/qr-direct.png" alt="1:1 톡방 QR" /&gt;
+&lt;/Figure&gt;
+&lt;/Grid&gt;</code></pre>
+<figure><img src="img/jussam-figure.jpg" alt="Figure paper 한 장이 남은 공간을 채운 슬라이드" loading="lazy"><figcaption>Figure paper (남은 공간 채우기)</figcaption></figure>
+<h3 id="c-roadmap">Roadmap — 단계 로드맵</h3>
+<p>단계 꺾쇠 띠를 같은 폭으로 놓고, 위에 양방향 화살표 띠(<code>bands</code>), 아래에 단계 눈금에 맞춘 막대(<code>rows</code>)를 그린다. <code>from</code> · <code>to</code>는 단계 눈금(0 = 첫 단계 왼쪽 끝, 단계 수 = 마지막 단계 오른쪽 끝, 소수 가능). 막대 색은 위에서부터 파스텔 1~6 차례. 데이터는 프런트매터에 두고 <code>v-bind</code>로 넘긴다.</p>
+<pre><code class="language-md">---
+roadmap:
+  stages: ['계획', '개발', '리뷰', '배포']
+  bands:
+    - { label: 개발팀, from: 0, to: 2.5 }
+  rows:
+    - { label: 설계 문서, from: 0, to: 1 }
+    - { label: 자동 테스트, from: 1, to: 4 }
+---
+# 분기 **작업 흐름**
+&lt;Roadmap v-bind="$frontmatter.roadmap" /&gt;</code></pre>
+<figure><img src="img/jussam-roadmap.jpg" alt="Roadmap. 위에 화살표 띠, 가운데 단계 꺾쇠, 아래에 파스텔 막대" loading="lazy"><figcaption>Roadmap</figcaption></figure>
+<h3 id="c-nodemap">NodeMap — 좌표 흐름도</h3>
+<p>상자 위치와 선 경로를 좌표로 직접 적는 흐름도. PowerPoint 도형 배치를 그대로 옮길 때 쓴다. 선 끝에 화살촉이 붙는다.</p>
+<table><thead><tr><th>프롭</th><th>뜻</th></tr></thead><tbody><tr><td><code>w</code> · <code>h</code></td><td>좌표 공간 크기(예: 1000 × 582)</td></tr><tr><td><code>height</code></td><td>화면 높이 px(기본 480). 폭은 비율대로, 가운데 정렬</td></tr><tr><td><code>nodes</code></td><td>배열. 각 항목: <code>label</code>(&lt;br&gt; 가능), <code>x</code> · <code>y</code> · <code>w</code> · <code>h</code>, <code>kind</code>(box 기본 · term 시작·끝 알약 · io 강조 테두리)</td></tr><tr><td><code>edges</code></td><td>SVG path <code>d</code> 문자열 배열(M · L · C)</td></tr><tr><td><code>size</code></td><td>상자 글자 크기 px(기본 13)</td></tr></tbody></table>
+<pre><code class="language-md">---
+nodemap:
+  w: 600
+  h: 200
+  height: 300
+  nodes:
+    - { label: 알림, x: 0, y: 70, w: 120, h: 60, kind: term }
+    - { label: 분류, x: 240, y: 70, w: 120, h: 60 }
+    - { label: 대응, x: 480, y: 70, w: 120, h: 60, kind: io }
+  edges:
+    - 'M120,100 L240,100'
+    - 'M360,100 L480,100'
+---
+&lt;NodeMap v-bind="$frontmatter.nodemap" /&gt;</code></pre>
+<figure><img src="img/jussam-nodemap.jpg" alt="NodeMap. 알약 시작 상자에서 화살표로 이어지는 상자 셋" loading="lazy"><figcaption>NodeMap</figcaption></figure>
 <h2 id="base">기본 컴포넌트</h2>
 <p>hossam 테마와 같은 이름 · 프롭의 기본 컴포넌트가 jussam 안에 따로 들어 있다. 모양은 jussam 바탕(둥근 모서리 · 검정 카드)을 따른다. 프롭은 각 파일 머리 주석에 있다.</p>
 <table><thead><tr><th>컴포넌트</th><th>쓰임</th></tr></thead><tbody><tr><td><code>Callout</code> · <code>Prompt</code> · <code>Output</code></td><td>상자. <code>kind</code>: eli5 · real · tip · warn · danger · ai · prompt · output · plain, 프롭 <code>title</code> · <code>icon</code> · <code>color</code> · <code>n</code> · <code>tag</code> · <code>copy</code> · <code>cols</code>. Prompt 글 안의 <code>{치환 자리}</code>는 노랑 굵게</td></tr><tr><td><code>Steps</code> · <code>Flow</code></td><td>번호 목록(<code>type</code>: list · flow · timeline), <code>color</code> · <code>start</code> · <code>vertical</code> · <code>center</code></td></tr><tr><td><code>Timeline</code></td><td><code>events</code>를 주면 위의 날짜 축, 주지 않으면 <code>&lt;li&gt;</code>를 나열하는 Steps 타임라인</td></tr><tr><td><code>Stat</code></td><td><code>n</code>을 주면 위의 큰 숫자 카드, <code>value</code>를 주면 숫자 타일(<code>unit</code> · <code>label</code> · <code>color</code>)</td></tr><tr><td><code>Tile</code> · <code>Core</code> · <code>Chip</code></td><td>타일(<code>kind</code> plain · surface · soft · fill, <code>tag</code> · <code>title</code> · <code>value</code>), 핵심 한 줄(마지막 블록이면 맨 아래), 글 사이 작은 라벨</td></tr><tr><td><code>YoutubeCard</code></td><td>유튜브 썸네일(누르면 재생, file:// 에서는 새 탭)</td></tr></tbody></table>
@@ -293,7 +341,7 @@ bars:
 <h2 id="rules">주의할 점</h2>
 <ul><li><b>컴포넌트 안에 마크다운</b>(굵게·목록·문단)을 쓰려면 여는 태그와 닫는 태그 앞뒤를 <b>빈 줄</b>로 띄운다. 빈 줄 없이 붙여 쓰면 글자 그대로 들어간다(<code>&lt;br&gt;</code>은 된다).</li><li><b>긴 데이터는 프런트매터에.</b> 태그를 여러 줄로 쪼개면 Slidev의 마크다운 파서가 문단으로 잡아 깨진다. <code>Timeline</code>·<code>Bars</code>처럼 배열이 길면 슬라이드 YAML에 두고 <code>v-bind="$frontmatter.이름"</code>으로 넘긴다.</li><li><b><code>**46%**가</code>처럼 굵게 바로 뒤에 조사가 붙으면 닫히지 않는다</b>(CommonMark 규칙: 닫는 <code>**</code> 앞이 문장부호이고 뒤가 글자). 그런 곳만 <code>&lt;b&gt;46%&lt;/b&gt;가</code>로 쓴다.</li><li>한 줄로 쓴 컴포넌트(<code>&lt;Kicker&gt;…&lt;/Kicker&gt;</code>)는 마크다운이 <code>&lt;p&gt;</code>로 감싸지만 테마가 그 영향을 되돌려 두었으니 신경 쓰지 않아도 된다.</li><li>직접 HTML을 쓸 때 <code>p1</code>, <code>h3</code>, <code>pt</code>, <code>ml</code> 같은 짧은 클래스와 SVG의 <code>font-size="11"</code> 속성은 Slidev의 UnoCSS가 유틸리티로 해석해 크기를 바꾼다. 테마 클래스는 이미 피해 두었다.</li></ul>
 <h2 id="example">전체 예제</h2>
-<p><a href="examples/jussam-example.md">jussam-example.md</a> — 위 코드가 전부 들어 있는 27장짜리 덱(가상의 수치). 저장소 안에서 우클릭 → Open with Slidev.</p>
+<p><a href="examples/jussam-example.md">jussam-example.md</a> — 위 코드가 전부 들어 있는 30장짜리 덱(가상의 수치). 저장소 안에서 우클릭 → Open with Slidev.</p>
 <div class="two"><figure><img src="img/jussam-closing.jpg" alt="마무리(cover, mesh: soft, `###` 굵게 그라디언트)" loading="lazy"><figcaption>마무리(cover, mesh: soft, <code>###</code> 굵게 그라디언트)</figcaption></figure>
 <figure><img src="img/jussam-qna.jpg" alt="Q&amp;A (cover)" loading="lazy"><figcaption>Q&A (cover)</figcaption></figure>
 </div>
