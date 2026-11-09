@@ -1320,19 +1320,15 @@ html.no-anim .slidev-layout :is(.gv, .ln, .marks, .meter-fill, .hbar-fill, .hbar
 :where(html.jussam.vivid) .slidev-layout tbody tr:nth-child(odd) td { background: color-mix(in srgb, var(--g1) 7%, var(--bg)); }
 :where(html.jussam.vivid) .slidev-layout tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--g2) 6%, var(--bg)); }
 /* 간지: 파트 색으로 꽉 찬 그라디언트, 흰 글자 */
-:where(html.jussam.vivid) .slidev-layout.section { background: linear-gradient(130deg, var(--g1), var(--g2)); }
+/* 간지: 바탕은 다른 쪽과 같은 덱 바탕색을 두고, 파트 색은 메시 번짐과 제목 그라디언트로만 쓴다(바탕을 꽉 채우면 혼자 튄다) */
 :where(html.jussam.vivid) .slidev-layout.section .mesh {
-  opacity: 0.55; background:
-    radial-gradient(38% 50% at 84% 18%, rgba(255, 255, 255, 0.55), transparent 70%),
-    radial-gradient(40% 56% at 8% 96%, rgba(255, 255, 255, 0.35), transparent 70%);
+  opacity: 0.8; background:
+    radial-gradient(46% 60% at 18% 28%, color-mix(in srgb, var(--g1) 58%, transparent), transparent 70%),
+    radial-gradient(44% 58% at 76% 20%, color-mix(in srgb, var(--g2) 46%, transparent), transparent 70%);
 }
-:where(html.jussam.vivid) .slidev-layout.section .mesh::after { display: none; }
-:where(html.jussam.vivid) .slidev-layout.section :is(h1, [class*="part-"] h1),
-:where(html.jussam.vivid) .slidev-layout.section[class*="part-"] h1 {
-  background: none; color: #fff; -webkit-text-fill-color: #fff; font-weight: 800; text-shadow: 0 6px 30px rgba(0, 0, 0, 0.18);
-}
-:where(html.jussam.vivid) .slidev-layout.section :is(.eyebrow, h1 + p, p) { color: rgba(255, 255, 255, 0.9) !important; }
-:where(html.jussam.vivid) .slidev-layout.section .eyebrow { font-weight: 600; }
+:where(html.jussam.vivid:not(.dark)) .slidev-layout.section .mesh { opacity: 0.5; }
+:where(html.jussam.vivid) .slidev-layout.section h1 { font-weight: 800; }
+:where(html.jussam.vivid) .slidev-layout.section .eyebrow { font-weight: 600; color: var(--g2); }
 /* 표지: 메시를 진하게 */
 :where(html.jussam.vivid:not(.dark)) .slidev-layout.cover .mesh { opacity: 0.85; }
 :where(html.jussam.vivid:not(.dark)) .slidev-layout.cover .mesh.is-soft { opacity: 0.6; height: 118%; top: -24%; }
@@ -1353,7 +1349,6 @@ html.no-anim .slidev-layout :is(.gv, .ln, .marks, .meter-fill, .hbar-fill, .hbar
 :where(html.jussam.vivid) .nm-edge { stroke: color-mix(in srgb, var(--g1) 70%, var(--fg-2)); }
 :where(html.jussam.vivid) .nm-head { fill: color-mix(in srgb, var(--g1) 70%, var(--fg-2)); }
 /* 인쇄·PDF: 간지 제목은 그라디언트 바탕 위 흰 글자 그대로 */
-:where(html.jussam.vivid) .print-slide-container .slidev-layout.section h1 { color: #fff !important; -webkit-text-fill-color: #fff !important; }
 
 /* Grid 칸 안 Card(.k · .t · .d)의 마지막 블록에는 칸 블록 간격(--block-gap)을 붙이지 않는다 → 카드 아래 빈 여백 없음 */
 :where(html.jussam) .slidev-layout:not(.cover):not(.section):not(.cards) .grid-cells > .card > :last-child { margin-bottom: 0; }
@@ -1386,8 +1381,8 @@ html.no-anim .slidev-layout :is(.gv, .ln, .marks, .meter-fill, .hbar-fill, .hbar
 :where(html.jussam) .slidev-layout .era-items li { margin: 0; padding: 0; font-size: 15px; line-height: 1.75; color: var(--fg-2); }
 :where(html.jussam) .slidev-layout .era-items li::before { content: none; }
 /* 항목 아래 한글 설명({ t, d } 의 d): 작고 옅게, 다음 항목과 조금 띄운다 */
-:where(html.jussam) .slidev-layout .era-items li:has(> .era-d) { line-height: 1.35; margin-bottom: 8px; }
-:where(html.jussam) .slidev-layout .era-d { display: block; font-size: 12px; line-height: 1.4; color: var(--fg-3); }
+:where(html.jussam) .slidev-layout .era-items li:has(> .era-d) { line-height: 1.35; margin-bottom: 8px; font-weight: 700; color: var(--heading); }   /* 설명이 있으면 영문 이름은 굵고 밝게 → 한글 설명과 구분 */
+:where(html.jussam) .slidev-layout .era-d { display: block; font-size: 11px; line-height: 1.4; font-weight: 400; color: var(--fg-3); }
 :where(html.jussam) .eras-axis { position: relative; height: 44px; border-top: 2px solid transparent; border-image: linear-gradient(90deg, var(--g1), var(--g2)) 1; }
 :where(html.jussam) .era-tick { position: absolute; top: -2px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--fg-3); white-space: nowrap; }
 :where(html.jussam) .era-tick i { display: block; width: 3px; height: 12px; border-radius: 2px; background: linear-gradient(180deg, var(--g1), var(--g2)); }
