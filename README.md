@@ -15,7 +15,7 @@
 
 ![hossam 표지와 목차 사이드바](docs/img/lecture-cover.jpg)
 
-`jussam`은 특강·발표용 테마입니다. 처음 열면 검정 바탕이고 d 키로 밝게 바꿉니다. 메시 그라디언트 표지 · 파트별 시그니처 색(`part: 1~4`) · 둥근 카드(12px)와 그림자가 특징이고, 카드(Card) · 큰 숫자(Stat `n`) · 히어로(Hero) · 목차(Agenda · NumList · Item) · 전후 비교(BeforeAfter · Side) · 맺음말(Kicker) · 차트(Gauge · Slope · Meter · HBar · Bars · Funnel · Branch · Mul · Formula · 날짜 축 Timeline `events`) · 단계 로드맵(Roadmap) · 좌표 흐름도(NodeMap) · 그림 채우기(Figure, 흰 받침 `paper`) 컴포넌트가 있습니다. 목차 사이드바 · 원고 보기 · 확대/축소 · 넘침 표시 · 쪽 번호, 카드형 · 웹진형 · 인포그래픽 레이아웃, Callout · Prompt · Output · Steps · Tile · Core · Chip 같은 기본 컴포넌트는 hossam과 같은 방식으로 들어 있습니다. 자세한 내용은 [jussam 사용법](https://slidev-themes.hossam.kr/jussam.html)에 있습니다.
+`jussam`은 특강·발표용 테마입니다. 처음 열면 검정 바탕이고 d 키로 밝게 바꿉니다. 메시 그라디언트 표지 · 파트별 시그니처 색(`part: 1~4`) · 둥근 카드(12px)와 그림자가 특징이고, 카드(Card) · 큰 숫자(Stat `n`) · 히어로(Hero) · 목차(Agenda · NumList · Item) · 전후 비교(BeforeAfter · Side) · 맺음말(Kicker) · 차트(Gauge · Slope · Meter · HBar · Bars · Funnel · Branch · Mul · Formula · 날짜 축 Timeline `events`) · 단계 로드맵(Roadmap) · 좌표 흐름도(NodeMap) · 시대 영역도(Eras) · 그림 채우기(Figure, 흰 받침 `paper`) 컴포넌트가 있습니다. 목차 사이드바 · 원고 보기 · 확대/축소 · 넘침 표시 · 쪽 번호, 카드형 · 웹진형 · 인포그래픽 레이아웃, Callout · Prompt · Output · Steps · Tile · Core · Chip 같은 기본 컴포넌트는 hossam과 같은 방식으로 들어 있습니다. 자세한 내용은 [jussam 사용법](https://slidev-themes.hossam.kr/jussam.html)에 있습니다.
 
 ![jussam 표지](docs/img/jussam-cover.jpg)
 
