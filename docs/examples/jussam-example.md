@@ -359,8 +359,8 @@ eyebrow: roadmap
 roadmap:
   stages: ['계획', '개발', '리뷰', '배포']
   bands:
-    - { label: 개발팀, from: 0, to: 2.5 }
-    - { label: 플랫폼팀, from: 2.3, to: 4 }
+    - { label: 개발팀, from: 0, to: 2.4, row: 1 }
+    - { label: 플랫폼팀, from: 2.4, to: 4, row: 1 }
   rows:
     - { label: 설계 문서, from: 0, to: 1 }
     - { label: 자동 테스트, from: 1, to: 4 }

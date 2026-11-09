@@ -300,12 +300,13 @@ bars:
 &lt;/Grid&gt;</code></pre>
 <figure><img src="img/jussam-figure.jpg" alt="Figure paper 한 장이 남은 공간을 채운 슬라이드" loading="lazy"><figcaption>Figure paper (남은 공간 채우기)</figcaption></figure>
 <h3 id="c-roadmap">Roadmap — 단계 로드맵</h3>
-<p>단계 꺾쇠 띠를 같은 폭으로 놓고, 위에 양방향 화살표 띠(<code>bands</code>), 아래에 단계 눈금에 맞춘 막대(<code>rows</code>)를 그린다. <code>from</code> · <code>to</code>는 단계 눈금(0 = 첫 단계 왼쪽 끝, 단계 수 = 마지막 단계 오른쪽 끝, 소수 가능). 막대 색은 위에서부터 파스텔 1~6 차례. 데이터는 프런트매터에 두고 <code>v-bind</code>로 넘긴다.</p>
+<p>단계 꺾쇠 띠를 같은 폭으로 놓고, 위에 양방향 화살표 띠(<code>bands</code>), 아래에 단계 눈금에 맞춘 막대(<code>rows</code>)를 그린다. <code>from</code> · <code>to</code>는 단계 눈금(0 = 첫 단계 왼쪽 끝, 단계 수 = 마지막 단계 오른쪽 끝, 소수 가능). 막대 색은 위에서부터 파스텔 1~6 차례. 띠나 막대에 같은 <code>row</code> 번호를 주면 한 행에 나란히 놓인다(없으면 항목마다 한 행). 데이터는 프런트매터에 두고 <code>v-bind</code>로 넘긴다.</p>
 <pre><code class="language-md">---
 roadmap:
   stages: ['계획', '개발', '리뷰', '배포']
   bands:
-    - { label: 개발팀, from: 0, to: 2.5 }
+    - { label: 개발팀, from: 0, to: 2.4, row: 1 }
+    - { label: 플랫폼팀, from: 2.4, to: 4, row: 1 }
   rows:
     - { label: 설계 문서, from: 0, to: 1 }
     - { label: 자동 테스트, from: 1, to: 4 }
