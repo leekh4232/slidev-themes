@@ -136,11 +136,12 @@ html.jussam .slidev-page {
   text-rendering: optimizeLegibility;
   zoom: var(--zoom, 1); /* 본문 확대/축소(사이드바 ＋/－, global-top.vue 가 설정). 캔버스 상자는 그대로고 글자·여백(px·rem)만 배율대로 */
 }
-/* 본문 슬라이드는 talk 처럼 내용을 세로 가운데에 모은다(표지 · 간지 · 카드형 · 웹진형 · 인포그래픽은 자체 배치) */
+/* 본문 슬라이드는 talk 처럼 내용을 세로 가운데에 모은다(표지 · 간지 · 카드형 · 웹진형 · 인포그래픽은 자체 배치).
+   safe: 내용이 한 쪽보다 길면 가운데 대신 위에 붙인다 → 위 머리말이 잘리지 않고, 넘친 길이가 아래로 모여 넘침 표시에 잡힌다 */
 :where(html.jussam) .slidev-layout.default {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: safe center;
 }
 /* 슬라이드 제목: # 과 ## 모두 큰 제목(2.2rem = 44px), ### 은 작은 제목 */
 :where(html.jussam) .slidev-layout h1,
