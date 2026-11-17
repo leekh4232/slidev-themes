@@ -170,6 +170,39 @@ html.lecture {
 :where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) > br, :where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) .grid-cells > :not(.cover-bg) > br {
   margin-bottom: 0;
 }
+/* 부제: 본문 쪽 제목(## · ###) 바로 아래 첫 문단은 그 쪽의 부제다. 왼쪽 강조선과 옅은 바탕으로 본문과 구별한다.
+   라벨(.kicker)만 든 문단은 부제가 아니므로 뺀다. 표지 · 간지 · 카드형은 자체 배치라 제외한다. */
+:where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) > :is(h2, h3) + p:not(:has(> .kicker:only-child)) {
+  padding: 0.45em 0.9em;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.55;
+  color: var(--heading);
+  border-left: 4px solid var(--py);
+  background: linear-gradient(90deg, var(--py-soft) 0%, transparent 85%);
+}
+/* 부제 아래 여백은 쪽의 블록 간격(tight · flush)과 상관없이 늘 같게 둔다 → 모든 쪽의 부제 박스가 같은 크기 · 같은 여백으로 보인다 */
+:where(html.lecture) .slidev-layout.slidev-layout:not(.cover):not(.section):not(.cards) > :is(h2, h3) + p:not(:has(> .kicker:only-child)) {
+  margin-bottom: 1.1rem;
+}
+/* 부제 안의 인라인 코드도 부제처럼 굵게 */
+:where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) > :is(h2, h3) + p:not(:has(> .kicker:only-child)) code {
+  font-weight: 700;
+}
+/* 큰 카드: <Grid class="big"> 안의 타일은 제목 · 본문을 크게 쓴다(카드 수가 적어 글자를 키울 여유가 있는 쪽) */
+:where(html.lecture) .slidev-layout .grid-box.big .tile .tile-title { font-size: 1.35rem; }
+:where(html.lecture) .slidev-layout .grid-box.big .tile .tile-body,
+:where(html.lecture) .slidev-layout .grid-box.big .tile .tile-body li,
+:where(html.lecture) .slidev-layout .grid-box.big .tile .tile-body p { font-size: 1.15rem; line-height: 1.5; }
+/* 중간 카드: <Grid class="md"> 는 글자를 조금만 키운다 */
+:where(html.lecture) .slidev-layout .grid-box.md .tile .tile-title { font-size: 1.15rem; }
+:where(html.lecture) .slidev-layout .grid-box.md .tile .tile-body,
+:where(html.lecture) .slidev-layout .grid-box.md .tile .tile-body li,
+:where(html.lecture) .slidev-layout .grid-box.md .tile .tile-body p { font-size: 1rem; line-height: 1.5; }
+/* Grid 칸의 타일은 안쪽 요소(라벨 · 제목 · 본문)에 블록 간격(--block-gap)을 쓰지 않는다 → 카드 아래에 큰 빈 공간이 생기지 않는다.
+   타일 안 간격은 타일 자체의 gap 이 맡는다 */
+:where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) .grid-box .grid-cells > .tile > * { margin-bottom: 0; }
+:where(html.lecture) .slidev-layout .grid-box:is(.big, .md) .tile { gap: 0.5rem; }
 :where(html.lecture) .slidev-layout li::marker {
   color: var(--py);
 }
