@@ -1,0 +1,146 @@
+/* noel 테마의 겉모습 — 크리스마스 밤. 짙은 전나무색 바탕 · 금색 선 · 빨강 포인트 · 내리는 눈 · 지팡이 사탕 줄무늬.
+   noel.css(구조 · 컴포넌트) 뒤에 불러와 색 토큰과 장식만 덮어쓴다. 눈 내리는 움직임은 html.no-anim · 동작 줄이기 설정에서 멈춘다. */
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap");
+
+/* 밝은 테마: 크림색 카드 종이 */
+html.noel {
+  --bg: #fbf6ea;
+  --surface: #f3ead6;
+  --surface-2: #e9dec4;
+  --line: rgba(74, 52, 20, 0.14);
+  --text: #1d2b22;
+  --muted: #6b6a58;
+  --py: #1f7a4d;
+  --py-soft: rgba(31, 122, 77, 0.12);
+  --yellow: #a67c00;
+  --yellow-soft: #fbeebf;
+  --ai: #c8323f;
+  --ai-soft: rgba(200, 50, 63, 0.1);
+  --ok: #1f7a4d;
+  --ok-soft: rgba(31, 122, 77, 0.12);
+  --warn: #b57a00;
+  --danger: #c8323f;
+  --danger-soft: rgba(200, 50, 63, 0.1);
+  --heading: #14301f;
+  --card-bg: #fffaf0;
+  --card-2: #f8f0dd;
+  --slidev-theme-primary: #c8323f;
+  --title-line: rgba(166, 124, 0, 0.45);
+  --mag-side: #f1e7d0;
+  --fg-3: #77735f;
+  --fg-4: #9a957e;
+  --c1: #c8323f;
+  --c2: #1f7a4d;
+  --g1: #c8323f;
+  --g2: #d9a520;
+  --radius: 18px;
+  --sh-lo: 0 1px 2px rgba(74, 52, 20, 0.08), inset 0 0 0 1px rgba(166, 124, 0, 0.28);
+  --track: rgba(74, 52, 20, 0.08);
+  --serif: "Gowun Batang", "Nanum Myeongjo", "Noto Serif KR", serif;
+  --snow: rgba(120, 100, 60, 0.16);
+}
+
+/* 어두운 테마(기본): 크리스마스 밤 */
+html.noel.dark {
+  --bg: #0b1c15;
+  --surface: #0f2419;
+  --surface-2: #163224;
+  --line: rgba(233, 196, 106, 0.16);
+  --text: #fbf5e6;
+  --muted: #b9c3b4;
+  --py: #7fd9a8;
+  --py-soft: rgba(127, 217, 168, 0.13);
+  --yellow: #f2cf6b;
+  --yellow-soft: rgba(242, 207, 107, 0.14);
+  --ai: #ff8a8a;
+  --ai-soft: rgba(255, 138, 138, 0.13);
+  --ok: #7fd9a8;
+  --ok-soft: rgba(127, 217, 168, 0.13);
+  --warn: #f2cf6b;
+  --danger: #ff7b86;
+  --danger-soft: rgba(255, 123, 134, 0.14);
+  --heading: #fffaf0;
+  --card-bg: #12291d;
+  --card-2: #0f2419;
+  --slidev-theme-primary: #e5484d;
+  --title-line: rgba(233, 196, 106, 0.4);
+  --mag-side: #0f2419;
+  --fg-3: #93a394;
+  --fg-4: #6b7d6e;
+  --c1: #e5484d;
+  --c2: #7fd9a8;
+  --g1: #ff6b6b;
+  --g2: #f2cf6b;
+  --sh-lo: 0 1px 1px rgba(0, 0, 0, 0.3), 0 4px 14px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(233, 196, 106, 0.2);
+  --track: rgba(233, 196, 106, 0.1);
+  --snow: rgba(255, 255, 255, 0.5);
+}
+
+/* 파트 색: 빨강 → 금, 초록 → 금 */
+html.noel .part-1 { --g1: #ff6b6b; --g2: #f2cf6b; }
+html.noel .part-2 { --g1: #5fcf95; --g2: #f2cf6b; }
+html.noel .part-3 { --g1: #ff6b6b; --g2: #f2cf6b; }
+html.noel .part-4 { --g1: #f2cf6b; --g2: #5fcf95; }
+html.noel:not(.dark) .part-1, html.noel:not(.dark) .part-3 { --g1: #c8323f; --g2: #b8860b; }
+html.noel:not(.dark) .part-2 { --g1: #1f7a4d; --g2: #b8860b; }
+html.noel:not(.dark) .part-4 { --g1: #b8860b; --g2: #1f7a4d; }
+
+/* 바탕: 맨 위 지팡이 사탕 줄무늬 한 줄 + 세 겹의 눈송이. 바탕 그림이라 내용의 크기 · 넘침 계산에는 영향이 없다 */
+html.noel .slidev-layout {
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(135deg, #d83a42 0 12px, #fbf5e6 12px 24px),
+    radial-gradient(circle, var(--snow) 0 1.6px, transparent 2.2px),
+    radial-gradient(circle, var(--snow) 0 1.1px, transparent 1.7px),
+    radial-gradient(circle, var(--snow) 0 2.2px, transparent 3px);
+  background-size: 100% 5px, 190px 190px, 130px 130px, 310px 310px;
+  background-position: 0 0, 20px 30px, 70px 90px, 140px 10px;
+  background-repeat: no-repeat, repeat, repeat, repeat;
+  animation: noel-snow 38s linear infinite;
+}
+@keyframes noel-snow {
+  to { background-position: 0 0, 20px 220px, 70px 350px, 140px 320px; }
+}
+html.no-anim.noel .slidev-layout { animation: none; }
+@media (prefers-reduced-motion: reduce) { html.noel .slidev-layout { animation: none; } }
+@media print { html.noel .slidev-layout { animation: none; } }
+
+/* 제목은 명조 글꼴. 본문은 Pretendard 그대로 */
+html.noel .slidev-layout :is(h1, h2, h3) {
+  font-family: var(--serif);
+  letter-spacing: -0.02em;
+}
+html.noel .slidev-layout.cover h1 { font-weight: 700; letter-spacing: -0.03em; }
+html.noel .slidev-layout :is(h1, h2, h3) strong {
+  background-image: linear-gradient(96deg, var(--g1), var(--g2));
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+}
+
+/* 표지 · 간지: 메시 대신 트리 불빛처럼 번지는 빨강 · 초록 · 금색 */
+html.noel .slidev-layout .mesh {
+  opacity: 0.7;
+  background:
+    radial-gradient(38% 50% at 14% 30%, rgba(229, 72, 77, 0.55), transparent 68%),
+    radial-gradient(30% 42% at 38% 12%, rgba(242, 207, 107, 0.42), transparent 70%),
+    radial-gradient(42% 56% at 62% 28%, rgba(31, 122, 77, 0.6), transparent 68%),
+    radial-gradient(30% 42% at 84% 14%, rgba(229, 72, 77, 0.4), transparent 70%),
+    radial-gradient(26% 36% at 94% 48%, rgba(242, 207, 107, 0.3), transparent 72%);
+}
+html.noel:not(.dark) .slidev-layout .mesh { opacity: 0.34; }
+html.noel .slidev-layout.cover::after {
+  content: '🎄';
+  position: absolute; right: 3.4rem; bottom: 2.6rem;
+  font-size: 4.6rem; line-height: 1;
+  filter: drop-shadow(0 0 22px rgba(242, 207, 107, 0.55));
+  pointer-events: none;
+}
+html.noel .slidev-layout .eyebrow { color: var(--yellow); letter-spacing: 0.14em; }
+
+/* 카드 · 타일: 금색 가는 테 */
+html.noel .slidev-layout :is(.tile, .callout, .stat) {
+  box-shadow: var(--sh-lo);
+}
+
+/* 웹진형 오른쪽 사진 띠 */
+html.noel .slidev-layout.magazine .mag-side:has(> img:first-child) { border-left: 1px solid var(--title-line); }

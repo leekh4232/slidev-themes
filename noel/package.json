@@ -1,0 +1,25 @@
+{
+  "name": "slidev-theme-noel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "크리스마스 · 겨울 여행용 Slidev 테마(짙은 전나무색 밤 바탕, d 키로 크림색, 금색 선 · 빨강 포인트 · 명조 제목 · 내리는 눈 · 지팡이 사탕 줄무늬). 레이아웃과 컴포넌트 구성은 jussam 과 같다.",
+  "keywords": [
+    "slidev-theme",
+    "slidev"
+  ],
+  "slidev": {
+    "defaults": {
+      "aspectRatio": "16/9",
+      "canvasWidth": 1280,
+      "fonts": {
+        "sans": "Pretendard Variable",
+        "mono": "JetBrains Mono",
+        "local": "Pretendard Variable, Pretendard"
+      },
+      "transition": "slide-left",
+      "lineNumbers": true
+    },
+    "colorSchema": "both",
+    "highlighter": "shiki"
+  }
+}
