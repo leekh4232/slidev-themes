@@ -1,0 +1,345 @@
+/* mitten 테마의 겉모습 — 눈 오는 날의 벙어리장갑. 눈빛 하늘색 바탕 · 볼 빨간 분홍 · 민트 · 동글동글한 제목 글꼴 · 내리는 눈 · 바닥에 쌓인 눈 · 목도리 줄무늬.
+   mitten.css(구조 · 컴포넌트) 뒤에 불러와 색 토큰과 장식만 덮어쓴다. 움직임은 html.no-anim · 동작 줄이기 설정 · 인쇄에서 멈춘다. */
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+
+/* 밝은 테마: 눈 내린 낮 */
+html.mitten {
+  --bg: #eef6ff;
+  --surface: #e1eefb;
+  --surface-2: #d2e4f7;
+  --line: rgba(52, 92, 150, 0.16);
+  --text: #22324f;
+  --muted: #62728f;
+  --py: #2f86dd;
+  --py-soft: rgba(47, 134, 221, 0.13);
+  --yellow: #c98a00;
+  --yellow-soft: #fff1c9;
+  --ai: #e8587f;
+  --ai-soft: rgba(232, 88, 127, 0.13);
+  --ok: #1f9c7d;
+  --ok-soft: rgba(31, 156, 125, 0.13);
+  --warn: #d97a12;
+  --danger: #d9435f;
+  --danger-soft: rgba(217, 67, 95, 0.12);
+  --heading: #1b3763;
+  --card-bg: #ffffff;
+  --card: #ffffff;
+  --card-2: #f6faff;
+  --fg: #22324f;
+  --fg-2: #46587a;
+  --fg-3: #62728f;
+  --fg-4: #8493ad;
+  --line-2: rgba(52, 92, 150, 0.22);
+  --slidev-theme-primary: #e8587f;
+  --title-line: rgba(52, 92, 150, 0.2);
+  --mag-side: #dfecfa;
+  --c1: #e8587f;
+  --c2: #2f86dd;
+  --c-mute: #c5d5ea;
+  --g1: #ef6f93;
+  --g2: #3a94e6;
+  --radius: 22px;
+  --sh: 0 3px 0 rgba(52, 92, 150, 0.13), inset 0 0 0 2px rgba(52, 92, 150, 0.11);
+  --sh-lo: 0 3px 0 rgba(52, 92, 150, 0.1), inset 0 0 0 2px rgba(52, 92, 150, 0.09);
+  --track: rgba(52, 92, 150, 0.1);
+  --round: "Jua", "Pretendard Variable", Pretendard, sans-serif;
+  --snow: rgba(255, 255, 255, 0.95);
+  --drift: #ffffff;
+  --scarf-1: #f58aa6;
+  --scarf-2: #ffffff;
+  --scarf-3: #8cc3f3;
+}
+
+/* 어두운 테마: 눈 내리는 밤 */
+html.mitten.dark {
+  --bg: #111b36;
+  --surface: #18244a;
+  --surface-2: #213058;
+  --line: rgba(190, 215, 255, 0.16);
+  --text: #f2f6ff;
+  --muted: #a9b8d6;
+  --py: #8cc6ff;
+  --py-soft: rgba(140, 198, 255, 0.16);
+  --yellow: #ffdd7a;
+  --yellow-soft: rgba(255, 221, 122, 0.15);
+  --ai: #ff9fb9;
+  --ai-soft: rgba(255, 159, 185, 0.16);
+  --ok: #86e3c4;
+  --ok-soft: rgba(134, 227, 196, 0.15);
+  --warn: #ffc27a;
+  --danger: #ff8fa3;
+  --danger-soft: rgba(255, 143, 163, 0.16);
+  --heading: #ffffff;
+  --card-bg: #1a2850;
+  --card: #1a2850;
+  --card-2: #16224a;
+  --fg: #f2f6ff;
+  --fg-2: #c3cfe8;
+  --fg-3: #9aaaca;
+  --fg-4: #7384a8;
+  --line-2: rgba(190, 215, 255, 0.24);
+  --slidev-theme-primary: #ff9fb9;
+  --title-line: rgba(190, 215, 255, 0.24);
+  --mag-side: #16224a;
+  --c1: #ff9fb9;
+  --c2: #8cc6ff;
+  --c-mute: #3a4a75;
+  --g1: #ff9fb9;
+  --g2: #8cc6ff;
+  --sh: 0 3px 0 rgba(0, 0, 0, 0.28), inset 0 0 0 2px rgba(190, 215, 255, 0.14);
+  --sh-lo: 0 3px 0 rgba(0, 0, 0, 0.24), inset 0 0 0 2px rgba(190, 215, 255, 0.12);
+  --track: rgba(190, 215, 255, 0.12);
+  --snow: rgba(255, 255, 255, 0.6);
+  --drift: #22325f;
+}
+
+/* 파트 색: 분홍 · 하늘 · 민트 · 귤색을 둘씩 */
+html.mitten .part-1 { --g1: #ef6f93; --g2: #3a94e6; }
+html.mitten .part-2 { --g1: #3a94e6; --g2: #2bb596; }
+html.mitten .part-3 { --g1: #f08a3c; --g2: #ef6f93; }
+html.mitten .part-4 { --g1: #2bb596; --g2: #3a94e6; }
+html.mitten.dark .part-1 { --g1: #ff9fb9; --g2: #8cc6ff; }
+html.mitten.dark .part-2 { --g1: #8cc6ff; --g2: #86e3c4; }
+html.mitten.dark .part-3 { --g1: #ffc27a; --g2: #ff9fb9; }
+html.mitten.dark .part-4 { --g1: #86e3c4; --g2: #8cc6ff; }
+
+/* 바탕: 맨 위 목도리 줄무늬 + 바닥에 쌓인 눈 언덕 셋 + 세 겹의 눈송이. 바탕 그림이라 내용의 크기 · 넘침 계산에는 영향이 없다 */
+html.mitten .slidev-layout {
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(90deg, var(--scarf-1) 0 18px, var(--scarf-2) 18px 26px, var(--scarf-3) 26px 44px, var(--scarf-2) 44px 52px),
+    radial-gradient(50% 100% at 50% 100%, var(--drift) 0 98%, transparent 100%),
+    radial-gradient(50% 100% at 50% 100%, var(--drift) 0 98%, transparent 100%),
+    radial-gradient(50% 100% at 50% 100%, var(--drift) 0 98%, transparent 100%),
+    radial-gradient(circle, var(--snow) 0 2.4px, transparent 3px),
+    radial-gradient(circle, var(--snow) 0 1.6px, transparent 2.2px),
+    radial-gradient(circle, var(--snow) 0 3.4px, transparent 4.2px);
+  background-size: 100% 7px, 46% 38px, 52% 52px, 40% 30px, 170px 170px, 120px 120px, 290px 290px;
+  background-position: 0 0, -6% 100%, 46% 100%, 108% 100%, 20px 30px, 70px 90px, 140px 10px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat, repeat;
+  animation: mitten-snow 34s linear infinite;
+}
+@keyframes mitten-snow {
+  to { background-position: 0 0, -6% 100%, 46% 100%, 108% 100%, 50px 200px, 40px 330px, 180px 300px; }
+}
+html.no-anim.mitten .slidev-layout { animation: none; }
+@media (prefers-reduced-motion: reduce) { html.mitten .slidev-layout { animation: none; } }
+@media print { html.mitten .slidev-layout { animation: none; } }
+
+/* 제목은 동글동글한 글꼴. 본문은 Pretendard 그대로 */
+html.mitten .slidev-layout :is(h1, h2, h3) {
+  font-family: var(--round);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+html.mitten .slidev-layout.cover h1 { letter-spacing: -0.015em; }
+html.mitten .slidev-layout :is(h1, h2, h3) strong {
+  font-weight: 400;
+  background-image: linear-gradient(96deg, var(--g1), var(--g2));
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+}
+/* 본문 쪽 제목 앞에 눈꽃 하나 */
+html.mitten .slidev-layout.default > :is(h1, h2, h3):first-child::before {
+  content: '❄';
+  display: inline-block;
+  margin-right: 0.35em;
+  font-family: var(--sans);
+  font-size: 0.72em;
+  vertical-align: 0.12em;
+  color: var(--g2);
+  -webkit-text-fill-color: var(--g2);
+}
+
+/* 표지 · 간지: 솜사탕처럼 번지는 분홍 · 하늘 · 민트 · 노랑 */
+html.mitten .slidev-layout .mesh {
+  opacity: 0.8;
+  background:
+    radial-gradient(38% 50% at 14% 30%, rgba(245, 138, 166, 0.6), transparent 68%),
+    radial-gradient(30% 42% at 38% 12%, rgba(255, 221, 122, 0.45), transparent 70%),
+    radial-gradient(42% 56% at 62% 28%, rgba(140, 195, 243, 0.7), transparent 68%),
+    radial-gradient(30% 42% at 84% 14%, rgba(134, 227, 196, 0.5), transparent 70%),
+    radial-gradient(26% 36% at 94% 48%, rgba(245, 138, 166, 0.35), transparent 72%);
+}
+html.mitten.dark .slidev-layout .mesh { opacity: 0.42; }
+html.mitten .slidev-layout.cover::after {
+  content: '⛄';
+  position: absolute; right: 3.2rem; bottom: 1.9rem;
+  font-size: 5rem; line-height: 1;
+  transform-origin: 50% 100%;
+  animation: mitten-wobble 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+html.mitten .slidev-layout.section::after {
+  content: '🧤';
+  position: absolute; right: 3.4rem; bottom: 2.2rem;
+  font-size: 4.2rem; line-height: 1;
+  transform-origin: 50% 100%;
+  animation: mitten-wobble 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes mitten-wobble {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+html.no-anim.mitten .slidev-layout:is(.cover, .section)::after { animation: none; }
+@media (prefers-reduced-motion: reduce) { html.mitten .slidev-layout:is(.cover, .section)::after { animation: none; } }
+@media print { html.mitten .slidev-layout:is(.cover, .section)::after { animation: none; } }
+html.mitten .slidev-layout .eyebrow { color: var(--ai); letter-spacing: 0.12em; }
+html.mitten .slidev-layout.cover .sub { font-weight: 600; }
+
+/* 카드 · 타일: 폭신한 둥근 상자, 아래로 살짝 눌린 그림자 */
+html.mitten .slidev-layout :is(.tile, .callout, .stat) {
+  border-radius: var(--radius);
+  box-shadow: var(--sh-lo);
+}
+html.mitten .slidev-layout .tile-title { font-family: var(--round); font-weight: 400; letter-spacing: 0; }
+html.mitten .slidev-layout .chip { border-radius: 999px; }
+
+/* 핵심 한 줄: 세로 막대 대신 바느질 점선 말풍선 */
+html.mitten .slidev-layout .core {
+  padding: 0.55rem 1rem;
+  border: 2px dashed color-mix(in srgb, var(--c) 70%, transparent);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--c) 9%, var(--card-bg));
+}
+
+/* 표: 머리글은 둥근 하늘색 띠, 줄은 점선 */
+html.mitten .slidev-layout th {
+  font-family: var(--round);
+  font-size: 0.72rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--heading);
+  background: var(--surface-2);
+  border-top: 0;
+  border-bottom: 0;
+}
+html.mitten .slidev-layout th:first-child { border-radius: 14px 0 0 14px; }
+html.mitten .slidev-layout th:last-child { border-radius: 0 14px 14px 0; }
+html.mitten .slidev-layout td { border-bottom: 2px dashed var(--line); }
+
+/* 사진: 둥근 모서리에 흰 테 */
+html.mitten .slidev-layout :is(figure, .grid-box) img {
+  border-radius: 16px;
+  border: 3px solid var(--card-bg);
+  box-shadow: 0 3px 0 rgba(52, 92, 150, 0.14);
+}
+
+/* 웹진형 오른쪽 사진 띠 */
+html.mitten .slidev-layout.magazine .mag-side:has(> img:first-child) { border-left: 4px solid var(--card-bg); }
+
+/* 타임라인: 네모 점 대신 눈덩이처럼 둥근 점, 흐름도 번호 상자도 둥글게 */
+html.mitten .slidev-layout .timeline li::before { border-radius: 50%; background: var(--card-bg); }
+html.mitten .slidev-layout .timeline li.now::before { background: var(--c); }
+html.mitten .slidev-layout .timeline li > b:first-child { font-family: var(--round); font-weight: 400; }
+
+/* ── 장소 개요(layout: place): 엽서 + 승차권 ─────────────────────────────── */
+html.mitten .slidev-layout.place {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 400px;
+  gap: 2.2rem;
+  align-items: center;
+  padding: 2.6rem 3.2rem 3.4rem 3.6rem;
+}
+html.mitten .slidev-layout.place .pl-main { min-width: 0; }
+html.mitten .slidev-layout.place .pl-top { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.9rem; }
+html.mitten .slidev-layout.place .pl-no {
+  display: grid; place-items: center;
+  width: 3.3rem; height: 3.3rem; margin-right: 0.3rem;
+  font-family: var(--round); font-size: 1.55rem; line-height: 1; color: #fff;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  border-radius: 50%;
+  box-shadow: 0 4px 0 rgba(52, 92, 150, 0.18), inset 0 0 0 3px rgba(255, 255, 255, 0.55);
+  transform: rotate(-6deg);
+}
+html.mitten .slidev-layout.place .pl-tag {
+  padding: 0.22rem 0.8rem;
+  font-family: var(--round); font-size: 0.8rem; line-height: 1.4; color: #fff;
+  background: var(--py); border-radius: 999px;
+}
+html.mitten .slidev-layout.place .pl-tag.soft { color: var(--heading); background: var(--surface-2); }
+html.mitten .slidev-layout.place .pl-tag.late { color: #3b2a00; background: #ffd66b; box-shadow: 0 2px 0 rgba(160, 110, 0, 0.3); }
+html.mitten .slidev-layout.place .pl-head :is(h1, h2) {
+  margin: 0 0 0.5rem; font-size: 2.9rem !important; line-height: 1.15; letter-spacing: -0.01em;
+}
+html.mitten .slidev-layout.place .pl-head p { margin: 0; font-size: 1.12rem; line-height: 1.5; color: var(--fg-2); }
+/* 승차권: 칸 사이 점선, 양옆 반달 홈 */
+html.mitten .slidev-layout.place .pl-ticket {
+  position: relative;
+  display: grid; grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr));
+  margin: 1.5rem 0 1.1rem;
+  background: var(--card-bg);
+  border-radius: 20px;
+  box-shadow: 0 5px 0 rgba(52, 92, 150, 0.14), inset 0 0 0 2px rgba(52, 92, 150, 0.12);
+}
+html.mitten .slidev-layout.place .pl-ticket::before,
+html.mitten .slidev-layout.place .pl-ticket::after {
+  content: ''; position: absolute; top: 50%; width: 22px; height: 22px; margin-top: -11px;
+  background: var(--bg); border-radius: 50%;
+  box-shadow: inset 0 0 0 2px rgba(52, 92, 150, 0.12);
+}
+html.mitten .slidev-layout.place .pl-ticket::before { left: -11px; }
+html.mitten .slidev-layout.place .pl-ticket::after { right: -11px; }
+html.mitten .slidev-layout.place .pl-cell { --tc: var(--heading); min-width: 0; padding: 0.95rem 0.7rem 1rem 0.95rem; }
+html.mitten .slidev-layout.place .pl-cell + .pl-cell { border-left: 2px dashed var(--line-2); }
+html.mitten .slidev-layout.place .pl-cell.ok { --tc: var(--ok); }
+html.mitten .slidev-layout.place .pl-cell.warn { --tc: var(--warn); }
+html.mitten .slidev-layout.place .pl-cell.danger { --tc: var(--danger); }
+html.mitten .slidev-layout.place .pl-cell.py { --tc: var(--py); }
+html.mitten .slidev-layout.place .pl-cell.ai { --tc: var(--ai); }
+html.mitten .slidev-layout.place .pl-cell .k { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.02em; color: var(--fg-3); }
+html.mitten .slidev-layout.place .pl-cell .v { margin-top: 0.2rem; font-family: var(--round); font-size: 1.14rem; line-height: 1.25; letter-spacing: -0.01em; white-space: nowrap; color: var(--tc); }
+html.mitten .slidev-layout.place .pl-cell .s { margin-top: 0.3rem; font-size: 0.7rem; line-height: 1.45; color: var(--fg-2); }
+html.mitten .slidev-layout.place .pl-foot { display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; font-size: 0.78rem; color: var(--fg-2); }
+html.mitten .slidev-layout.place .pl-foot b {
+  margin-right: 0.4em; padding: 0.05em 0.5em; font-size: 0.68rem; color: var(--heading);
+  background: var(--surface-2); border-radius: 999px;
+}
+/* 사진: 테이프로 붙인 기울어진 인화지 */
+html.mitten .slidev-layout.place .pl-photo {
+  position: relative; margin: 0; padding: 14px 14px 12px;
+  background: #fff; border-radius: 6px;
+  box-shadow: 0 10px 26px rgba(40, 70, 120, 0.22), 0 2px 0 rgba(52, 92, 150, 0.12);
+  transform: rotate(2.6deg);
+}
+html.mitten .slidev-layout.place .pl-photo img { display: block; width: 100%; height: 400px; object-fit: cover; border-radius: 3px; }
+html.mitten .slidev-layout.place .pl-photo figcaption {
+  padding-top: 0.55rem; font-family: var(--round); font-size: 0.74rem; line-height: 1.4; text-align: center; color: #3a4a66;
+}
+html.mitten .slidev-layout.place .pl-photo .tape {
+  position: absolute; left: 50%; top: -15px; width: 120px; height: 30px; margin-left: -60px;
+  background: repeating-linear-gradient(90deg, rgba(245, 138, 166, 0.85) 0 10px, rgba(255, 255, 255, 0.85) 10px 16px);
+  border-radius: 2px; transform: rotate(-4deg);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+/* ── 미리보기 사진(layout: photos): 벽에 붙인 사진 ───────────────────────── */
+html.mitten .slidev-layout.photos { display: flex; flex-direction: column; padding-bottom: 3.2rem; }
+html.mitten .slidev-layout.photos > :is(h1, h2, h3) { margin-bottom: 1rem; }
+html.mitten .slidev-layout.photos .ph-wall {
+  flex: 1 1 0; min-height: 0;
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+html.mitten .slidev-layout.photos .ph-wall.n4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+html.mitten .slidev-layout.photos .ph-wall.n5 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+html.mitten .slidev-layout.photos .ph-wall.n5 > :first-child { grid-column: span 2; grid-row: span 2; }
+html.mitten .slidev-layout.photos .ph-wall.n3 { grid-template-rows: minmax(0, 1fr); }
+html.mitten .slidev-layout.photos .ph-wall figure {
+  position: relative; margin: 0; min-height: 0; padding: 7px;
+  background: #fff; border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(40, 70, 120, 0.18), 0 2px 0 rgba(52, 92, 150, 0.1);
+}
+html.mitten .slidev-layout.photos .ph-wall figure.t0 { transform: rotate(-0.9deg); }
+html.mitten .slidev-layout.photos .ph-wall figure.t1 { transform: rotate(0.7deg); }
+html.mitten .slidev-layout.photos .ph-wall figure.t2 { transform: rotate(-0.4deg); }
+html.mitten .slidev-layout.photos .ph-wall figure.t3 { transform: rotate(1deg); }
+html.mitten .slidev-layout.photos .ph-wall img { display: block; width: 100%; height: 100%; object-fit: cover; border: 0; border-radius: 4px; box-shadow: none; }
+html.mitten .slidev-layout.photos .ph-wall figcaption {
+  position: absolute; left: 14px; bottom: 14px; max-width: calc(100% - 28px);
+  padding: 0.18rem 0.7rem;
+  font-family: var(--round); font-size: 0.72rem; line-height: 1.45; color: var(--heading);
+  background: rgba(255, 255, 255, 0.93); border-radius: 999px;
+  box-shadow: 0 2px 0 rgba(52, 92, 150, 0.16);
+}

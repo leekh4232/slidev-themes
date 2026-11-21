@@ -1,0 +1,25 @@
+{
+  "name": "slidev-theme-mitten",
+  "version": "1.0.0",
+  "private": true,
+  "description": "겨울 나들이용 Slidev 테마(눈빛 하늘색 바탕, d 키로 눈 오는 밤, 분홍 · 하늘 · 민트 포인트 · 동글동글한 제목 글꼴 · 내리는 눈 · 쌓인 눈 언덕 · 목도리 줄무늬). 레이아웃과 컴포넌트 구성은 jussam 과 같다.",
+  "keywords": [
+    "slidev-theme",
+    "slidev"
+  ],
+  "slidev": {
+    "defaults": {
+      "aspectRatio": "16/9",
+      "canvasWidth": 1280,
+      "fonts": {
+        "sans": "Pretendard Variable",
+        "mono": "JetBrains Mono",
+        "local": "Pretendard Variable, Pretendard"
+      },
+      "transition": "slide-left",
+      "lineNumbers": true
+    },
+    "colorSchema": "both",
+    "highlighter": "shiki"
+  }
+}
