@@ -56,6 +56,15 @@ figcaption { font-size: 0.86rem; color: var(--muted); margin-top: 8px; }
 .note { border-left: 4px solid var(--accent); background: var(--surface); padding: 10px 14px; border-radius: 0 10px 10px 0; margin: 14px 0; }
 .note.warn { border-left-color: #f0883e; }
 
+/* 미리보기 격자: 테마가 그리는 쪽 모양을 썸네일로 나란히 둔다. 그림을 누르면 원본 크기로 연다 */
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin: 14px 0 24px; }
+.gallery figure { margin: 0; }
+.gallery a { display: block; }
+.gallery img { border-radius: 8px; box-shadow: 0 4px 14px rgba(31, 35, 40, 0.08); transition: transform .15s; }
+.gallery a:hover img { transform: translateY(-2px); }
+.gallery figcaption { font-size: 0.84rem; margin-top: 6px; line-height: 1.5; }
+.gallery figcaption b { color: var(--fg); font-family: var(--mono); font-size: 0.82rem; margin-right: 4px; }
+
 footer { max-width: 960px; margin: 0 auto; padding: 20px 16px 36px; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--line); }
 
 @media (max-width: 900px) {

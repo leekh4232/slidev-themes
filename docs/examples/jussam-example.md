@@ -150,7 +150,6 @@ part: 2
 ---
 part: 2
 eyebrow: review · four teams
-source: 코드 호스팅 통계
 ---
 
 # 네 팀, **다른 병목**
@@ -191,7 +190,6 @@ part: 3
 ---
 part: 3
 eyebrow: incident funnel
-source: 장애 관리 도구
 ---
 
 # 알림에서 **복구까지**

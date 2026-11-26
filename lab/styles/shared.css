@@ -1,0 +1,161 @@
+/* 사이드바 기본값과 색 · 모양 토큰. 사이드바(global-top.vue)는 --py --ai --muted --line --text --danger --card-bg --surface --py-soft 를 쓴다 */
+
+:root {
+  --sidebar-w: 0px; /* 사이드바가 켜지면 global-top.vue 가 실제 폭으로 바꾼다. lecture.css 가 #page-root 왼쪽 여백에 쓴다 */
+}
+@media print {
+  :root { --sidebar-w: 0px !important; }
+}
+
+/* 글자 크기는 rem 기준. 슬라이드 캔버스(1280×720)에서 1rem = 20px */
+html.lecture {
+  font-size: 20px;
+}
+
+/* 밝은 테마 */
+html.lecture {
+  --bg: #ffffff;
+  --surface: #f3f5f9;
+  --surface-2: #e8ecf4;
+  --card: #ffffff;
+  --card-bg: #ffffff;
+  --line: rgba(15, 23, 42, 0.1);
+  --line-2: rgba(15, 23, 42, 0.18);
+  --text: #1b2233;
+  --fg: #1b2233;
+  --fg-2: #4b566e;
+  --muted: #64708a;
+  --heading: #0b1120;
+  --py: #2f6bf2;
+  --vi: #7c4ddb;
+  --ai: #e05a2b;
+  --ok: #0f9a66;
+  --yellow: #9a6c00;
+  --warn: #b26b00;
+  --danger: #d2364b;
+  --py-soft: rgba(47, 107, 242, 0.09);
+  --vi-soft: rgba(124, 77, 219, 0.09);
+  --ai-soft: rgba(224, 90, 43, 0.09);
+  --ok-soft: rgba(15, 154, 102, 0.09);
+  --yellow-soft: rgba(214, 158, 0, 0.13);
+  --warn-soft: rgba(178, 107, 0, 0.1);
+  --danger-soft: rgba(210, 54, 75, 0.09);
+  --muted-soft: rgba(100, 112, 138, 0.1);
+  --code-bg: #0f131c;
+  --code-line: rgba(255, 255, 255, 0.08);
+  --grad: linear-gradient(135deg, var(--py), var(--vi));
+  --glow: rgba(47, 107, 242, 0.14);
+  --slidev-theme-primary: #2f6bf2;
+  /* 모양: 모든 상자는 직각이다. 둥근 모서리를 쓰지 않는다 */
+  --r-lg: 0px;
+  --r: 0px;
+  --r-sm: 0px;
+  --sh: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px -12px rgba(15, 23, 42, 0.12);
+  --mono: "JetBrains Mono", "Pretendard Variable", Pretendard, ui-monospace, "SF Mono", Menlo, Consolas, monospace; /* 한글은 본문 글꼴로 */
+  --ease: cubic-bezier(0.22, 0.7, 0.3, 1);
+  --grid-gap: 24px;
+  /* 반전 상자(Tile kind="fill") */
+  --inv: #0f1422;
+  --on-inv: #ffffff;
+  --on-inv-2: #b3bdd3;
+  /* Steps · Flow · Timeline 의 color="pastel" 이 돌아가며 쓰는 여섯 색 */
+  --pastel-1: #e2618a;
+  --pastel-2: #e0892f;
+  --pastel-3: #b99400;
+  --pastel-4: #1fa57c;
+  --pastel-5: #2f8fe0;
+  --pastel-6: #8a63e6;
+}
+
+/* 어두운 테마 (사이드바 ☀️/🌙 버튼 또는 d 키) */
+html.lecture.dark {
+  --bg: #0b0d12;
+  --surface: #11141b;
+  --surface-2: #1a1e29;
+  --card: #141821;
+  --card-bg: #141821;
+  --line: rgba(255, 255, 255, 0.09);
+  --line-2: rgba(255, 255, 255, 0.17);
+  --text: #e4e8f1;
+  --fg: #e4e8f1;
+  --fg-2: #a7b0c4;
+  --muted: #8a93a8;
+  --heading: #ffffff;
+  --py: #7aa7ff;
+  --vi: #b095ff;
+  --ai: #ff956b;
+  --ok: #4fd8a0;
+  --yellow: #ffd666;
+  --warn: #ffb84d;
+  --danger: #ff7085;
+  --py-soft: rgba(122, 167, 255, 0.12);
+  --vi-soft: rgba(176, 149, 255, 0.12);
+  --ai-soft: rgba(255, 149, 107, 0.12);
+  --ok-soft: rgba(79, 216, 160, 0.12);
+  --yellow-soft: rgba(255, 214, 102, 0.12);
+  --warn-soft: rgba(255, 184, 77, 0.12);
+  --danger-soft: rgba(255, 112, 133, 0.12);
+  --muted-soft: rgba(138, 147, 168, 0.13);
+  --code-bg: #0f1219;
+  --code-line: rgba(255, 255, 255, 0.07);
+  --glow: rgba(122, 167, 255, 0.16);
+  --slidev-theme-primary: #7aa7ff;
+  --sh: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 12px 32px -16px rgba(0, 0, 0, 0.7);
+  --inv: #eef1f8;
+  --on-inv: #0b0d12;
+  --on-inv-2: #4b566e;
+  --pastel-1: #ff9db8;
+  --pastel-2: #ffc078;
+  --pastel-3: #ffe27a;
+  --pastel-4: #7fe3c0;
+  --pastel-5: #8fd0ff;
+  --pastel-6: #c4adff;
+}
+
+/* 색 묶음 palette: teal (덱 헤더 palette: teal → deck.ts 가 html 에 palette-teal 을 붙인다). 흰 바탕에 청록 · 남색.
+   :not(.dark) 로 밝은 테마에만 걸어야 어두운 테마의 바탕색을 덮지 않는다 */
+html.lecture.palette-teal:not(.dark) {
+  --surface: #f1f6f7;
+  --surface-2: #e3edef;
+  --line: rgba(16, 42, 52, 0.12);
+  --line-2: rgba(16, 42, 52, 0.2);
+  --text: #18262d;
+  --fg: #18262d;
+  --fg-2: #46585f;
+  --muted: #5f7179;
+  --heading: #0c1d24;
+  --py: #0b7a78;
+  --vi: #2d4f8f;
+  --ai: #d0602a;
+  --ok: #16865a;
+  --yellow: #8f6a00;
+  --warn: #b0650a;
+  --danger: #c93445;
+  --py-soft: rgba(11, 122, 120, 0.09);
+  --vi-soft: rgba(45, 79, 143, 0.09);
+  --ai-soft: rgba(208, 96, 42, 0.09);
+  --ok-soft: rgba(22, 134, 90, 0.09);
+  --yellow-soft: rgba(214, 160, 0, 0.14);
+  --warn-soft: rgba(176, 101, 10, 0.1);
+  --danger-soft: rgba(201, 52, 69, 0.09);
+  --muted-soft: rgba(95, 113, 121, 0.1);
+  --code-bg: #12212a;
+  --glow: rgba(11, 122, 120, 0.13);
+  --slidev-theme-primary: #0b7a78;
+  --sh: 0 1px 2px rgba(16, 42, 52, 0.04), 0 8px 24px -12px rgba(16, 42, 52, 0.12);
+  --inv: #10262e;
+  --on-inv-2: #a9c3c9;
+  --pastel-1: #0b8a87;
+  --pastel-2: #2d6fb0;
+  --pastel-3: #6a54c4;
+  --pastel-4: #c25a86;
+  --pastel-5: #d0752a;
+  --pastel-6: #4f8a2c;
+}
+html.lecture.palette-teal.dark {
+  --py: #4fd1c5;
+  --vi: #8fb2f0;
+  --py-soft: rgba(79, 209, 197, 0.12);
+  --glow: rgba(79, 209, 197, 0.16);
+  --slidev-theme-primary: #4fd1c5;
+}

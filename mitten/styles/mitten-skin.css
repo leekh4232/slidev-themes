@@ -339,7 +339,7 @@ html.mitten .slidev-layout.photos .ph-wall img { display: block; width: 100%; he
 html.mitten .slidev-layout.photos .ph-wall figcaption {
   position: absolute; left: 14px; bottom: 14px; max-width: calc(100% - 28px);
   padding: 0.18rem 0.7rem;
-  font-family: var(--round); font-size: 0.72rem; line-height: 1.45; color: var(--heading);
+  font-family: var(--round); font-size: 0.72rem; line-height: 1.45; color: #3a4a66; /* 딱지는 늘 흰 바탕이라 글자색을 테마와 상관없이 어둡게 */
   background: rgba(255, 255, 255, 0.93); border-radius: 999px;
   box-shadow: 0 2px 0 rgba(52, 92, 150, 0.16);
 }

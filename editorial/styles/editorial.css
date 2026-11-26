@@ -262,7 +262,7 @@ html.editorial .slidev-page { overflow: hidden; overflow: clip; }
 
 /* 질문별 흐름 띠 */
 :where(html.editorial) .ed-lanes { display: grid; gap: 0.6rem; margin-top: 0.3rem; }
-:where(html.editorial) .ed-lanes .hrow, :where(html.editorial) .ed-lanes .lane { display: grid; grid-template-columns: 6.5rem repeat(3, minmax(0, 1fr)); gap: 0; }
+:where(html.editorial) .ed-lanes .hrow, :where(html.editorial) .ed-lanes .lane { display: grid; grid-template-columns: 6.5rem repeat(var(--n, 3), minmax(0, 1fr)); gap: 0; }  /* --n: 줄의 단계 수(Lanes.vue) */
 :where(html.editorial) .ed-lanes .hrow span { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; color: var(--muted); padding: 0 1.4rem; }
 :where(html.editorial) .ed-lanes .tag { background: var(--blue); color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 0.9rem; }
 :where(html.editorial) .ed-lanes .tag b { font-size: 1.9rem; font-weight: 200; color: var(--gold); line-height: 1; }

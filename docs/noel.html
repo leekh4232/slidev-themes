@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>noel 테마 · Slidev Themes</title>
+<meta name="description" content="크리스마스 · 겨울 여행용 Slidev 테마 noel: 짙은 전나무색 밤 바탕, 금색 선, 빨강 포인트, 명조 제목, 내리는 눈, 지팡이 사탕 줄무늬, jussam과 같은 카드·스탯·차트 컴포넌트, 예제 코드">
+<meta name="color-scheme" content="light">
+<meta property="og:title" content="noel 테마 · Slidev Themes">
+<meta property="og:description" content="크리스마스 · 겨울 여행용 Slidev 테마 noel: 짙은 전나무색 밤 바탕, 금색 선, 빨강 포인트, 명조 제목, 내리는 눈, 지팡이 사탕 줄무늬, jussam과 같은 카드·스탯·차트 컴포넌트, 예제 코드">
+<meta property="og:image" content="https://slidev-themes.hossam.kr/img/noel-cover.jpg">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="manual.css">
+<link rel="stylesheet" href="code.css">
+<link rel="alternate" type="text/markdown" href="llms.txt" title="llms.txt">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "noel 테마 매뉴얼",
+  "description": "미리보기, 설정, jussam과 다른 점, 레이아웃, 파트 색, 컴포넌트, 전체 예제.",
+  "url": "https://slidev-themes.hossam.kr/noel.html",
+  "inLanguage": "ko",
+  "author": {
+    "@type": "Person",
+    "name": "이광호",
+    "email": "leekh4232@gmail.com"
+  },
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "Slidev Themes · noel",
+    "codeRepository": "https://github.com/leekh4232/slidev-themes"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Slidev Themes",
+    "url": "https://slidev-themes.hossam.kr/"
+  }
+}
+</script>
+</head>
+<body>
+<aside class="sidebar"><a class="brand" href="index.html">Slidev Themes</a><nav class="pages" aria-label="문서"><a href="hossam.html">hossam</a><a href="lab.html">lab</a><a href="jussam.html">jussam</a><a href="editorial.html">editorial</a><a href="noel.html" class="current">noel</a><a href="mitten.html">mitten</a><a href="https://github.com/leekh4232/slidev-themes">GitHub</a></nav><nav class="toc" aria-label="이 페이지의 목차"><a href="#preview">미리보기</a><a href="#start">시작하기</a><a href="#diff">jussam과 다른 점</a><a href="#layouts">레이아웃</a><a href="#components">컴포넌트</a><a href="#example">전체 예제</a></nav></aside>
+<main>
+<div class="hero"><h1>noel 테마 <span class="badge">시즌</span></h1><p>크리스마스와 겨울 여행 발표용 테마다. 처음 열면 짙은 전나무색 밤 바탕이고, d 키를 누르면 크림색 종이 바탕으로 바뀐다. 슬라이드 맨 위에 지팡이 사탕 줄무늬가 한 줄 지나가고 바탕에는 눈이 천천히 내린다. 제목은 명조 글꼴로 쓰고, 굵게 쓴 부분과 숫자는 빨강에서 금색으로 넘어가는 그라디언트로 칠한다. 카드와 타일에는 금색 가는 테가 둘린다. 레이아웃과 카드·스탯·차트 컴포넌트, 목차 사이드바, 원고 보기, 넘침 표시는 jussam과 같아서 jussam 덱의 테마 경로만 바꾸면 그대로 열린다.</p></div>
+<figure><img src="img/noel-cover.jpg" alt="표지(cover 레이아웃). 빨강 · 초록 · 금색 불빛이 번지는 바탕, 오른쪽 아래 트리 장식" loading="lazy"><figcaption>표지(cover 레이아웃). 빨강 · 초록 · 금색 불빛이 번지고 오른쪽 아래에 트리가 놓인다</figcaption></figure>
+<h2 id="preview">미리보기</h2>
+<p>모두 <a href="examples/noel-example.md">예제 덱</a>의 쪽이다. 그림을 누르면 원본 크기로 열린다.</p>
+<div class="gallery">
+<figure><a href="img/noel-cover.jpg"><img src="img/noel-cover.jpg" alt="표지. 두 줄 제목의 둘째 줄이 빨강에서 금색 그라디언트" loading="lazy"></a><figcaption><b>cover</b> 표지와 작성자 줄</figcaption></figure>
+<figure><a href="img/noel-hero.jpg"><img src="img/noel-hero.jpg" alt="표지 레이아웃 안의 큰 숫자 62시간과 오른쪽 설명" loading="lazy"></a><figcaption><b>Hero</b> 큰 숫자 한 개로 여는 쪽</figcaption></figure>
+<figure><a href="img/noel-section.jpg"><img src="img/noel-section.jpg" alt="part 01 간지. 빨강 제목 준비 과정" loading="lazy"></a><figcaption><b>section</b> 파트 간지(part: 1)</figcaption></figure>
+<figure><a href="img/noel-timeline.jpg"><img src="img/noel-timeline.jpg" alt="10월부터 12월까지 날짜 축 위의 세 사건" loading="lazy"></a><figcaption><b>Timeline</b> 날짜 축 타임라인</figcaption></figure>
+<figure><a href="img/noel-stat.jpg"><img src="img/noel-stat.jpg" alt="미터가 달린 큰 숫자 카드 세 장" loading="lazy"></a><figcaption><b>Stat</b> 큰 숫자 카드와 미터</figcaption></figure>
+<figure><a href="img/noel-cards.jpg"><img src="img/noel-cards.jpg" alt="2열 격자 안의 윗선 카드 네 장" loading="lazy"></a><figcaption><b>Grid · Card</b> 윗선 카드 격자</figcaption></figure>
+<figure><a href="img/noel-funnel.jpg"><img src="img/noel-funnel.jpg" alt="왼쪽 퍼널 네 단계, 오른쪽 작은 카드 두 장" loading="lazy"></a><figcaption><b>Funnel</b> 단계별로 좁혀지는 퍼널</figcaption></figure>
+<figure><a href="img/noel-beforeafter.jpg"><img src="img/noel-beforeafter.jpg" alt="작년과 올해를 나란히 놓은 전후 비교 카드" loading="lazy"></a><figcaption><b>BeforeAfter</b> 전후 비교와 목록</figcaption></figure>
+<figure><a href="img/noel-hbar.jpg"><img src="img/noel-hbar.jpg" alt="작은 숫자 카드 세 장과 가로 막대 네 줄" loading="lazy"></a><figcaption><b>HBar</b> 가로 막대와 작은 숫자</figcaption></figure>
+<figure><a href="img/noel-bars.jpg"><img src="img/noel-bars.jpg" alt="빨강과 초록 세로 막대 두 패널" loading="lazy"></a><figcaption><b>Bars</b> 두 패널 세로 막대</figcaption></figure>
+<figure><a href="img/noel-callout.jpg"><img src="img/noel-callout.jpg" alt="왼쪽 프롬프트 상자, 오른쪽 팁 상자와 출력 상자" loading="lazy"></a><figcaption><b>Prompt · Callout</b> 프롬프트와 콜아웃 상자</figcaption></figure>
+<figure><a href="img/noel-steps.jpg"><img src="img/noel-steps.jpg" alt="네 단계 흐름도, 타일 세 장, 아래 핵심 한 줄" loading="lazy"></a><figcaption><b>Flow · Tile · Core</b> 흐름도와 타일</figcaption></figure>
+<figure><a href="img/noel-cards-layout.jpg"><img src="img/noel-cards-layout.jpg" alt="세 칸 카드형 레이아웃" loading="lazy"></a><figcaption><b>cards</b> 카드형 레이아웃</figcaption></figure>
+<figure><a href="img/noel-magazine.jpg"><img src="img/noel-magazine.jpg" alt="왼쪽 제목과 표, 오른쪽 눈 내리는 숲 그림" loading="lazy"></a><figcaption><b>magazine</b> 웹진형, 오른쪽 그림 띠</figcaption></figure>
+<figure><a href="img/noel-infographic.jpg"><img src="img/noel-infographic.jpg" alt="가운데 무대 위의 흐름도와 숫자 타일" loading="lazy"></a><figcaption><b>infographic</b> 가운데 무대형</figcaption></figure>
+<figure><a href="img/noel-closing.jpg"><img src="img/noel-closing.jpg" alt="마무리 표지. 아래 맺음말이 그라디언트" loading="lazy"></a><figcaption><b>closing</b> 마무리 표지(mesh: soft)</figcaption></figure>
+<figure><a href="img/noel-light-cover.jpg"><img src="img/noel-light-cover.jpg" alt="밝은 테마의 표지. 크림색 바탕" loading="lazy"></a><figcaption><b>light</b> 밝은 테마 표지(d 키)</figcaption></figure>
+<figure><a href="img/noel-light.jpg"><img src="img/noel-light.jpg" alt="밝은 테마의 큰 숫자 카드 세 장" loading="lazy"></a><figcaption><b>light</b> 밝은 테마 본문</figcaption></figure>
+</div>
+<h2 id="start">시작하기</h2>
+<p>저장소를 받은 뒤(<code>git clone https://github.com/leekh4232/slidev-themes.git</code>) 프런트매터에 테마 폴더 경로(<code>theme: ./slidev-themes/noel</code>처럼 md 파일 기준)를 적는다. 첫 슬라이드의 프런트매터(헤드매터)에는 덱 전체 설정과 첫 슬라이드 설정을 함께 적는다.</p>
+<table><thead><tr><th>옵션</th><th>값</th><th>기본</th></tr></thead><tbody><tr><td><code>colorMode</code></td><td><code>light</code>면 크림색 밝은 테마, <code>dark</code>면 전나무색 밤 바탕으로 덱을 연다. 발표 중에는 d 키로 바꿀 수 있다</td><td>처음 한 번 어둡게, 그 뒤엔 마지막에 고른 테마</td></tr><tr><td><code>exportDark</code></td><td><code>true</code>면 PDF·PNG 내보내기를 어두운 테마로, <code>false</code>면 밝은 테마로</td><td><code>true</code> (<code>colorMode</code>를 적었으면 그 테마)</td></tr><tr><td><code>fontScale</code></td><td>본문 배율(0.6~2). 덱을 이 배율로 열고, 0 키·배율 버튼을 누르면 이 값으로 돌아간다</td><td>마지막에 고른 배율</td></tr><tr><td><code>manuscript</code></td><td><code>true</code>면 사이드바에 📄 원고 버튼(덱 원고 md를 깃헙 스타일 문서로 보기), <code>false</code>면 뺀다</td><td><code>true</code></td></tr><tr><td><code>sidebar</code></td><td><code>true</code>면 발표 화면 왼쪽에 목차 사이드바(슬라이드 바깥), <code>false</code>면 슬라이드만</td><td><code>true</code></td></tr></tbody></table>
+<pre><code class="language-md">---
+theme: ./slidev-themes/noel
+title: 겨울 여행 · 강릉 연말 2박 3일   # " · " 앞은 사이드바 머리말 · 표지 머리말, 뒤는 단원 이름
+author: 여행 준비팀                    # 생략 가능. 첫 표지 제목 아래 작성자
+layout: cover                          # 첫 슬라이드는 표지
+eyebrow: winter trip · 2026.12.29 – 12.31
+footer: 여행 준비팀 / 2026년 12월
+---
+
+# 바다 앞에서 맞는&lt;br&gt;**한 해의 마지막 밤**
+
+강릉 연말 2박 3일, 가족 여섯 명의 여행 계획</code></pre>
+<p>슬라이드는 항상 16:9(1280×720 캔버스)이고 창에 맞춰 비율대로 확대·축소된다. 넘치는 내용은 잘리고 빨간 테두리와 넘친 길이가 표시된다(발표 화면만). 사이드바는 처음에 접힌 채 열리고 ☰ 버튼이나 s 키로 펼친다. 단축키(<code>s</code> 사이드바, <code>a</code> 애니메이션, <code>d</code> 테마, <code>+</code> <code>-</code> <code>0</code> 배율)와 조작은 <a href="jussam.html#sidebar">jussam의 사이드바와 조작</a>과 같다.</p>
+<h2 id="diff">jussam과 다른 점</h2>
+<p>구조(레이아웃 · 컴포넌트 · 프롭)는 jussam과 같고 겉모습만 다르다. 색과 장식은 <a href="https://github.com/leekh4232/slidev-themes/blob/main/noel/styles/noel-skin.css"><code>noel/styles/noel-skin.css</code></a> 한 파일에 모여 있다.</p>
+<table><thead><tr><th>항목</th><th>noel</th></tr></thead><tbody><tr><td>바탕</td><td>어두운 테마는 짙은 전나무색(<code>#0b1c15</code>), 밝은 테마는 크림색 종이(<code>#fbf6ea</code>)</td></tr><tr><td>지팡이 사탕 줄무늬</td><td>모든 슬라이드 맨 위에 5px 높이의 빨강 · 흰색 사선 줄무늬</td></tr><tr><td>내리는 눈</td><td>바탕에 크기가 다른 눈송이 세 겹이 38초에 걸쳐 천천히 내려온다. 바탕 그림이라 내용 크기나 넘침 계산에는 영향이 없다. a 키로 애니메이션을 끄거나, 운영체제의 동작 줄이기 설정이 켜져 있거나, 인쇄 · PDF로 내보낼 때는 멈춘다</td></tr><tr><td>제목 글꼴</td><td><code>h1</code> · <code>h2</code> · <code>h3</code>는 명조(Gowun Batang, Google Fonts). 글꼴을 받지 못하면 Nanum Myeongjo · Noto Serif KR 순서로 쓴다. 본문은 Pretendard 그대로</td></tr><tr><td>강조색</td><td>제목의 <code>**굵게**</code>, 숫자, 머리말이 빨강 → 금색 그라디언트. 머리말(eyebrow)은 금색</td></tr><tr><td>표지 · 간지</td><td>메시 그라디언트 대신 트리 불빛처럼 번지는 빨강 · 초록 · 금색. 표지(cover)에는 오른쪽 아래에 🎄 트리가 붙는다</td></tr><tr><td>카드 · 타일</td><td>Tile · Callout · Stat 상자에 금색 가는 테</td></tr><tr><td>웹진형</td><td>오른쪽 그림 띠 왼쪽에 금색 세로선</td></tr></tbody></table>
+<h2 id="layouts">레이아웃</h2>
+<p>여섯 레이아웃의 이름 · 쓰임 · 프런트매터는 <a href="jussam.html#layouts">jussam의 레이아웃</a>과 같다.</p>
+<table><thead><tr><th>레이아웃</th><th>쓰임</th><th>프런트매터</th></tr></thead><tbody><tr><td><code>cover</code></td><td>표지 · 마무리 · Q&amp;A. 불빛 번짐 바탕과 트리, 위아래 머리말. 첫 표지(1쪽)에는 덱 헤더의 <code>author</code>가 제목 아래 붙는다</td><td><code>eyebrow</code>, <code>footer</code>, <code>mesh</code>(<code>soft</code> 옅게 / <code>none</code> 없음), <code>source</code></td></tr><tr><td><code>section</code></td><td>파트 간지. 제목이 파트 색 그라디언트로 칠해진다</td><td><code>part</code>(1~4), <code>eyebrow</code></td></tr><tr><td><code>default</code></td><td>본문. 적지 않으면 이것. 내용은 세로 가운데</td><td><code>eyebrow</code>, <code>part</code>, <code>source</code></td></tr><tr><td><code>cards</code></td><td>제목 아래 <code>&lt;div&gt;</code> 칸들이 둥근 카드 격자가 된다. 칸에 <code>py</code> · <code>ai</code> · <code>ok</code>를 주면 위에 색 선</td><td><code>cols</code>(기본 3)</td></tr><tr><td><code>magazine</code></td><td>왼쪽 큰 제목 + 리드문 + 본문, 오른쪽 <code>::right::</code> 칸. 오른쪽 첫 요소가 <code>&lt;img&gt;</code>면 칸을 꽉 채운 그림 띠가 되고 그 아래 문단은 설명이 된다</td><td>-</td></tr><tr><td><code>infographic</code></td><td>제목은 위, 나머지는 가운데 무대</td><td>-</td></tr></tbody></table>
+<pre><code class="language-md">---
+layout: section
+part: 1
+---
+
+# 준비 과정
+
+석 달 전부터 하나씩 채워 온 것들
+
+---
+layout: magazine
+---
+
+# 눈 내리는 **바닷가 밤**
+
+해가 지면 바다 쪽은 금방 어두워진다
+
+::right::
+
+&lt;img src="./img/noel-night.jpg" alt="눈 내리는 밤의 전나무 숲 그림" /&gt;
+
+해 질 녘 경포 해변 산책로</code></pre>
+<div class="two"><figure><img src="img/noel-section.jpg" alt="section 레이아웃 (part: 1)" loading="lazy"><figcaption>section 레이아웃 (part: 1)</figcaption></figure>
+<figure><img src="img/noel-magazine.jpg" alt="magazine 레이아웃, 오른쪽 그림 띠" loading="lazy"><figcaption>magazine 레이아웃, 오른쪽 그림 띠</figcaption></figure>
+</div><h3 id="parts">파트 색</h3>
+<p><code>part</code>를 1~4로 주면 그 슬라이드의 강조색(제목 굵게, 머리말, 카드 윗선, 숫자, 세로선)이 함께 바뀐다. noel의 파트 색은 빨강 · 초록 · 금색 세 가지로만 만든다. 밝은 테마에서는 같은 계열의 더 진한 색을 쓴다.</p>
+<table><thead><tr><th>part</th><th>색</th><th>어두운 테마</th><th>밝은 테마</th></tr></thead><tbody><tr><td>1</td><td>빨강 → 금색</td><td><code>#ff6b6b</code> → <code>#f2cf6b</code></td><td><code>#c8323f</code> → <code>#b8860b</code></td></tr><tr><td>2</td><td>초록 → 금색</td><td><code>#5fcf95</code> → <code>#f2cf6b</code></td><td><code>#1f7a4d</code> → <code>#b8860b</code></td></tr><tr><td>3</td><td>빨강 → 금색</td><td><code>#ff6b6b</code> → <code>#f2cf6b</code></td><td><code>#c8323f</code> → <code>#b8860b</code></td></tr><tr><td>4</td><td>금색 → 초록</td><td><code>#f2cf6b</code> → <code>#5fcf95</code></td><td><code>#b8860b</code> → <code>#1f7a4d</code></td></tr></tbody></table>
+<h2 id="components">컴포넌트</h2>
+<p>md 안에서 태그로 쓴다. 아래 컴포넌트는 모두 jussam과 이름 · 프롭이 같고 색만 noel을 따른다. 프롭과 예제 코드는 각 행의 링크(jussam 매뉴얼)와 파일(<a href="https://github.com/leekh4232/slidev-themes/tree/main/noel/components"><code>noel/components/*.vue</code></a>) 머리 주석에 있다.</p>
+<table><thead><tr><th>컴포넌트</th><th>쓰임</th><th>프롭</th></tr></thead><tbody>
+<tr><td><code>Grid</code></td><td>칸 나누기. 열 수나 <code>grid-template-columns</code> 값</td><td><a href="jussam.html#c-grid">Grid</a></td></tr>
+<tr><td><code>Card</code></td><td>둥근 카드. 머리말 · 제목 · 윗선 · 크기 · 흐림</td><td><a href="jussam.html#c-card">Card</a></td></tr>
+<tr><td><code>Stat</code></td><td><code>n</code>이면 미터가 달린 큰 숫자 카드, <code>value</code>면 숫자 타일</td><td><a href="jussam.html#c-stat">Stat</a></td></tr>
+<tr><td><code>Kicker</code> · <code>Note</code> · <code>Spacer</code></td><td>세로선 맺음말, 작은 주석, 남는 세로 공간</td><td><a href="jussam.html#c-kicker">Kicker · Note · Spacer</a></td></tr>
+<tr><td><code>Hero</code></td><td>큰 숫자 한 개 + 오른쪽 제목과 설명</td><td><a href="jussam.html#c-hero">Hero</a></td></tr>
+<tr><td><code>Agenda</code> · <code>NumList</code> · <code>Item</code></td><td>목차와 번호 목록</td><td><a href="jussam.html#c-lists">Agenda · NumList</a></td></tr>
+<tr><td><code>BeforeAfter</code> · <code>Side</code></td><td>왼쪽(흐림)과 오른쪽(강조)을 나란히 놓는 전후 비교</td><td><a href="jussam.html#c-ba">BeforeAfter</a></td></tr>
+<tr><td><code>Timeline</code></td><td><code>events</code>면 날짜 축, 없으면 <code>&lt;li&gt;</code> 단계 타임라인</td><td><a href="jussam.html#c-timeline">Timeline</a></td></tr>
+<tr><td><code>Gauge</code> · <code>Slope</code></td><td>반원 게이지, 두 점 기울기</td><td><a href="jussam.html#c-gauge">Gauge · Slope</a></td></tr>
+<tr><td><code>Funnel</code> · <code>Branch</code></td><td>단계별 퍼널, 한 곳에서 갈라지는 카드</td><td><a href="jussam.html#c-funnel">Funnel · Branch</a></td></tr>
+<tr><td><code>HBar</code> · <code>Meter</code> · <code>Bars</code></td><td>가로 막대, 미터 한 줄, 세로 막대 패널</td><td><a href="jussam.html#c-bars">HBar · Meter · Bars</a></td></tr>
+<tr><td><code>Mul</code> · <code>Formula</code></td><td>카드 세 장 사이 ×, 낱말 수식</td><td><a href="jussam.html#c-mul">Mul · Formula</a></td></tr>
+<tr><td><code>Callout</code> · <code>Prompt</code> · <code>Output</code></td><td>콜아웃 · 프롬프트 · 출력 상자</td><td><a href="jussam.html#base">기본 컴포넌트</a></td></tr>
+<tr><td><code>Steps</code> · <code>Flow</code></td><td>번호 목록, 가로 흐름도</td><td><a href="jussam.html#base">기본 컴포넌트</a></td></tr>
+<tr><td><code>Tile</code> · <code>Core</code> · <code>Chip</code></td><td>타일, 핵심 한 줄, 글 사이 작은 라벨</td><td><a href="jussam.html#base">기본 컴포넌트</a></td></tr>
+<tr><td><code>YoutubeCard</code></td><td>유튜브 썸네일(누르면 재생)</td><td><a href="jussam.html#base">기본 컴포넌트</a></td></tr>
+</tbody></table>
+<p>형광펜 <code>.hl</code>, 빈칸 <code>.blank</code>, <code>.card</code>, <code>.kicker</code>, <code>.tight</code> · <code>.flush</code> 같은 클래스와 슬라이드 프런트매터 <code>class: dense</code> · <code>compact</code> · <code>tbl-wrap</code> · <code>tbl-nowrap</code>도 jussam과 같다. 컴포넌트 안에 마크다운을 쓰는 법, 긴 데이터를 프런트매터에 두는 법은 <a href="jussam.html#rules">jussam의 주의할 점</a>을 따른다.</p>
+<pre><code class="language-md">---
+part: 1
+eyebrow: ready check
+source: 준비 체크리스트
+---
+
+# 준비는 **얼마나 됐나**
+
+출발 2주 전 기준, 세 가지 모두 목표선을 넘었다
+
+&lt;Grid cols="3"&gt;
+&lt;Stat n="18" unit="개" label="체크리스트 완료" :fill="82" :mark="70" scale="22개"&gt;눈금은 2주 전 목표 지점&lt;/Stat&gt;
+&lt;Stat n="6" unit="명" label="참석 확정" :fill="100" scale="6명"&gt;전원 확정&lt;/Stat&gt;
+&lt;Stat n="85" unit="%" label="예약 결제" :fill="85" scale="100%"&gt;남은 것은 저녁 한 끼&lt;/Stat&gt;
+&lt;/Grid&gt;
+
+&lt;Kicker lead&gt;남은 네 개는 짐 싸기와 마지막 날 저녁 예약이다&lt;/Kicker&gt;</code></pre>
+<div class="two"><figure><img src="img/noel-stat.jpg" alt="Stat 세 장과 Kicker lead" loading="lazy"><figcaption>Stat 세 장과 Kicker lead</figcaption></figure>
+<figure><img src="img/noel-light.jpg" alt="같은 쪽의 밝은 테마" loading="lazy"><figcaption>같은 쪽의 밝은 테마(d 키)</figcaption></figure>
+</div>
+<h2 id="example">전체 예제</h2>
+<p><a href="examples/noel-example.md">noel-example.md</a> — 가상의 연말 가족 여행 계획으로 만든 23장짜리 덱. 여섯 레이아웃과 위 컴포넌트 대부분이 들어 있다. 웹진형 쪽의 그림은 <code>examples/img/noel-night.jpg</code>다. 저장소 안에서 우클릭 → Open with Slidev.</p>
+<div class="two"><figure><img src="img/noel-hero.jpg" alt="Hero로 여는 두 번째 쪽" loading="lazy"><figcaption>Hero로 여는 두 번째 쪽(cover, mesh: soft)</figcaption></figure>
+<figure><img src="img/noel-closing.jpg" alt="마무리(cover, mesh: soft, ### 굵게 그라디언트)" loading="lazy"><figcaption>마무리(cover, mesh: soft, <code>###</code> 굵게 그라디언트)</figcaption></figure>
+</div>
+</main>
+<footer>Slidev Themes · MIT · <a href="https://github.com/leekh4232/slidev-themes">GitHub</a> · VS Code에서 바로 쓰려면 <a href="https://open-with-slidev.hossam.kr/">Open with Slidev</a></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" data-manual></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script>Prism.highlightAll();</script>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>editorial 테마 · Slidev Themes</title>
+<meta name="description" content="발표용 Slidev 테마 editorial: 편집 디자인, 연세블루 팔레트, 직각 상자, 표지·간지·블록형 레이아웃, 인포그래픽 컴포넌트(Bars·Trend·Dumbbell·Flow·Lanes·VarGrid·Hypo·HypoGrid·Stats·Checklist·Review·CanCannot)">
+<meta name="color-scheme" content="light">
+<meta property="og:title" content="editorial 테마 · Slidev Themes">
+<meta property="og:description" content="발표용 Slidev 테마 editorial: 편집 디자인, 연세블루 팔레트, 직각 상자, 표지·간지·블록형 레이아웃, 인포그래픽 컴포넌트(Bars·Trend·Dumbbell·Flow·Lanes·VarGrid·Hypo·HypoGrid·Stats·Checklist·Review·CanCannot)">
+<meta property="og:image" content="https://slidev-themes.hossam.kr/img/editorial-cover.jpg">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="manual.css">
+<link rel="stylesheet" href="code.css">
+<link rel="alternate" type="text/markdown" href="llms.txt" title="llms.txt">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "editorial 테마 매뉴얼",
+  "description": "미리보기, 설정, 목차 사이드바와 단축키, 글쓰기 규칙, 레이아웃, 인포그래픽 컴포넌트, 클래스, 전체 예제.",
+  "url": "https://slidev-themes.hossam.kr/editorial.html",
+  "inLanguage": "ko",
+  "author": {
+    "@type": "Person",
+    "name": "이광호",
+    "email": "leekh4232@gmail.com"
+  },
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "Slidev Themes · editorial",
+    "codeRepository": "https://github.com/leekh4232/slidev-themes"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Slidev Themes",
+    "url": "https://slidev-themes.hossam.kr/"
+  }
+}
+</script>
+</head>
+<body>
+<aside class="sidebar"><a class="brand" href="index.html">Slidev Themes</a><nav class="pages" aria-label="문서"><a href="hossam.html">hossam</a><a href="lab.html">lab</a><a href="jussam.html">jussam</a><a href="editorial.html" class="current">editorial</a><a href="noel.html">noel</a><a href="mitten.html">mitten</a><a href="https://github.com/leekh4232/slidev-themes">GitHub</a></nav><nav class="toc" aria-label="이 페이지의 목차"><a href="#preview">미리보기</a><a href="#start">시작하기</a><a href="#sidebar">사이드바와 조작</a><a href="#writing">글쓰기</a><a href="#layouts">레이아웃</a><a href="#components">컴포넌트</a><a href="#classes">클래스</a><a href="#example">전체 예제</a></nav></aside>
+<main>
+<div class="hero"><h1>editorial 테마 <span class="badge">발표</span></h1><p>보고서 · 평가 자료처럼 숫자와 근거를 차분하게 보여 주는 발표용 테마. 잡지 편집 디자인처럼 연세블루(#00205b) 색면과 금색 가는 강조선, 아주 굵은 제목과 아주 가는 큰 번호를 대비시킨다. 상자는 모두 직각이고 그림자 · 그라디언트가 없다. 표지 · 간지 · 블록형 레이아웃과, 프롭에 배열만 넘기면 그려지는 인포그래픽 컴포넌트 12종(막대 · 꺾은선 · 덤벨 · 흐름도 · 가설표 · 변수 카드 · 큰 숫자 · 점검 목록 · 총평 · 해석 범위 …)이 있다. 목차 사이드바와 조작은 hossam과 같다.</p></div>
+<figure><img src="img/editorial-cover.jpg" alt="표지: 왼쪽 연세블루 색면 위에 금색 머리말, 아주 굵은 흰 제목과 부제, 읽기 전에 상자. 오른쪽은 겹친 직각 사각형 장식과 작성자 · 날짜" loading="lazy"><figcaption>표지: 왼쪽 연세블루 색면 위에 금색 머리말, 아주 굵은 흰 제목과 부제, 읽기 전에 상자. 오른쪽은 겹친 직각 사각형 장식과 작성자 · 날짜</figcaption></figure>
+<h2 id="preview">미리보기</h2>
+<p>예제 덱(<a href="examples/editorial-example.md">editorial-example.md</a>)의 쪽들이다. 그림을 누르면 크게 본다.</p>
+<div class="gallery">
+<figure><a href="img/editorial-cover.jpg"><img src="img/editorial-cover.jpg" alt="표지" loading="lazy"></a><figcaption><b>cover</b> 연세블루 색면 표지</figcaption></figure>
+<figure><a href="img/editorial-section.jpg"><img src="img/editorial-section.jpg" alt="간지" loading="lazy"></a><figcaption><b>section</b> 큰 가는 번호와 흰 제목</figcaption></figure>
+<figure><a href="img/editorial-blocks.jpg"><img src="img/editorial-blocks.jpg" alt="블록형 2열" loading="lazy"></a><figcaption><b>blocks</b> ### 소제목마다 번호 칸</figcaption></figure>
+<figure><a href="img/editorial-blocks-cols.jpg"><img src="img/editorial-blocks-cols.jpg" alt="블록형 3열" loading="lazy"></a><figcaption><b>blocks cols: 3</b> 세 열, 목록 · 인용 · 코드</figcaption></figure>
+<figure><a href="img/editorial-table.jpg"><img src="img/editorial-table.jpg" alt="표와 인용" loading="lazy"></a><figcaption><b>표 · 인용</b> 연세블루 머리행, 금색 인용선</figcaption></figure>
+<figure><a href="img/editorial-review.jpg"><img src="img/editorial-review.jpg" alt="Review" loading="lazy"></a><figcaption><b>Review</b> 잘된 점과 한계 대조</figcaption></figure>
+<figure><a href="img/editorial-bars.jpg"><img src="img/editorial-bars.jpg" alt="Bars 두 개와 ed-caption" loading="lazy"></a><figcaption><b>Bars</b> 가로 막대 두 개 나란히</figcaption></figure>
+<figure><a href="img/editorial-trend.jpg"><img src="img/editorial-trend.jpg" alt="Trend" loading="lazy"></a><figcaption><b>Trend</b> 꺾은선, 사건 표시, 숫자 칸</figcaption></figure>
+<figure><a href="img/editorial-dumbbell.jpg"><img src="img/editorial-dumbbell.jpg" alt="Dumbbell" loading="lazy"></a><figcaption><b>Dumbbell</b> 두 조건의 값 비교</figcaption></figure>
+<figure><a href="img/editorial-flow.jpg"><img src="img/editorial-flow.jpg" alt="Flow" loading="lazy"></a><figcaption><b>Flow</b> 꺾쇠 머리띠 흐름도</figcaption></figure>
+<figure><a href="img/editorial-lanes.jpg"><img src="img/editorial-lanes.jpg" alt="Lanes" loading="lazy"></a><figcaption><b>Lanes</b> 질문별 흐름 띠</figcaption></figure>
+<figure><a href="img/editorial-vargrid.jpg"><img src="img/editorial-vargrid.jpg" alt="VarGrid" loading="lazy"></a><figcaption><b>VarGrid</b> 종속변수와 독립변수 카드</figcaption></figure>
+<figure><a href="img/editorial-hypo.jpg"><img src="img/editorial-hypo.jpg" alt="Hypo" loading="lazy"></a><figcaption><b>Hypo</b> 가설 비교표</figcaption></figure>
+<figure><a href="img/editorial-hypogrid.jpg"><img src="img/editorial-hypogrid.jpg" alt="HypoGrid" loading="lazy"></a><figcaption><b>HypoGrid</b> H0 · H1 가설 카드</figcaption></figure>
+<figure><a href="img/editorial-stats.jpg"><img src="img/editorial-stats.jpg" alt="Stats" loading="lazy"></a><figcaption><b>Stats</b> 큰 숫자 칸</figcaption></figure>
+<figure><a href="img/editorial-checklist.jpg"><img src="img/editorial-checklist.jpg" alt="Checklist" loading="lazy"></a><figcaption><b>Checklist</b> 값 · 이름 · 설명 점검 목록</figcaption></figure>
+<figure><a href="img/editorial-cancannot.jpg"><img src="img/editorial-cancannot.jpg" alt="CanCannot" loading="lazy"></a><figcaption><b>CanCannot</b> 말할 수 있는 것과 없는 것</figcaption></figure>
+<figure><a href="img/editorial-dark-cover.jpg"><img src="img/editorial-dark-cover.jpg" alt="어두운 테마 표지" loading="lazy"></a><figcaption><b>dark</b> 어두운 테마(d) 표지</figcaption></figure>
+<figure><a href="img/editorial-dark-lanes.jpg"><img src="img/editorial-dark-lanes.jpg" alt="어두운 테마 Lanes" loading="lazy"></a><figcaption><b>dark</b> 어두운 테마(d) 본문</figcaption></figure>
+</div>
+<h2 id="start">시작하기</h2>
+<p>저장소를 받은 뒤(<code>git clone https://github.com/leekh4232/slidev-themes.git</code>) 프런트매터에 테마 폴더 경로(<code>theme: ./slidev-themes/editorial</code>처럼 md 파일 기준)를 적는다. 첫 슬라이드의 프런트매터(헤드매터)에서 아래 옵션으로 덱 전체 모양을 정한다.</p>
+<table><thead><tr><th>옵션</th><th>값</th><th>기본</th></tr></thead><tbody><tr><td><code>colorMode</code></td><td><code>light</code>면 밝은 테마, <code>dark</code>면 어두운 테마로 덱을 연다. 발표 중에는 d 키로 바꿀 수 있고, 다시 열면 이 값으로 돌아간다. 이 테마는 밝은 바탕을 기준으로 디자인했으므로 <code>light</code>를 적어 두는 것을 권한다</td><td>처음 한 번 어둡게, 그 뒤엔 마지막에 고른 테마</td></tr><tr><td><code>exportDark</code></td><td><code>true</code>면 PDF·PNG 내보내기를 어두운 테마로, <code>false</code>면 밝은 테마로</td><td><code>true</code> (<code>colorMode</code>를 적었으면 그 테마)</td></tr><tr><td><code>fontScale</code></td><td>본문 배율(0.6~2). 덱을 이 배율로 열고, 0 키·배율 버튼을 누르면 이 값으로 돌아간다. PDF·PNG 내보내기에도 적용된다</td><td>마지막에 고른 배율</td></tr><tr><td><code>manuscript</code></td><td><code>true</code>면 사이드바에 📄 원고 버튼을 둔다. 누르면 덱 원고(md)를 깃헙 스타일 일반 문서로 본다. <code>false</code>면 버튼을 뺀다</td><td><code>true</code></td></tr><tr><td><code>sidebar</code></td><td><code>true</code>면 발표 화면 왼쪽에 목차 사이드바(슬라이드 바깥), <code>false</code>면 사이드바 없이 슬라이드만</td><td><code>true</code></td></tr><tr><td><code>title</code></td><td>덱 제목. 본문 쪽(<code>default</code> · <code>blocks</code>) 위의 머리줄에 그대로 올라가고, <code> · </code>(가운뎃점 양옆 공백)를 기준으로 앞은 과정 이름, 뒤는 단원 이름으로 사이드바에 올라간다</td><td>-</td></tr><tr><td><code>author</code></td><td>표지 오른쪽 아래에 굵게 놓이는 작성자</td><td>-</td></tr></tbody></table>
+<p>첫 슬라이드는 <code>layout: cover</code>로 쓰고, 같은 프런트매터에 <code>eyebrow</code>(제목 위 금색 머리말)와 <code>date</code>(작성자 아래 날짜)를 적는다. <code>#</code> 제목 다음 문단은 부제가 되어 가는 흰 선 아래에 놓인다. 글꼴은 Pretendard Variable(코드는 JetBrains Mono), 쪽 전환은 fade다.</p>
+<pre><code class="language-md">---
+theme: ./slidev-themes/editorial
+title: 프로젝트 평가 및 후속 분석 가이드
+author: 데이터 분석 과정 강사
+sidebar: true         # 생략 가능 (기본값)
+colorMode: light      # 권장. light | dark
+exportDark: false     # 내보내기도 밝은 테마로
+fontScale: 1          # 생략 가능. 본문 배율 0.6~2
+layout: cover
+eyebrow: 파랑새조 · 시각화 프로젝트 지도
+date: 2026.11.26
+---
+
+# 프로젝트 평가와 다음 프로젝트 방향
+
+서울시 공공자전거 대여량과 날씨 · 생활 여건의 관계 분석</code></pre>
+<h2 id="sidebar">사이드바와 조작</h2>
+<p>목차 사이드바 · 단축키 · 원고 보기 · 넘침 표시는 <a href="hossam.html#sidebar">hossam의 사이드바와 조작</a>과 같다. 목차는 슬라이드마다 첫 제목을 모은다. 표지(1쪽)와 <code>hideInToc: true</code>를 적은 쪽은 목록에 넣지 않는다.</p>
+<table><thead><tr><th>키</th><th>동작</th></tr></thead><tbody><tr><td><kbd>→</kbd> <kbd>←</kbd> <kbd>Space</kbd></td><td>다음·이전</td></tr><tr><td><kbd>s</kbd></td><td>사이드바 접기·펼치기(◀ / ☰ 버튼)</td></tr><tr><td><kbd>a</kbd></td><td>애니메이션 켬·끔. 끄면 클릭 단계(<code>v-click</code>)가 전부 보인다</td></tr><tr><td><kbd>d</kbd></td><td>밝은·어두운 테마 전환</td></tr><tr><td><kbd>+</kbd> <kbd>-</kbd> <kbd>0</kbd></td><td>본문 확대·축소·기본 크기(60~200%). 캔버스는 그대로고 글자·여백만 바뀐다</td></tr></tbody></table>
+<p>슬라이드는 항상 16:9(1280×720)다. 내용이 캔버스를 넘치면 잘리고, 발표 화면에서만 빨간 테두리와 넘친 길이(예: <code>내용 넘침 ↓120px</code>)가 뜬다. 모든 쪽 오른쪽 아래에 쪽 번호가 <code>현재/전체</code> 꼴로 붙는다. 원고 보기(📄)에서 프롭으로만 그리는 인포그래픽 컴포넌트는 그림이 빠지고 <code>title</code>이 있으면 그것만 굵은 글로 남는다.</p>
+<h2 id="writing">글쓰기</h2>
+<ul><li><code>##</code>는 쪽 제목(굵은 연세블루). 제목 바로 다음 문단은 리드문으로, 제목 아래에 붙어 한 줄 요약을 한다. <code>###</code>는 작은 굵은 소제목이고, <code>blocks</code> 레이아웃에서는 칸 제목이 된다.</li><li>본문 쪽(<code>default</code> · <code>blocks</code>)에는 왼쪽 끝에 연세블루 띠(위쪽에 금색 짧은 마디), 위에 덱 <code>title</code> 머리줄, 아래에 가는 바닥선이 자동으로 붙는다.</li><li>목록 글머리는 짧은 파란 가로선, 둘째 수준은 회색 가는 선에 회색 글. <code>**굵게**</code>는 연세블루로 굵게.</li><li>인라인 코드(백틱 하나)는 옅은 파랑 바탕의 직각 상자이고 줄을 바꾸지 않는다.</li><li>인용(<code>&gt;</code> 문단)은 왼쪽 금색 세로선에 회색의 조금 작은 글. 보충 한 줄에 쓴다.</li><li>표는 연세블루 머리행(흰 글, 한 줄), 가는 줄 구분, 첫 칸은 굵은 파란 글씨로 한 줄, 마지막 줄 아래에 굵은 연세블루 선.</li><li>줄바꿈은 단어(띄어쓰기) 단위다. 한글도 낱글자 사이에서 끊지 않는다.</li><li>슬라이드 md에 <code>&lt;style&gt;</code>이나 <code>style="…"</code>를 쓰지 않아도 된다. 상자를 직접 만들 때는 UnoCSS 유틸리티에 테마 색 변수(<code>var(--blue)</code> · <code>var(--blue-2)</code> · <code>var(--gold)</code> · <code>var(--paper)</code> · <code>var(--heading)</code> · <code>var(--muted)</code>)를 넣어 쓴다. 이 변수는 어두운 테마에서 저절로 바뀐다.</li></ul>
+<pre><code class="language-md">## 변수 설계 표
+
+같은 내용을 표로 쓸 수도 있습니다.
+
+| 구분 | 변수 | 유형 | 내용 |
+|:--|:--|:--|:--|
+| 종속변수 | 1천 명당 월 대여 건수 | 연속형 | 월 대여 건수를 생활인구로 나눔 |
+| 독립변수 | 월평균 기온 | 연속형 | 기상청 서울 관측소 월평균 |
+
+&gt; 변수는 보고서에 이미 있는 것부터 쓰고, 새로 가져올 것은 **어디서 받을지**까지 함께 적습니다.
+
+&lt;div class="mt-5 px-5 py-3 bg-[var(--paper)] border-l-4 border-[var(--gold)]"&gt;
+&lt;div class="font-bold text-[var(--heading)]"&gt;검토 범위의 한계&lt;/div&gt;
+&lt;div class="text-sm text-[var(--muted)] mt-1"&gt;이 방향은 보고서의 결과만으로 정한 것입니다.&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<figure><img src="img/editorial-table.jpg" alt="리드문 · 표 · 인용" loading="lazy"><figcaption>리드문 · 표 · 인용</figcaption></figure>
+<h2 id="layouts">레이아웃</h2>
+<p>슬라이드 프런트매터의 <code>layout</code>으로 고른다. 적지 않으면 <code>default</code>.</p>
+<table><thead><tr><th>layout</th><th>모양</th><th>프런트매터</th></tr></thead><tbody><tr><td><code>default</code></td><td>본문. 왼쪽 연세블루 띠, 위 머리줄, 아래 바닥선. 제목 아래에 문단 · 목록 · 표 · 컴포넌트가 위에서부터 흐른다</td><td>-</td></tr><tr><td><code>cover</code></td><td>표지. 왼쪽 62%는 연세블루 색면(금색 머리말 · 흰 제목 · 부제), 오른쪽은 겹친 직각 사각형 장식과 작성자 · 날짜</td><td><code>eyebrow</code> <code>date</code> (작성자는 덱 헤더의 <code>author</code>)</td></tr><tr><td><code>section</code></td><td>간지. 화면 전체가 연세블루 색면, 왼쪽에 아주 크고 가는 금색 번호, 오른쪽에 흰 제목과 부제</td><td><code>no</code></td></tr><tr><td><code>blocks</code></td><td>블록형. 제목과 리드문은 위에 두고, <code>###</code> 소제목마다 그 아래 내용을 한 칸으로 묶어 열에 채운다</td><td><code>cols</code>(기본 2)</td></tr></tbody></table>
+<h3 id="l-cover">cover — 표지</h3>
+<p><code>#</code> 제목 하나와 부제 문단을 쓴다. 제목 아래에 직접 만든 상자(예: 읽기 전에)를 둘 수 있다. 색면 위이므로 글은 <code>text-white/85</code>, 바탕은 <code>bg-white/10</code>처럼 흰색 투명도로 쓴다.</p>
+<pre><code class="language-md">---
+layout: cover
+eyebrow: 파랑새조 · 시각화 프로젝트 지도
+date: 2026.11.26
+---
+
+# 프로젝트 평가와 다음 프로젝트 방향
+
+서울시 공공자전거 대여량과 날씨 · 생활 여건의 관계 분석
+
+&lt;div class="mt-10 px-4 py-3 border-l-4 border-[var(--gold)] bg-white/10 text-sm leading-relaxed text-white/85"&gt;
+&lt;div class="font-bold text-[var(--gold)] mb-1"&gt;읽기 전에&lt;/div&gt;
+이 자료는 팀의 다음 결정을 돕기 위한 가이드입니다.
+&lt;/div&gt;</code></pre>
+<h3 id="l-section">section — 간지</h3>
+<p><code>no</code>는 숫자로 적으면 두 자리(<code>01</code>)로 보인다. 생략하면 번호 없이 제목만 놓인다. 제목은 <code>#</code> · <code>##</code> 모두 같은 크기로 보이고, 제목 다음 문단은 부제가 된다.</p>
+<pre><code class="language-md">---
+layout: section
+no: 1
+---
+
+## 갈래 A. 지금 주제 이어 가기
+
+날씨와 생활 여건을 자치구 · 월 단위로 묶어 선형회귀로 발전시키는 방향입니다.</code></pre>
+<figure><img src="img/editorial-section.jpg" alt="간지: 연세블루 색면 위의 금색 01과 흰 제목" loading="lazy"><figcaption>간지: 연세블루 색면 위의 금색 01과 흰 제목</figcaption></figure>
+<h3 id="l-blocks">blocks — 블록형</h3>
+<p>원고는 평범한 마크다운(<code>###</code> 소제목 + 본문)으로 쓴다. 화면에 그린 뒤 첫 <code>###</code>부터 소제목마다 칸 하나로 묶는다. 칸은 흰 바탕, 위에 굵은 연세블루 선, 왼쪽에 금색 가는 큰 번호(01, 02 …)가 붙는다. 칸은 열 단위로 위에서 아래로 채우고(신문 단처럼), 한 칸이 두 열에 걸쳐 쪼개지지 않는다. 첫 <code>###</code> 앞의 제목과 리드문은 칸 위에 그대로 남는다.</p>
+<pre><code class="language-md">---
+layout: blocks
+cols: 3
+---
+
+## 새 주제 찾는 순서
+
+블록형은 `###` 소제목마다 한 칸이 됩니다.
+
+### 데이터 고르기
+
+- 공공데이터포털에서 **개별 단위** 자료를 찾습니다
+  - 집계표가 아닌 원자료
+
+### 질문 세우기
+
+- 종속변수를 하나 정합니다
+
+### 계획서 쓰기
+
+&gt; 질문 · 변수 · 분석 방법이 한 줄로 이어지는지 확인합니다.</code></pre>
+<div class="two"><figure><img src="img/editorial-blocks.jpg" alt="blocks 기본 2열" loading="lazy"><figcaption>blocks 기본 2열</figcaption></figure>
+<figure><img src="img/editorial-blocks-cols.jpg" alt="blocks cols: 3" loading="lazy"><figcaption>blocks cols: 3</figcaption></figure>
+</div><h2 id="components">컴포넌트</h2>
+<p>모두 프롭에 배열 · 객체를 넘겨 그린다(슬롯 없음). 배열 프롭은 <code>:items="[ … ]"</code>처럼 앞에 <code>:</code>를 붙이고, 안의 문자열은 작은따옴표로 감싼다. 여러 줄로 나눠 써도 된다. 문자열 안에 작은따옴표를 쓰지 않는다.</p>
+<h3 id="c-review">Review — 총평 대조판</h3>
+<p>왼쪽은 잘된 점(흰 칸 · 금색 윗선 · 금색 ✓), 오른쪽은 한계(연세블루 칸 · 금색 번호), 아래는 금색 띠 한 줄.</p>
+<table><thead><tr><th>프롭</th><th>뜻</th><th>기본</th></tr></thead><tbody><tr><td><code>good</code></td><td>잘된 점 문장 배열</td><td>필수</td></tr><tr><td><code>limits</code></td><td><code>{ text, sub }</code> 배열. <code>sub</code>는 아래에 금색 선과 함께 붙는 보충 한 줄(비유 등)</td><td>필수</td></tr><tr><td><code>goodLabel</code> · <code>limitLabel</code></td><td>두 칸의 머리말</td><td><code>잘된 부분</code> · <code>한계점</code></td></tr><tr><td><code>foot</code></td><td>아래 금색 띠 글</td><td>-</td></tr></tbody></table>
+<pre><code class="language-md">&lt;Review :good="[
+  '세 자료를 날짜와 자치구로 맞춰 한 표로 묶었습니다.',
+  '그래프마다 자치구별 표와 기술통계를 함께 실었습니다.'
+]" :limits="[
+  {text:'날씨와 생활인구를 따로 보여 주었습니다.'},
+  {text:'어느 쪽이 대여를 늘렸는지 가를 수 없습니다.', sub:'여름에 아이스크림과 선풍기가 함께 잘 팔리는 것과 같습니다.'}
+]" foot="이 한계는 그래프를 더 그려서는 풀리지 않습니다." /&gt;</code></pre>
+<figure><img src="img/editorial-review.jpg" alt="Review" loading="lazy"><figcaption>Review</figcaption></figure>
+<h3 id="c-bars">Bars — 가로 막대</h3>
+<p>막대와 칸은 모두 직각이다. 강조할 막대 하나만 진한 연세블루, 나머지는 옅은 파랑. 두 개를 나란히 둘 때는 <a href="#classes"><code>ed-row</code></a>로 감싼다.</p>
+<table><thead><tr><th>프롭</th><th>뜻</th><th>기본</th></tr></thead><tbody><tr><td><code>items</code></td><td><code>{ label, value }</code> 배열</td><td>필수</td></tr><tr><td><code>max</code></td><td>막대가 가득 차는 값</td><td><code>100</code></td></tr><tr><td><code>unit</code></td><td>값 뒤 단위</td><td><code>%</code></td></tr><tr><td><code>digits</code></td><td>값의 소수 자릿수</td><td><code>1</code></td></tr><tr><td><code>highlight</code></td><td>강조할 막대 순번(0부터)</td><td>마지막</td></tr><tr><td><code>title</code> · <code>note</code></td><td>위 차트 제목 · 아래 출처나 설명 한 줄</td><td>-</td></tr></tbody></table>
+<pre><code class="language-md">&lt;div class="ed-row"&gt;
+&lt;Bars title="맑은 날 대여 비율" :items="[{label:'도심권',value:71.2},{label:'동남권',value:82.9}]" note="최종 보고서 p.12" /&gt;
+&lt;Bars title="출퇴근 시간대 비율" :items="[{label:'도심권',value:38.0},{label:'동남권',value:55.1}]" note="최종 보고서 p.14" /&gt;
+&lt;/div&gt;
+
+&lt;div class="ed-caption"&gt;각 요인이 대여량에 주는 몫을 그래프로는 가를 수 없습니다.&lt;/div&gt;</code></pre>
+<figure><img src="img/editorial-bars.jpg" alt="Bars 두 개를 ed-row로 나란히, 아래 ed-caption" loading="lazy"><figcaption>Bars 두 개를 ed-row로 나란히, 아래 ed-caption</figcaption></figure>
+<h3 id="c-trend">Trend — 꺾은선 추세</h3>
+<p>점을 왼쪽에서 오른쪽으로 잇고, 최댓값 점은 금색으로 키워 옆에 값을 쓴다. <code>marks</code> 자리에는 금색 세로 점선과 이름을 긋는데, 이름끼리 겹치지 않게 한 칸씩 높이를 엇갈린다. y축 눈금은 최솟값 · 가운데 · 최댓값 세 개다. <code>facts</code>를 주면 오른쪽에 연세블루 숫자 칸이 세로로 놓인다.</p>
+<table><thead><tr><th>프롭</th><th>뜻</th><th>기본</th></tr></thead><tbody><tr><td><code>points</code></td><td><code>{ label, value }</code> 배열</td><td>필수</td></tr><tr><td><code>marks</code></td><td><code>{ at, text }</code> 배열. <code>at</code>은 점 순번(0부터)</td><td><code>[]</code></td></tr><tr><td><code>ticks</code></td><td>x축에 이름을 쓸 순번 배열</td><td>처음 · 끝 · <code>marks</code> 자리</td></tr><tr><td><code>min</code> · <code>max</code></td><td>y축 범위</td><td>값의 최소 · 최대</td></tr><tr><td><code>unit</code></td><td>최댓값 옆 단위</td><td>-</td></tr><tr><td><code>title</code> · <code>note</code></td><td>차트 제목 · 아래 설명 한 줄</td><td>-</td></tr><tr><td><code>facts</code> · <code>factsTitle</code></td><td>오른쪽 숫자 칸(<code>{ value, label }</code> 배열)과 그 머리말</td><td>-</td></tr></tbody></table>
+<pre><code class="language-md">&lt;Trend title="월별 대여 건수(만 건)" :points="[
+  {label:'25.01',value:82},{label:'25.02',value:88},{label:'25.03',value:121},{label:'25.04',value:168}
+]" :marks="[{at:2,text:'대여소 증설'}]" :min="50" :max="250" unit="만 건"
+  factsTitle="월평균 기온과의 상관계수" :facts="[{value:'0.62',label:'2025년'}]"
+  note="최종 보고서 p.9" /&gt;</code></pre>
+<figure><img src="img/editorial-trend.jpg" alt="Trend: 24개월 꺾은선, 금색 점선 세 개, 오른쪽 숫자 칸 세 개" loading="lazy"><figcaption>Trend: 24개월 꺾은선, 금색 점선 세 개, 오른쪽 숫자 칸 세 개</figcaption></figure>
+<h3 id="c-dumbbell">Dumbbell — 덤벨 비교</h3>
+<p>줄마다 같은 눈금 위에 <code>a</code>(진한 점, 값은 위)와 <code>b</code>(금색 빈 점, 값은 아래)를 회색 선으로 잇는다. 두 조건에서 같은 값이 얼마나 바뀌는지 보여 준다. 아래 눈금은 0 · <code>max</code>의 절반 · <code>max</code>.</p>
+<table><thead><tr><th>프롭</th><th>뜻</th><th>기본</th></tr></thead><tbody><tr><td><code>rows</code></td><td><code>{ label, a, b }</code> 배열. 값은 0~<code>max</code></td><td>필수</td></tr><tr><td><code>aLabel</code> · <code>bLabel</code></td><td>범례</td><td>필수</td></tr><tr><td><code>max</code></td><td>눈금 끝 값</td><td><code>1</code></td></tr><tr><td><code>digits</code></td><td>값의 소수 자릿수</td><td><code>2</code></td></tr><tr><td><code>title</code> · <code>note</code></td><td>제목 · 아래 설명 한 줄</td><td>-</td></tr></tbody></table>
+<pre><code class="language-md">&lt;Dumbbell title="요인과 월 대여 건수의 상관계수" aLabel="25개 자치구" bLabel="1위 구 제외 24개 구" :rows="[
+  {label:'대여소 수',a:0.78,b:0.52},{label:'생활인구',a:0.61,b:0.34}
+]" note="보고서 p.18~20 표로 계산" /&gt;</code></pre>
+<figure><img src="img/editorial-dumbbell.jpg" alt="Dumbbell" loading="lazy"><figcaption>Dumbbell</figcaption></figure>
+<h3 id="c-flow">Flow — 흐름도</h3>
+<p>단계를 왼쪽에서 오른쪽으로 놓고, 위에 직각 꺾쇠 모양 머리띠(번호 · <code>kicker</code>)를 붙인다. 머리띠는 첫 단계가 옅은 파랑, 둘째가 중간 파랑, 마지막이 연세블루이고, 마지막 단계는 아래에 금색 선이 붙는다.</p>
+<table><thead><tr><th>프롭</th><th>뜻</th><th>기본</th></tr></thead><tbody><tr><td><code>steps</code></td><td><code>{ kicker, title, text }</code> 배열. <code>text</code>는 문자열 하나(문단) 또는 문자열 배열(목록)</td><td>필수</td></tr></tbody></table>
+<pre><code class="language-md">&lt;Flow :steps="[
+  {kicker:'출발점', title:'따로 그린 날씨와 생활인구', text:'둘을 함께 맞춘 관계에는 아직 답하지 않았습니다.'},
+  {kicker:'필요한 결론', title:'다른 조건을 맞춘 관계', text:'대여소 수가 같을 때, 기온이 높은 달에 대여가 더 많은가'},
+  {kicker:'필요한 분석', title:'선형회귀', text:['여러 요인을 한 모델에 함께 넣습니다.','종속변수가 연속형 숫자입니다.']}
+]" /&gt;</code></pre>
+<figure><img src="img/editorial-flow.jpg" alt="Flow 세 단계와 아래 직접 만든 검토 범위 상자" loading="lazy"><figcaption>Flow 세 단계와 아래 직접 만든 검토 범위 상자</figcaption></figure>
+<h3 id="c-lanes">Lanes — 질문별 흐름 띠</h3>
+<p>질문마다 한 줄(띠)로, 왼쪽 연세블루 꼬리표(금색 가는 큰 글 · 작은 이름) 뒤에 단계를 꺾쇠 화살표로 잇는다. 마지막 단계 칸은 금색 윗선과 옅은 파랑 바탕으로 강조한다. 단계 열 수는 줄의 단계 수를 따르므로(<code>heads</code>가 있으면 머리줄도 그 수), 줄마다 단계 수를 같게 쓰면 열이 맞는다.</p>
+<table><thead><tr><th>프롭</th><th>뜻</th><th>기본</th></tr></thead><tbody><tr><td><code>lanes</code></td><td><code>{ tag, title, steps }</code> 배열. <code>steps</code>는 <code>{ kicker, text }</code> 배열</td><td>필수</td></tr><tr><td><code>heads</code></td><td>단계 열 이름(위 머리줄) 배열</td><td>-</td></tr></tbody></table>
+<pre><code class="language-md">&lt;Lanes :heads="['출발점','필요한 결론','필요한 분석']" :lanes="[
+  {tag:'Q1', title:'날씨', steps:[
+    {kicker:'맑은 날 비율 비교', text:'기온과 강수가 함께 움직입니다.'},
+    {kicker:'다른 조건을 맞춘 관계', text:'기온이 같을 때, 강수일이 많은 달에 대여가 적은가'},
+    {kicker:'선형회귀', text:'기온과 강수일을 함께 넣습니다.'}
+  ]}
+]" /&gt;</code></pre>
+<figure><img src="img/editorial-lanes.jpg" alt="Lanes 세 줄" loading="lazy"><figcaption>Lanes 세 줄</figcaption></figure>
+<h3 id="c-vargrid">VarGrid — 변수 카드판</h3>
+<p>왼쪽은 종속변수 하나를 연세블루 큰 칸으로, 오른쪽은 독립변수를 카드 격자로 놓는다. 이름 옆에 <code>type</code>과 <code>src</code> 꼬리표가 붙고, <code>src</code>가 <code>원본</code>이 아니면(새로 만듦 · 새로 가져옴 …) 금색 꼬리표가 된다.</p>
+<table><thead><tr><th>프롭</th><th>뜻</th><th>기본</th></tr></thead><tbody><tr><td><code>target</code></td><td>종속변수 <code>{ name, type, src, text }</code></td><td>필수</td></tr><tr><td><code>items</code></td><td>독립변수 배열(모양은 <code>target</code>과 같음)</td><td>필수</td></tr><tr><td><code>cols</code></td><td>카드 열 수</td><td><code>2</code></td></tr><tr><td><code>targetLabel</code> · <code>itemsLabel</code></td><td>두 쪽 머리말</td><td><code>종속변수</code> · <code>독립변수</code></td></tr></tbody></table>
+<pre><code class="language-md">&lt;VarGrid :target="{name:'1천 명당 월 대여 건수', type:'연속형', src:'새로 만듦', text:'월 대여 건수를 생활인구로 나눔.'}" :items="[
+  {name:'월평균 기온', type:'연속형', src:'원본', text:'기상청 서울 관측소 값임.'},
+  {name:'자전거도로 길이', type:'연속형', src:'새로 가져옴', text:'서울 열린데이터광장 자료임.'}
+]" :cols="2" /&gt;</code></pre>
+<figure><img src="img/editorial-vargrid.jpg" alt="VarGrid" loading="lazy"><figcaption>VarGrid</figcaption></figure>
+<h3 id="c-hypo">Hypo — 가설 비교표</h3>
+<p>가설마다 한 줄로, 왼쪽 연세블루 이름 칸(금색 번호 · 이름 · <code>tag</code>), 가운데 "차이가 없다" 칸(흰 바탕 · 회색 글), 오른쪽 "차이가 있다" 칸(옅은 파랑 바탕)을 놓는다. <code>note</code>는 오른쪽 칸 아래 금색 한 줄. 가설이 4개 이하일 때 알맞다.</p>
+<table><thead><tr><th>프롭</th><th>뜻</th><th>기본</th></tr></thead><tbody><tr><td><code>items</code></td><td><code>{ label, tag, h0, h1, note }</code> 배열</td><td>필수</td></tr><tr><td><code>h0Label</code> · <code>h1Label</code></td><td>두 열의 머리말</td><td><code>차이가 없다</code> · <code>차이가 있다</code></td></tr></tbody></table>
+<pre><code class="language-md">&lt;Hypo :items="[
+  {label:'월평균 기온', tag:'Q1', h0:'다른 조건이 같으면, 기온이 높은 달이라도 대여 건수는 같다.', h1:'다른 조건이 같아도, 기온에 따라 대여 건수가 다르다.'},
+  {label:'생활인구', tag:'Q2', h0:'…', h1:'…', note:'팀이 판단을 미룬 Q2를 숫자로 가립니다.'}
+]" /&gt;</code></pre>
+<figure><img src="img/editorial-hypo.jpg" alt="Hypo" loading="lazy"><figcaption>Hypo</figcaption></figure>
+<h3 id="c-hypogrid">HypoGrid — 가설 카드</h3>
+<p><a href="#c-hypo">Hypo</a>와 같은 <code>items</code>를 카드 격자로 놓는다. 카드 안에 H0(회색 테두리 꼬리표)와 H1(파란 꼬리표)을 위아래로 쌓고, <code>tag</code>는 카드 오른쪽 위, <code>note</code>는 아래 금색 한 줄.</p>
+<table><thead><tr><th>프롭</th><th>뜻</th><th>기본</th></tr></thead><tbody><tr><td><code>items</code></td><td><code>{ label, tag, h0, h1, note }</code> 배열</td><td>필수</td></tr><tr><td><code>cols</code></td><td>카드 열 수</td><td><code>2</code></td></tr></tbody></table>
+<pre><code class="language-md">&lt;HypoGrid :items="[
+  {label:'월평균 기온', tag:'Q1 · 예상 ①', h0:'…', h1:'…', note:'보고서가 가장 강하게 주장한 관계입니다.'},
+  {label:'강수일 수', tag:'Q1', h0:'…', h1:'…'}
+]" :cols="2" /&gt;</code></pre>
+<figure><img src="img/editorial-hypogrid.jpg" alt="HypoGrid 2열 카드 네 장" loading="lazy"><figcaption>HypoGrid 2열 카드 네 장</figcaption></figure>
+<h3 id="c-stats">Stats — 큰 숫자 칸</h3>
+<p>큰 가는 숫자 칸을 나란히 놓는다. 첫 칸만 연세블루 바탕에 금색 윗선이고, 나머지는 흰 바탕에 옅은 파랑 윗선.</p>
+<table><thead><tr><th>프롭</th><th>뜻</th><th>기본</th></tr></thead><tbody><tr><td><code>items</code></td><td><code>{ label, value, unit, text }</code> 배열. <code>value</code>는 글(<code>'8,010'</code> · <code>'+2'</code>)</td><td>필수</td></tr><tr><td><code>cols</code></td><td>열 수</td><td><code>items</code> 개수</td></tr></tbody></table>
+<pre><code class="language-md">&lt;Stats :items="[
+  {label:'분석 단위', value:'600', unit:'행', text:'25개 구 × 24개월입니다.'},
+  {label:'데이터 보완', value:'+2', unit:'변수', text:'면적과 자전거도로 길이를 새로 가져옵니다.'}
+]" /&gt;</code></pre>
+<figure><img src="img/editorial-stats.jpg" alt="Stats 네 칸" loading="lazy"><figcaption>Stats 네 칸</figcaption></figure>
+<h3 id="c-checklist">Checklist — 점검 목록</h3>
+<p>항목을 가로줄로 쌓는다. 왼쪽 금색 세로선 옆에 큰 가는 값과 단위, 가운데 굵은 이름, 오른쪽 설명.</p>
+<table><thead><tr><th>프롭</th><th>뜻</th><th>기본</th></tr></thead><tbody><tr><td><code>rows</code></td><td><code>{ value, unit, label, text }</code> 배열</td><td>필수</td></tr></tbody></table>
+<pre><code class="language-md">&lt;Checklist :rows="[
+  {label:'관측값 수', value:'600', unit:'행', text:'독립변수는 4~5개까지 넣을 수 있습니다.'},
+  {label:'겹치는 요인', value:'0.71', unit:'상관계수', text:'VIF로 겹침 정도를 확인하세요.'}
+]" /&gt;</code></pre>
+<figure><img src="img/editorial-checklist.jpg" alt="Checklist 네 줄" loading="lazy"><figcaption>Checklist 네 줄</figcaption></figure>
+<h3 id="c-cancannot">CanCannot — 해석 범위 판</h3>
+<p>왼쪽은 말할 수 있는 문장(파란 윗선 · ○), 오른쪽은 말할 수 없는 문장(빨간 윗선 · ✕), 아래는 옅은 파랑 바탕의 근거 목록. 머리말을 바꾸면 "필요한 것 / 지금 상태" 같은 대조판으로도 쓴다.</p>
+<table><thead><tr><th>프롭</th><th>뜻</th><th>기본</th></tr></thead><tbody><tr><td><code>can</code> · <code>cannot</code></td><td>문장 배열</td><td>필수</td></tr><tr><td><code>notes</code></td><td>아래 근거 목록 배열</td><td>-</td></tr><tr><td><code>canLabel</code> · <code>cannotLabel</code></td><td>두 칸의 머리말</td><td><code>말할 수 있는 것</code> · <code>말할 수 없는 것</code></td></tr></tbody></table>
+<pre><code class="language-md">&lt;CanCannot :can="['기온이 높은 달에 대여 건수가 많은 경향이 있다.']" :cannot="['날이 따뜻해지면 사람들이 자전거를 더 많이 탄다.']" :notes="[
+  '자치구 · 월 합계라서 한 사람의 선택으로 옮겨 말할 수 없습니다.'
+]" /&gt;
+
+&lt;CanCannot canLabel="다음 주제에 필요한 것" cannotLabel="지금 주제의 상태" :can="['행 수가 수천 개 이상']" :cannot="['600행, 같은 구가 24번 반복']" /&gt;</code></pre>
+<figure><img src="img/editorial-cancannot.jpg" alt="CanCannot" loading="lazy"><figcaption>CanCannot</figcaption></figure>
+<h2 id="classes">클래스</h2>
+<table><thead><tr><th>클래스</th><th>뜻</th></tr></thead><tbody><tr><td><code>.ed-row</code></td><td>두 칸을 같은 폭으로 나란히 놓는다(<a href="#c-bars">Bars</a> 두 개 등)</td></tr><tr><td><code>.ed-caption</code></td><td>그림 아래 결론 한 줄. 왼쪽 금색 세로선에 굵은 연세블루 글</td></tr></tbody></table>
+<pre><code class="language-md">&lt;div class="ed-row"&gt;
+&lt;Bars … /&gt;
+&lt;Bars … /&gt;
+&lt;/div&gt;
+
+&lt;div class="ed-caption"&gt;시간이 지나 함께 늘었는지는 이 그래프로 알 수 없습니다.&lt;/div&gt;</code></pre>
+<h2 id="example">전체 예제</h2>
+<p><a href="examples/editorial-example.md">editorial-example.md</a> — 가상의 팀이 낸 시각화 프로젝트 보고서를 읽고 다음 프로젝트 방향을 정하는 20쪽 덱. 레이아웃 네 가지와 컴포넌트 열두 가지가 모두 들어 있다. 저장소 안에서 우클릭 → Open with Slidev.</p>
+</main>
+<footer>Slidev Themes · MIT · <a href="https://github.com/leekh4232/slidev-themes">GitHub</a> · VS Code에서 바로 쓰려면 <a href="https://open-with-slidev.hossam.kr/">Open with Slidev</a></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" data-manual></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script>Prism.highlightAll();</script>
+</body>
+</html>

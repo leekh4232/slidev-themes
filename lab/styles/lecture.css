@@ -1,0 +1,591 @@
+/* 코딩 강의용 테마. 직각 상자 · 가는 선 · 옅은 색 면으로 구분한다. 둥근 모서리는 쓰지 않는다. 처음 열면 어두운 테마(global-top.vue), d 키로 밝게.
+   규칙은 html.lecture 아래에 묶는다. 색 · 모양 토큰은 shared.css 에 있다. html.no-anim 규칙은 애니메이션 끔(사이드바 버튼 · a 키)이다. */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
+/* ── 바탕 ─────────────────────────────────────────────── */
+/* 줄바꿈은 단어(띄어쓰기) 단위로. 칸보다 긴 토큰만 어디서든 끊는다 */
+html.lecture {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  --block-gap: 1rem;
+  --rise-delay: 0.45s;
+  --slidev-code-font-size: 1.02rem;
+  --slidev-code-line-height: 1.6;
+}
+html.lecture, :where(html.lecture) body, :where(html.lecture) #app {
+  background: var(--bg) !important;
+}
+/* 사이드바는 캔버스 바깥 창 왼쪽에 붙으므로 슬라이드 영역의 왼쪽을 사이드바 폭만큼 비운다(접으면 0) */
+html.lecture #page-root {
+  box-sizing: border-box;
+  padding-left: var(--sidebar-w);
+  transition: padding-left 0.2s ease;
+}
+/* 캔버스 바깥 여백은 연한 바탕색 → 16:9 테두리가 보인다 */
+html.lecture #slide-container {
+  --slidev-slide-container-background: var(--surface);
+}
+/* 내용이 캔버스를 넘치면 스크롤하지 않고 잘라낸다 */
+html.lecture .slidev-page {
+  overflow: hidden;
+  overflow: clip;
+}
+:where(html.lecture) .slidev-progress-bar {
+  background: var(--grad) !important;
+  height: 3px !important;
+}
+
+/* ── 글 ───────────────────────────────────────────────── */
+:where(html.lecture) .slidev-layout {
+  font-family: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 2.3rem 2.8rem 2.2rem;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  --slidev-code-font-size: 1.02rem;
+  --slidev-code-line-height: 1.6;
+  zoom: var(--zoom, 1); /* 본문 확대/축소(사이드바 ＋/－, global-top.vue 가 설정) */
+}
+:where(html.lecture) .slidev-layout :is(h1, h2, h3, h4) {
+  color: var(--heading);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+:where(html.lecture) .slidev-layout h1 { font-size: 2.6rem !important; font-weight: 800; margin: 0 0 1rem; }
+/* 슬라이드 제목(##): 왼쪽에 그라디언트 막대. 밑줄은 긋지 않는다 */
+:where(html.lecture) .slidev-layout h2 {
+  font-size: 1.95rem !important;
+  font-weight: 800;
+  margin: 0 0 1.35rem;
+}
+:where(html.lecture) .slidev-layout > h2,
+:where(html.lecture) .slidev-layout > h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+:where(html.lecture) .slidev-layout > h2::before,
+:where(html.lecture) .slidev-layout > h3::before {
+  content: "";
+  flex: none;
+  width: 0.34rem;
+  height: 1.05em;
+  border-radius: 0;
+  background: var(--grad);
+}
+:where(html.lecture) .slidev-layout h3 { font-size: 1.15rem !important; font-weight: 700; margin: 0 0 0.4rem; }
+/* 슬라이드 제목으로 쓴 ### (슬라이드 바로 아래): ## 보다 작고 막대는 회색 */
+:where(html.lecture) .slidev-layout > h3 {
+  font-size: 1.6rem !important;
+  font-weight: 750;
+  margin: 0 0 1.2rem;
+}
+:where(html.lecture) .slidev-layout > h3::before { background: var(--line-2); }
+:where(html.lecture) .slidev-layout h4 { font-size: 1.1rem !important; font-weight: 700; margin: 0 0 0.4rem; }
+:where(html.lecture) .slidev-layout p, :where(html.lecture) .slidev-layout li { font-size: 1rem; }
+:where(html.lecture) .slidev-layout p { margin: 0.35rem 0; }
+:where(html.lecture) .slidev-layout a { color: var(--py); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--py) 40%, transparent); }
+:where(html.lecture) .slidev-layout strong, :where(html.lecture) .slidev-layout b { color: inherit; font-weight: 700; }
+:where(html.lecture) .muted { color: var(--muted); }
+:where(html.lecture) .small { font-size: 0.88rem; }
+
+/* 블록 사이 간격: 슬라이드 직계 요소와 Grid 칸 안의 요소(제목 제외)는 아래에 --block-gap 만큼 띄운다.
+   class: tight 는 촘촘하게, flush 는 0. 슬라이드 · Grid 칸 · 카드 어디에 주어도 그 안쪽에 적용된다 */
+:where(html.lecture) .tight { --block-gap: 0.4rem; }
+:where(html.lecture) .flush { --block-gap: 0; }
+:where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) > :not(h1):not(h2):not(h3):not(.deco),
+:where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) .grid-cells > :not(.deco, .tile, .callout, .problem) > :not(h3) {
+  margin-bottom: var(--block-gap);
+}
+:where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) > .kicker,
+:where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) > p:has(> .kicker:only-child),
+:where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) .grid-cells > :not(.deco) > .kicker,
+:where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) .grid-cells > :not(.deco) > p:has(> .kicker:only-child) {
+  margin-bottom: 0.45rem;
+}
+/* 라벨만 있는 문단은 위 여백을 없애 옆 칸의 상자와 윗선을 맞춘다 */
+:where(html.lecture) .slidev-layout p:has(> .kicker:only-child) { margin-top: 0; }
+:where(html.lecture) .slidev-layout .grid-cells > * > :first-child { margin-top: 0; }
+:where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) > br,
+:where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) .grid-cells > :not(.deco) > br {
+  margin-bottom: 0;
+}
+
+/* 목록: 1수준은 색 점, 2수준은 회색 줄표 */
+:where(html.lecture) .slidev-layout ul { list-style: disc; padding-left: 1.2em; }
+:where(html.lecture) .slidev-layout ol { padding-left: 1.3em; }
+:where(html.lecture) .slidev-layout li::marker { color: var(--py); }
+:where(html.lecture) .slidev-layout ul ul { list-style-type: "– "; }
+:where(html.lecture) .slidev-layout ul ul li::marker { color: var(--muted); }
+:where(html.lecture) .slidev-layout :is(ul, ol:not(.steps, .flow, .timeline)) > li + li { margin-top: 0.3rem; }
+/* 목록 머리말(.labels): 항목 맨 앞의 굵은 글을 강조색으로 칠하고 내용과 반 글자 띄운다 */
+:where(html.lecture) .labels li > strong:first-child { color: var(--yellow); margin-right: 0.5em; }
+
+/* 인용 */
+:where(html.lecture) .slidev-layout blockquote {
+  margin: 0.6rem 0;
+  padding: 0.5rem 0 0.5rem 1.1rem;
+  background: none;
+  border: 0;
+  border-left: 3px solid var(--line-2);
+  border-radius: 0;
+  color: var(--fg-2);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+:where(html.lecture) .slidev-layout blockquote p { margin: 0; font-size: 1.05rem; }
+
+/* 라벨(kicker): 내용 위에 붙는 작은 머리말 */
+:where(html.lecture) .kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--py);
+}
+:where(html.lecture) .kicker::before {
+  content: "";
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 0;
+  background: currentColor;
+}
+/* 쪽의 큰 머리말로 쓸 때: 글자를 1.5배쯤으로 */
+:where(html.lecture) .kicker.big { font-size: 1.25rem; }
+:where(html.lecture) .kicker.ai { color: var(--ai); }
+:where(html.lecture) .kicker.ok, :where(html.lecture) .kicker.lab { color: var(--ok); }
+:where(html.lecture) .kicker.danger { color: var(--danger); }
+:where(html.lecture) .kicker.muted { color: var(--muted); }
+
+/* 형광펜(.hl): 글자 아래쪽에 옅은 색 띠. v-click 을 주면 왼쪽에서 오른쪽으로 칠해진다 */
+:where(html.lecture) .hl {
+  --hl-c: var(--py);
+  --hl-h: 42%;
+  padding: 0 2px;
+  background: linear-gradient(color-mix(in srgb, var(--hl-c) 32%, transparent), color-mix(in srgb, var(--hl-c) 32%, transparent)) no-repeat 0 90% / 100% var(--hl-h);
+}
+:where(html.lecture) .hl.ai { --hl-c: var(--ai); }
+:where(html.lecture) .hl.ok { --hl-c: var(--ok); }
+:where(html.lecture) .hl.yellow { --hl-c: var(--yellow); }
+:where(html.lecture) .hl.warn { --hl-c: var(--warn); }
+:where(html.lecture) .hl.danger { --hl-c: var(--danger); }
+:where(html.lecture) .hl.slidev-vclick-target { transition: background-size 0.45s var(--ease); }
+:where(html.lecture:not(.no-anim)) .hl.slidev-vclick-hidden { opacity: 1 !important; background-size: 0% var(--hl-h); }
+
+/* ── 코드 ─────────────────────────────────────────────── */
+:where(html.lecture) .slidev-layout :not(pre) > code {
+  font-family: var(--mono);
+  background: var(--surface-2);
+  border: 0;
+  border-radius: 0;
+  color: var(--py);
+  padding: 0.1em 0.38em;
+  font-size: 0.88em;
+  font-weight: 500;
+}
+/* 코드 상자: 밝은 테마에서도 어두운 상자. 긴 줄은 가로 스크롤 대신 줄바꿈 */
+:where(html.lecture) .slidev-layout pre.shiki, :where(html.lecture) .slidev-layout .slidev-code {
+  background: var(--code-bg) !important;
+  border: 1px solid var(--code-line);
+  border-radius: var(--r) !important;
+  font-family: var(--mono);
+  font-variant-ligatures: none;
+  overflow-x: hidden;
+  white-space: pre-wrap;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding: 16px 14px !important;
+}
+:where(html.lecture) .slidev-layout .slidev-code code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+:where(html.lecture) .slidev-layout .slidev-code .line {
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 0.2em;
+}
+/* 줄 번호가 있으면 바뀐 줄을 번호 폭만큼 들여 코드 시작에 맞춘다 */
+:where(html.lecture) .slidev-layout .slidev-code-line-numbers .slidev-code code .line {
+  padding-left: 3.1em;
+  text-indent: -2.9em;
+}
+:where(html.lecture) .slidev-layout .slidev-code-line-numbers .slidev-code code .line::before {
+  color: #5d6780 !important;
+  width: 1.8em;
+  margin-right: 1.1em;
+}
+/* 줄 번호를 숨기는 곳(카드 · 프롬프트 · 출력 · 문제 상자) */
+:where(html.lecture) .slidev-layout :is(.card, .prompt, .output, .problem) .slidev-code code .line {
+  padding-left: 0.2em;
+  text-indent: 0;
+}
+:where(html.lecture) .slidev-layout :is(.card, .prompt, .output, .problem) .slidev-code code .line::before {
+  display: none !important;
+}
+:where(html.lecture) .slidev-layout .grid-cells .slidev-code { --slidev-code-font-size: 0.9rem; }
+:where(html.lecture) .slidev-layout .card { --slidev-code-font-size: 0.9rem; }
+/* 주석은 설명이므로 테마 기본 회색 대신 연한 초록으로 */
+:where(html.lecture) .slidev-layout .shiki span[style*="#BDC4CC"], :where(html.lecture) .slidev-layout .shiki span[style*="#bdc4cc"] {
+  color: #a9dfc0 !important;
+}
+:where(html.lecture) .slidev-code-dishonored { opacity: 0.5 !important; }
+/* class: dense — 그 슬라이드의 코드 · 프롬프트 상자를 촘촘하게(글자 크기는 그대로) */
+:where(html.lecture) .slidev-layout.dense pre.shiki, :where(html.lecture) .slidev-layout.dense .slidev-code {
+  --slidev-code-line-height: 1.32;
+  line-height: 1.32;
+  padding: 11px 12px !important;
+}
+html.lecture .slidev-layout.dense .prompt-body .slidev-code :is(code, .line) { line-height: 1.36; }
+
+/* ── 표 ───────────────────────────────────────────────── */
+:where(html.lecture) .slidev-layout table {
+  width: 100%;
+  font-size: 0.92rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+  background: var(--card);
+  margin: 0 0 1rem;
+}
+:where(html.lecture) .slidev-layout th {
+  white-space: nowrap;
+  text-align: left;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--muted);
+  background: var(--surface);
+}
+:where(html.lecture) .slidev-layout td, :where(html.lecture) .slidev-layout th {
+  padding: 0.5em 0.9em;
+  border-bottom: 1px solid var(--line);
+}
+:where(html.lecture) .slidev-layout tr:last-child td { border-bottom: 0; }
+:where(html.lecture) .slidev-layout tr { border: 0; background: none; }
+/* 첫 열(항목 이름)은 굵게, 한 줄로. 첫 열이 길면 global-top.vue 가 table.first-long 을 붙여 줄바꿈을 허용한다 */
+:where(html.lecture) .slidev-layout td:first-child, :where(html.lecture) .slidev-layout th:first-child {
+  white-space: nowrap;
+  font-weight: 650;
+}
+:where(html.lecture) .slidev-layout td:first-child code { white-space: nowrap; }
+:where(html.lecture) .slidev-layout table.first-long td:first-child,
+:where(html.lecture) .slidev-layout.tbl-wrap td:first-child { white-space: normal; }
+:where(html.lecture) .slidev-layout.tbl-nowrap td:first-child, :where(html.lecture) .slidev-layout.tbl-nowrap th:first-child { white-space: nowrap; }
+/* class: io — 입출력 예 표. 값은 고정폭 글꼴로 */
+:where(html.lecture) .slidev-layout.io td, :where(html.lecture) .io td { font-family: var(--mono); font-size: 0.86rem; font-weight: 500; }
+/* 열이 많거나 값이 긴 입출력 예 표는 .io.small 로 글자와 칸 여백을 줄인다 */
+:where(html.lecture) .slidev-layout .io.small td { font-size: 0.76rem; padding: 0.4em 0.8em; }
+:where(html.lecture) .slidev-layout .io.small th { font-size: 0.74rem; padding: 0.4em 0.8em; }
+
+/* ── 카드(.card) ──────────────────────────────────────── */
+/* 직각 상자. 제목(h3)이 색을 갖는다. .py(기본) .ai .ok .danger .muted 로 색을 바꾼다 */
+:where(html.lecture) .card {
+  --c: var(--py);
+  position: relative;
+  background: var(--card);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh);
+  padding: 20px 22px;
+  line-height: 1.5;
+}
+:where(html.lecture) .card.ai { --c: var(--ai); }
+:where(html.lecture) .card.ok { --c: var(--ok); }
+:where(html.lecture) .card.danger { --c: var(--danger); }
+:where(html.lecture) .card.muted { --c: var(--muted); }
+/* UnoCSS 가 class="py" 를 padding-y 유틸리티로도 만든다(setup/unocss.ts 에서 막지만 한 번 더 고정) */
+:where(html.lecture) .card:is(.py, .ai, .ok) { padding: 20px 22px; }
+:where(html.lecture) .card > :first-child { margin-top: 0; }
+:where(html.lecture) .card > :last-child { margin-bottom: 0; }
+:where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) .grid-cells > .card > :last-child { margin-bottom: 0; }
+:where(html.lecture) .slidev-layout .card h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.6rem;
+  font-size: 1.05rem !important;
+  color: var(--c);
+}
+:where(html.lecture) .slidev-layout .card h3::before {
+  content: "";
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 0;
+  background: var(--c);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 18%, transparent);
+}
+:where(html.lecture) .slidev-layout .card p { margin: 0; font-size: 0.95rem; }
+:where(html.lecture) .slidev-layout .card li { font-size: 0.95rem; line-height: 1.4; }
+:where(html.lecture) .slidev-layout .card :is(ul, ol) { margin: 0; padding-left: 1.1em; }
+:where(html.lecture) .slidev-layout .card li::marker { color: var(--c); }
+
+/* ── 레이아웃: 카드형(cards) ──────────────────────────── */
+/* 제목 아래의 <div> 칸들이 카드 격자가 된다. 열 수는 프런트매터 cols(기본 3). <div> 가 아닌 요소와 상자 컴포넌트는 전체 폭 한 줄 */
+:where(html.lecture) .slidev-layout.cards {
+  display: grid;
+  grid-template-columns: repeat(var(--cards-cols, 3), minmax(0, 1fr));
+  grid-template-rows: max-content;
+  gap: var(--grid-gap);
+}
+:where(html.lecture) .slidev-layout.cards:has(> :not(h1, h2, h3, div)),
+:where(html.lecture) .slidev-layout.cards:has(> .callout, > .output, > .prompt, > .grid-box, > .problem, > .fill-img, > .kicker) {
+  align-content: start;
+}
+:where(html.lecture) .slidev-layout.cards > :not(div),
+:where(html.lecture) .slidev-layout.cards > :is(.callout, .output, .prompt, .grid-box, .problem, .fill-img, .kicker) {
+  grid-column: 1 / -1;
+}
+:where(html.lecture) .slidev-layout.cards > :is(h1, h2, h3) { margin-bottom: 0.2rem; }
+:where(html.lecture) .slidev-layout.cards > :is(p, ul, ol, blockquote, table) { margin: 0; }
+:where(html.lecture) .slidev-layout.cards > div:not(.callout, .output, .prompt, .grid-box, .problem, .fill-img, .kicker, .tile) {
+  --c: var(--py);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1.1rem 1.3rem;
+  background: var(--card);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh);
+}
+:where(html.lecture) .slidev-layout.cards > div.ai { --c: var(--ai); }
+:where(html.lecture) .slidev-layout.cards > div.ok { --c: var(--ok); }
+:where(html.lecture) .slidev-layout.cards > div.danger { --c: var(--danger); }
+:where(html.lecture) .slidev-layout.cards > div > :first-child { margin-top: 0; }
+:where(html.lecture) .slidev-layout.cards > div > :last-child { margin-bottom: 0; }
+:where(html.lecture) .slidev-layout.cards > div h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.6rem;
+  font-size: 1.12rem !important;
+  font-weight: 750;
+  color: var(--c);
+}
+:where(html.lecture) .slidev-layout.cards > div h4::before {
+  content: "";
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 0;
+  background: var(--c);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 18%, transparent);
+}
+:where(html.lecture) .slidev-layout.cards.compact > div:not(.callout, .output, .prompt, .grid-box, .problem, .fill-img, .kicker, .tile) { padding: 0.75rem 1.1rem; }
+:where(html.lecture) .slidev-layout.cards.compact > div h4 { margin-bottom: 0.35rem; }
+:where(html.lecture) .slidev-layout.cards > div p,
+:where(html.lecture) .slidev-layout.cards > div li { font-size: 0.93rem; line-height: 1.4; }
+:where(html.lecture) .slidev-layout.cards > div :is(ul, ol) { margin: 0; padding-left: 1.1em; }
+:where(html.lecture) .slidev-layout.cards > div li::marker { color: var(--c); }
+
+/* ── 레이아웃: 표지(cover) ────────────────────────────── */
+:where(html.lecture) .slidev-layout.cover {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 3rem 3.6rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+:where(html.lecture) .deco { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+:where(html.lecture) .deco .glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.55;
+}
+:where(html.lecture) .deco .g1 { width: 34rem; height: 34rem; right: -10rem; top: -14rem; background: var(--py); opacity: 0.22; }
+:where(html.lecture) .deco .g2 { width: 26rem; height: 26rem; right: 6rem; bottom: -16rem; background: var(--vi); opacity: 0.2; }
+:where(html.lecture) .deco .g3 { width: 18rem; height: 18rem; left: -8rem; bottom: -8rem; background: var(--ai); opacity: 0.1; }
+/* 모눈 무늬: 오른쪽 위에서 옅어진다 */
+:where(html.lecture) .deco .mesh {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 2.4rem 2.4rem;
+  mask-image: radial-gradient(ellipse 70% 80% at 85% 20%, #000 10%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 85% 20%, #000 10%, transparent 70%);
+}
+:where(html.lecture) .cover-eyebrow {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.85rem;
+  margin-bottom: 1.4rem;
+  font-size: 0.82rem;
+  font-weight: 650;
+  color: var(--py);
+  background: var(--py-soft);
+  border: 1px solid color-mix(in srgb, var(--py) 28%, transparent);
+  border-radius: 0;
+}
+:where(html.lecture) .cover-eyebrow.is-empty { display: none; }
+:where(html.lecture) .cover-eyebrow::before { content: ""; width: 0.42rem; height: 0.42rem; border-radius: 0; background: var(--py); }
+:where(html.lecture) .slidev-layout.cover h1 {
+  font-size: 3.5rem !important;
+  font-weight: 850;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin: 0 0 1rem;
+  background: linear-gradient(120deg, var(--heading) 30%, var(--py) 75%, var(--vi));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+:where(html.lecture) .slidev-layout.cover h1 + p {
+  font-size: 1.25rem;
+  color: var(--fg-2);
+  margin: 0;
+  max-width: 34rem;
+}
+:where(html.lecture) .slidev-layout.cover .sub {
+  margin-top: 2.2rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+:where(html.lecture) .cover-author { margin-top: 0.6rem; font-size: 0.88rem; color: var(--muted); }
+:where(html.lecture) .cover-foot {
+  position: absolute;
+  left: 3.6rem;
+  right: 3.6rem;
+  bottom: 2.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+:where(html.lecture) .cover-foot .bar { width: 3rem; height: 3px; border-radius: 0; background: var(--grad); }
+/* 내보내기(PDF·PNG)에서는 일부 Chromium 이 그라디언트 글자를 상자로 칠한다 → 단색 글자로 되돌린다 */
+:where(html.lecture) .print-slide-container .slidev-layout.cover h1,
+:where(html.lecture) .print-slide-container .slidev-layout.section h1 {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: var(--heading);
+  color: var(--heading);
+}
+
+/* ── 레이아웃: 간지(section) ──────────────────────────── */
+:where(html.lecture) .slidev-layout.section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 3rem 3.6rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+:where(html.lecture) .section-eyebrow {
+  font-size: 0.82rem;
+  font-weight: 650;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+:where(html.lecture) .section-eyebrow.is-empty { display: none; }
+:where(html.lecture) .section-body { border-left: 4px solid transparent; border-image: var(--grad) 1; padding-left: 1.4rem; }
+:where(html.lecture) .slidev-layout.section h1 {
+  font-size: 2.9rem !important;
+  font-weight: 850;
+  letter-spacing: -0.035em;
+  margin: 0 0 0.6rem;
+}
+:where(html.lecture) .slidev-layout.section p { font-size: 1.15rem; color: var(--fg-2); margin: 0.2rem 0; max-width: 40rem; }
+
+/* ── 그림 채우기(.fill-img) ───────────────────────────── */
+/* 슬라이드 맨 아래 블록으로 두면 남은 세로 공간에 그림을 비율 그대로 최대한 크게 보여 준다 */
+:where(html.lecture) .slidev-layout:has(> .fill-img) { display: flex; flex-direction: column; }
+:where(html.lecture) .slidev-layout > .fill-img { flex: 1 1 0; position: relative; min-height: 200px; }
+:where(html.lecture) .fill-img > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  margin: 0;
+  object-fit: contain;
+  object-position: center top;
+  border-radius: var(--r);
+}
+
+/* 핵심 한 줄(Core): 슬라이드의 마지막 블록이면 맨 아래에 붙는다 */
+:where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards):has(> .core:last-child) { display: flex; flex-direction: column; }
+:where(html.lecture) .slidev-layout:not(.cover):not(.section):not(.cards) > .core:last-child { margin-top: auto; margin-bottom: 0; }
+
+/* Grid 격자 */
+:where(html.lecture) .grid-cells { display: grid; }
+:where(html.lecture) .grid-title { font-size: 0.85rem; font-weight: 700; color: var(--muted); margin-bottom: 0.6rem; }
+
+/* 아이콘: 흐름도(Flow) 항목 맨 앞에 두면 번호 옆에 놓인다 */
+:where(html.lecture) .slidev-layout :is(h2, h3, h4) > .slidev-icon { vertical-align: -0.12em; margin-right: 0.3em; }
+
+/* ── 움직임 ───────────────────────────────────────────── */
+/* 제목을 뺀 슬라이드의 직계 요소가 아래에서 위로 시간차를 두고 떠오른다. 슬라이드 전환이 끝난 뒤(--rise-delay) 시작한다 */
+:where(html.lecture) .slidev-layout:not(.cover):not(.section) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box) {
+  animation: lecture-rise 0.42s var(--ease) backwards;
+  animation-delay: calc(var(--rise-delay) + 520ms);
+}
+:where(html.lecture) .slidev-layout:not(.cover):not(.section) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(1) { animation-delay: calc(var(--rise-delay) + 60ms); }
+:where(html.lecture) .slidev-layout:not(.cover):not(.section) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(2) { animation-delay: calc(var(--rise-delay) + 120ms); }
+:where(html.lecture) .slidev-layout:not(.cover):not(.section) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(3) { animation-delay: calc(var(--rise-delay) + 200ms); }
+:where(html.lecture) .slidev-layout:not(.cover):not(.section) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(4) { animation-delay: calc(var(--rise-delay) + 280ms); }
+:where(html.lecture) .slidev-layout:not(.cover):not(.section) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(5) { animation-delay: calc(var(--rise-delay) + 360ms); }
+:where(html.lecture) .slidev-layout:not(.cover):not(.section) > :not(h1):not(h2):not(h3):not(.stagger):not(.stagger-box):nth-child(6) { animation-delay: calc(var(--rise-delay) + 440ms); }
+/* Grid 칸(.stagger)은 칸마다 시간차를 두고 올라온다 */
+:where(html.lecture) .stagger > * { animation: lecture-rise 0.42s var(--ease) backwards; }
+:where(html.lecture) .slidev-layout .stagger > :nth-child(1) { animation-delay: calc(var(--rise-delay) + 160ms); }
+:where(html.lecture) .slidev-layout .stagger > :nth-child(2) { animation-delay: calc(var(--rise-delay) + 230ms); }
+:where(html.lecture) .slidev-layout .stagger > :nth-child(3) { animation-delay: calc(var(--rise-delay) + 300ms); }
+:where(html.lecture) .slidev-layout .stagger > :nth-child(4) { animation-delay: calc(var(--rise-delay) + 370ms); }
+:where(html.lecture) .slidev-layout .stagger > :nth-child(n+5) { animation-delay: calc(var(--rise-delay) + 430ms); }
+@keyframes lecture-rise { from { opacity: 0; transform: translateY(12px); } }
+html.no-anim .slidev-layout > *, html.no-anim .stagger > * { animation: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  :where(html.lecture) .slidev-layout > *, :where(html.lecture) .stagger > * { animation: none !important; }
+}
+/* 애니메이션 끔(global-top.vue 가 html.no-anim 을 토글): 클릭 단계 요소를 전부 보이고 전환을 끈다 */
+html.no-anim .slidev-vclick-target { transition: none !important; }
+html.no-anim .slidev-vclick-hidden { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+html.no-anim .slidev-code-dishonored { opacity: 1 !important; }
+html.no-anim .slidev-page, html.no-anim [class*="-enter-active"], html.no-anim [class*="-leave-active"] {
+  transition: none !important;
+  animation: none !important;
+}
+/* PDF·PNG 내보내기: 그림자는 회색 띠로 찍히고, 끝나지 않은 애니메이션은 흐리게 찍힌다 → 모두 끈다 */
+:where(html.lecture) .print-slide-container *, :where(html.lecture) .print-slide-container *::before, :where(html.lecture) .print-slide-container *::after {
+  box-shadow: none !important;
+  animation: none !important;
+  transition: none !important;
+}
+/* 내보내기(PDF) 전용 배경. 화면의 장식은 PDF 에서 그대로 찍히지 않는다.
+   - 흐림 필터(blur)로 만든 색 번짐은 찍히지 않는다 → 번짐 원을 숨기고 같은 자리에 radial-gradient 를 그린다(::after). 표지만 왼쪽 아래 셋째 색을 더한다
+   - 무늬 반복 + 마스크로 만든 모눈은 macOS 미리보기에서 네 배쯤 크고 흐리게 그려진다 → 모눈을 숨기고 실제 선(svg.mesh-print)을 그린 뒤 바탕색 그라디언트(::before)로 옅어지게 덮는다 */
+:where(html.lecture) .deco .mesh-print { display: none; }
+:where(html.lecture) .print-slide-container .deco .glow, :where(html.lecture) .print-slide-container .deco .mesh { display: none; }
+:where(html.lecture) .print-slide-container .deco .mesh-print { display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+:where(html.lecture) .print-slide-container .deco .mesh-print path { fill: none; stroke: var(--line); stroke-width: 1; }
+:where(html.lecture) .print-slide-container .deco::before { content: ""; position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse 70% 80% at 85% 20%, transparent 10%, var(--bg) 70%); }
+:where(html.lecture) .print-slide-container .deco::after { content: ""; position: absolute; inset: 0; z-index: 2; background: radial-gradient(ellipse 46% 72% at 90% 4%, color-mix(in srgb, var(--py) 30%, transparent) 0%, color-mix(in srgb, var(--py) 18%, transparent) 38%, color-mix(in srgb, var(--py) 6%, transparent) 68%, transparent 100%), radial-gradient(ellipse 40% 56% at 68% 112%, color-mix(in srgb, var(--vi) 27%, transparent) 0%, color-mix(in srgb, var(--vi) 14%, transparent) 40%, color-mix(in srgb, var(--vi) 4%, transparent) 70%, transparent 100%); }
+:where(html.lecture) .print-slide-container .slidev-layout.cover .deco::after { background: radial-gradient(ellipse 46% 72% at 90% 4%, color-mix(in srgb, var(--py) 30%, transparent) 0%, color-mix(in srgb, var(--py) 18%, transparent) 38%, color-mix(in srgb, var(--py) 6%, transparent) 68%, transparent 100%), radial-gradient(ellipse 40% 56% at 68% 112%, color-mix(in srgb, var(--vi) 27%, transparent) 0%, color-mix(in srgb, var(--vi) 14%, transparent) 40%, color-mix(in srgb, var(--vi) 4%, transparent) 70%, transparent 100%), radial-gradient(ellipse 26% 40% at 0% 104%, color-mix(in srgb, var(--ai) 13%, transparent) 0%, color-mix(in srgb, var(--ai) 6%, transparent) 50%, transparent 100%); }
+@media print {
+  :where(html.lecture) .deco .glow, :where(html.lecture) .deco .mesh { display: none; }
+  :where(html.lecture) .deco .mesh-print { display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+  :where(html.lecture) .deco .mesh-print path { fill: none; stroke: var(--line); stroke-width: 1; }
+  :where(html.lecture) .deco::before { content: ""; position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse 70% 80% at 85% 20%, transparent 10%, var(--bg) 70%); }
+  :where(html.lecture) .deco::after { content: ""; position: absolute; inset: 0; z-index: 2; background: radial-gradient(ellipse 46% 72% at 90% 4%, color-mix(in srgb, var(--py) 30%, transparent) 0%, color-mix(in srgb, var(--py) 18%, transparent) 38%, color-mix(in srgb, var(--py) 6%, transparent) 68%, transparent 100%), radial-gradient(ellipse 40% 56% at 68% 112%, color-mix(in srgb, var(--vi) 27%, transparent) 0%, color-mix(in srgb, var(--vi) 14%, transparent) 40%, color-mix(in srgb, var(--vi) 4%, transparent) 70%, transparent 100%); }
+  :where(html.lecture) .slidev-layout.cover .deco::after { background: radial-gradient(ellipse 46% 72% at 90% 4%, color-mix(in srgb, var(--py) 30%, transparent) 0%, color-mix(in srgb, var(--py) 18%, transparent) 38%, color-mix(in srgb, var(--py) 6%, transparent) 68%, transparent 100%), radial-gradient(ellipse 40% 56% at 68% 112%, color-mix(in srgb, var(--vi) 27%, transparent) 0%, color-mix(in srgb, var(--vi) 14%, transparent) 40%, color-mix(in srgb, var(--vi) 4%, transparent) 70%, transparent 100%), radial-gradient(ellipse 26% 40% at 0% 104%, color-mix(in srgb, var(--ai) 13%, transparent) 0%, color-mix(in srgb, var(--ai) 6%, transparent) 50%, transparent 100%); }
+}

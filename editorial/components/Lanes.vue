@@ -6,7 +6,7 @@ defineProps<{ lanes: { tag: string; title?: string; steps: { kicker?: string; te
 
 <template>
   <div class="ed-lanes">
-    <div v-if="heads" class="hrow"><span /><span v-for="h in heads" :key="h">{{ h }}</span></div>
+    <div v-if="heads" class="hrow" :style="{ '--n': heads.length }"><span /><span v-for="h in heads" :key="h">{{ h }}</span></div>
     <div v-for="(ln, i) in lanes" :key="i" class="lane" :style="{ '--n': ln.steps.length }">
       <div class="tag"><b>{{ ln.tag }}</b><small v-if="ln.title">{{ ln.title }}</small></div>
       <div v-for="(s, j) in ln.steps" :key="j" class="step" :class="{ last: j === ln.steps.length - 1 }">

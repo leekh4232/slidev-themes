@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Slidev Themes · hossam</title>
-<meta name="description" content="Slidev 테마 두 가지: 코딩 강의용 hossam(직각 상자)과 특강·발표용 jussam(메시 그라디언트 · 차트 컴포넌트). 둘 다 목차 사이드바와 기본 어두운 바탕.">
+<title>Slidev Themes</title>
+<meta name="description" content="Slidev 테마 여섯 가지: 코딩 강의용 hossam, LAB 실습용 lab, 특강·발표용 jussam, 보고서 발표용 editorial, 시즌 테마 noel · mitten. 모두 목차 사이드바와 밝은·어두운 테마 전환을 지원한다.">
 <meta name="color-scheme" content="light">
-<meta property="og:title" content="Slidev Themes · hossam">
-<meta property="og:description" content="Slidev 테마 두 가지: 코딩 강의용 hossam(직각 상자)과 특강·발표용 jussam(메시 그라디언트 · 차트 컴포넌트). 둘 다 목차 사이드바와 기본 어두운 바탕.">
+<meta property="og:title" content="Slidev Themes">
+<meta property="og:description" content="Slidev 테마 여섯 가지: 코딩 강의용 hossam, LAB 실습용 lab, 특강·발표용 jussam, 보고서 발표용 editorial, 시즌 테마 noel · mitten. 모두 목차 사이드바와 밝은·어두운 테마 전환을 지원한다.">
 <meta property="og:image" content="https://slidev-themes.hossam.kr/img/lecture-cover.jpg">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="code.css">
@@ -20,7 +20,6 @@
     --fg: #1f2328;
     --muted: #59636e;
     --hossam: #0969da;
-    --jussam: #7928ca;
   }
   * { box-sizing: border-box; }
   html { background: var(--bg); }
@@ -56,19 +55,25 @@
   .badges a { line-height: 0; }
   h2 { font-size: 22px; margin: 52px 0 16px; }
   .theme { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px; margin-bottom: 22px; }
-  .theme.hossam { border-top: 3px solid var(--hossam); }
   .theme-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
   .theme h3 { font-size: 26px; margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; }
   .badge { font-size: 13px; color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 2px 10px; }
   .theme p.desc { color: var(--muted); margin: 6px 0 16px; }
-  .shots { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; }
-  .shots .side { display: grid; gap: 12px; }
+  .theme { border-top: 3px solid var(--c); }
+  .theme .links a { color: var(--c); }
+  .shots { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; align-items: start; }
+  .shots a:first-child { grid-row: span 2; }
+  .shots a { display: block; }
+  .shots a:hover img { border-color: var(--c); }
+  .pick { width: 100%; border-collapse: collapse; font-size: 15px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .pick th, .pick td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .pick th { background: var(--surface-2); }
+  .pick td:first-child a { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-weight: 700; text-decoration: none; }
+  .pick tr:last-child td { border-bottom: 0; }
+  .pick-wrap { overflow-x: auto; }
   .shots img { width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); }
   .links { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 16px; font-weight: 700; }
   .links a { text-decoration: none; }
-  .hossam .links a { color: var(--hossam); }
-  .theme.jussam { border-top: 3px solid var(--jussam); }
-  .jussam .links a { color: var(--jussam); }
 
   .use { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
   .box { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; }
@@ -84,8 +89,9 @@
 
   @media (max-width: 720px) {
     header { padding-top: 48px; }
-    .shots, .use { grid-template-columns: minmax(0, 1fr); }
-    .shots .side { grid-template-columns: 1fr 1fr; }
+    .use { grid-template-columns: minmax(0, 1fr); }
+    .shots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .shots a:first-child { grid-column: 1 / -1; grid-row: auto; }
   }
 </style>
 <link rel="alternate" type="text/markdown" href="llms.txt" title="llms.txt">
@@ -93,8 +99,8 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareSourceCode",
-  "name": "Slidev Themes · hossam · jussam",
-  "description": "Slidev 테마 두 가지. 특강·발표용 jussam: 검정 바탕 메시 그라디언트 표지, 파트 시그니처 색, 둥근 카드, 카드 · 스탯 · 히어로 · 목차 · 전후 비교 · 차트(게이지 · 슬로프 · 미터 · 막대 · 퍼널 · 분기 · 타임라인) 컴포넌트. 코딩 강의용 hossam: 기본 어두운 바탕(밝은 테마 전환), 왼쪽 목차 사이드바(sidebar: true | false), 원고 md를 깃헙 스타일 문서로 보는 📄 원고 버튼(기본 켬, manuscript: false 로 끔), 표지 · 간지 · 카드형 · 웹진형 · 인포그래픽 레이아웃, 직각 상자(콜아웃 · 프롬프트 · 출력 · 타일 · 핵심 한 줄 · 칩), 모든 슬라이드 오른쪽 아래 쪽 번호(현재/전체).",
+  "name": "Slidev Themes",
+  "description": "Slidev 테마 여섯 가지. hossam: 코딩 강의용, 직각 상자, 표지 · 간지 · 카드형 · 웹진형 · 인포그래픽 레이아웃, 콜아웃 · 프롬프트 · 출력 · 타일 · 핵심 한 줄 · 칩. lab: LAB 실습용, 옅은 색 면의 직각 상자, 코딩 테스트 문제 상자(Problem), palette: teal 색 묶음. jussam: 특강·발표용, 검정 바탕 메시 그라디언트, 둥근 카드, 카드 · 스탯 · 히어로 · 차트(게이지 · 슬로프 · 미터 · 막대 · 퍼널 · 분기 · 타임라인 · 로드맵) 컴포넌트. editorial: 보고서 발표용 편집 디자인, 연세블루 · 금색 선, 인포그래픽 컴포넌트 12종. noel: 크리스마스 밤 테마(전나무색 · 금색 선 · 눈 내림), jussam 컴포넌트. mitten: 귀여운 겨울 테마(눈송이 · 목도리 줄무늬), place · photos 레이아웃. 공통: 왼쪽 목차 사이드바(sidebar: true | false), 밝은·어두운 테마 전환(d 키, colorMode), 원고 md 보기(manuscript), 본문 배율(fontScale), 쪽 번호.",
   "url": "https://slidev-themes.hossam.kr/",
   "codeRepository": "https://github.com/leekh4232/slidev-themes",
   "programmingLanguage": [
@@ -117,15 +123,19 @@
 <header>
   <div class="wrap">
     <h1><span>Slidev</span> Themes</h1>
-    <p class="tagline"><a href="https://sli.dev">Slidev</a> 테마 <b>hossam</b> · <b>jussam</b>.<br>코딩 강의용과 특강·발표용, 두 테마 모두 목차 사이드바가 있고 기본은 어두운 바탕입니다.</p>
+    <p class="tagline"><a href="https://sli.dev">Slidev</a> 테마 여섯 가지.<br>강의 · 실습 · 발표 · 시즌 테마 모두 목차 사이드바가 있고, d 키로 밝은 · 어두운 테마를 바꿉니다.</p>
     <div class="actions">
       <a class="btn primary" href="https://github.com/leekh4232/slidev-themes">GitHub에서 보기</a>
       <a class="btn" href="https://open-with-slidev.hossam.kr/">Open with Slidev</a>
     </div>
     <div class="badges">
       <a href="https://sli.dev"><img src="https://img.shields.io/badge/Slidev-theme-2b90b6" alt="Slidev theme" height="20"></a>
-      <img src="https://img.shields.io/badge/theme-hossam-ff3d9a" alt="theme hossam" height="20">
-      <img src="https://img.shields.io/badge/theme-jussam-007cf0" alt="theme jussam" height="20">
+      <img src="https://img.shields.io/badge/theme-hossam-0969da" alt="theme hossam" height="20">
+      <img src="https://img.shields.io/badge/theme-lab-2f6bf2" alt="theme lab" height="20">
+      <img src="https://img.shields.io/badge/theme-jussam-7928ca" alt="theme jussam" height="20">
+      <img src="https://img.shields.io/badge/theme-editorial-1f4e9e" alt="theme editorial" height="20">
+      <img src="https://img.shields.io/badge/theme-noel-1f6b45" alt="theme noel" height="20">
+      <img src="https://img.shields.io/badge/theme-mitten-c2416b" alt="theme mitten" height="20">
       <a href="https://github.com/leekh4232/slidev-themes/commits/main"><img src="https://img.shields.io/github/last-commit/leekh4232/slidev-themes?color=7c5cff" alt="Last commit" height="20"></a>
       <a href="https://marketplace.visualstudio.com/items?itemName=leekh.open-with-slidev"><img src="https://img.shields.io/badge/Open%20with%20Slidev-VS%20Code-007ACC" alt="Open with Slidev" height="20"></a>
       <a href="https://github.com/leekh4232/slidev-themes/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-2ea44f" alt="License MIT" height="20"></a>
@@ -134,37 +144,118 @@
 </header>
 
 <main class="wrap">
-  <h2>테마</h2>
+  <h2>테마 고르기</h2>
+  <div class="pick-wrap">
+    <table class="pick">
+      <thead><tr><th>테마</th><th>종류</th><th>어울리는 덱</th></tr></thead>
+      <tbody>
+        <tr><td><a href="hossam.html" style="color:#0969da">hossam</a></td><td>강의</td><td>코딩 수업 교안. 코드 · 프롬프트 · 출력이 많은 쪽</td></tr>
+        <tr><td><a href="lab.html" style="color:#2f6bf2">lab</a></td><td>실습</td><td>LAB 실습 덱. 문제 · 풀이 단계가 있는 실습, 흰 바탕 과목(teal)</td></tr>
+        <tr><td><a href="jussam.html" style="color:#7928ca">jussam</a></td><td>발표</td><td>특강 · 세미나. 큰 숫자와 차트로 말하는 발표</td></tr>
+        <tr><td><a href="editorial.html" style="color:#1f4e9e">editorial</a></td><td>발표</td><td>분석 보고서 평가 · 피드백. 근거를 표 · 인포그래픽으로 정리</td></tr>
+        <tr><td><a href="noel.html" style="color:#1f6b45">noel</a></td><td>시즌</td><td>크리스마스 · 연말 모임 · 겨울 행사</td></tr>
+        <tr><td><a href="mitten.html" style="color:#c2416b">mitten</a></td><td>시즌</td><td>겨울 나들이 · 여행 계획. 장소와 사진이 많은 덱</td></tr>
+      </tbody>
+    </table>
+  </div>
 
-  <section class="theme hossam">
+  <h2>테마</h2>
+  <p class="tagline" style="margin:0 0 18px;max-width:none;font-size:16px">그림을 누르면 그 테마의 쪽 모양을 모두 모은 미리보기로 갑니다.</p>
+
+  <section class="theme" id="hossam" style="--c: #0969da">
     <div class="theme-head"><h3>hossam</h3><span class="badge">강의</span></div>
-    <p class="desc">코딩 강의용 테마입니다. 처음 열면 어두운 바탕이고 d 키로 밝게 바꿉니다. 상자는 모두 직각(가는 선과 윗선, 그림자 없음)입니다. 왼쪽 목차 사이드바, 표지 · 간지 · 카드형 · 웹진형 · 인포그래픽 레이아웃, 콜아웃 · 프롬프트 · 출력 · 타일 · 핵심 한 줄 · 칩 상자가 있고, 모든 슬라이드 오른쪽 아래에 쪽 번호(현재/전체)가 붙습니다. 사이드바는 <code>sidebar: true/false</code>로 켜고 끕니다.</p>
+    <p class="desc">코딩 강의용 테마입니다. 처음 열면 어두운 바탕이고 d 키로 밝게 바꿉니다. 상자는 모두 직각(가는 선과 윗선)이고, 표지 · 간지 · 카드형 · 웹진형 · 인포그래픽 레이아웃과 콜아웃 · 프롬프트 · 출력 · 타일 · 핵심 한 줄 · 칩 상자가 있습니다.</p>
     <div class="shots">
-      <img src="img/lecture-cover.jpg" alt="표지와 목차 사이드바" loading="lazy">
-      <div class="side">
-        <img src="img/lecture-code-callout.jpg" alt="코드와 콜아웃" loading="lazy">
-        <img src="img/lecture-light.jpg" alt="밝은 화면" loading="lazy">
-      </div>
+        <a href="hossam.html#preview"><img src="img/hossam-cover.jpg" alt="hossam 미리보기 cover" loading="lazy"></a>
+        <a href="hossam.html#preview"><img src="img/hossam-code.jpg" alt="hossam 미리보기 code" loading="lazy"></a>
+        <a href="hossam.html#preview"><img src="img/hossam-cards.jpg" alt="hossam 미리보기 cards" loading="lazy"></a>
+        <a href="hossam.html#preview"><img src="img/hossam-prompt.jpg" alt="hossam 미리보기 prompt" loading="lazy"></a>
+        <a href="hossam.html#preview"><img src="img/hossam-tiles-light.jpg" alt="hossam 미리보기 tiles-light" loading="lazy"></a>
     </div>
     <div class="links">
+      <a href="hossam.html#preview">미리보기 전체 →</a>
       <a href="hossam.html">사용법 →</a>
       <a href="https://github.com/leekh4232/slidev-themes/tree/main/hossam">소스 →</a>
     </div>
   </section>
-
-  <section class="theme jussam">
-    <div class="theme-head"><h3>jussam</h3><span class="badge">발표</span></div>
-    <p class="desc">특강·발표용 테마입니다. 처음 열면 검정 바탕이고 d 키로 밝게 바꿉니다. 메시 그라디언트 표지, 파트별 시그니처 색, 둥근 카드와 그림자, 카드 · 스탯 · 히어로 · 목차 · 전후 비교 · 차트(게이지 · 슬로프 · 미터 · 막대 · 퍼널 · 분기 · 타임라인) 컴포넌트가 있습니다. 목차 사이드바와 원고 보기, 콜아웃 · 프롬프트 · 타일 같은 기본 컴포넌트도 들어 있습니다.</p>
+  <section class="theme" id="lab" style="--c: #2f6bf2">
+    <div class="theme-head"><h3>lab</h3><span class="badge">실습</span></div>
+    <p class="desc">LAB 실습용 테마입니다. hossam의 사이드바와 직각 상자를 쓰면서 옅은 색 면으로 칠하고, 코딩 테스트 문제 상자(Problem)가 있습니다. 기본은 파랑 · 보라이고 <code>palette: teal</code>을 적으면 흰 바탕에 어울리는 청록 · 남색으로 바뀝니다.</p>
     <div class="shots">
-      <img src="img/jussam-cover.jpg" alt="메시 그라디언트 표지" loading="lazy">
-      <div class="side">
-        <img src="img/jussam-stat.jpg" alt="큰 숫자 카드 세 장" loading="lazy">
-        <img src="img/jussam-light.jpg" alt="밝은 화면" loading="lazy">
-      </div>
+        <a href="lab.html#preview"><img src="img/lab-cover.jpg" alt="lab 미리보기 cover" loading="lazy"></a>
+        <a href="lab.html#preview"><img src="img/lab-problem.jpg" alt="lab 미리보기 problem" loading="lazy"></a>
+        <a href="lab.html#preview"><img src="img/lab-prompt.jpg" alt="lab 미리보기 prompt" loading="lazy"></a>
+        <a href="lab.html#preview"><img src="img/lab-tiles.jpg" alt="lab 미리보기 tiles" loading="lazy"></a>
+        <a href="lab.html#preview"><img src="img/lab-teal-cover.jpg" alt="lab 미리보기 teal-cover" loading="lazy"></a>
     </div>
     <div class="links">
+      <a href="lab.html#preview">미리보기 전체 →</a>
+      <a href="lab.html">사용법 →</a>
+      <a href="https://github.com/leekh4232/slidev-themes/tree/main/lab">소스 →</a>
+    </div>
+  </section>
+  <section class="theme" id="jussam" style="--c: #7928ca">
+    <div class="theme-head"><h3>jussam</h3><span class="badge">발표</span></div>
+    <p class="desc">특강 · 발표용 테마입니다. 검정 바탕에 메시 그라디언트 표지, 파트별 시그니처 색, 둥근 카드를 쓰고 스탯 · 히어로 · 전후 비교 · 차트(게이지 · 슬로프 · 미터 · 막대 · 퍼널 · 분기 · 타임라인 · 로드맵) 컴포넌트로 숫자가 많은 발표를 만듭니다.</p>
+    <div class="shots">
+        <a href="jussam.html#preview"><img src="img/jussam-cover.jpg" alt="jussam 미리보기 cover" loading="lazy"></a>
+        <a href="jussam.html#preview"><img src="img/jussam-stat.jpg" alt="jussam 미리보기 stat" loading="lazy"></a>
+        <a href="jussam.html#preview"><img src="img/jussam-roadmap.jpg" alt="jussam 미리보기 roadmap" loading="lazy"></a>
+        <a href="jussam.html#preview"><img src="img/jussam-gauge-slope.jpg" alt="jussam 미리보기 gauge-slope" loading="lazy"></a>
+        <a href="jussam.html#preview"><img src="img/jussam-cover-light.jpg" alt="jussam 미리보기 cover-light" loading="lazy"></a>
+    </div>
+    <div class="links">
+      <a href="jussam.html#preview">미리보기 전체 →</a>
       <a href="jussam.html">사용법 →</a>
       <a href="https://github.com/leekh4232/slidev-themes/tree/main/jussam">소스 →</a>
+    </div>
+  </section>
+  <section class="theme" id="editorial" style="--c: #1f4e9e">
+    <div class="theme-head"><h3>editorial</h3><span class="badge">발표</span></div>
+    <p class="desc">보고서 · 평가 자료처럼 숫자와 근거를 차분하게 보여 주는 발표용 테마입니다. 연세블루 색면과 금색 가는 선, 굵은 제목과 가는 큰 번호를 대비시킨 편집 디자인이고, 배열만 넘기면 그려지는 인포그래픽 컴포넌트 12종이 있습니다.</p>
+    <div class="shots">
+        <a href="editorial.html#preview"><img src="img/editorial-cover.jpg" alt="editorial 미리보기 cover" loading="lazy"></a>
+        <a href="editorial.html#preview"><img src="img/editorial-bars.jpg" alt="editorial 미리보기 bars" loading="lazy"></a>
+        <a href="editorial.html#preview"><img src="img/editorial-hypogrid.jpg" alt="editorial 미리보기 hypogrid" loading="lazy"></a>
+        <a href="editorial.html#preview"><img src="img/editorial-lanes.jpg" alt="editorial 미리보기 lanes" loading="lazy"></a>
+        <a href="editorial.html#preview"><img src="img/editorial-dark-cover.jpg" alt="editorial 미리보기 dark-cover" loading="lazy"></a>
+    </div>
+    <div class="links">
+      <a href="editorial.html#preview">미리보기 전체 →</a>
+      <a href="editorial.html">사용법 →</a>
+      <a href="https://github.com/leekh4232/slidev-themes/tree/main/editorial">소스 →</a>
+    </div>
+  </section>
+  <section class="theme" id="noel" style="--c: #1f6b45">
+    <div class="theme-head"><h3>noel</h3><span class="badge">시즌</span></div>
+    <p class="desc">크리스마스 · 연말 발표용 테마입니다. 짙은 전나무색 밤 바탕에 금색 가는 선과 빨강 포인트, 명조 제목을 쓰고 눈이 천천히 내립니다. 레이아웃과 컴포넌트는 jussam과 같아 테마 경로만 바꾸면 jussam 덱을 그대로 열 수 있습니다.</p>
+    <div class="shots">
+        <a href="noel.html#preview"><img src="img/noel-cover.jpg" alt="noel 미리보기 cover" loading="lazy"></a>
+        <a href="noel.html#preview"><img src="img/noel-stat.jpg" alt="noel 미리보기 stat" loading="lazy"></a>
+        <a href="noel.html#preview"><img src="img/noel-timeline.jpg" alt="noel 미리보기 timeline" loading="lazy"></a>
+        <a href="noel.html#preview"><img src="img/noel-cards.jpg" alt="noel 미리보기 cards" loading="lazy"></a>
+        <a href="noel.html#preview"><img src="img/noel-light-cover.jpg" alt="noel 미리보기 light-cover" loading="lazy"></a>
+    </div>
+    <div class="links">
+      <a href="noel.html#preview">미리보기 전체 →</a>
+      <a href="noel.html">사용법 →</a>
+      <a href="https://github.com/leekh4232/slidev-themes/tree/main/noel">소스 →</a>
+    </div>
+  </section>
+  <section class="theme" id="mitten" style="--c: #c2416b">
+    <div class="theme-head"><h3>mitten</h3><span class="badge">시즌</span></div>
+    <p class="desc">겨울 나들이 · 여행 계획용 귀여운 테마입니다. 눈송이와 목도리 줄무늬로 꾸미고, jussam의 컴포넌트에 장소 소개(place)와 사진 모음(photos) 레이아웃을 더했습니다.</p>
+    <div class="shots">
+        <a href="mitten.html#preview"><img src="img/mitten-cover.jpg" alt="mitten 미리보기 cover" loading="lazy"></a>
+        <a href="mitten.html#preview"><img src="img/mitten-place.jpg" alt="mitten 미리보기 place" loading="lazy"></a>
+        <a href="mitten.html#preview"><img src="img/mitten-photos.jpg" alt="mitten 미리보기 photos" loading="lazy"></a>
+        <a href="mitten.html#preview"><img src="img/mitten-timeline.jpg" alt="mitten 미리보기 timeline" loading="lazy"></a>
+        <a href="mitten.html#preview"><img src="img/mitten-dark.jpg" alt="mitten 미리보기 dark" loading="lazy"></a>
+    </div>
+    <div class="links">
+      <a href="mitten.html#preview">미리보기 전체 →</a>
+      <a href="mitten.html">사용법 →</a>
+      <a href="https://github.com/leekh4232/slidev-themes/tree/main/mitten">소스 →</a>
     </div>
   </section>
 
@@ -179,7 +270,7 @@
       <h3>2. 경로로 지정</h3>
       <p>md 파일 프런트매터에 테마 폴더 경로를 적고, 우클릭 → <b>Open with Slidev</b>(또는 <code>npx slidev slides.md</code>)로 엽니다.</p>
       <pre><code class="language-yaml">---
-theme: ./slidev-themes/hossam   # 또는 ./slidev-themes/jussam
+theme: ./slidev-themes/hossam   # lab · jussam · editorial · noel · mitten
 sidebar: true      # 생략하면 켬
 ---</code></pre>
     </div>
@@ -189,11 +280,27 @@ sidebar: true      # 생략하면 켬
   <div class="use">
     <div class="box">
       <h3><a href="examples/lecture-example.md">lecture-example.md</a></h3>
-      <p>hossam · 파이썬 기초 3강. 콜아웃 · 프롬프트 · 출력 · 타일 · 핵심 한 줄 · 단계 목록과 사이드바.</p>
+      <p>hossam · 파이썬 기초 3강</p>
+    </div>
+    <div class="box">
+      <h3><a href="examples/lab-example.md">lab-example.md</a></h3>
+      <p>lab · 파이썬 LAB 실습</p>
     </div>
     <div class="box">
       <h3><a href="examples/jussam-example.md">jussam-example.md</a></h3>
-      <p>jussam · 분기 개발 생산성 리뷰(가상의 수치). 발표 컴포넌트 전부와 기본 컴포넌트.</p>
+      <p>jussam · 분기 개발 생산성 리뷰</p>
+    </div>
+    <div class="box">
+      <h3><a href="examples/editorial-example.md">editorial-example.md</a></h3>
+      <p>editorial · 분석 보고서 평가 가이드</p>
+    </div>
+    <div class="box">
+      <h3><a href="examples/noel-example.md">noel-example.md</a></h3>
+      <p>noel · 연말 가족 여행 계획</p>
+    </div>
+    <div class="box">
+      <h3><a href="examples/mitten-example.md">mitten-example.md</a></h3>
+      <p>mitten · 겨울 실내 나들이 코스</p>
     </div>
   </div>
 </main>

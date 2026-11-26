@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mitten 테마 · Slidev Themes</title>
+<meta name="description" content="겨울 나들이용 Slidev 테마 mitten: 눈빛 하늘색 바탕, 내리는 눈 · 쌓인 눈 언덕 · 목도리 줄무늬, 동글동글한 제목 글꼴, 장소 개요(place) · 사진 모음(photos) 레이아웃, jussam과 같은 발표 컴포넌트">
+<meta name="color-scheme" content="light">
+<meta property="og:title" content="mitten 테마 · Slidev Themes">
+<meta property="og:description" content="겨울 나들이용 Slidev 테마 mitten: 눈빛 하늘색 바탕, 내리는 눈 · 쌓인 눈 언덕 · 목도리 줄무늬, 동글동글한 제목 글꼴, 장소 개요(place) · 사진 모음(photos) 레이아웃, jussam과 같은 발표 컴포넌트">
+<meta property="og:image" content="https://slidev-themes.hossam.kr/img/mitten-cover.jpg">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="manual.css">
+<link rel="stylesheet" href="code.css">
+<link rel="alternate" type="text/markdown" href="llms.txt" title="llms.txt">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "mitten 테마 매뉴얼",
+  "description": "미리보기, 설정, jussam과 다른 점, 장소 개요(place) · 사진 모음(photos) 레이아웃, 컴포넌트, 전체 예제.",
+  "url": "https://slidev-themes.hossam.kr/mitten.html",
+  "inLanguage": "ko",
+  "author": {
+    "@type": "Person",
+    "name": "이광호",
+    "email": "leekh4232@gmail.com"
+  },
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "Slidev Themes · mitten",
+    "codeRepository": "https://github.com/leekh4232/slidev-themes"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Slidev Themes",
+    "url": "https://slidev-themes.hossam.kr/"
+  }
+}
+</script>
+</head>
+<body>
+<aside class="sidebar"><a class="brand" href="index.html">Slidev Themes</a><nav class="pages" aria-label="문서"><a href="hossam.html">hossam</a><a href="lab.html">lab</a><a href="jussam.html">jussam</a><a href="editorial.html">editorial</a><a href="noel.html">noel</a><a href="mitten.html" class="current">mitten</a><a href="https://github.com/leekh4232/slidev-themes">GitHub</a></nav><nav class="toc" aria-label="이 페이지의 목차"><a href="#preview">미리보기</a><a href="#start">시작하기</a><a href="#diff">jussam과 다른 점</a><a href="#layouts">레이아웃</a><a href="#components">컴포넌트</a><a href="#example">전체 예제</a></nav></aside>
+<main>
+<div class="hero"><h1>mitten 테마 <span class="badge">시즌</span></h1><p>겨울 나들이 계획이나 여행 소개에 쓰는 테마다. jussam을 바탕으로 색과 장식만 바꿨다. 눈빛 하늘색 바탕 위로 눈이 내리고, 맨 위에는 목도리 줄무늬, 바닥에는 쌓인 눈 언덕이 깔린다. 제목은 동글동글한 글꼴(Jua)이고 분홍 · 하늘 · 민트를 포인트 색으로 쓴다. d 키를 누르면 눈 오는 밤(남색 바탕)으로 바뀐다. 장소 하나를 엽서와 승차권 모양으로 소개하는 <code>place</code>, 사진 여러 장을 벽에 붙인 듯 늘어놓는 <code>photos</code> 레이아웃이 더 있다. 나머지 레이아웃과 컴포넌트는 jussam과 같다.</p></div>
+<figure><img src="img/mitten-cover.jpg" alt="표지(cover 레이아웃). 솜사탕처럼 번지는 메시 위에 둥근 제목, 오른쪽 아래 흔들리는 눈사람" loading="lazy"><figcaption>표지(cover 레이아웃). 제목의 <code>**굵게**</code> 부분은 분홍 → 하늘 그라디언트, 오른쪽 아래에는 눈사람이 흔들린다.</figcaption></figure>
+<h2 id="preview">미리보기</h2>
+<p>예제 덱(<a href="examples/mitten-example.md">mitten-example.md</a>)을 빌드해 찍은 화면이다. 그림을 누르면 원래 크기로 열린다. 사진 자리의 그림은 예제용 자리표시 그림이다.</p>
+<div class="gallery">
+<figure><a href="img/mitten-cover.jpg"><img src="img/mitten-cover.jpg" alt="cover 레이아웃 표지" loading="lazy"></a><figcaption><b>cover</b> 표지와 작성자 줄, 눈사람 장식</figcaption></figure>
+<figure><a href="img/mitten-hero.jpg"><img src="img/mitten-hero.jpg" alt="cover 안의 Hero" loading="lazy"></a><figcaption><b>Hero</b> 큰 숫자 한 개와 오른쪽 설명</figcaption></figure>
+<figure><a href="img/mitten-agenda.jpg"><img src="img/mitten-agenda.jpg" alt="Agenda 목차" loading="lazy"></a><figcaption><b>Agenda</b> 파트 색 번호가 붙는 목차</figcaption></figure>
+<figure><a href="img/mitten-section.jpg"><img src="img/mitten-section.jpg" alt="section 레이아웃" loading="lazy"></a><figcaption><b>section</b> 파트 표지와 오른쪽 아래 벙어리장갑</figcaption></figure>
+<figure><a href="img/mitten-place.jpg"><img src="img/mitten-place.jpg" alt="place 레이아웃. 번호 · 딱지 · 제목 · 승차권 정보 띠와 테이프로 붙인 사진" loading="lazy"></a><figcaption><b>place</b> 장소 개요, 승차권 정보 띠와 엽서 사진</figcaption></figure>
+<figure><a href="img/mitten-photos.jpg"><img src="img/mitten-photos.jpg" alt="photos 레이아웃 여섯 장" loading="lazy"></a><figcaption><b>photos</b> 사진 여섯 장(3×2)</figcaption></figure>
+<figure><a href="img/mitten-photos-five.jpg"><img src="img/mitten-photos-five.jpg" alt="photos 레이아웃 다섯 장, 첫 장이 크게" loading="lazy"></a><figcaption><b>photos</b> 다섯 장이면 첫 장이 크게</figcaption></figure>
+<figure><a href="img/mitten-stat.jpg"><img src="img/mitten-stat.jpg" alt="Stat 세 장과 Kicker" loading="lazy"></a><figcaption><b>Stat</b> 큰 숫자 카드와 미터</figcaption></figure>
+<figure><a href="img/mitten-cards.jpg"><img src="img/mitten-cards.jpg" alt="Grid 안의 Card acc 세 장과 Card dim" loading="lazy"></a><figcaption><b>Card</b> 윗선 카드(acc)와 흐린 카드(dim)</figcaption></figure>
+<figure><a href="img/mitten-beforeafter.jpg"><img src="img/mitten-beforeafter.jpg" alt="BeforeAfter와 Kicker" loading="lazy"></a><figcaption><b>BeforeAfter</b> 전후 비교, 안에 마크다운 목록</figcaption></figure>
+<figure><a href="img/mitten-hbar.jpg"><img src="img/mitten-hbar.jpg" alt="Stat sm 세 장과 HBar" loading="lazy"></a><figcaption><b>HBar</b> 가로 막대, 위는 Stat sm</figcaption></figure>
+<figure><a href="img/mitten-timeline.jpg"><img src="img/mitten-timeline.jpg" alt="Timeline 날짜 축" loading="lazy"></a><figcaption><b>Timeline</b> 날짜 축과 둥근 점</figcaption></figure>
+<figure><a href="img/mitten-roadmap.jpg"><img src="img/mitten-roadmap.jpg" alt="Roadmap" loading="lazy"></a><figcaption><b>Roadmap</b> 단계 띠와 파스텔 막대</figcaption></figure>
+<figure><a href="img/mitten-steps.jpg"><img src="img/mitten-steps.jpg" alt="Flow · Tile · Core" loading="lazy"></a><figcaption><b>Flow · Tile · Core</b> 흐름도, 타일, 점선 말풍선 핵심 한 줄</figcaption></figure>
+<figure><a href="img/mitten-callout.jpg"><img src="img/mitten-callout.jpg" alt="Prompt와 Callout" loading="lazy"></a><figcaption><b>Prompt · Callout</b> 프롬프트 상자와 콜아웃</figcaption></figure>
+<figure><a href="img/mitten-closing.jpg"><img src="img/mitten-closing.jpg" alt="마무리 cover" loading="lazy"></a><figcaption><b>closing</b> 마무리 표지(mesh: soft)</figcaption></figure>
+<figure><a href="img/mitten-dark.jpg"><img src="img/mitten-dark.jpg" alt="어두운 테마의 표지" loading="lazy"></a><figcaption><b>dark</b> d 키로 바꾼 눈 오는 밤</figcaption></figure>
+<figure><a href="img/mitten-dark-place.jpg"><img src="img/mitten-dark-place.jpg" alt="어두운 테마의 place 레이아웃" loading="lazy"></a><figcaption><b>dark · place</b> 어두운 테마의 장소 개요</figcaption></figure>
+</div>
+<h2 id="start">시작하기</h2>
+<p>저장소를 받은 뒤(<code>git clone https://github.com/leekh4232/slidev-themes.git</code>) 프런트매터에 테마 폴더 경로(<code>theme: ./slidev-themes/mitten</code>처럼 md 파일 기준)를 적는다. 첫 슬라이드의 프런트매터(헤드매터)에는 덱 전체 설정과 첫 슬라이드 설정을 함께 적는다. 밝은 눈빛 바탕이 이 테마의 기본 모습이므로 <code>colorMode: light</code>를 적어 두기를 권한다. 적지 않으면 처음 한 번은 어두운 테마로 열린다.</p>
+<table><thead><tr><th>옵션</th><th>값</th><th>기본</th></tr></thead><tbody><tr><td><code>colorMode</code></td><td><code>light</code>면 눈 내린 낮(하늘색 바탕), <code>dark</code>면 눈 오는 밤(남색 바탕)으로 덱을 연다. 발표 중에는 d 키로 바꿀 수 있다</td><td>처음 한 번 어둡게, 그 뒤엔 마지막에 고른 테마</td></tr><tr><td><code>exportDark</code></td><td><code>true</code>면 PDF·PNG 내보내기를 어두운 테마로, <code>false</code>면 밝은 테마로</td><td><code>true</code> (<code>colorMode</code>를 적었으면 그 테마)</td></tr><tr><td><code>fontScale</code></td><td>본문 배율(0.6~2). 덱을 이 배율로 열고, 0 키·배율 버튼을 누르면 이 값으로 돌아간다</td><td>마지막에 고른 배율</td></tr><tr><td><code>manuscript</code></td><td><code>true</code>면 사이드바에 📄 원고 버튼(덱 원고 md를 깃헙 스타일 문서로 보기), <code>false</code>면 뺀다</td><td><code>true</code></td></tr><tr><td><code>sidebar</code></td><td><code>true</code>면 발표 화면 왼쪽에 목차 사이드바(슬라이드 바깥), <code>false</code>면 슬라이드만</td><td><code>true</code></td></tr><tr><td><code>vivid</code></td><td><code>true</code>면 화려한 모양(본문 바탕 색 번짐 · 진한 카드 그림자 · 꽉 찬 그라디언트 간지)</td><td><code>false</code></td></tr></tbody></table>
+<pre><code class="language-md">---
+theme: ./slidev-themes/mitten
+title: 겨울 나들이 · 눈 오는 토요일 실내 코스   # " · " 앞은 사이드바 머리말 · 표지 머리말, 뒤는 단원 이름
+author: 동네 산책 모임                 # 생략 가능. 첫 표지 제목 아래 작성자
+layout: cover
+colorMode: light                       # 눈빛 하늘색 바탕으로 연다
+eyebrow: winter day trip · 2026
+footer: 동네 산책 모임 / 2026년 12월
+---
+
+# 눈 오는 토요일,&lt;br&gt;**실내에서 만 보**
+
+온실 · 도서관 · 수족관을 하루에 잇는 따뜻한 산책</code></pre>
+<p>슬라이드는 항상 16:9(1280×720 캔버스)이고, 사이드바 · 원고 보기 · 확대/축소 · 넘침 표시 · 쪽 번호 · 단축키(s · a · d · + · - · 0)는 <a href="jussam.html#sidebar">jussam</a>과 같다. 내리는 눈과 눈사람 · 장갑의 흔들림은 a 키(애니메이션 끔), 운영체제의 동작 줄이기 설정, 인쇄 · 내보내기에서 멈춘다.</p>
+<h2 id="diff">jussam과 다른 점</h2>
+<p>구조와 컴포넌트는 jussam과 같고, <code>styles/mitten-skin.css</code>가 색 토큰과 장식만 덮어쓴다. 두 테마는 서로 독립이라 mitten 폴더만 있어도 된다.</p>
+<table><thead><tr><th>부분</th><th>jussam</th><th>mitten</th></tr></thead><tbody><tr><td>바탕</td><td>검정(밝은 테마는 흰색)</td><td>눈빛 하늘색 <code>#eef6ff</code>(어두운 테마는 남색 <code>#111b36</code>). 내리는 눈 세 겹, 바닥에 눈 언덕 셋, 맨 위 7px 목도리 줄무늬(분홍 · 흰색 · 하늘)</td></tr><tr><td>제목 글꼴</td><td>Pretendard 굵게</td><td>동글동글한 Jua(Google Fonts). 본문은 Pretendard 그대로. 머리말(eyebrow) 없이 제목으로 시작하는 본문 쪽에는 제목 앞에 ❄가 붙는다</td></tr><tr><td>포인트 색</td><td>파랑 · 보라 · 분홍</td><td>분홍 <code>#e8587f</code> · 하늘 <code>#2f86dd</code> · 민트 <code>#1f9c7d</code></td></tr><tr><td>표지 · 간지</td><td>진한 메시 그라디언트</td><td>솜사탕처럼 옅게 번지는 분홍 · 하늘 · 민트 · 노랑. 표지 오른쪽 아래에 ⛄, 간지에 🧤가 흔들린다</td></tr><tr><td>카드 · 타일</td><td>12px 모서리, 그림자</td><td>22px 둥근 모서리, 아래로 살짝 눌린 그림자. 칩은 알약 모양</td></tr><tr><td>핵심 한 줄(<code>Core</code>)</td><td>왼쪽 세로 막대</td><td>바느질 같은 점선 말풍선</td></tr><tr><td>표</td><td>얇은 가로줄</td><td>머리글은 둥근 하늘색 띠, 줄은 점선</td></tr><tr><td>그림</td><td>각진 모서리</td><td>둥근 모서리에 흰 테</td></tr><tr><td>타임라인 점</td><td>네모 점</td><td>눈덩이처럼 둥근 점</td></tr><tr><td>레이아웃</td><td>cover · section · default · cards · magazine · infographic</td><td>같은 여섯에 <code>place</code>(장소 개요) · <code>photos</code>(사진 모음)를 더했다</td></tr></tbody></table>
+<h2 id="layouts">레이아웃</h2>
+<p><code>place</code>와 <code>photos</code> 말고는 jussam과 프런트매터가 같다(<a href="jussam.html#layouts">jussam 레이아웃</a>).</p>
+<table><thead><tr><th>레이아웃</th><th>쓰임</th><th>프런트매터</th></tr></thead><tbody><tr><td><code>cover</code></td><td>표지 · 마무리 · Q&A. 첫 표지(1쪽)에는 덱 헤더의 <code>author</code>가 제목 아래 붙는다</td><td><code>eyebrow</code>, <code>footer</code>, <code>mesh</code>(<code>soft</code> / <code>none</code>), <code>source</code></td></tr><tr><td><code>section</code></td><td>파트 표지</td><td><code>part</code>(1~4), <code>eyebrow</code></td></tr><tr><td><code>default</code></td><td>본문. 적지 않으면 이것</td><td><code>eyebrow</code>, <code>part</code>, <code>source</code></td></tr><tr><td><code>cards</code></td><td>제목 아래 <code>&lt;div&gt;</code> 칸들이 둥근 카드 격자가 된다</td><td><code>cols</code>(기본 3)</td></tr><tr><td><code>magazine</code></td><td>왼쪽 큰 제목 + 본문, 오른쪽 <code>::right::</code> 칸</td><td>-</td></tr><tr><td><code>infographic</code></td><td>제목은 위, 나머지는 가운데 무대</td><td>-</td></tr><tr><td><code>place</code></td><td>장소 하나의 개요. 왼쪽에 번호 · 딱지 · 제목 · 승차권 정보 띠, 오른쪽에 테이프로 붙인 사진</td><td><code>no</code>, <code>kind</code>, <code>region</code>, <code>late</code>, <code>image</code>, <code>caption</code>, <code>facts</code>, <code>navi</code>, <code>addr</code>, <code>tel</code></td></tr><tr><td><code>photos</code></td><td>사진 3~6장을 벽에 붙인 사진처럼 늘어놓는다</td><td><code>photos</code></td></tr></tbody></table>
+<h3 id="place">place — 장소 개요</h3>
+<p>엽서와 승차권을 겹친 모양이다. 슬롯(본문)에는 <code>#</code> 제목 한 줄과 한 줄 소개 문단을 쓴다. 제목은 46px 둥근 글꼴, 소개는 회색 18px가 된다. 정보 띠의 칸 사이는 점선이고 양옆에 반달 홈이 파여 있다. 사진은 오른쪽 400px 칸에 높이 400px로 잘려 들어가고, 살짝 기울어진 인화지 위에 줄무늬 테이프가 붙는다.</p>
+<table><thead><tr><th>프런트매터</th><th>뜻</th></tr></thead><tbody><tr><td><code>no</code></td><td>번호. 두 자리로 채워(<code>1</code> → <code>01</code>) 둥근 그라디언트 배지에 넣는다</td></tr><tr><td><code>kind</code></td><td>종류 딱지(하늘색 알약). 예: <code>식물원</code></td></tr><tr><td><code>region</code></td><td>지역 딱지(옅은 알약)</td></tr><tr><td><code>late</code></td><td>노란 🌙 딱지. <code>true</code>면 "늦은 오후에도 좋아요", 글을 주면 그 글(<code>토요일은 21시까지</code>)</td></tr><tr><td><code>image</code></td><td>오른쪽 사진 경로(<code>./img/…</code>)</td></tr><tr><td><code>caption</code></td><td>사진 아래 손글씨풍 설명. 사진의 대체 글로도 쓰인다</td></tr><tr><td><code>facts</code></td><td>승차권 칸 배열(3~4칸 권장). 각 칸: <code>k</code>(작은 라벨), <code>v</code>(큰 값, 한 줄), <code>s</code>(아래 작은 설명), <code>tone</code>(큰 값 색: <code>ok</code> 민트 · <code>warn</code> 귤색 · <code>danger</code> 빨강 · <code>py</code> 하늘 · <code>ai</code> 분홍, 없으면 제목 색)</td></tr><tr><td><code>navi</code> · <code>addr</code> · <code>tel</code></td><td>정보 띠 아래 한 줄. 각각 "내비" · "주소" · "☎" 라벨이 붙는다. 셋 다 없으면 줄이 빠진다</td></tr></tbody></table>
+<pre><code class="language-md">---
+layout: place
+no: 2
+kind: 도서관
+region: 가상시 하늘동
+late: 토요일은 21시까지
+image: ./img/mitten-library.jpg
+caption: 4층 열람실 책장
+navi: 하늘책 도서관
+addr: 가상시 하늘로 34
+facts:
+  - { k: "🚇 온실에서", v: "지하철 2정거장", s: "약 15분 · 환승 없음", tone: py }
+  - { k: "🕘 여는 시간", v: "09:00~21:00", s: "일요일은 18시까지" }
+  - { k: "☕ 찻집", v: "1층 창가", s: "따뜻한 유자차 4,500원", tone: ai }
+---
+
+# 하늘책 도서관
+
+계단으로 1층부터 5층까지, 층마다 책장 한 줄씩 걸어요.</code></pre>
+<figure><img src="img/mitten-place.jpg" alt="place 레이아웃. 번호 01, 식물원 · 지역 딱지, 제목, 네 칸 승차권, 내비 · 주소 · 전화 줄, 오른쪽에 기울어진 사진" loading="lazy"><figcaption>place 레이아웃(승차권 네 칸). <code>tone: warn</code>인 주차 칸은 귤색, <code>tone: ok</code>인 입장료 칸은 민트</figcaption></figure>
+<p>큰 값(<code>v</code>)은 줄바꿈 없이 한 줄로 그려진다. 네 칸이면 값은 열 글자 안팎으로 짧게 쓰고, 긴 설명은 <code>s</code>로 내린다.</p>
+<h3 id="photos">photos — 사진 모음</h3>
+<p>사진을 흰 테 인화지처럼 벽에 붙이고, 장마다 조금씩 다르게 기울인다. 사진 설명은 각 장 왼쪽 아래의 알약 딱지에 들어간다. 슬롯에는 제목과 출처 줄을 쓴다. 사진 칸은 제목 아래 남은 높이를 모두 채우고, 사진은 칸에 맞춰 잘린다(<code>object-fit: cover</code>).</p>
+<table><thead><tr><th>프런트매터</th><th>뜻</th></tr></thead><tbody><tr><td><code>photos</code></td><td>사진 배열. 각 항목: <code>src</code>(경로), <code>cap</code>(설명 딱지, 대체 글로도 쓰인다)</td></tr></tbody></table>
+<table><thead><tr><th>장 수</th><th>배치</th></tr></thead><tbody><tr><td>6</td><td>3열 × 2행</td></tr><tr><td>5</td><td>4열 × 2행, 첫 장이 2×2 칸을 차지해 크게</td></tr><tr><td>4</td><td>2열 × 2행</td></tr><tr><td>3</td><td>3열 한 줄</td></tr></tbody></table>
+<pre><code class="language-md">---
+layout: photos
+photos:
+  - { src: ./img/mitten-greenhouse.jpg, cap: 유리 돔 외관 }
+  - { src: ./img/mitten-leaves.jpg, cap: 열대 식물관 }
+  - { src: ./img/mitten-cafe.jpg, cap: 온실 안 찻집 }
+  - { src: ./img/mitten-yard.jpg, cap: 눈 덮인 앞마당 }
+  - { src: ./img/mitten-gallery.jpg, cap: 식물 세밀화 전시 }
+  - { src: ./img/mitten-library.jpg, cap: 씨앗 도서 코너 }
+---
+
+### 01-1 · 미리보기 사진
+
+&lt;p class="src"&gt;사진: 출처와 라이선스를 여기에&lt;/p&gt;</code></pre>
+<div class="two"><figure><img src="img/mitten-photos.jpg" alt="photos 여섯 장" loading="lazy"><figcaption>여섯 장(3×2)</figcaption></figure>
+<figure><img src="img/mitten-photos-five.jpg" alt="photos 다섯 장, 첫 장이 크게" loading="lazy"><figcaption>다섯 장(첫 장이 크게)</figcaption></figure>
+</div>
+<p class="note warn"><code>place</code>의 <code>image</code>와 <code>photos</code>의 <code>src</code>는 프런트매터에 적는 경로라서 빌드(HTML 내보내기) 때 그림 파일이 함께 묶이지 않는다. Open with Slidev나 개발 서버로 열 때는 덱 폴더 기준 <code>./img/…</code>로 보인다. 내보낸 HTML에서도 사진이 보이게 하려면 그림을 덱 폴더의 <code>public/img/</code>에 두고 같은 경로(<code>./img/…</code>)로 적는다. <code>public/</code> 안의 파일은 빌드 결과에 그대로 복사된다. 그림을 <code>img/</code>에 둔 채 쓰려면 빌드한 뒤 덱의 <code>img/</code> 폴더를 결과 폴더에 복사한다.</p>
+<h3 id="parts">파트 색</h3>
+<p><code>part</code>를 1~4로 주면 그 슬라이드의 강조색(제목 굵게, 머리말, 숫자)이 함께 바뀐다. 어두운 테마에서는 같은 순서의 옅은 색을 쓴다.</p>
+<table><thead><tr><th>part</th><th>색</th><th>예(밝은 테마)</th></tr></thead><tbody><tr><td>1</td><td>분홍 → 하늘</td><td><code>#ef6f93</code> → <code>#3a94e6</code></td></tr><tr><td>2</td><td>하늘 → 민트</td><td><code>#3a94e6</code> → <code>#2bb596</code></td></tr><tr><td>3</td><td>귤색 → 분홍</td><td><code>#f08a3c</code> → <code>#ef6f93</code></td></tr><tr><td>4</td><td>민트 → 하늘</td><td><code>#2bb596</code> → <code>#3a94e6</code></td></tr></tbody></table>
+<h2 id="components">컴포넌트</h2>
+<p>컴포넌트 이름과 프롭은 jussam과 같다. 모양만 mitten 바탕(둥근 모서리 · 눌린 그림자 · 둥근 제목 글꼴)을 따른다. 프롭과 예제 코드는 jussam 매뉴얼의 각 항목에 있다. 프롭은 각 파일(<a href="https://github.com/leekh4232/slidev-themes/tree/main/mitten/components"><code>mitten/components/*.vue</code></a>) 머리 주석에도 있다.</p>
+<table><thead><tr><th>컴포넌트</th><th>쓰임</th></tr></thead><tbody><tr><td><a href="jussam.html#c-grid"><code>Grid</code></a></td><td>칸 나누기(<code>cols</code> · <code>gap</code> · <code>align</code> · <code>title</code>)</td></tr><tr><td><a href="jussam.html#c-card"><code>Card</code></a></td><td>둥근 카드(<code>k</code> · <code>t</code> · <code>acc</code> · <code>sm</code> · <code>lg</code> · <code>dim</code>)</td></tr><tr><td><a href="jussam.html#c-stat"><code>Stat</code></a></td><td><code>n</code>을 주면 큰 숫자 카드와 미터, <code>value</code>를 주면 숫자 타일</td></tr><tr><td><a href="jussam.html#c-kicker"><code>Kicker</code> · <code>Note</code> · <code>Spacer</code></a></td><td>맺음말, 작은 주석, 남는 세로 공간</td></tr><tr><td><a href="jussam.html#c-hero"><code>Hero</code></a></td><td>큰 숫자 한 개와 오른쪽 설명</td></tr><tr><td><a href="jussam.html#c-lists"><code>Agenda</code> · <code>NumList</code> · <code>Item</code></a></td><td>목차와 번호 목록</td></tr><tr><td><a href="jussam.html#c-ba"><code>BeforeAfter</code> · <code>Side</code></a></td><td>전후 비교</td></tr><tr><td><a href="jussam.html#c-timeline"><code>Timeline</code></a></td><td><code>events</code>를 주면 날짜 축, 주지 않으면 <code>&lt;li&gt;</code> 타임라인</td></tr><tr><td><a href="jussam.html#c-gauge"><code>Gauge</code> · <code>Slope</code></a></td><td>반원 게이지와 두 점 기울기</td></tr><tr><td><a href="jussam.html#c-funnel"><code>Funnel</code> · <code>Branch</code></a></td><td>퍼널과 갈래</td></tr><tr><td><a href="jussam.html#c-bars"><code>HBar</code> · <code>Meter</code> · <code>Bars</code></a></td><td>가로 막대, 미터, 패널별 세로 막대</td></tr><tr><td><a href="jussam.html#c-mul"><code>Mul</code> · <code>Formula</code></a></td><td>곱셈 도식과 수식 한 줄</td></tr><tr><td><a href="jussam.html#c-figure"><code>Figure</code></a></td><td>그림 한 장을 칸에 맞춰 크게</td></tr><tr><td><a href="jussam.html#c-roadmap"><code>Roadmap</code></a></td><td>단계 꺾쇠 띠와 막대 로드맵</td></tr><tr><td><a href="jussam.html#c-nodemap"><code>NodeMap</code></a></td><td>좌표로 그리는 흐름도</td></tr><tr><td><a href="jussam.html#c-eras"><code>Eras</code></a></td><td>시대 축 위에 겹쳐 쌓이는 영역도</td></tr><tr><td><a href="jussam.html#base"><code>Callout</code> · <code>Prompt</code> · <code>Output</code></a></td><td>콜아웃 · 프롬프트 · 출력 상자</td></tr><tr><td><a href="jussam.html#base"><code>Steps</code> · <code>Flow</code></a></td><td>번호 목록과 가로 흐름도</td></tr><tr><td><a href="jussam.html#base"><code>Tile</code> · <code>Core</code> · <code>Chip</code></a></td><td>타일, 핵심 한 줄(mitten은 점선 말풍선), 글 사이 작은 알약 라벨</td></tr><tr><td><a href="jussam.html#base"><code>YoutubeCard</code></a></td><td>유튜브 썸네일 카드</td></tr></tbody></table>
+<p>클래스(<code>.hl</code> · <code>.kicker</code> · <code>.card</code> · <code>.tight</code> · <code>.src</code> …)와 슬라이드 프런트매터 <code>class: tight</code> · <code>dense</code> · <code>compact</code>도 jussam과 같다. 컴포넌트 안에 마크다운을 쓸 때의 빈 줄 규칙, 긴 데이터를 프런트매터에 두는 방법은 <a href="jussam.html#rules">jussam의 주의할 점</a>을 따른다.</p>
+<div class="two"><figure><img src="img/mitten-steps.jpg" alt="Flow · Tile · Core" loading="lazy"><figcaption>Flow · Tile · Core(점선 말풍선)</figcaption></figure>
+<figure><img src="img/mitten-timeline.jpg" alt="Timeline 날짜 축" loading="lazy"><figcaption>Timeline(눈덩이 점)</figcaption></figure>
+</div>
+<h2 id="example">전체 예제</h2>
+<p><a href="examples/mitten-example.md">mitten-example.md</a> — 가상의 겨울 실내 나들이 코스(온실 · 도서관 · 수족관)를 소개하는 22장짜리 덱. 여덟 레이아웃과 주요 컴포넌트가 모두 들어 있고, 수치와 장소는 가상이며 사진은 자리표시 그림이다. 저장소 안에서 우클릭 → Open with Slidev.</p>
+<div class="two"><figure><img src="img/mitten-closing.jpg" alt="마무리(cover, mesh: soft)" loading="lazy"><figcaption>마무리(cover, mesh: soft, <code>###</code> 굵게 그라디언트)</figcaption></figure>
+<figure><img src="img/mitten-dark.jpg" alt="어두운 테마 표지" loading="lazy"><figcaption>어두운 테마(d 키 · 🌙 버튼)</figcaption></figure>
+</div>
+</main>
+<footer>Slidev Themes · MIT · <a href="https://github.com/leekh4232/slidev-themes">GitHub</a> · VS Code에서 바로 쓰려면 <a href="https://open-with-slidev.hossam.kr/">Open with Slidev</a></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" data-manual></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script>Prism.highlightAll();</script>
+</body>
+</html>
