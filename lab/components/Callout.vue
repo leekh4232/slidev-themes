@@ -97,15 +97,36 @@ function markSections() {
   }
 }
 // 프롬프트 안의 코드 펜스(``` … ```) 줄에 표시를 붙인다. 표시된 줄은 고정폭 글꼴과 문법 강조 색을 그대로 쓴다
+// 펜스 안의 코드 줄은 한 상자(span.codebox)로 묶어 배경을 줄마다가 아니라 상자 하나로 칠한다.
+// 상자는 블록이라 앞뒤의 줄바꿈 글자가 빈 줄이 되므로 지운다(innerText 가 블록 앞뒤에 줄바꿈을 넣어 복사 결과는 같다).
 function markCode() {
   if (kind.value !== 'prompt' || !box.value) return
   let inside = false
+  let run: Element[] = []
+  const wrap = () => {
+    const [first, last] = [run[0], run[run.length - 1]]
+    run = []
+    if (!first || first.parentElement?.classList.contains('codebox')) return
+    const isNl = (n: Node | null) => n?.nodeType === Node.TEXT_NODE && n.textContent === '\n'
+    if (isNl(first.previousSibling)) first.previousSibling!.remove()
+    if (isNl(last.nextSibling)) last.nextSibling!.remove()
+    const cb = document.createElement('span')
+    cb.className = 'codebox'
+    first.before(cb)
+    for (let n: Node | null = first; n;) {
+      const next: Node | null = n === last ? null : n.nextSibling
+      cb.append(n)
+      n = next
+    }
+  }
   for (const line of box.value.querySelectorAll('.line')) {
     const fence = /^\s*```/.test(line.textContent ?? '')
     line.classList.toggle('fence', fence)
     line.classList.toggle('code', inside && !fence)
-    if (fence) inside = !inside
+    if (inside && !fence) run.push(line)
+    if (fence) { wrap(); inside = !inside }
   }
+  wrap()
 }
 function markAll() { markCode(); markPlaceholders(); markTerminal(); markSections() }
 onMounted(markAll)
@@ -243,12 +264,19 @@ html.lecture .slidev-layout .prompt-body .slidev-code code, html.lecture .slidev
 }
 html.lecture .slidev-layout .callout.small .prompt-body .slidev-code :is(code, .line) { font-size: 0.78rem; }
 html.lecture .slidev-layout .prompt-body .slidev-code .line:not(.code) span { color: inherit !important; font-weight: inherit; font-style: inherit; }
-/* 프롬프트 안의 소스코드: 어두운 띠 위에 고정폭 글꼴과 문법 강조 색 */
+/* 프롬프트 안의 소스코드: 어두운 상자 하나 위에 고정폭 글꼴과 문법 강조 색 */
+html.lecture .slidev-layout .prompt-body .slidev-code .codebox {
+  display: block;
+  padding: 0 0.7em;
+  background: var(--code-bg);
+  orphans: 1;
+  widows: 1;
+}
+/* palette: teal 은 상자 위아래에 여백을 둔다 */
+html.lecture.palette-teal .slidev-layout .prompt-body .slidev-code .codebox { padding: 0.3em 0.7em; }
 html.lecture .slidev-layout .prompt-body .slidev-code .line.code {
   font-family: var(--mono);
   font-size: 0.8rem;
-  padding: 0 0.7em;
-  background: var(--code-bg);
   color: #e6edf3 !important;
 }
 html.lecture .slidev-layout .prompt-body .slidev-code .line.fence { color: var(--muted) !important; font-family: var(--mono); font-size: 0.74rem; }

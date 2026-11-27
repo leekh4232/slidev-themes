@@ -8,6 +8,8 @@ VS Code 확장 **Open with Slidev**(`/Users/leekh/open-with-slidev`)는 테마�
 
 테마는 `@slidev/types` · `@slidev/theme-default` 같은 패키지를 import하지 않습니다. 테마 폴더를 경로로 열 때 그 패키지를 찾지 못해 실행이 멈추거나 스타일이 통째로 빠지기 때문입니다. 필요한 스타일은 테마 안에 복사해 둡니다(`<테마>/styles/layouts.css`).
 
+**테마를 고치면 그 테마를 설명하는 html도 반드시 함께 고칩니다.** 테마 폴더(`<테마>/`)의 파일을 하나라도 바꿨으면 같은 커밋에서 매뉴얼 `docs/<테마>.html`을 맞추고, 화면이 달라졌으면 `docs/img/`의 캡처도 다시 찍습니다. 소개 페이지 `docs/index.html`에 실린 내용이 달라졌으면 그것도 고칩니다. 겉으로 드러나는 변화가 없어 고칠 문장이 없을 때도 매뉴얼을 열어 확인한 뒤에 넘어갑니다. html을 맞추지 않은 테마 변경은 push하지 않습니다. 자세한 순서는 아래 「1. 문서 갱신」에 있습니다.
+
 응답과 문서는 한글로 씁니다. 코드, 커밋 메시지는 원래 언어를 유지합니다.
 
 ## 폴더
@@ -15,7 +17,7 @@ VS Code 확장 **Open with Slidev**(`/Users/leekh/open-with-slidev`)는 테마�
 | 경로 | 내용 |
 |:--|:--|
 | `hossam/` | 테마 본체 (layouts · components · styles · deck.ts · global-top.vue · package.json). CSS는 `styles/lecture.css`(`html.lecture` 아래, `:where()`로 감싸 우선순위를 올리지 않음) · 공통 토큰 `styles/shared.css` |
-| `lab/` | hossam 사이드바(`global-top.vue`)에 별도 디자인의 스타일 · 컴포넌트. `html.lecture` 아래. `Problem`(문제 상자) 컴포넌트, 덱 헤더 `palette: teal` → `deck.ts`가 `html.palette-teal`을 붙이고 `styles/shared.css` 끝의 토큰이 색을 바꿈. 출처: ai-learning-activity 13번 테마(파랑) + 14번 stat14 테마(청록) |
+| `lab/` | hossam 사이드바(`global-top.vue`)에 별도 디자인의 스타일 · 컴포넌트. `html.lecture` 아래. `Problem`(문제 상자) 컴포넌트, 덱 헤더 `palette: teal` → `deck.ts`가 `html.palette-teal`을 붙이고 `styles/shared.css` 끝의 토큰이 색을 바꿈. 출처: ai-learning-activity 13번 테마(파랑) + 14번 stat14 테마(청록). 두 테마의 원본은 2026-11-27에 그 저장소에서 지웠고 이 폴더가 원본임 |
 | `jussam/` | 테마 본체 (구조는 hossam과 같음). CSS는 `styles/jussam.css`(`html.jussam` 아래, `:where()`) · 공통 토큰 `styles/shared.css`. 발표 컴포넌트(Card · Hero · Agenda · 차트 …)가 더 있고, `Stat`(n/value) · `Timeline`(events/li)은 프롭에 따라 두 모양을 그립니다 |
 | `editorial/` | 보고서 발표 테마. `html.editorial` 아래. 레이아웃 blocks, 인포그래픽 컴포넌트 12종. `feedback-viz-followup` 스킬이 씁니다 |
 | `noel/` · `mitten/` | jussam 사본을 바탕으로 한 시즌 테마. 색 · 장식은 `styles/noel-skin.css` · `styles/mitten-skin.css`. mitten은 `place` · `photos` 레이아웃이 더 있음 |
