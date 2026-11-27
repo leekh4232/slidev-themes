@@ -24,6 +24,7 @@ VS Code 확장 **Open with Slidev**(`/Users/leekh/open-with-slidev`)는 테마�
 | `docs/index.html` | 소개 페이지 https://slidev-themes.hossam.kr (`docs/CNAME`). 라이트, 한 페이지. 테마 고르기 표와 테마별 미리보기 썸네일 |
 | `docs/llms.txt` · `docs/robots.txt` · `docs/sitemap.xml` | AI · 크롤러용. `llms.txt`는 사이트 요약(마크다운)과 문서 링크. 각 html `<head>`에는 JSON-LD 구조화 데이터와 `llms.txt` 링크가 있습니다 |
 | `docs/<테마>.html` | 테마 매뉴얼(미리보기 · 설정 · 사이드바 · 글쓰기 · 레이아웃 · 컴포넌트). 맨 위 `#preview`에 쪽 모양 미리보기 격자(`.gallery`). 스타일은 `docs/manual.css`(라이트, 왼쪽 사이드바에 문서 링크와 목차). 코드 블록은 Prism.js로 칠하고 색은 `docs/code.css`(html 공통) |
+| `docs/lightbox.js` | 매뉴얼 미리보기 격자(`.gallery`)의 그림을 누르면 jpg로 이동하지 않고 그 자리에서 크게 띄움(← → 앞뒤, Esc · 바깥 누르기로 닫기). 스타일은 `docs/manual.css` 끝. 매뉴얼 html마다 `</body>` 앞에서 불러오므로 새 매뉴얼을 만들 때도 넣습니다 |
 | `docs/img/` | 매뉴얼과 소개 페이지의 화면 캡처 (960×540 jpg, `<테마>-<이름>.jpg`. hossam의 옛 캡처는 `lecture-*`). Open with Slidev 소개 페이지도 여기 그림을 씁니다 |
 | `docs/examples/` | 예제 덱 `lecture-example.md`(hossam) · `lab-example.md` · `lab-teal-example.md` · `jussam-example.md` · `editorial-example.md` · `noel-example.md` · `mitten-example.md`. 예제 그림은 `img/` |
 | `tools/capture.py` | 빌드한 예제 덱에서 미리보기 그림을 찍는 도구(사용법은 파일 머리 주석) |
